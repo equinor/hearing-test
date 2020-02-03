@@ -1,0 +1,63 @@
+PODS:
+  - ADAL (2.6.10):
+    - ADAL/app-lib (= 2.6.10)
+  - ADAL/app-lib (2.6.10):
+    - ADAL/tokencacheheader
+  - ADAL/tokencacheheader (2.6.10)
+  - React (0.59.10):
+    - React/Core (= 0.59.10)
+  - react-native-netinfo (4.7.0):
+    - React
+  - React/Core (0.59.10):
+    - yoga (= 0.59.10.React)
+  - RNDeviceInfo (2.3.2):
+    - React
+  - RNVectorIcons (6.6.0):
+    - React
+  - SDWebImage (4.4.7):
+    - SDWebImage/Core (= 4.4.7)
+  - SDWebImage/Core (4.4.7)
+  - TrustKit (1.4.2)
+  - yoga (0.59.10.React)
+
+DEPENDENCIES:
+  - ADAL (~> 2.6.3)
+  - React (from `../node_modules/react-native`)
+  - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
+  - RNDeviceInfo (from `../node_modules/react-native-device-info`)
+  - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
+  - SDWebImage (~> 4.0)
+  - TrustKit (= 1.4.2)
+  - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - ADAL
+    - SDWebImage
+    - TrustKit
+
+EXTERNAL SOURCES:
+  React:
+    :path: "../node_modules/react-native"
+  react-native-netinfo:
+    :path: "../node_modules/@react-native-community/netinfo"
+  RNDeviceInfo:
+    :path: "../node_modules/react-native-device-info"
+  RNVectorIcons:
+    :path: "../node_modules/react-native-vector-icons"
+  yoga:
+    :path: "../node_modules/react-native/ReactCommon/yoga"
+
+SPEC CHECKSUMS:
+  ADAL: 2e61915209c39974d6dd5f38d24a9792c58243e8
+  React: 36d0768f9e93be2473b37e7fa64f92c1d5341eef
+  react-native-netinfo: 3dd993921571d01b78a8f91f1caaffcab7a1e1c7
+  RNDeviceInfo: bdc3e922b2ed0f086e9d9ab534e61bc316f08576
+  RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
+  SDWebImage: c10d14a8883ebd89664f02a422006f66a85c0c5d
+  TrustKit: c3d01e1dcc1d76c095efad63be70bbb6b57eed08
+  yoga: 684513b14b03201579ba3cee20218c9d1298b0cc
+
+PODFILE CHECKSUM: 4b78b4fff79c9f0c6f781734b9fbcbfa3ac485bd
+
+COCOAPODS: 1.8.4

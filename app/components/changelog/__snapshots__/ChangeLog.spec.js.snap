@@ -1,0 +1,1821 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <ChangeLog
+    affirm={[Function]}
+    fetching={true}
+    releaseNote={Object {}}
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "color": "gray",
+      "size": "large",
+      "style": Object {},
+    },
+    "ref": null,
+    "rendered": null,
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "color": "gray",
+        "size": "large",
+        "style": Object {},
+      },
+      "ref": null,
+      "rendered": null,
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
+
+exports[`renders correctly 2`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <ChangeLog
+    affirm={[Function]}
+    fetching={false}
+    releaseNote={
+      Object {
+        "changes": Array [
+          "Added some new features",
+          "Fixed a few bugs",
+          "Improved performance",
+        ],
+        "header": "New features and fixes",
+        "subHeader": "v0.1.0 ( 30.06.17)",
+      }
+    }
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "class",
+    "props": Object {
+      "children": Array [
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "alignSelf": "center",
+              "color": "#333333",
+              "fontSize": 30,
+              "fontWeight": "500",
+              "marginVertical": 15,
+            }
+          }
+        >
+          What's new
+        </Text>,
+        <ScrollView
+          style={
+            Object {
+              "marginBottom": 15,
+              "marginTop": 20,
+              "paddingHorizontal": 20,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#333333",
+                "fontSize": 20,
+                "marginVertical": 5,
+              }
+            }
+          >
+            New features and fixes
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#333333",
+                "fontSize": 16,
+                "marginVertical": 1,
+              }
+            }
+          >
+            v0.1.0 ( 30.06.17)
+          </Text>
+          <View
+            style={
+              Object {
+                "margin": 5,
+                "marginLeft": 10,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                  Object {
+                    "color": "#333333",
+                    "fontSize": 16,
+                    "marginRight": 5,
+                    "marginVertical": 1,
+                  }
+                }
+              >
+                •
+              </Text>
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                  Object {
+                    "color": "#333333",
+                    "fontSize": 16,
+                    "marginVertical": 1,
+                  }
+                }
+              >
+                Added some new features
+              </Text>
+            </View>
+            <View
+              style={
+                Object {
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                  Object {
+                    "color": "#333333",
+                    "fontSize": 16,
+                    "marginRight": 5,
+                    "marginVertical": 1,
+                  }
+                }
+              >
+                •
+              </Text>
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                  Object {
+                    "color": "#333333",
+                    "fontSize": 16,
+                    "marginVertical": 1,
+                  }
+                }
+              >
+                Fixed a few bugs
+              </Text>
+            </View>
+            <View
+              style={
+                Object {
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                  Object {
+                    "color": "#333333",
+                    "fontSize": 16,
+                    "marginRight": 5,
+                    "marginVertical": 1,
+                  }
+                }
+              >
+                •
+              </Text>
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                  Object {
+                    "color": "#333333",
+                    "fontSize": 16,
+                    "marginVertical": 1,
+                  }
+                }
+              >
+                Improved performance
+              </Text>
+            </View>
+          </View>
+        </ScrollView>,
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "borderColor": "#808080",
+              "borderTopWidth": 0.5,
+              "flexDirection": "row",
+              "height": 50,
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Button
+            buttonStyle={
+              Object {
+                "backgroundColor": "#0288D1",
+                "margin": 20,
+              }
+            }
+            onPress={[Function]}
+            title="OK"
+          />
+        </View>,
+      ],
+      "style": Object {
+        "backgroundColor": "#f2f2f2",
+        "flex": 1,
+        "justifyContent": "center",
+        "paddingTop": 50,
+      },
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "accessible": true,
+          "allowFontScaling": true,
+          "children": "What's new",
+          "ellipsizeMode": "tail",
+          "style": Object {
+            "alignSelf": "center",
+            "color": "#333333",
+            "fontSize": 30,
+            "fontWeight": "500",
+            "marginVertical": 15,
+          },
+        },
+        "ref": null,
+        "rendered": "What's new",
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": Array [
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#333333",
+                  "fontSize": 20,
+                  "marginVertical": 5,
+                }
+              }
+            >
+              New features and fixes
+            </Text>,
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#333333",
+                  "fontSize": 16,
+                  "marginVertical": 1,
+                }
+              }
+            >
+              v0.1.0 ( 30.06.17)
+            </Text>,
+            <View
+              style={
+                Object {
+                  "margin": 5,
+                  "marginLeft": 10,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Object {
+                      "color": "#333333",
+                      "fontSize": 16,
+                      "marginRight": 5,
+                      "marginVertical": 1,
+                    }
+                  }
+                >
+                  •
+                </Text>
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Object {
+                      "color": "#333333",
+                      "fontSize": 16,
+                      "marginVertical": 1,
+                    }
+                  }
+                >
+                  Added some new features
+                </Text>
+              </View>
+              <View
+                style={
+                  Object {
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Object {
+                      "color": "#333333",
+                      "fontSize": 16,
+                      "marginRight": 5,
+                      "marginVertical": 1,
+                    }
+                  }
+                >
+                  •
+                </Text>
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Object {
+                      "color": "#333333",
+                      "fontSize": 16,
+                      "marginVertical": 1,
+                    }
+                  }
+                >
+                  Fixed a few bugs
+                </Text>
+              </View>
+              <View
+                style={
+                  Object {
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Object {
+                      "color": "#333333",
+                      "fontSize": 16,
+                      "marginRight": 5,
+                      "marginVertical": 1,
+                    }
+                  }
+                >
+                  •
+                </Text>
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Object {
+                      "color": "#333333",
+                      "fontSize": 16,
+                      "marginVertical": 1,
+                    }
+                  }
+                >
+                  Improved performance
+                </Text>
+              </View>
+            </View>,
+          ],
+          "style": Object {
+            "marginBottom": 15,
+            "marginTop": 20,
+            "paddingHorizontal": 20,
+          },
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "accessible": true,
+              "allowFontScaling": true,
+              "children": "New features and fixes",
+              "ellipsizeMode": "tail",
+              "style": Object {
+                "color": "#333333",
+                "fontSize": 20,
+                "marginVertical": 5,
+              },
+            },
+            "ref": null,
+            "rendered": "New features and fixes",
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "accessible": true,
+              "allowFontScaling": true,
+              "children": "v0.1.0 ( 30.06.17)",
+              "ellipsizeMode": "tail",
+              "style": Object {
+                "color": "#333333",
+                "fontSize": 16,
+                "marginVertical": 1,
+              },
+            },
+            "ref": null,
+            "rendered": "v0.1.0 ( 30.06.17)",
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "children": Array [
+                <View
+                  style={
+                    Object {
+                      "flexDirection": "row",
+                    }
+                  }
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Object {
+                        "color": "#333333",
+                        "fontSize": 16,
+                        "marginRight": 5,
+                        "marginVertical": 1,
+                      }
+                    }
+                  >
+                    •
+                  </Text>
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Object {
+                        "color": "#333333",
+                        "fontSize": 16,
+                        "marginVertical": 1,
+                      }
+                    }
+                  >
+                    Added some new features
+                  </Text>
+                </View>,
+                <View
+                  style={
+                    Object {
+                      "flexDirection": "row",
+                    }
+                  }
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Object {
+                        "color": "#333333",
+                        "fontSize": 16,
+                        "marginRight": 5,
+                        "marginVertical": 1,
+                      }
+                    }
+                  >
+                    •
+                  </Text>
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Object {
+                        "color": "#333333",
+                        "fontSize": 16,
+                        "marginVertical": 1,
+                      }
+                    }
+                  >
+                    Fixed a few bugs
+                  </Text>
+                </View>,
+                <View
+                  style={
+                    Object {
+                      "flexDirection": "row",
+                    }
+                  }
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Object {
+                        "color": "#333333",
+                        "fontSize": 16,
+                        "marginRight": 5,
+                        "marginVertical": 1,
+                      }
+                    }
+                  >
+                    •
+                  </Text>
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Object {
+                        "color": "#333333",
+                        "fontSize": 16,
+                        "marginVertical": 1,
+                      }
+                    }
+                  >
+                    Improved performance
+                  </Text>
+                </View>,
+              ],
+              "style": Object {
+                "margin": 5,
+                "marginLeft": 10,
+              },
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": "0",
+                "nodeType": "class",
+                "props": Object {
+                  "children": Array [
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      ellipsizeMode="tail"
+                      style={
+                        Object {
+                          "color": "#333333",
+                          "fontSize": 16,
+                          "marginRight": 5,
+                          "marginVertical": 1,
+                        }
+                      }
+                    >
+                      •
+                    </Text>,
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      ellipsizeMode="tail"
+                      style={
+                        Object {
+                          "color": "#333333",
+                          "fontSize": 16,
+                          "marginVertical": 1,
+                        }
+                      }
+                    >
+                      Added some new features
+                    </Text>,
+                  ],
+                  "style": Object {
+                    "flexDirection": "row",
+                  },
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "accessible": true,
+                      "allowFontScaling": true,
+                      "children": "•",
+                      "ellipsizeMode": "tail",
+                      "style": Object {
+                        "color": "#333333",
+                        "fontSize": 16,
+                        "marginRight": 5,
+                        "marginVertical": 1,
+                      },
+                    },
+                    "ref": null,
+                    "rendered": "•",
+                    "type": [Function],
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "accessible": true,
+                      "allowFontScaling": true,
+                      "children": "Added some new features",
+                      "ellipsizeMode": "tail",
+                      "style": Object {
+                        "color": "#333333",
+                        "fontSize": 16,
+                        "marginVertical": 1,
+                      },
+                    },
+                    "ref": null,
+                    "rendered": "Added some new features",
+                    "type": [Function],
+                  },
+                ],
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": "1",
+                "nodeType": "class",
+                "props": Object {
+                  "children": Array [
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      ellipsizeMode="tail"
+                      style={
+                        Object {
+                          "color": "#333333",
+                          "fontSize": 16,
+                          "marginRight": 5,
+                          "marginVertical": 1,
+                        }
+                      }
+                    >
+                      •
+                    </Text>,
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      ellipsizeMode="tail"
+                      style={
+                        Object {
+                          "color": "#333333",
+                          "fontSize": 16,
+                          "marginVertical": 1,
+                        }
+                      }
+                    >
+                      Fixed a few bugs
+                    </Text>,
+                  ],
+                  "style": Object {
+                    "flexDirection": "row",
+                  },
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "accessible": true,
+                      "allowFontScaling": true,
+                      "children": "•",
+                      "ellipsizeMode": "tail",
+                      "style": Object {
+                        "color": "#333333",
+                        "fontSize": 16,
+                        "marginRight": 5,
+                        "marginVertical": 1,
+                      },
+                    },
+                    "ref": null,
+                    "rendered": "•",
+                    "type": [Function],
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "accessible": true,
+                      "allowFontScaling": true,
+                      "children": "Fixed a few bugs",
+                      "ellipsizeMode": "tail",
+                      "style": Object {
+                        "color": "#333333",
+                        "fontSize": 16,
+                        "marginVertical": 1,
+                      },
+                    },
+                    "ref": null,
+                    "rendered": "Fixed a few bugs",
+                    "type": [Function],
+                  },
+                ],
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": "2",
+                "nodeType": "class",
+                "props": Object {
+                  "children": Array [
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      ellipsizeMode="tail"
+                      style={
+                        Object {
+                          "color": "#333333",
+                          "fontSize": 16,
+                          "marginRight": 5,
+                          "marginVertical": 1,
+                        }
+                      }
+                    >
+                      •
+                    </Text>,
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      ellipsizeMode="tail"
+                      style={
+                        Object {
+                          "color": "#333333",
+                          "fontSize": 16,
+                          "marginVertical": 1,
+                        }
+                      }
+                    >
+                      Improved performance
+                    </Text>,
+                  ],
+                  "style": Object {
+                    "flexDirection": "row",
+                  },
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "accessible": true,
+                      "allowFontScaling": true,
+                      "children": "•",
+                      "ellipsizeMode": "tail",
+                      "style": Object {
+                        "color": "#333333",
+                        "fontSize": 16,
+                        "marginRight": 5,
+                        "marginVertical": 1,
+                      },
+                    },
+                    "ref": null,
+                    "rendered": "•",
+                    "type": [Function],
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "accessible": true,
+                      "allowFontScaling": true,
+                      "children": "Improved performance",
+                      "ellipsizeMode": "tail",
+                      "style": Object {
+                        "color": "#333333",
+                        "fontSize": 16,
+                        "marginVertical": 1,
+                      },
+                    },
+                    "ref": null,
+                    "rendered": "Improved performance",
+                    "type": [Function],
+                  },
+                ],
+                "type": [Function],
+              },
+            ],
+            "type": [Function],
+          },
+        ],
+        "type": [MockFunction],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": <Button
+            buttonStyle={
+              Object {
+                "backgroundColor": "#0288D1",
+                "margin": 20,
+              }
+            }
+            onPress={[Function]}
+            title="OK"
+          />,
+          "style": Object {
+            "alignItems": "center",
+            "borderColor": "#808080",
+            "borderTopWidth": 0.5,
+            "flexDirection": "row",
+            "height": 50,
+            "justifyContent": "center",
+          },
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "buttonStyle": Object {
+              "backgroundColor": "#0288D1",
+              "margin": 20,
+            },
+            "onPress": [Function],
+            "title": "OK",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        "type": [Function],
+      },
+    ],
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "children": Array [
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "alignSelf": "center",
+                "color": "#333333",
+                "fontSize": 30,
+                "fontWeight": "500",
+                "marginVertical": 15,
+              }
+            }
+          >
+            What's new
+          </Text>,
+          <ScrollView
+            style={
+              Object {
+                "marginBottom": 15,
+                "marginTop": 20,
+                "paddingHorizontal": 20,
+              }
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#333333",
+                  "fontSize": 20,
+                  "marginVertical": 5,
+                }
+              }
+            >
+              New features and fixes
+            </Text>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#333333",
+                  "fontSize": 16,
+                  "marginVertical": 1,
+                }
+              }
+            >
+              v0.1.0 ( 30.06.17)
+            </Text>
+            <View
+              style={
+                Object {
+                  "margin": 5,
+                  "marginLeft": 10,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Object {
+                      "color": "#333333",
+                      "fontSize": 16,
+                      "marginRight": 5,
+                      "marginVertical": 1,
+                    }
+                  }
+                >
+                  •
+                </Text>
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Object {
+                      "color": "#333333",
+                      "fontSize": 16,
+                      "marginVertical": 1,
+                    }
+                  }
+                >
+                  Added some new features
+                </Text>
+              </View>
+              <View
+                style={
+                  Object {
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Object {
+                      "color": "#333333",
+                      "fontSize": 16,
+                      "marginRight": 5,
+                      "marginVertical": 1,
+                    }
+                  }
+                >
+                  •
+                </Text>
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Object {
+                      "color": "#333333",
+                      "fontSize": 16,
+                      "marginVertical": 1,
+                    }
+                  }
+                >
+                  Fixed a few bugs
+                </Text>
+              </View>
+              <View
+                style={
+                  Object {
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Object {
+                      "color": "#333333",
+                      "fontSize": 16,
+                      "marginRight": 5,
+                      "marginVertical": 1,
+                    }
+                  }
+                >
+                  •
+                </Text>
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Object {
+                      "color": "#333333",
+                      "fontSize": 16,
+                      "marginVertical": 1,
+                    }
+                  }
+                >
+                  Improved performance
+                </Text>
+              </View>
+            </View>
+          </ScrollView>,
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "borderColor": "#808080",
+                "borderTopWidth": 0.5,
+                "flexDirection": "row",
+                "height": 50,
+                "justifyContent": "center",
+              }
+            }
+          >
+            <Button
+              buttonStyle={
+                Object {
+                  "backgroundColor": "#0288D1",
+                  "margin": 20,
+                }
+              }
+              onPress={[Function]}
+              title="OK"
+            />
+          </View>,
+        ],
+        "style": Object {
+          "backgroundColor": "#f2f2f2",
+          "flex": 1,
+          "justifyContent": "center",
+          "paddingTop": 50,
+        },
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "accessible": true,
+            "allowFontScaling": true,
+            "children": "What's new",
+            "ellipsizeMode": "tail",
+            "style": Object {
+              "alignSelf": "center",
+              "color": "#333333",
+              "fontSize": 30,
+              "fontWeight": "500",
+              "marginVertical": 15,
+            },
+          },
+          "ref": null,
+          "rendered": "What's new",
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": Array [
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                  Object {
+                    "color": "#333333",
+                    "fontSize": 20,
+                    "marginVertical": 5,
+                  }
+                }
+              >
+                New features and fixes
+              </Text>,
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                  Object {
+                    "color": "#333333",
+                    "fontSize": 16,
+                    "marginVertical": 1,
+                  }
+                }
+              >
+                v0.1.0 ( 30.06.17)
+              </Text>,
+              <View
+                style={
+                  Object {
+                    "margin": 5,
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "flexDirection": "row",
+                    }
+                  }
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Object {
+                        "color": "#333333",
+                        "fontSize": 16,
+                        "marginRight": 5,
+                        "marginVertical": 1,
+                      }
+                    }
+                  >
+                    •
+                  </Text>
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Object {
+                        "color": "#333333",
+                        "fontSize": 16,
+                        "marginVertical": 1,
+                      }
+                    }
+                  >
+                    Added some new features
+                  </Text>
+                </View>
+                <View
+                  style={
+                    Object {
+                      "flexDirection": "row",
+                    }
+                  }
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Object {
+                        "color": "#333333",
+                        "fontSize": 16,
+                        "marginRight": 5,
+                        "marginVertical": 1,
+                      }
+                    }
+                  >
+                    •
+                  </Text>
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Object {
+                        "color": "#333333",
+                        "fontSize": 16,
+                        "marginVertical": 1,
+                      }
+                    }
+                  >
+                    Fixed a few bugs
+                  </Text>
+                </View>
+                <View
+                  style={
+                    Object {
+                      "flexDirection": "row",
+                    }
+                  }
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Object {
+                        "color": "#333333",
+                        "fontSize": 16,
+                        "marginRight": 5,
+                        "marginVertical": 1,
+                      }
+                    }
+                  >
+                    •
+                  </Text>
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Object {
+                        "color": "#333333",
+                        "fontSize": 16,
+                        "marginVertical": 1,
+                      }
+                    }
+                  >
+                    Improved performance
+                  </Text>
+                </View>
+              </View>,
+            ],
+            "style": Object {
+              "marginBottom": 15,
+              "marginTop": 20,
+              "paddingHorizontal": 20,
+            },
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "accessible": true,
+                "allowFontScaling": true,
+                "children": "New features and fixes",
+                "ellipsizeMode": "tail",
+                "style": Object {
+                  "color": "#333333",
+                  "fontSize": 20,
+                  "marginVertical": 5,
+                },
+              },
+              "ref": null,
+              "rendered": "New features and fixes",
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "accessible": true,
+                "allowFontScaling": true,
+                "children": "v0.1.0 ( 30.06.17)",
+                "ellipsizeMode": "tail",
+                "style": Object {
+                  "color": "#333333",
+                  "fontSize": 16,
+                  "marginVertical": 1,
+                },
+              },
+              "ref": null,
+              "rendered": "v0.1.0 ( 30.06.17)",
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": Array [
+                  <View
+                    style={
+                      Object {
+                        "flexDirection": "row",
+                      }
+                    }
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      ellipsizeMode="tail"
+                      style={
+                        Object {
+                          "color": "#333333",
+                          "fontSize": 16,
+                          "marginRight": 5,
+                          "marginVertical": 1,
+                        }
+                      }
+                    >
+                      •
+                    </Text>
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      ellipsizeMode="tail"
+                      style={
+                        Object {
+                          "color": "#333333",
+                          "fontSize": 16,
+                          "marginVertical": 1,
+                        }
+                      }
+                    >
+                      Added some new features
+                    </Text>
+                  </View>,
+                  <View
+                    style={
+                      Object {
+                        "flexDirection": "row",
+                      }
+                    }
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      ellipsizeMode="tail"
+                      style={
+                        Object {
+                          "color": "#333333",
+                          "fontSize": 16,
+                          "marginRight": 5,
+                          "marginVertical": 1,
+                        }
+                      }
+                    >
+                      •
+                    </Text>
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      ellipsizeMode="tail"
+                      style={
+                        Object {
+                          "color": "#333333",
+                          "fontSize": 16,
+                          "marginVertical": 1,
+                        }
+                      }
+                    >
+                      Fixed a few bugs
+                    </Text>
+                  </View>,
+                  <View
+                    style={
+                      Object {
+                        "flexDirection": "row",
+                      }
+                    }
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      ellipsizeMode="tail"
+                      style={
+                        Object {
+                          "color": "#333333",
+                          "fontSize": 16,
+                          "marginRight": 5,
+                          "marginVertical": 1,
+                        }
+                      }
+                    >
+                      •
+                    </Text>
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      ellipsizeMode="tail"
+                      style={
+                        Object {
+                          "color": "#333333",
+                          "fontSize": 16,
+                          "marginVertical": 1,
+                        }
+                      }
+                    >
+                      Improved performance
+                    </Text>
+                  </View>,
+                ],
+                "style": Object {
+                  "margin": 5,
+                  "marginLeft": 10,
+                },
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": "0",
+                  "nodeType": "class",
+                  "props": Object {
+                    "children": Array [
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        ellipsizeMode="tail"
+                        style={
+                          Object {
+                            "color": "#333333",
+                            "fontSize": 16,
+                            "marginRight": 5,
+                            "marginVertical": 1,
+                          }
+                        }
+                      >
+                        •
+                      </Text>,
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        ellipsizeMode="tail"
+                        style={
+                          Object {
+                            "color": "#333333",
+                            "fontSize": 16,
+                            "marginVertical": 1,
+                          }
+                        }
+                      >
+                        Added some new features
+                      </Text>,
+                    ],
+                    "style": Object {
+                      "flexDirection": "row",
+                    },
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "accessible": true,
+                        "allowFontScaling": true,
+                        "children": "•",
+                        "ellipsizeMode": "tail",
+                        "style": Object {
+                          "color": "#333333",
+                          "fontSize": 16,
+                          "marginRight": 5,
+                          "marginVertical": 1,
+                        },
+                      },
+                      "ref": null,
+                      "rendered": "•",
+                      "type": [Function],
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "accessible": true,
+                        "allowFontScaling": true,
+                        "children": "Added some new features",
+                        "ellipsizeMode": "tail",
+                        "style": Object {
+                          "color": "#333333",
+                          "fontSize": 16,
+                          "marginVertical": 1,
+                        },
+                      },
+                      "ref": null,
+                      "rendered": "Added some new features",
+                      "type": [Function],
+                    },
+                  ],
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": "1",
+                  "nodeType": "class",
+                  "props": Object {
+                    "children": Array [
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        ellipsizeMode="tail"
+                        style={
+                          Object {
+                            "color": "#333333",
+                            "fontSize": 16,
+                            "marginRight": 5,
+                            "marginVertical": 1,
+                          }
+                        }
+                      >
+                        •
+                      </Text>,
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        ellipsizeMode="tail"
+                        style={
+                          Object {
+                            "color": "#333333",
+                            "fontSize": 16,
+                            "marginVertical": 1,
+                          }
+                        }
+                      >
+                        Fixed a few bugs
+                      </Text>,
+                    ],
+                    "style": Object {
+                      "flexDirection": "row",
+                    },
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "accessible": true,
+                        "allowFontScaling": true,
+                        "children": "•",
+                        "ellipsizeMode": "tail",
+                        "style": Object {
+                          "color": "#333333",
+                          "fontSize": 16,
+                          "marginRight": 5,
+                          "marginVertical": 1,
+                        },
+                      },
+                      "ref": null,
+                      "rendered": "•",
+                      "type": [Function],
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "accessible": true,
+                        "allowFontScaling": true,
+                        "children": "Fixed a few bugs",
+                        "ellipsizeMode": "tail",
+                        "style": Object {
+                          "color": "#333333",
+                          "fontSize": 16,
+                          "marginVertical": 1,
+                        },
+                      },
+                      "ref": null,
+                      "rendered": "Fixed a few bugs",
+                      "type": [Function],
+                    },
+                  ],
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": "2",
+                  "nodeType": "class",
+                  "props": Object {
+                    "children": Array [
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        ellipsizeMode="tail"
+                        style={
+                          Object {
+                            "color": "#333333",
+                            "fontSize": 16,
+                            "marginRight": 5,
+                            "marginVertical": 1,
+                          }
+                        }
+                      >
+                        •
+                      </Text>,
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        ellipsizeMode="tail"
+                        style={
+                          Object {
+                            "color": "#333333",
+                            "fontSize": 16,
+                            "marginVertical": 1,
+                          }
+                        }
+                      >
+                        Improved performance
+                      </Text>,
+                    ],
+                    "style": Object {
+                      "flexDirection": "row",
+                    },
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "accessible": true,
+                        "allowFontScaling": true,
+                        "children": "•",
+                        "ellipsizeMode": "tail",
+                        "style": Object {
+                          "color": "#333333",
+                          "fontSize": 16,
+                          "marginRight": 5,
+                          "marginVertical": 1,
+                        },
+                      },
+                      "ref": null,
+                      "rendered": "•",
+                      "type": [Function],
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "accessible": true,
+                        "allowFontScaling": true,
+                        "children": "Improved performance",
+                        "ellipsizeMode": "tail",
+                        "style": Object {
+                          "color": "#333333",
+                          "fontSize": 16,
+                          "marginVertical": 1,
+                        },
+                      },
+                      "ref": null,
+                      "rendered": "Improved performance",
+                      "type": [Function],
+                    },
+                  ],
+                  "type": [Function],
+                },
+              ],
+              "type": [Function],
+            },
+          ],
+          "type": [MockFunction],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": <Button
+              buttonStyle={
+                Object {
+                  "backgroundColor": "#0288D1",
+                  "margin": 20,
+                }
+              }
+              onPress={[Function]}
+              title="OK"
+            />,
+            "style": Object {
+              "alignItems": "center",
+              "borderColor": "#808080",
+              "borderTopWidth": 0.5,
+              "flexDirection": "row",
+              "height": 50,
+              "justifyContent": "center",
+            },
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "buttonStyle": Object {
+                "backgroundColor": "#0288D1",
+                "margin": 20,
+              },
+              "onPress": [Function],
+              "title": "OK",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+      ],
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

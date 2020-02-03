@@ -1,0 +1,57 @@
+trigger:
+- master
+- develop
+
+pool:
+  vmImage: 'macos-latest'
+
+variables:
+- group: AppiOS
+- name: SDK
+  value: 'iphoneos'
+- name: signingIdentity
+  value:  'iPhone Distribution: Statoil ASA'
+
+steps:
+
+- task: UseNode@1
+  displayName: 'Specifying Node version'
+
+- bash: 'npm i'
+  displayName: 'Installing JS dependencies with NPM'
+
+- task: InstallAppleCertificate@2
+  displayName: 'Install Apple certificate - dd.mm.2021'
+  inputs:
+    certSecureFile: 'statoil_desi.p12'
+    certPwd: '$(p12Password)'
+
+# - task: InstallAppleProvisioningProfile@1
+#   displayName: 'Install Apple provisioning profile - 02.09.20 - Test'
+#   inputs:
+#     provProfileSecureFile: 'Ergonomics_Test.mobileprovision'
+
+- task: Xcode@5
+  displayName: 'Building the project with Xcode'
+  inputs:
+    configuration: 'Release'
+    actions: 'build'
+    xcWorkspacePath: 'ios/madapp.xcworkspace'
+    scheme: 'madapp'
+    xcodeVersion: '10'
+    packageApp: true
+    exportPath: '$(agent.builddirectory)/output/$(SDK)/$(BuildConfiguration)'
+    signingOption: 'manual'
+    signingIdentity: '$(SigningIdentity)'
+    provisioningProfileUuid: '$(PROVISIONING_PROFILE_UUID)'
+    useXcpretty: false
+
+- task: CopyFiles@2
+  displayName: 'Copying our built files to: $(build.artifactstagingdirectory)/$(BuildConfiguration)'
+  inputs:
+    SourceFolder: '$(agent.builddirectory)/output/$(SDK)/$(BuildConfiguration)'
+    Contents: '**/*.ipa'
+    TargetFolder: '$(build.artifactstagingdirectory)/$(BuildConfiguration)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publishing the Artifact: drop'

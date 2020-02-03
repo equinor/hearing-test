@@ -1,0 +1,10 @@
+{
+  "generator-mad-app": {
+    "promptValues": {
+      "appTargets": [
+        "ios",
+        "android"
+      ]
+    }
+  }
+}

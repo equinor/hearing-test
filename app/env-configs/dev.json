@@ -1,0 +1,14 @@
+{
+  "AzureADTenantId": "statoilsrm.onmicrosoft.com",
+  "AzureADAuthority": "https://login.microsoftonline.com/statoilsrm.onmicrosoft.com",
+  "AzureADClientId": "f8ff2f9f-d270-40bf-9f61-e36cc8f4b014",
+  "AzureADRedirectUrl": "http://localhost",
+  "HockeyAppIdentifier": "10000000000000000000000000000000",
+  "BuildConfiguration": "Dev",
+  "Resources": {
+    "common": {
+      "AzureADResourceId": "830a7388-cd89-4e25-a631-bd615bf225a4",
+      "ApiBaseUrl": "https://api.statoil.com/app/mad/test/api/v1"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["airbnb","plugin:prettier/recommended"],
+  "plugins": [
+    "jest"
+  ],
+  "rules": {
+    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
+    "react/forbid-prop-types": ["error", { "forbid": ["any"]}],
+    "react/prefer-stateless-function": "off",
+    "react/no-typos": "off",
+    "class-methods-use-this": "off",
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/valid-expect": "error",
+    "jsx-a11y/href-no-hash": "off",
+    "jsx-a11y/anchor-is-valid": ["warn", { "aspects": ["invalidHref"] }],
+    "import/prefer-default-export": "off",
+    "function-paren-newline": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "trailingComma": "es5",
+        "singleQuote": true,
+        "printWidth": 100
+      }
+    ]
+  },
+  "globals": { "fetch": false },
+  "env": {
+    "jest/globals": true
+  }
+}
