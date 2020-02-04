@@ -44,7 +44,7 @@ steps:
     signingOption: 'manual'
     signingIdentity: 'iPhone Distribution: Statoil ASA'
     provisioningProfileUuid: '26ce6540-bd16-4830-9dc9-ceb94f5a06a0'
-    args: 'PRODUCT_BUNDLE_IDENTIFIER=$(PRODUCT_BUNDLE_IDENTIFIER)'
+    args: 'PRODUCT_BUNDLE_IDENTIFIER=com.equinor.hearingtest'
 
 - task: CopyFiles@2
   displayName: 'Copying our built files to: $(build.artifactstagingdirectory)/$(BuildConfiguration)'
