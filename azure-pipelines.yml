@@ -1,6 +1,5 @@
 trigger:
 - master
-- develop
 
 pool:
   vmImage: 'macos-latest'
@@ -9,9 +8,17 @@ variables:
 - group: AppiOS
 - name: SDK
   value: 'iphoneos'
+- name: AppName
+  value: 'hearingtest'
 
 
 steps:
+
+# - bash: 'cp app/env-configs/dev.json app/settings.json'
+#   displayName: "Setting dev environment appsettings.json"
+
+# - bash: 'cp app/env-configs/test.json app/settings.json'
+#   displayName: "Setting test environment appsettings.json"
 
 - bash: 'cp app/env-configs/prod.json app/settings.json'
   displayName: "Setting prod environment appsettings.json"
@@ -44,7 +51,7 @@ steps:
     signingOption: 'manual'
     signingIdentity: 'iPhone Distribution: Statoil ASA'
     provisioningProfileUuid: '26ce6540-bd16-4830-9dc9-ceb94f5a06a0'
-    args: 'PRODUCT_BUNDLE_IDENTIFIER=com.equinor.hearingtest'
+    args: 'PRODUCT_BUNDLE_IDENTIFIER=com.equinor.$(AppName)'
 
 - task: CopyFiles@2
   displayName: 'Copying our built files to: $(build.artifactstagingdirectory)/$(BuildConfiguration)'
@@ -55,3 +62,15 @@ steps:
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publishing the Artifact: drop'
+
+
+- task: AppCenterDistribute@3
+  inputs:
+    serverEndpoint: 'AppCenter'
+    appSlug: 'Statoil-ASA-Go-Digital/HearingTest-Prod'
+    appFile: '$(build.artifactstagingdirectory)/$(BuildConfiguration)'
+    releaseNotesOption: 'input'
+    releaseNotesInput: |
+      New update!
+      Please test it.
+    destinationType: 'groups'
