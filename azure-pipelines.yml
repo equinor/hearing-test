@@ -14,6 +14,36 @@ variables:
 
 steps:
 
+- task: Bash@3
+  displayName: 'Set env config'
+  inputs:
+    arguments: 'Prod'
+    targetType: 'inline'
+    script: |
+      ANSWER=$1
+      # (2) handle the command line argument we were given
+      while true
+      do
+        case $ANSWER in
+         [dD]* )
+           echo "Changing to Dev-environment..."
+           cp app/env-configs/dev.json app/settings.json
+           echo "Changed to Dev-environment"
+           break;;
+         [tT]* )
+           echo "Changing to Test-environment..."
+           cp app/env-configs/test.json app/settings.json
+           echo "Changed to Test-environment"
+           break;;
+         [pP]* )
+           echo "Changing to Prod-environment..."
+           cp app/env-configs/prod.json app/settings.json
+           echo "Changed to Prod-environment"
+           break;;
+         * )     echo "Please specify which environment you want. [Test, Dev, Prod]"; break ;;
+        esac
+      done
+
 - task: UseNode@1
   displayName: 'Specifying Node version'
 
