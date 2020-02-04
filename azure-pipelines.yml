@@ -36,7 +36,6 @@ steps:
 
 - task: Xcode@5
   inputs:
-
     xcWorkspacePath: 'ios/madapp.xcworkspace'
     scheme: 'madapp'
     xcodeVersion: '10'
