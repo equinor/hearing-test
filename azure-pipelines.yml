@@ -11,6 +11,8 @@ variables:
   value: 'iphoneos'
 - name: signingIdentity
   value:  'iPhone Distribution: Statoil ASA'
+- name: PROVISIONING_PROFILE_UUID
+  value: '26ce6540-bd16-4830-9dc9-ceb94f5a06a0'
 
 steps:
 
@@ -56,10 +58,10 @@ steps:
     certSecureFile: 'statoil_desi.p12'
     certPwd: '$(p12Password)'
 
-# - task: InstallAppleProvisioningProfile@1
-#   displayName: 'Install Apple provisioning profile - 02.09.20 - Test'
-#   inputs:
-#     provProfileSecureFile: 'Ergonomics_Test.mobileprovision'
+- task: InstallAppleProvisioningProfile@1
+  displayName: 'Install Apple provisioning profile - 2021-02-03 - Prod'
+  inputs:
+    provProfileSecureFile: 'HearingTest_Prod.mobileprovision'
 
 - task: Xcode@5
   displayName: 'Building the project with Xcode'
@@ -73,7 +75,7 @@ steps:
     exportPath: '$(agent.builddirectory)/output/$(SDK)/$(BuildConfiguration)'
     signingOption: 'manual'
     signingIdentity: '$(SigningIdentity)'
-    # provisioningProfileUuid: '$(PROVISIONING_PROFILE_UUID)'
+    provisioningProfileUuid: '$(PROVISIONING_PROFILE_UUID)'
     useXcpretty: true
 
 - task: CopyFiles@2
