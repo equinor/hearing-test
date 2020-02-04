@@ -36,18 +36,16 @@ steps:
 
 - task: Xcode@5
   inputs:
-    actions: 'build'
-    configuration: 'Release'
+
     xcWorkspacePath: 'ios/madapp.xcworkspace'
     scheme: 'madapp'
-    xcodeVersion: '9'
+    xcodeVersion: '10'
     packageApp: true
     exportPath: '$(agent.builddirectory)/output/$(SDK)/$(BuildConfiguration)'
     signingOption: 'manual'
     signingIdentity: 'iPhone Distribution: Statoil ASA'
     provisioningProfileUuid: '26ce6540-bd16-4830-9dc9-ceb94f5a06a0'
-    args: '-UseModernBuildSystem=NO'
-
+    args: 'PRODUCT_BUNDLE_IDENTIFIER=$(PRODUCT_BUNDLE_IDENTIFIER)'
 
 - task: CopyFiles@2
   displayName: 'Copying our built files to: $(build.artifactstagingdirectory)/$(BuildConfiguration)'
