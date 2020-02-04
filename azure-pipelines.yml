@@ -19,10 +19,9 @@ steps:
 - task: Bash@3
   displayName: 'Set env config'
   inputs:
-    arguments: 'Prod'
     targetType: 'inline'
     script: |
-      ANSWER=$1
+      ANSWER='prod'
       # (2) handle the command line argument we were given
       while true
       do
