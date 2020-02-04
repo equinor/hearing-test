@@ -1,5 +1,5 @@
 trigger:
-  - master
+  - develop
 
 pool:
   vmImage: 'macos-latest'
@@ -11,12 +11,12 @@ variables:
   - name: AppName
     value: 'hearingtest'
   - name: BuildConfiguration
-    value: 'prod'
+    value: 'test'
 
 steps:
 
-  - bash: 'cp app/env-configs/prod.json app/settings.json'
-    displayName: "Setting prod environment > settings.json"
+  - bash: 'cp app/env-configs/test.json app/settings.json'
+    displayName: "Setting test environment > settings.json"
 
   - task: UseNode@1
     displayName: 'Specifying Node version'
@@ -33,7 +33,7 @@ steps:
   - task: InstallAppleProvisioningProfile@1
     displayName: 'Install Apple provisioning profile'
     inputs:
-      provProfileSecureFile: 'HearingTest_Prod.mobileprovision'
+      provProfileSecureFile: 'HearingTest_Test.mobileprovision'
 
 
   - task: Xcode@5
@@ -45,8 +45,8 @@ steps:
       exportPath: '$(agent.builddirectory)/output/$(SDK)/$(BuildConfiguration)'
       signingOption: 'manual'
       signingIdentity: 'iPhone Distribution: Statoil ASA'
-      provisioningProfileUuid: '26ce6540-bd16-4830-9dc9-ceb94f5a06a0'
-      args: 'PRODUCT_BUNDLE_IDENTIFIER=com.equinor.$(AppName)'
+      provisioningProfileUuid: 'f080d5ec-96a2-42e8-a434-84457aa23fcd'
+      args: 'PRODUCT_BUNDLE_IDENTIFIER=com.equinor.$(AppName).$(BuildConfiguration)'
 
   - task: CopyFiles@2
     displayName: 'Copying our built files to: $(build.artifactstagingdirectory)/$(BuildConfiguration)'
@@ -65,7 +65,7 @@ steps:
   - task: AppCenterDistribute@3
     inputs:
       serverEndpoint: 'AppCenter'
-      appSlug: 'Statoil-ASA-Go-Digital/HearingTest-Prod'
+      appSlug: 'Statoil-ASA-Go-Digital/HearingTest-Test'
       appFile: '$(build.artifactstagingdirectory)/$(BuildConfiguration)/$(appName)-$(BuildConfiguration).ipa'
       releaseNotesOption: 'input'
       releaseNotesInput: |
