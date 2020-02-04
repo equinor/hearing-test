@@ -46,7 +46,6 @@ steps:
     signingOption: 'manual'
     signingIdentity: 'iPhone Distribution: Statoil ASA'
     provisioningProfileUuid: '26ce6540-bd16-4830-9dc9-ceb94f5a06a0'
-    provisioningProfileName: 'HearingTest_Prod.mobileprovision'
     args: '-UseModernBuildSystem=NO'
 
 
