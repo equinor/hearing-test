@@ -64,13 +64,15 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publishing the Artifact: drop'
 
-# - bash: 'mv $(build.artifactstagingdirectory)/$(BuildConfiguration)/madapp.ipa $(build.artifactstagingdirectory)/$(BuildConfiguration)/$(appName)-$(BuildConfiguration).ipa'
+- bash: 'mv $(build.artifactstagingdirectory)/$(BuildConfiguration)/madapp.ipa $(build.artifactstagingdirectory)/$(BuildConfiguration)/$(appName)-$(BuildConfiguration).ipa'
+  displayName: 'Rename app to $(appName)-$(BuildConfiguration)'
+
 
 - task: AppCenterDistribute@3
   inputs:
     serverEndpoint: 'AppCenter'
     appSlug: 'Statoil-ASA-Go-Digital/HearingTest-Prod'
-    appFile: '$(build.artifactstagingdirectory)/$(BuildConfiguration)/madapp.ipa'
+    appFile: '$(build.artifactstagingdirectory)/$(BuildConfiguration)/$(appName)-$(BuildConfiguration).ipa'
     releaseNotesOption: 'input'
     releaseNotesInput: |
       New update!
