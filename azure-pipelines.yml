@@ -9,10 +9,7 @@ variables:
 - group: AppiOS
 - name: SDK
   value: 'iphoneos'
-- name: signingIdentity
-  value:  'iPhone Distribution: Statoil ASA'
-- name: PROVISIONING_PROFILE_UUID
-  value: '26ce6540-bd16-4830-9dc9-ceb94f5a06a0'
+
 
 steps:
 
@@ -36,7 +33,7 @@ steps:
   inputs:
     provProfileSecureFile: 'HearingTest_Prod.mobileprovision'
 
-- task: Xcode@5
+
 - task: Xcode@5
   inputs:
     actions: 'build'
@@ -47,9 +44,12 @@ steps:
     packageApp: true
     exportPath: '$(agent.builddirectory)/output/$(SDK)/$(BuildConfiguration)'
     signingOption: 'manual'
-    signingIdentity: '$(SigningIdentity)'
+    signingIdentity: 'iPhone Distribution: Statoil ASA'
+    provisioningProfileUuid: '26ce6540-bd16-4830-9dc9-ceb94f5a06a0'
     provisioningProfileName: 'HearingTest_Prod.mobileprovision'
     args: '-UseModernBuildSystem=NO'
+
+
 - task: CopyFiles@2
   displayName: 'Copying our built files to: $(build.artifactstagingdirectory)/$(BuildConfiguration)'
   inputs:
