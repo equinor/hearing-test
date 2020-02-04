@@ -16,34 +16,8 @@ variables:
 
 steps:
 
-- task: Bash@3
-  displayName: 'Set env config'
-  inputs:
-    targetType: 'inline'
-    script: |
-      ANSWER='prod'
-      # (2) handle the command line argument we were given
-      while true
-      do
-        case $ANSWER in
-         [dD]* )
-           echo "Changing to Dev-environment..."
-           cp app/env-configs/dev.json app/settings.json
-           echo "Changed to Dev-environment"
-           break;;
-         [tT]* )
-           echo "Changing to Test-environment..."
-           cp app/env-configs/test.json app/settings.json
-           echo "Changed to Test-environment"
-           break;;
-         [pP]* )
-           echo "Changing to Prod-environment..."
-           cp app/env-configs/prod.json app/settings.json
-           echo "Changed to Prod-environment"
-           break;;
-         * )     echo "Please specify which environment you want. [Test, Dev, Prod]"; break ;;
-        esac
-      done
+- bash: 'cp app/env-configs/prod.json app/settings.json'
+  displayName: "Setting prod environment appsettings.json"
 
 - task: UseNode@1
   displayName: 'Specifying Node version'
@@ -63,20 +37,19 @@ steps:
     provProfileSecureFile: 'HearingTest_Prod.mobileprovision'
 
 - task: Xcode@5
-  displayName: 'Building the project with Xcode'
+- task: Xcode@5
   inputs:
     actions: 'build'
     configuration: 'Release'
     xcWorkspacePath: 'ios/madapp.xcworkspace'
     scheme: 'madapp'
-    xcodeVersion: '10'
+    xcodeVersion: '9'
     packageApp: true
     exportPath: '$(agent.builddirectory)/output/$(SDK)/$(BuildConfiguration)'
     signingOption: 'manual'
     signingIdentity: '$(SigningIdentity)'
-    provisioningProfileUuid: '$(PROVISIONING_PROFILE_UUID)'
+    provisioningProfileName: 'HearingTest_Prod.mobileprovision'
     args: '-UseModernBuildSystem=NO'
-
 - task: CopyFiles@2
   displayName: 'Copying our built files to: $(build.artifactstagingdirectory)/$(BuildConfiguration)'
   inputs:
