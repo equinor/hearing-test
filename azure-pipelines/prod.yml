@@ -72,3 +72,4 @@ steps:
         New update!
         Please test it.
       destinationType: 'groups'
+      distributionGroupId: 'ff26f77c-45ad-4af9-ba7c-b574e7161b65'
