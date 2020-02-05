@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { defaultNavOptions } from '../navigation';
 import * as colors from '../stylesheets/colors';
-import WelcomeMessage from '../components/WelcomeMessage';
+import { navigate } from '../navigation/service';
+import ButtonEDS from '../components/common/EDS/Button';
 
 const styles = StyleSheet.create({
   component: {
     flex: 1,
     backgroundColor: 'white',
+    padding: 12,
   },
 });
 
@@ -30,7 +32,19 @@ export default class DefaultPage extends Component {
   render() {
     return (
       <View style={styles.component}>
-        <WelcomeMessage />
+        <Text
+          style={{
+            color: '#243746',
+            fontSize: 15,
+            paddingTop: 65,
+            paddingBottom: 65,
+            textAlign: 'center',
+            fontWeight: 'bold',
+          }}
+        >
+          Velkommen til din hørselsmonitorering
+        </Text>
+        <ButtonEDS onPress={() => navigate('PreTestRoute')} text="Ta hørselstesten" />
       </View>
     );
   }
