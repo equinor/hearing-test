@@ -1,5 +1,15 @@
+
+# Triggers
+# Learn more https://docs.microsoft.com/en-us/azure/devops/pipelines/build/triggers?view=azure-devops&tabs=yaml
 trigger:
-  - master
+  batch: true
+  branches:
+    include:
+      - master
+    exclude:
+      - f/*
+      - bf/*
+      - develop
 
 pool:
   vmImage: 'macos-latest'
