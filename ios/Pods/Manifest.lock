@@ -12,6 +12,11 @@ PODS:
     - yoga (= 0.59.10.React)
   - RNDeviceInfo (2.3.2):
     - React
+  - RNSound (0.11.0):
+    - React
+    - RNSound/Core (= 0.11.0)
+  - RNSound/Core (0.11.0):
+    - React
   - RNVectorIcons (6.6.0):
     - React
   - SDWebImage (4.4.7):
@@ -25,6 +30,7 @@ DEPENDENCIES:
   - React (from `../node_modules/react-native`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
+  - RNSound (from `../node_modules/react-native-sound`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - SDWebImage (~> 4.0)
   - TrustKit (= 1.4.2)
@@ -43,6 +49,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/netinfo"
   RNDeviceInfo:
     :path: "../node_modules/react-native-device-info"
+  RNSound:
+    :path: "../node_modules/react-native-sound"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
   yoga:
@@ -53,11 +61,12 @@ SPEC CHECKSUMS:
   React: 36d0768f9e93be2473b37e7fa64f92c1d5341eef
   react-native-netinfo: 3dd993921571d01b78a8f91f1caaffcab7a1e1c7
   RNDeviceInfo: bdc3e922b2ed0f086e9d9ab534e61bc316f08576
+  RNSound: c980916b596cc15c8dcd2f6ecd3b13c4881dbe20
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   SDWebImage: c10d14a8883ebd89664f02a422006f66a85c0c5d
   TrustKit: c3d01e1dcc1d76c095efad63be70bbb6b57eed08
   yoga: 684513b14b03201579ba3cee20218c9d1298b0cc
 
-PODFILE CHECKSUM: 4b78b4fff79c9f0c6f781734b9fbcbfa3ac485bd
+PODFILE CHECKSUM: ee809d39364954fb771a2ee74dd97c2616225bbe
 
 COCOAPODS: 1.8.4

@@ -40,6 +40,7 @@
 		8F44FB5A147742A3B85CE40C /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 355380ADCF774C6D8807A63A /* libRNDeviceInfo.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B5467124A4284E18B5C25247 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6955EEF749574C0C8595D1EA /* Zocial.ttf */; };
+		BAB599B223EC263F00226824 /* testBell.wav in Resources */ = {isa = PBXBuildFile; fileRef = BAB599B123EC263F00226824 /* testBell.wav */; };
 		DE5C73793FA74FA9B85CDABA /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CC8A8353340430ABB7C6C1E /* libSplashScreen.a */; };
 		E23FB07AE9F142B58F176A33 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DAA7B14EA4D44231BA8E18B4 /* Fontisto.ttf */; };
 		E4B0C8538DD849A197F282F7 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 941EAE0A1DEF4B71A20435E4 /* AntDesign.ttf */; };
@@ -415,6 +416,7 @@
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		AF9E9D2B4332488F8734AE57 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		B64D4A33F516BDA2D706FBB3 /* Pods-madapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-madapp.debug.xcconfig"; path = "Target Support Files/Pods-madapp/Pods-madapp.debug.xcconfig"; sourceTree = "<group>"; };
+		BAB599B123EC263F00226824 /* testBell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = testBell.wav; path = ../app/assets/audio/testBell.wav; sourceTree = "<group>"; };
 		BFB9908F232F7E5000D41ED8 /* madapp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = madapp.entitlements; path = madapp/madapp.entitlements; sourceTree = "<group>"; };
 		CCAE9082BB0B42E384D84471 /* libRNTrustKitPlugin.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNTrustKitPlugin.a; sourceTree = "<group>"; };
 		CFCCDBA0120E45D1AF5889BF /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
@@ -542,6 +544,7 @@
 		13B07FAE1A68108700A75B9A /* madapp */ = {
 			isa = PBXGroup;
 			children = (
+				BAB599B123EC263F00226824 /* testBell.wav */,
 				BFB9908F232F7E5000D41ED8 /* madapp.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -1238,6 +1241,7 @@
 				E4B0C8538DD849A197F282F7 /* AntDesign.ttf in Resources */,
 				6860F012CF8C44E0B4BA7AB0 /* Entypo.ttf in Resources */,
 				F6E03F5E715B46A5A2A4A9DB /* EvilIcons.ttf in Resources */,
+				BAB599B223EC263F00226824 /* testBell.wav in Resources */,
 				1508D9BF7B8543859F66FFCB /* Feather.ttf in Resources */,
 				2D4CAABAF6C94B02BC2C2DF1 /* FontAwesome.ttf in Resources */,
 				4A5CF7D338ED4185819CB910 /* FontAwesome5_Brands.ttf in Resources */,
