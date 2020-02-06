@@ -4,7 +4,7 @@
   "AzureADClientId": "a780c0d7-8e5d-4053-b25d-6a287676f923",
   "AzureADRedirectUrl": "http://localhost",
   "HockeyAppIdentifier": "10000000000000000000000000000000",
-  "BuildConfiguration": "Prod",
+  "BuildConfiguration": "Release",
   "Resources": {
     "common": {
       "AzureADResourceId": "0a429637-3fe1-4452-bd95-c87923ba340b",
