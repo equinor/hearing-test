@@ -111,7 +111,7 @@ export default class PreTestPage extends Component {
       clonedPages[currentIndex + 1].current = true;
       this.setState({ pages: clonedPages });
     } else {
-      navigate('DefaultRoute');
+      navigate('SoundCheckRoute');
     }
   }
 
