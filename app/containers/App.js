@@ -57,12 +57,11 @@ export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        {/* Todo: Change to a fitting backgroundColor */}
-          <AppNavigator
-            ref={ref => {
-              setNavigator(ref);
-            }}
-          />
+        <AppNavigator
+          ref={ref => {
+            setNavigator(ref);
+          }}
+        />
       </Provider>
     );
   }
