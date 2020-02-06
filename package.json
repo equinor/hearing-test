@@ -58,6 +58,7 @@
     "react-native-device-info": "2.3.2",
     "react-native-ms-adal": "^0.4.0",
     "react-native-salute": "git+https://github.com/Statoil/react-native-salute.git#bfa628bd263c6969c5d828e02d4d00e9aeb49a5e",
+    "react-native-sound": "^0.11.0",
     "react-native-splash-screen": "3.0.6",
     "react-native-trustkit-wrapper": "^0.0.8",
     "react-native-vector-icons": "6.6.0",

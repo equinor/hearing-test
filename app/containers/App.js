@@ -57,14 +57,11 @@ export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        {/* Todo: Change to a fitting backgroundColor */}
-        <SafeAreaView style={{ flex: 1, backgroundColor: '#243746' }}>
-          <AppNavigator
-            ref={ref => {
-              setNavigator(ref);
-            }}
-          />
-        </SafeAreaView>
+        <AppNavigator
+          ref={ref => {
+            setNavigator(ref);
+          }}
+        />
       </Provider>
     );
   }
