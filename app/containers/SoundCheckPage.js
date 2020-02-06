@@ -16,8 +16,8 @@ import { defaultNavOptions } from '../navigation';
 import manWithHeadset from '../assets/man-headset.png';
 import audioTroubles from '../assets/audio-troubles.png';
 import { navigate } from '../navigation/service';
-import { cloneDeep } from 'lodash';
 import ButtonEDS from '../components/common/EDS/Button';
+import Sound from 'react-native-sound';
 
 const styles = StyleSheet.create({
   component: {
@@ -43,12 +43,34 @@ class SoundCheckPage extends Component {
     headerLeft: null,
   });
 
+  constructor() {
+    super();
+    // Load the sound file 'testBell.wav' from the app bundle
+    this.sound = new Sound('testBell.wav', Sound.MAIN_BUNDLE, error => {
+      if (error) {
+        console.log('failed to load the sound', error);
+      }
+    });
+  }
+
   state = {
     modalVisible: false,
   };
 
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
+  }
+
+  sound: Sound;
+
+  playAudioTest() {
+    this.sound.play(success => {
+      if (success) {
+        console.log('successfully finished playing');
+      } else {
+        console.log('playback failed due to audio decoding errors');
+      }
+    });
   }
 
   render() {
@@ -82,7 +104,7 @@ class SoundCheckPage extends Component {
               Plugg i headsettet og spill av test-lyden.
             </Text>
           </View>
-          <ButtonEDS onPress={() => console.log('Play that sound')} text="Spill av test-lyd" />
+          <ButtonEDS onPress={() => this.playAudioTest()} text="Spill av test-lyd" />
           <Text
             style={{
               color: '#243746',
