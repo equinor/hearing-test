@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
 class TestPage extends Component {
   static navigationOptions = ({ navigation }) => ({
     ...defaultNavOptions,
-    title: 'TestPage',
     headerRight: (
       <TouchableOpacity
         onPress={() => navigation.navigate('SettingsRoute')}
@@ -71,7 +70,7 @@ class TestPage extends Component {
       this.sound.play(success => {
         if (success) {
           console.log('successfully finished playing');
-          setTimeout(() => navigate('DefaultRoute'), 3000);
+          setTimeout(() => navigate('TestResultRoute'), 3000);
         } else {
           console.log('playback failed due to audio decoding errors');
         }
@@ -172,7 +171,7 @@ class TestPage extends Component {
             onPress={() => this.registerPress()}
             text="Jeg hører en lyd nå"
           />
-          <Text>
+          <Text style={{ padding: 10 }}>
             {`${this.state.elapsedTime.toFixed(1)}/${this.state.testDuration.toFixed(1)}`}
           </Text>
         </View>
