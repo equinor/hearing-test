@@ -12,12 +12,12 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Sound from 'react-native-sound';
 import { defaultNavOptions } from '../navigation';
 import manWithHeadset from '../assets/man-headset.png';
-import audioTroubles from '../assets/audio-troubles.png';
+import audioTroubles from '../assets/audio-trouble.png';
 import { navigate } from '../navigation/service';
 import ButtonEDS from '../components/common/EDS/Button';
-import Sound from 'react-native-sound';
 
 const styles = StyleSheet.create({
   component: {
@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
 class SoundCheckPage extends Component {
   static navigationOptions = ({ navigation }) => ({
     ...defaultNavOptions,
-    title: 'SoundCheckPage',
     headerRight: (
       <TouchableOpacity
         onPress={() => navigation.navigate('SettingsRoute')}
@@ -46,7 +45,7 @@ class SoundCheckPage extends Component {
   constructor() {
     super();
     // Load the sound file 'testBell.wav' from the app bundle
-    this.sound = new Sound('testBell.wav', Sound.MAIN_BUNDLE, error => {
+    this.sound = new Sound('1000Hz_dobbel.wav', Sound.MAIN_BUNDLE, error => {
       if (error) {
         console.log('failed to load the sound', error);
       }
@@ -116,7 +115,7 @@ class SoundCheckPage extends Component {
           >
             Kunne du høre noen lyd?
           </Text>
-          <ButtonEDS onPress={() => navigate('DefaultRoute')} text="Ja" />
+          <ButtonEDS onPress={() => navigate('TestRoute')} text="Ja" />
           <ButtonEDS onPress={() => this.setModalVisible(true)} text="Nei" />
           <Modal
             animationType="slide"
