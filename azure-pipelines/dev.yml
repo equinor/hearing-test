@@ -10,6 +10,9 @@ trigger:
       - master
       - develop
 
+# no PR triggers
+pr: none
+
 pool:
   vmImage: 'macos-latest'
 
