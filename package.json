@@ -60,6 +60,7 @@
     "react-native-salute": "git+https://github.com/Statoil/react-native-salute.git#bfa628bd263c6969c5d828e02d4d00e9aeb49a5e",
     "react-native-sound": "^0.11.0",
     "react-native-splash-screen": "3.0.6",
+    "react-native-swipe-gestures": "^1.0.4",
     "react-native-trustkit-wrapper": "^0.0.8",
     "react-native-vector-icons": "6.6.0",
     "react-native-windows": "^0.59.0-rc.3",
