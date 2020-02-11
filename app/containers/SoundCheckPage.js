@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
 class SoundCheckPage extends Component {
   static navigationOptions = ({ navigation }) => ({
     ...defaultNavOptions,
-    title: 'SoundCheckPage',
     headerRight: (
       <TouchableOpacity
         onPress={() => navigation.navigate('SettingsRoute')}

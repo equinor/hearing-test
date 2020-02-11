@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
 export default class PreTestPage extends Component {
   static navigationOptions = ({ navigation }) => ({
     ...defaultNavOptions,
-    title: 'Hearing Test',
     headerRight: (
       <TouchableOpacity
         onPress={() => navigation.navigate('SettingsRoute')}
