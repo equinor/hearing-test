@@ -25,7 +25,7 @@ variables:
   - name: BuildConfiguration
     value: 'test'
   - name: DisplayName
-    value: 'Hearing Test Test'
+    value: 'Hørselstest Test'
 
 steps:
 
