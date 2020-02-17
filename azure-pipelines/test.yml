@@ -24,6 +24,8 @@ variables:
     value: 'hearingtest'
   - name: BuildConfiguration
     value: 'test'
+  - name: DisplayName
+    value: 'Hearing Test Test'
 
 steps:
 
@@ -52,7 +54,7 @@ steps:
       SyntaxType: 'slick'
       XmlWorkingDir: 'ios/madapp/'
       XmlTargetFilters: 'Info.plist'
-      JsonPatchContent: 'dict/CFBundleDisplayName => Hearing Test Test'
+      JsonPatchContent: 'dict/CFBundleDisplayName => $(DisplayName)'
       OutputPatchFile: true
       TreatErrors: 'ERROR'
 
