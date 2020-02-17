@@ -54,7 +54,7 @@ steps:
       SyntaxType: 'slick'
       XmlWorkingDir: 'ios/madapp/'
       XmlTargetFilters: 'Info.plist'
-      JsonPatchContent: '=/dict/CFBundleDisplayName => $(DisplayName)'
+      JsonPatchContent: '=/dict/CFBundleDisplayName => "$(DisplayName)"'
       OutputPatchFile: true
       FailIfNoPatchApplied: true
       TreatErrors: 'ERROR'
