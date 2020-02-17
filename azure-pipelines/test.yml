@@ -47,6 +47,14 @@ steps:
     inputs:
       provProfileSecureFile: 'HearingTest_Test.mobileprovision'
 
+  - task: XmlPatch@3
+    inputs:
+      SyntaxType: 'slick'
+      XmlWorkingDir: 'ios/madapp/'
+      XmlTargetFilters: 'Info.plist'
+      JsonPatchContent: 'dict/CFBundleDisplayName => Hearing Test Test'
+      OutputPatchFile: true
+      TreatErrors: 'ERROR'
 
   - task: Xcode@5
     inputs:
