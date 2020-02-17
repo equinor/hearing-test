@@ -24,11 +24,24 @@ variables:
     value: 'hearingtest'
   - name: BuildConfiguration
     value: 'test'
+  - name: DisplayName
+    value: 'Hørselstest Test'
 
 steps:
 
   - bash: 'cp app/env-configs/test.json app/settings.json'
     displayName: "Setting test environment > settings.json"
+
+
+  - task: PlistPatch@3
+    inputs:
+      SyntaxType: 'slick'
+      PlistWorkingDir: 'ios/madapp'
+      PlistTargetFilters: 'Info.plist'
+      PlistPatchContent: '= /CFBundleDisplayName => "$(DisplayName)"'
+      OutputPatchFile: true
+      FailIfNoPatchApplied: true
+      TreatErrors: 'ERROR'
 
   - task: UseNode@1
     displayName: 'Specifying Node version'
@@ -46,7 +59,6 @@ steps:
     displayName: 'Install Apple provisioning profile'
     inputs:
       provProfileSecureFile: 'HearingTest_Test.mobileprovision'
-
 
   - task: Xcode@5
     inputs:

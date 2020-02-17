@@ -24,11 +24,24 @@ variables:
     value: 'hearingtest'
   - name: BuildConfiguration
     value: 'dev'
+  - name: DisplayName
+    value: 'Hørselstest Dev'
+
 
 steps:
 
   - bash: 'cp app/env-configs/dev.json app/settings.json'
     displayName: "Setting dev environment > settings.json"
+
+  - task: PlistPatch@3
+    inputs:
+      SyntaxType: 'slick'
+      PlistWorkingDir: 'ios/madapp'
+      PlistTargetFilters: 'Info.plist'
+      PlistPatchContent: '= /CFBundleDisplayName => "$(DisplayName)"'
+      OutputPatchFile: true
+      FailIfNoPatchApplied: true
+      TreatErrors: 'ERROR'
 
   - task: UseNode@1
     displayName: 'Specifying Node version'
