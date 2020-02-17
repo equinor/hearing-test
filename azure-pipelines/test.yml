@@ -49,12 +49,12 @@ steps:
     inputs:
       provProfileSecureFile: 'HearingTest_Test.mobileprovision'
 
-  - task: XmlPatch@3
+  - task: PlistPatch@3
     inputs:
       SyntaxType: 'slick'
-      XmlWorkingDir: 'ios/madapp/'
-      XmlTargetFilters: 'Info.plist'
-      JsonPatchContent: '=/dict/CFBundleDisplayName => "$(DisplayName)"'
+      PlistWorkingDir: 'ios/madapp/'
+      PlistTargetFilters: 'Info.plist'
+      PlistPatchContent: '=/dict/CFBundleDisplayName => "$(DisplayName)"'
       OutputPatchFile: true
       FailIfNoPatchApplied: true
       TreatErrors: 'ERROR'
