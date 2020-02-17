@@ -36,9 +36,9 @@ steps:
   - task: PlistPatch@3
     inputs:
       SyntaxType: 'slick'
-      PlistWorkingDir: 'ios/madapp/'
+      PlistWorkingDir: 'ios/madapp'
       PlistTargetFilters: 'Info.plist'
-      PlistPatchContent: '=/dict/CFBundleDisplayName => "$(DisplayName)"'
+      PlistPatchContent: '= /dict/CFBundleDisplayName => $(DisplayName)'
       OutputPatchFile: true
       FailIfNoPatchApplied: true
       TreatErrors: 'ERROR'
