@@ -63,9 +63,11 @@ steps:
 
   - task: Xcode@5
     inputs:
+      actions: 'build'
       xcWorkspacePath: 'ios/madapp.xcworkspace'
       scheme: 'madapp'
-      xcodeVersion: '10'
+      xcodeVersion: 'specifyPath'
+      xcodeDeveloperDir: '/Applications/Xcode_10.0.0.app/Contents/Developer'
       packageApp: true
       exportPath: '$(agent.builddirectory)/output/$(SDK)/$(BuildConfiguration)'
       signingOption: 'manual'
