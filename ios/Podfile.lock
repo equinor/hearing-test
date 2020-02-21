@@ -4,6 +4,8 @@ PODS:
   - ADAL/app-lib (2.6.10):
     - ADAL/tokencacheheader
   - ADAL/tokencacheheader (2.6.10)
+  - RCTSystemSetting (1.7.4):
+    - React
   - React (0.59.10):
     - React/Core (= 0.59.10)
   - react-native-netinfo (4.7.0):
@@ -27,6 +29,7 @@ PODS:
 
 DEPENDENCIES:
   - ADAL (~> 2.6.3)
+  - RCTSystemSetting (from `../node_modules/react-native-system-setting`)
   - React (from `../node_modules/react-native`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
@@ -43,6 +46,8 @@ SPEC REPOS:
     - TrustKit
 
 EXTERNAL SOURCES:
+  RCTSystemSetting:
+    :path: "../node_modules/react-native-system-setting"
   React:
     :path: "../node_modules/react-native"
   react-native-netinfo:
@@ -58,6 +63,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   ADAL: 2e61915209c39974d6dd5f38d24a9792c58243e8
+  RCTSystemSetting: f3123e7de51bf918bc4243167ba2885a72bf09ec
   React: 36d0768f9e93be2473b37e7fa64f92c1d5341eef
   react-native-netinfo: 3dd993921571d01b78a8f91f1caaffcab7a1e1c7
   RNDeviceInfo: bdc3e922b2ed0f086e9d9ab534e61bc316f08576
@@ -67,6 +73,6 @@ SPEC CHECKSUMS:
   TrustKit: c3d01e1dcc1d76c095efad63be70bbb6b57eed08
   yoga: 684513b14b03201579ba3cee20218c9d1298b0cc
 
-PODFILE CHECKSUM: ee809d39364954fb771a2ee74dd97c2616225bbe
+PODFILE CHECKSUM: 62f4f391e46dc31cbdbceba4d92f33001d4b176e
 
 COCOAPODS: 1.8.4

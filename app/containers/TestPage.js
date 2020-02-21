@@ -41,9 +41,16 @@ class TestPage extends Component {
 
   constructor() {
     super();
+
+    // Setup the playback
+    Sound.setCategory('Playback');
+    Sound.setMode('Measurement');
+    Sound.setActive(true);
+
     // Load the sound file 'testBell.wav' from the app bundle
     this.sound = new Sound('test.wav', Sound.MAIN_BUNDLE, error => {
       if (error) {
+        // eslint-disable-next-line no-console
         console.log('failed to load the sound', error);
       }
     });
@@ -69,9 +76,11 @@ class TestPage extends Component {
     setTimeout(() => {
       this.sound.play(success => {
         if (success) {
+          // eslint-disable-next-line no-console
           console.log('successfully finished playing');
           setTimeout(() => navigate('TestResultRoute'), 3000);
         } else {
+          // eslint-disable-next-line no-console
           console.log('playback failed due to audio decoding errors');
         }
       });
@@ -106,6 +115,7 @@ class TestPage extends Component {
 
   abortTest() {
     this.sound.stop();
+    Sound.setActive(false);
     navigate('DefaultRoute');
   }
 
@@ -180,13 +190,9 @@ class TestPage extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  // TODO
-});
+const mapDispatchToProps = () => ({});
 
-const mapStateToProps = state => ({
-  // TODO
-});
+const mapStateToProps = () => ({});
 
 export default connect(
   mapStateToProps,

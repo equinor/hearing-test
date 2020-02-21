@@ -13,6 +13,7 @@ import {
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Sound from 'react-native-sound';
+import SystemSetting from 'react-native-system-setting';
 import { defaultNavOptions } from '../navigation';
 import manWithHeadset from '../assets/man-headset.png';
 import audioTroubles from '../assets/audio-trouble.png';
@@ -44,9 +45,15 @@ class SoundCheckPage extends Component {
 
   constructor() {
     super();
+    // Setup the playback
+    Sound.setCategory('Playback');
+    Sound.setMode('Measurement');
+    Sound.setActive(true);
+
     // Load the sound file 'testBell.wav' from the app bundle
     this.sound = new Sound('1000Hz_dobbel.wav', Sound.MAIN_BUNDLE, error => {
       if (error) {
+        // eslint-disable-next-line no-console
         console.log('failed to load the sound', error);
       }
     });
@@ -56,6 +63,11 @@ class SoundCheckPage extends Component {
     modalVisible: false,
   };
 
+  componentDidMount(): void {
+    // change the volume
+    SystemSetting.setVolume(0.5, { showUI: true });
+  }
+
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
@@ -63,10 +75,13 @@ class SoundCheckPage extends Component {
   sound: Sound;
 
   playAudioTest() {
+    this.sound.setVolume(1);
     this.sound.play(success => {
       if (success) {
+        // eslint-disable-next-line no-console
         console.log('successfully finished playing');
       } else {
+        // eslint-disable-next-line no-console
         console.log('playback failed due to audio decoding errors');
       }
     });
@@ -100,7 +115,7 @@ class SoundCheckPage extends Component {
                 fontWeight: 'normal',
               }}
             >
-              Plugg i headsettet og spill av test-lyden.
+              {`1. Sett mobilen din på lydløs. (switch-en på venstre side av din iPhone)\n2. Plugg i headsettet\n3. Spill av test-lyden.`}
             </Text>
           </View>
           <ButtonEDS onPress={() => this.playAudioTest()} text="Spill av test-lyd" />
@@ -160,7 +175,8 @@ class SoundCheckPage extends Component {
                       fontWeight: 'normal',
                     }}
                   >
-                    {`- Sjekk at telefonen ikke er i stille modus.\n- Trekk ut hodesettet og hør om musikken spilles gjennom høytalerne til telefonen.`}
+                    - Trekk ut hodesettet og hør om musikken spilles gjennom høytalerne til
+                    telefonen.
                   </Text>
                 </View>
                 <ButtonEDS onPress={() => this.setModalVisible(false)} text="OK" />
