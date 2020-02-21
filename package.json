@@ -63,6 +63,7 @@
     "react-native-sound": "^0.11.0",
     "react-native-splash-screen": "3.0.6",
     "react-native-swipe-gestures": "^1.0.4",
+    "react-native-system-setting": "^1.7.4",
     "react-native-trustkit-wrapper": "^0.0.8",
     "react-native-vector-icons": "6.6.0",
     "react-native-windows": "^0.59.0-rc.3",
@@ -99,7 +100,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && npm test"
+      "pre-commit": "lint-staged && npm test && detox build && detox test"
     }
   },
   "lint-staged": {

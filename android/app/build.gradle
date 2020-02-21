@@ -69,6 +69,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-system-setting')
     implementation project(':react-native-sound')
     implementation project(':@react-native-community_netinfo')
     implementation project(':react-native-vector-icons')
