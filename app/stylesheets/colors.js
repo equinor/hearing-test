@@ -30,3 +30,21 @@ export const RED_LOGO = '#FF1243';
 
 export const EQUINOR_BLACK = '#253746';
 export const EQUINOR_GREEN = '#007079';
+
+export const WHITE = '#FFFFFF';
+
+export const BUTTON_PRIMARY = '#0185B7';
+export const BUTTON_SECONDARY = '#ECF6F9';
+export const BUTTON_PRIMARY_TEXT = '#ffffff';
+export const BUTTON_SECONDARY_TEXT = '#0185B7';
+
+export const MOSS_GREEN_100 = '#007079';
+export const MOSS_GREEN_55 = '#73B1B5';
+export const MOSS_GREEN_34 = '#A8CED1';
+export const MOSS_GREEN_21 = '#C9E0E2';
+export const MOSS_GREEN_13 = '#DEEDEE';
+
+// Traffic light colors
+export const STOP = '#EB0000';
+export const WAIT = '#FF9200';
+export const GO = '#04BB74';

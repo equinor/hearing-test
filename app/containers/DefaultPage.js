@@ -19,10 +19,11 @@ export default class DefaultPage extends Component {
     ...defaultNavOptions,
     headerRight: (
       <TouchableOpacity
+        testID="ButtonSettings"
         onPress={() => navigation.navigate('SettingsRoute')}
         style={{ paddingLeft: 15, paddingRight: 15 }}
       >
-        <Icon name="md-more" color={colors.RED_LOGO} size={24} />
+        <Icon name="md-cog" color={colors.EQUINOR_GREEN} size={24} />
       </TouchableOpacity>
     ),
     headerLeft: null,

@@ -6,6 +6,7 @@ import PreTestPage from '../containers/PreTestPage';
 import SoundCheckPage from '../containers/SoundCheckPage';
 import TestPage from '../containers/TestPage';
 import TestResultPage from '../containers/TestResultPage';
+import FeedbackPage from '../containers/FeedbackPage';
 
 export default {
   DefaultRoute: { screen: withUtilities(DefaultPage) },
@@ -15,4 +16,5 @@ export default {
   SoundCheckRoute: { screen: withUtilities(SoundCheckPage) },
   TestRoute: { screen: withUtilities(TestPage) },
   TestResultRoute: { screen: withUtilities(TestResultPage) },
+  FeedbackRoute: { screen: withUtilities(FeedbackPage) },
 };
