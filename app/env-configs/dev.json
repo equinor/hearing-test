@@ -5,6 +5,7 @@
   "AzureADRedirectUrl": "http://localhost",
   "HockeyAppIdentifier": "10000000000000000000000000000000",
   "BuildConfiguration": "Dev",
+  "BuildDate": "Today",
   "Resources": {
     "mad": {
       "AzureADResourceId": "830a7388-cd89-4e25-a631-bd615bf225a4",

@@ -11,7 +11,8 @@
     "iphone7": "react-native run-ios --simulator='iPhone7'",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "test:watch": "npm test -- --watch"
+    "test:watch": "npm test -- --watch",
+    "test:save": "jest --collectCoverage --json --outputFile=test-results.json"
   },
   "repository": "https://github.com/equinor/mad-project-hearing-test-client",
   "keywords": [],
@@ -101,13 +102,12 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && npm test && detox build && detox test"
+      "pre-commit": "lint-staged && npm run test:save && git add test-results.json && detox build && detox test"
     }
   },
   "lint-staged": {
     "*.js": [
-      "eslint --fix",
-      "git add"
+      "eslint --fix"
     ]
   }
 }
