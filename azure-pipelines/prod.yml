@@ -31,6 +31,9 @@ steps:
   - bash: 'cp app/env-configs/prod.json app/settings.json'
     displayName: "Setting prod environment > settings.json"
 
+  - bash: 'sed -i.bak s/Today/"$(TZ=":Europe/Oslo" date)"/g app/settings.json'
+    displayName: "Updating build-date in the about-page"
+
   - task: UseNode@1
     displayName: 'Specifying Node version'
 
