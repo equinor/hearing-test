@@ -3,7 +3,7 @@ import { getResource } from '../../settings';
 import { NetworkException } from '../../utils/Exception';
 import { name } from '../../../app.json';
 
-const defaultResource = 'mad';
+const defaultResource = 'hearing';
 const jsonHeaders = {
   Accept: 'application/json',
   'Content-Type': 'application/json',
@@ -64,3 +64,5 @@ export function getReleaseNote(version) {
 }
 
 export const getServiceMessage = () => fetchOpenData(`/ServiceMessage/${name}`, 'common');
+
+export const fetchTest = () => fetchData('/');

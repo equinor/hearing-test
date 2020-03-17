@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { defaultNavOptions } from '../navigation';
 import ButtonEDS from '../components/common/EDS/Button';
 import { navigate } from '../navigation/service';
 import allGood from '../assets/allGood.png';
+import { selectResults } from '../store/test/reducer';
 
 const styles = StyleSheet.create({
   component: {
@@ -30,14 +32,13 @@ class TestResultPage extends Component {
     headerLeft: null,
   });
   static propTypes = {
-    // TODO
+    results: PropTypes.array.isRequired,
   };
 
-  static defaultProps = {
-    // TODO
-  };
+  static defaultProps = {};
 
   render() {
+    const { results } = this.props;
     return (
       <View style={styles.component}>
         <View
@@ -51,6 +52,14 @@ class TestResultPage extends Component {
           {/*  Results-header section */}
           <Text>Testen er nå fullført</Text>
           <Image source={allGood} style={{ height: 50, width: 50, margin: 26 }} />
+          {results.map(result => {
+            const { panning, sound, index, stimulusDb } = result.data;
+            return (
+              <Text key={index}>
+                {`HZ: ${sound.hz}, Panning: ${panning}, Stimulus DB: ${stimulusDb}`}
+              </Text>
+            );
+          })}
         </View>
         <View style={{ flex: 1, marginBottom: 40, justifyContent: 'flex-end' }}>
           {/*  Buttons-section */}
@@ -67,12 +76,10 @@ class TestResultPage extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  // TODO
-});
+const mapDispatchToProps = () => ({});
 
 const mapStateToProps = state => ({
-  // TODO
+  results: selectResults(state),
 });
 
 export default connect(

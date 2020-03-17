@@ -75,6 +75,9 @@ class SoundCheckPage extends Component {
   sound: Sound;
 
   playAudioTest() {
+    // Setting volume each time just to make sure the volume is not changed between plays
+    // also, if headset was plugged in after componentDidMount() was called, we need to call this again
+    // SystemSetting.setVolume(0.5, { showUI: true }); //Todo: Disabling this until we know how the calibration step should be done..
     this.sound.setVolume(1);
     this.sound.play(success => {
       if (success) {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
+import Spinner from '../atoms/Spinner';
 
 export default class ButtonEDS extends Component<{
   onPress: () => void,
@@ -7,38 +8,19 @@ export default class ButtonEDS extends Component<{
   outlined: boolean,
   small: boolean,
   danger: boolean,
+  loading: boolean,
+  disabled: boolean,
 }> {
+  getBackgroundColor(props) {
+    if (props.disabled || props.loading || props.outlined) return `#EAEAEA`;
+    if (props.danger) return '#EB0000';
+    return '#007079';
+  }
+
   render() {
-    if (this.props.danger) {
-      return (
-        <TouchableOpacity onPress={this.props.onPress}>
-          <View
-            style={{
-              height: 62,
-              alignSelf: 'center',
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: 4,
-              marginBottom: 23,
-              width: this.props.small ? '50%' : '100%',
-              backgroundColor: this.props.outlined ? '#DEEDEE' : '#EB0000',
-            }}
-          >
-            <Text
-              style={{
-                color: this.props.outlined ? '#007079' : 'white',
-                fontSize: 17,
-                textAlign: 'center',
-              }}
-            >
-              {this.props.text}
-            </Text>
-          </View>
-        </TouchableOpacity>
-      );
-    }
+    const { danger, disabled, loading, onPress, outlined, small, text } = this.props;
     return (
-      <TouchableOpacity onPress={this.props.onPress}>
+      <TouchableOpacity onPress={onPress} disabled={loading || disabled}>
         <View
           style={{
             height: 62,
@@ -47,21 +29,25 @@ export default class ButtonEDS extends Component<{
             justifyContent: 'center',
             borderRadius: 4,
             marginBottom: 23,
-            borderWidth: 1,
-            width: this.props.small ? '50%' : '100%',
-            backgroundColor: this.props.outlined ? '#DEEDEE' : '#007079',
-            borderColor: '#007079',
+            borderWidth: !danger && 1,
+            width: small ? '50%' : '100%',
+            backgroundColor: this.getBackgroundColor(this.props),
+            borderColor: disabled || loading ? `#DCDCDC` : '#007079',
           }}
         >
-          <Text
-            style={{
-              color: this.props.outlined ? '#007079' : 'white',
-              fontSize: 17,
-              textAlign: 'center',
-            }}
-          >
-            {this.props.text}
-          </Text>
+          {loading ? (
+            <Spinner color="#6F6F6F" />
+          ) : (
+            <Text
+              style={{
+                color: outlined ? '#007079' : 'white',
+                fontSize: 17,
+                textAlign: 'center',
+              }}
+            >
+              {text}
+            </Text>
+          )}
         </View>
       </TouchableOpacity>
     );
