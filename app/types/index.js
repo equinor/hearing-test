@@ -7,6 +7,7 @@ export const stateKeys = {
   SERVICEMESSAGE: 'serviceMessage',
   TOAST: 'toast',
   NAV: 'navigation',
+  TEST: 'test',
 };
 
 export const requestTypes = {
