@@ -5,9 +5,9 @@ describe('Example', () => {
   //   await device.reloadReactNative();
   // });
 
-  it('shows the "Whats new"-page and navigates to the default-page', async () => {
-    await element(by.text('OK')).tap();
-  });
+  // it('shows the "Whats new"-page and navigates to the default-page', async () => {
+  //   await element(by.text('OK')).tap();
+  // });
 
   it('cannot take the test if sick', async () => {
     await element(by.text('Ta hørselstesten')).tap();

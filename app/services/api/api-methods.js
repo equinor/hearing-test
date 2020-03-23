@@ -12,7 +12,7 @@ const jsonHeaders = {
 const createUrl = (resource, path) => `${getResource(resource).ApiBaseUrl}${path}`;
 
 // Helper functions
-const fetchData = (path, resource = defaultResource) =>
+const fetchData = (path, resource = defaultResource, parseJson = true) =>
   authenticateSilently(resource).then(r =>
     fetch(createUrl(resource, path), {
       method: 'GET',
@@ -23,13 +23,15 @@ const fetchData = (path, resource = defaultResource) =>
       },
     }).then(response => {
       if (response.ok) {
-        return response.json();
+        if (parseJson) {
+          return response.json();
+        }
+        return response.ok;
       }
       throw new NetworkException(response.statusText, response.status);
     })
   );
 
-// eslint-disable-next-line no-unused-vars
 const postData = (path, data, method = 'POST', resource = defaultResource) =>
   authenticateSilently(resource).then(r =>
     fetch(createUrl(resource, path), {
@@ -65,4 +67,8 @@ export function getReleaseNote(version) {
 
 export const getServiceMessage = () => fetchOpenData(`/ServiceMessage/${name}`, 'common');
 
-export const fetchTest = () => fetchData('/');
+export const fetchTest = () => fetchData(`/me/tests/takeTest`);
+
+export const postTest = body => postData(`/me/tests`, body);
+
+export const appInit = () => fetchData('/appStartup/init', defaultResource, false);
