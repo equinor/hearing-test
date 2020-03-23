@@ -1,7 +1,7 @@
 import { put, call, takeLatest } from 'redux-saga/effects';
 import api from '../../services/api';
 import * as actions from './actions';
-import handelError from '../../utils/handleNetworkErrors';
+import handleError from '../../utils/handleNetworkErrors';
 
 function* fetchTest(action) {
   try {
@@ -9,11 +9,38 @@ function* fetchTest(action) {
     const response = yield call(api.fetchTest, action.payload);
     yield put(actions.fetchTestSucceeded(response));
   } catch (ex) {
-    yield call(handelError, ex);
-    yield put(actions.fetchTestFailed());
+    yield put(actions.fetchTestFailed(ex));
+  }
+}
+function* postTest(action) {
+  try {
+    yield put(actions.postTestRequested());
+    const response = yield call(api.postTest, action.payload);
+    yield put(actions.postTestSucceeded(response));
+  } catch (ex) {
+    yield put(actions.postTestFailed(ex));
   }
 }
 
-export default function* watchFetchTest() {
+function* appInit(action) {
+  try {
+    yield put(actions.appStartupInitRequested());
+    const response = yield call(api.appInit, action.payload);
+    yield put(actions.appStartupInitSucceeded(response));
+  } catch (ex) {
+    yield call(handleError, ex);
+    yield put(actions.appStartupInitFailed(ex));
+  }
+}
+
+export function* watchFetchTest() {
   yield takeLatest(actions.fetchTest.toString(), fetchTest);
+}
+
+export function* watchPostTest() {
+  yield takeLatest(actions.postTest.toString(), postTest);
+}
+
+export function* watchAppInit() {
+  yield takeLatest(actions.appStartupInit.toString(), appInit);
 }

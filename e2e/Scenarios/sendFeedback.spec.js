@@ -1,8 +1,8 @@
 /* eslint no-undef: "warn" */
 describe('The Feedback-Page is working as expected', () => {
-  it('shows the "Whats new"-page and navigates to the default-page', async () => {
-    await element(by.text('OK')).tap();
-  });
+  // it('shows the "Whats new"-page and navigates to the default-page', async () => {
+  //   await element(by.text('OK')).tap();
+  // });
 
   it('Navigates to the Feedback-Page', async () => {
     await element(by.id('ButtonSettings')).tap();

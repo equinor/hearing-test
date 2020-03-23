@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { cloneDeep } from 'lodash';
 import { defaultNavOptions } from '../navigation';
-import * as colors from '../stylesheets/colors';
 import manWithHeadset from '../assets/man-headset.png';
 import manIsOK from '../assets/man-ok.png';
 import manInEnvironment from '../assets/man-environment.png';
@@ -10,7 +9,6 @@ import audioWaveWithDots from '../assets/audiowave-dots.png';
 import manIsSick from '../assets/man-temperature.png';
 import ButtonEDS from '../components/common/EDS/Button';
 import Indicators from '../components/common/molecules/Indicators';
-import { cloneDeep } from 'lodash';
 import { navigate } from '../navigation/service';
 
 const styles = StyleSheet.create({
@@ -23,16 +21,9 @@ const styles = StyleSheet.create({
 });
 
 export default class PreTestPage extends Component {
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = () => ({
     ...defaultNavOptions,
-    headerRight: (
-      <TouchableOpacity
-        onPress={() => navigation.navigate('SettingsRoute')}
-        style={{ paddingLeft: 15, paddingRight: 15 }}
-      >
-        <Icon name="md-more" color={colors.RED_LOGO} size={24} />
-      </TouchableOpacity>
-    ),
+    headerRight: null,
     headerLeft: null,
   });
 

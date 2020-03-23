@@ -30,9 +30,6 @@ function updateState(action) {
   };
 }
 
-// On storing the test, we add indexes to the subTests,
-// and we use this index to help navigating from one subTest to another.
-mockedTest.subTests.map((subTest, index) => ({ ...subTest, index }));
 describe('Test Test actions, reducers and selectors', () => {
   beforeEach(() => {
     state = { [stateKeys.TEST]: { ...defaultState } };

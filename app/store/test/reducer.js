@@ -1,10 +1,16 @@
 import { handleActions } from 'redux-actions';
 import _ from 'lodash';
 import {
+  appStartupInitFailed,
+  appStartupInitRequested,
+  appStartupInitSucceeded,
   failure,
   fetchTestFailed,
   fetchTestRequested,
   fetchTestSucceeded,
+  postTestFailed,
+  postTestRequested,
+  postTestSucceeded,
   startTest,
   stopTest,
   success,
@@ -65,6 +71,25 @@ function setNextNode(state, userResponse) {
 
 export default handleActions(
   {
+    [appStartupInitRequested]: state => ({
+      ...state,
+      fetching: true,
+    }),
+    [appStartupInitSucceeded]: state => {
+      return {
+        ...state,
+        error: { message: null, status: null },
+        fetching: false,
+      };
+    },
+    [appStartupInitFailed]: (state, action) => ({
+      ...state,
+      error: _.isEmpty(action.payload)
+        ? { message: action.payload.toString(), status: '' }
+        : action.payload,
+      fetching: false,
+    }),
+
     [fetchTestRequested]: state => ({
       ...state,
       test: {},
@@ -74,11 +99,31 @@ export default handleActions(
       return {
         ...state,
         test: action.payload,
+        error: { message: null, status: null },
         fetching: false,
       };
     },
-    [fetchTestFailed]: state => ({
+    [fetchTestFailed]: (state, action) => ({
       ...state,
+      error: action.payload,
+      fetching: false,
+    }),
+    [postTestRequested]: state => ({
+      ...state,
+      testResult: {},
+      fetching: true,
+    }),
+    [postTestSucceeded]: (state, action) => {
+      return {
+        ...state,
+        testResult: action.payload,
+        error: { message: null, status: null },
+        fetching: false,
+      };
+    },
+    [postTestFailed]: (state, action) => ({
+      ...state,
+      error: action.payload,
       fetching: false,
     }),
     [startTest]: state => {
@@ -104,7 +149,7 @@ export default handleActions(
     [failure]: (state, action) => setNextNode(state, { ...action.payload, success: false }),
   },
   {
-    error: { message: null, code: null },
+    error: { message: null, status: null },
     fetching: false,
     node: {},
     path: [],
@@ -122,3 +167,5 @@ export const selectTest = state => state[stateKeys.TEST].test;
 export const selectTestIsFinished = state => state[stateKeys.TEST].testIsFinished;
 export const selectTestIsRunning = state => state[stateKeys.TEST].testIsRunning;
 export const selectResults = state => state[stateKeys.TEST].results;
+export const selectTestResult = state => state[stateKeys.TEST].testResult;
+export const selectError = state => state[stateKeys.TEST].error;
