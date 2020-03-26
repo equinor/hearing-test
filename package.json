@@ -1,7 +1,7 @@
 {
   "name": "hearingtest",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Hearing Test - Customer: Waiter, waiter! There's a hearing aid in my soup. Waiter: Did you say anything?",
   "scripts": {
     "android": "react-native run-android",
