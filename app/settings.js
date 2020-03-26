@@ -8,6 +8,7 @@ export {
   ApiReleaseNoteUrl,
   HockeyAppIdentifier,
   BuildConfiguration,
+  BuildDate,
 } from './settings.json';
 
 export const getResource = name => Resources[name];

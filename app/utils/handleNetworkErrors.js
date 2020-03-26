@@ -8,6 +8,8 @@ const genericErrorMessage = 'An error happened';
 const processingErrorMessage = 'The API is having trouble processing this request.';
 
 export default function handleError(ex) {
+  // eslint-disable-next-line no-console
+  console.log(ex);
   if (ex.status === 400) {
     addToast({ text: invalidRequestMessage, type: 'ERROR' });
   } else if (ex.status === 401) {

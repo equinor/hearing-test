@@ -36,8 +36,8 @@ android {
         applicationId "com.equinor.hearingtest"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
-        versionName "0.0.1"
+        versionCode 3
+        versionName "0.0.2"
     }
     splits {
         abi {
@@ -69,6 +69,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-system-setting')
     implementation project(':react-native-sound')
     implementation project(':@react-native-community_netinfo')
     implementation project(':react-native-vector-icons')

@@ -8,8 +8,8 @@ function* fetchChangelog(action) {
     const response = yield call(api.getReleaseNote, action.payload);
     yield put(actions.fetchChangelogSucceeded(response));
   } catch (ex) {
-    // Posible that release does not have any release notes, and cause an error
-    // yield call(handelError, ex);
+    // Possible that release does not have any release notes, and cause an error
+    // yield call(handleError, ex);
     yield put(actions.fetchChangelogFailed());
   }
 }

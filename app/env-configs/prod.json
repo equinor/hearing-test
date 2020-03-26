@@ -5,10 +5,15 @@
   "AzureADRedirectUrl": "http://localhost",
   "HockeyAppIdentifier": "10000000000000000000000000000000",
   "BuildConfiguration": "Release",
+  "BuildDate": "Today",
   "Resources": {
-    "common": {
+    "mad": {
       "AzureADResourceId": "0a429637-3fe1-4452-bd95-c87923ba340b",
-      "ApiBaseUrl": "https://api.statoil.com/app/mad/prod/api/v1"
+      "ApiBaseUrl": "https://api.statoil.com/app/mad/api/v1"
+    },
+    "hearing": {
+      "AzureADResourceId": "4b062a04-58a6-4b24-96b3-0a01bc20ea15",
+      "ApiBaseUrl": "https://api.gateway.equinor.com/hearing/v1.0"
     }
   }
 }

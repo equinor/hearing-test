@@ -11,6 +11,7 @@ export default class BigRoundButton extends Component<{
     const { disabled, text, onPress } = this.props;
     return (
       <TouchableOpacity
+        testID="BigRoundButton"
         onPress={onPress}
         disabled={disabled}
         style={{

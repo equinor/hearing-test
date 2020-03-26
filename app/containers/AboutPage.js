@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import DeviceInfo from 'react-native-device-info';
-import { getResource, getConfiguredResources, BuildConfiguration } from '../settings';
+import { getResource, getConfiguredResources, BuildConfiguration, BuildDate } from '../settings';
 import AppInfo from '../components/AppInfo';
 import { defaultNavOptions } from '../navigation';
 
@@ -25,6 +25,7 @@ export default class AboutPage extends Component {
           { key: 'BuildConfig', label: 'Configuration', text: BuildConfiguration },
           { key: 'BuildNr', label: 'BuildNr', text: DeviceInfo.getBuildNumber().toString() },
           { key: 'AppVersion', label: 'App version', text: DeviceInfo.getReadableVersion() },
+          { key: 'BuildDate', label: 'Build Date', text: BuildDate },
         ],
       },
       {

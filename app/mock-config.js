@@ -1,5 +1,5 @@
 export default {
-  enabled: true,
+  enabled: false,
   mockAuthentication: false,
   mockApi: true,
   delay: 1500,

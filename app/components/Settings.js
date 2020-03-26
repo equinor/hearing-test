@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { SectionList, StyleSheet, View, Text } from 'react-native';
+import { SectionList, StyleSheet, Text, View } from 'react-native';
 // import HockeyApp from 'react-native-hockeyapp';
-import { track, metricKeys } from '../utils/metrics';
 import { Button, TextLink } from './common';
 import LogoutButton from './auth/LogoutButton';
 import * as Colors from '../stylesheets/colors';
-import { BuildConfiguration } from '../settings';
+import { navigate } from '../navigation/service';
 
 const styles = StyleSheet.create({
   page: {
@@ -83,10 +82,7 @@ export default class Settings extends Component {
   );
 
   feedBack = () => {
-    if (BuildConfiguration !== 'Dev') {
-      // HockeyApp.feedback();
-      track(metricKeys.FEEDBACK_CLICK);
-    }
+    navigate('FeedbackRoute');
   };
 
   ButtonItem = ({ item }) => {
