@@ -13,7 +13,7 @@
     },
     "hearing": {
       "AzureADResourceId": "4b062a04-58a6-4b24-96b3-0a01bc20ea15",
-      "ApiBaseUrl": "https://api.gateway.equinor.com/hearing/v1.0"
+      "ApiBaseUrl": "https://api.gateway.equinor.com/hearing/v1.0/api/v1"
     }
   }
 }
