@@ -32,7 +32,7 @@ steps:
   - bash: 'cp app/env-configs/test.json app/settings.json'
     displayName: "Setting test environment > settings.json"
 
-  - bash: 'sed -i.bak s/Today/"$(date)"/g app/settings.json'
+  - bash: 'sed -i.bak s/Today/"$(TZ=":Europe/Oslo" date)"/g app/settings.json'
     displayName: "Updating build-date in the about-page"
 
   - task: PlistPatch@3
