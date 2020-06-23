@@ -29,8 +29,13 @@
 
 @interface ADTokenCacheItem ()
 
-@property (readwrite) NSMutableDictionary * additionalClient;
 @property (readonly) NSDictionary * additionalServer;
+
+// Intune Enrollment ID. Application trying to retrieve access token from cache will need to present a valid intune enrollment ID to complete cache lookup.
+@property (nonatomic) NSString *enrollmentId;
+
+// Unique app identifier used for cases when access token storage needs to be partitioned per application
+@property (nonatomic) NSString *applicationIdentifier;
 
 @end
 
@@ -49,30 +54,8 @@
  */
 @property (readonly) NSString *speInfo;
 
-- (void)checkCorrelationId:(NSDictionary*)response
-      requestCorrelationId:(NSUUID*)requestCorrelationId;
-
-- (ADAuthenticationResult *)processTokenResponse:(NSDictionary *)response
-                                fromRefreshToken:(ADTokenCacheItem *)refreshToken
-                            requestCorrelationId:(NSUUID*)requestCorrelationId
-                                    fieldToCheck:(NSString*)fieldToCheck;
-
-- (ADAuthenticationResult *)processTokenResponse:(NSDictionary *)response
-                                fromRefreshToken:(ADTokenCacheItem *)refreshToken
-                            requestCorrelationId:(NSUUID*)requestCorrelationId;
-
-/*!
-    Fills out the cache item with the given response dictionary
- 
-    @return Whether the resulting item is a Multi Resource Refresh Token
- */
-- (BOOL)fillItemWithResponse:(NSDictionary*)response;
-
 - (void)logMessage:(NSString *)message
-             level:(ADAL_LOG_LEVEL)level
+             level:(MSIDLogLevel)level
      correlationId:(NSUUID*)correlationId;
-
-/*! Return YES only if the item contains an access token and ext_expires_in in additionalServer has not expired. */
-- (BOOL)isExtendedLifetimeValid;
 
 @end

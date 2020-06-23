@@ -5,16 +5,29 @@
 | [Code Samples](https://github.com/azure-samples?utf8=✓&q=active-directory-ios) | [Reference Docs](http://cocoadocs.org/docsets/ADAL/) | [Developer Guide](https://aka.ms/aaddev)
 | --- | --- | --- |
 
+## Note
+
+In the near future, ADAL will be deprecated in favor of MSAL. At the current point, we are only adding new features to MSAL library, and only providing security fixes for ADAL. 
+
+- If you're building a new app, we strongly recommend to adopt MSAL directly.
+- If you have an existing app, please plan to migrate to MSAL shortly. 
+
+Please open an issue and/or feature request in MSAL, if there's anything that would block you from migrating to MSAL.
+MSAL library repository: [https://github.com/AzureAD/microsoft-authentication-library-for-objc](https://github.com/AzureAD/microsoft-authentication-library-for-objc)
+
 ## Release Versions
 
 We recommend remaining up-to-date with the latest version of ADAL. The best place to check what the most recent version is is the [releases page](https://github.com/AzureAD/azure-activedirectory-library-for-objc/releases) on GitHub, you can also subscribe the the [Atom Feed](https://github.com/AzureAD/azure-activedirectory-library-for-objc/releases.atom) from GitHub, or use a 3rd party tool like [Sibbell](https://sibbell.com/about/) to receive emails when a new version is released.
 
 The only approved way to get the latest version is through a tagged release on GitHub, or a tool that relies on that data. Tools like [CocoaPods](https://cocoapods.org) can make it easier to set up your project dependencies and update to the latest release. ADAL follows the [GitFlow branching model](http://danielkummer.github.io/git-flow-cheatsheet/). You should never pull an ADAL version for release from any branch other then master, any other branch is for versions of ADAL still in development or testing, and are subject to change.
 
-NOTE: To work with iOS 10 you must have at least version 2.2.5, or 1.2.9.
+NOTE:
+
+* To work with iOS 10 you must have at least version 2.2.5, or 1.2.9.
+* To work with iOS 11.3-12.4 you must have at least version 2.6.3.
+* To work with iOS 13+ (when built with Xcode 11) you must have at least version 2.7.14 or 4.0.2
 
 =====================================
-
 
 [![Build Status](https://travis-ci.org/AzureAD/azure-activedirectory-library-for-objc.svg?branch=1.2.x)](https://travis-ci.org/AzureAD/azure-activedirectory-library-for-objc)
 
@@ -74,16 +87,23 @@ We've made it easy for you to have multiple options to use this library in your 
     git add adal
     git commit -m "Use ADAL git submodule at <latest_release_tag>"
     git push
-    
+
 We recommend only syncing to specific release tags to make sure you're at a known good point. We will not support versions of ADAL between release tags.
 
 ### Option 2: Cocoapods
 
 You can use CocoaPods to remain up to date with ADAL within a specific major version. Include the following line in your podfile:
 
-    pod 'ADAL', '~> 2.2'
-    
+    pod 'ADAL', '~> 2.7'
+
 You then you can run either `pod install` (if it's a new PodFile) or `pod update` (if it's an existing PodFile) to get the latest version of ADAL. Subsequent calls to `pod update` will update to the latest released version of ADAL as well.
+
+ADAL is using submodules, so if you're using a specific branch of ADAL in your Podfile, you need to enable submodules, e.g.
+
+```
+pod 'ADAL', :git => 'https://github.com/AzureAD/azure-activedirectory-library-for-objc', :branch => 'branch-name', :submodules => true
+
+```
 
 See [CocoaPods](https://cocoapods.org) for more information on setting up a PodFile
 
@@ -105,11 +125,10 @@ Click on your project in the Navigator pane in Xcode. Click on your application 
 then the "Capabilities" tab. Scroll down to "Keychain Sharing" and flip the switch on. Add
 "com.microsoft.adalcache" to that list.
 
-Alternatively you can disable keychain sharing by setting the keychain sharing group to nil.
-your application's bundle id.
+Alternatively you can disable keychain sharing by setting the keychain sharing group to nil or your application's bundle id.
 
 ```Objective-C
-    [[ADAuthenticationSettings sharedInstance] setSharedCacheKeychainGroup:nil];
+    [[ADAuthenticationSettings sharedInstance] setDefaultKeychainGroup:nil];
 ```
 
 ##### Inspecting the Cache
@@ -217,12 +236,13 @@ ADAL uses URLs to invoke the broker and then return back to your app. To finish 
 ```
 
 #### LSApplicationQueriesSchemes
-ADAL uses –canOpenURL: to check if the broker is installed on the device. in iOS 9 Apple locked down what schemes an application can query for. You will need to add “msauth” to the LSApplicationQueriesSchemes section of your info.plist file.
+ADAL uses –canOpenURL: to check if the broker is installed on the device. in iOS 9 Apple locked down what schemes an application can query for. You will need to add “msauth” and "msauthv3" to the LSApplicationQueriesSchemes section of your info.plist file. Note that "msauthv3" scheme is needed when compiling with Xcode 11+. 
 
 ```
 <key>LSApplicationQueriesSchemes</key>
 <array>
      <string>msauth</string>
+     <string>msauthv3</string>
 </array>
 ````
 
@@ -241,9 +261,26 @@ msauth://code/<broker-redirect-uri-in-url-encoded-form>
 ex: msauth://code/x-msauth-mytestiosapp%3A%2F%2Fcom.microsoft.mytestiosapp
 ```
 
-### Caching
+#### iOS 13 support
 
-####
+**If you adopted UISceneDelegate, you must also add an ADAL callback into the `scene:openURLContexts:` method**.
+
+This is needed so that ADAL can get a response from the Microsoft Authenticator application. 
+
+For example:
+
+```objc
+ - (void)scene:(UIScene *)scene openURLContexts:(NSSet<UIOpenURLContext *> *)URLContexts
+ {
+     UIOpenURLContext *context = URLContexts.anyObject;
+     NSURL *url = context.URL;
+     NSString *sourceApplication = context.options.sourceApplication;
+     
+     [ADAuthenticationContext handleADALResponse:url sourceApplication:sourceApplication];
+ }
+```
+
+If you're not using UISceneDelegate functionality yet, you can ignore this step. 
 
 
 ### Diagnostics
@@ -306,8 +343,8 @@ To set the logging level in your application call +[ADLogger setLevel:]
 
 ```Objective-C
 [ADLogger setLevel:ADAL_LOG_LEVEL_INFO]
- ```
- 
+```
+
 #### Network Traces
 
 You can use various tools to capture the HTTP traffic that ADAL generates.  This is most
@@ -347,7 +384,7 @@ your application, or disable keychain sharing by passing in your application's b
 in ADAuthenticationSettings:
 
 ```Objective-C
-    [[ADAuthenticationSettings sharedInstance] setSharedCacheKeychainGroup:nil];
+    [[ADAuthenticationSettings sharedInstance] setDefaultKeychainGroup:nil];
 ```
 
 **ADAL keeps returning SSL errors in iOS 9 and later**
