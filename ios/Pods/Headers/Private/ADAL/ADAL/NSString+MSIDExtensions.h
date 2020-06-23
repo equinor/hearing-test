@@ -1,0 +1,1 @@
+../../../../ADAL/ADAL/IdentityCore/IdentityCore/src/util/NSString+MSIDExtensions.h

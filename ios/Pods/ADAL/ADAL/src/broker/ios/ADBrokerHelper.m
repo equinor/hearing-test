@@ -23,11 +23,8 @@
 
 #import <objc/runtime.h>
 
-#import "NSDictionary+ADExtensions.h"
-
 #import "ADBrokerHelper.h"
 #import "ADBrokerNotificationManager.h"
-#import "ADOAuth2Constants.h"
 #import "ADWebAuthController+Internal.h"
 #import "ADAppExtensionUtil.h"
 #import "ADAuthenticationContext+Internal.h"
@@ -43,7 +40,7 @@ BOOL __swizzle_ApplicationOpenURL(id self, SEL _cmd, UIApplication* application,
     if ([ADAuthenticationContext canHandleResponse:url sourceApplication:sourceApplication])
     {
         // Attempt to handle response from broker
-        BOOL result = [ADAuthenticationContext handleBrokerResponse:url];
+        BOOL result = [ADAuthenticationContext handleBrokerResponse:url sourceApplication:sourceApplication];
 
         if (result)
         {
@@ -52,7 +49,7 @@ BOOL __swizzle_ApplicationOpenURL(id self, SEL _cmd, UIApplication* application,
         }
     }
     
-    AD_LOG_INFO(nil, @"This url cannot be handled by ADAL. Skipping it.");
+    MSID_LOG_INFO(nil, @"This url cannot be handled by ADAL. Skipping it.");
 
     // Fallback to original delegate if defined
     if (__original_ApplicationOpenURL)
@@ -79,7 +76,7 @@ BOOL __swizzle_ApplicationOpenURLiOS9(id self, SEL _cmd, UIApplication* applicat
     if ([ADAuthenticationContext canHandleResponse:url sourceApplication:sourceApplication])
     {
         // Attempt to handle response from broker
-        BOOL result = [ADAuthenticationContext handleBrokerResponse:url];
+        BOOL result = [ADAuthenticationContext handleBrokerResponse:url sourceApplication:sourceApplication];
 
         if (result)
         {
@@ -88,7 +85,7 @@ BOOL __swizzle_ApplicationOpenURLiOS9(id self, SEL _cmd, UIApplication* applicat
         }
     }
     
-    AD_LOG_INFO(nil, @"This url cannot be handled by ADAL. Skipping it.");
+    MSID_LOG_INFO(nil, @"This url cannot be handled by ADAL. Skipping it.");
 
     // Fallback to original delegate if defined
     if (__original_ApplicationOpenURLiOS9)
@@ -204,8 +201,27 @@ BOOL __swizzle_ApplicationOpenURLiOS9(id self, SEL _cmd, UIApplication* applicat
     
     if (![ADAppExtensionUtil isExecutingInAppExtension])
     {
-        // Verify broker app url can be opened
-        return [[ADAppExtensionUtil sharedApplication] canOpenURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@://broker", ADAL_BROKER_SCHEME]]];
+        BOOL brokerPresent = [[ADAppExtensionUtil sharedApplication] canOpenURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@://broker", ADAL_BROKER_SCHEME]]];
+        
+        if (!brokerPresent)
+        {
+            MSID_LOG_INFO(nil, @"No broker is present on device");
+            return NO;
+        }
+        
+        if (@available(iOS 13.0, *))
+        {
+            BOOL newBrokerPresent = [[ADAppExtensionUtil sharedApplication] canOpenURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@://broker", ADAL_BROKER_NONCE_SCHEME]]];
+            
+            if (!newBrokerPresent)
+            {
+                MSID_LOG_INFO(nil, @"Broker is present on the device, but it doesn't satisfy minimum required version");
+            }
+            
+            return newBrokerPresent;
+        }
+        
+        return YES;
     }
     else
     {
@@ -258,7 +274,7 @@ BOOL __swizzle_ApplicationOpenURLiOS9(id self, SEL _cmd, UIApplication* applicat
     }
     
     NSString* query = [redirectURL query];
-    NSDictionary* queryParams = [NSDictionary adURLFormDecode:query];
+    NSDictionary* queryParams = [NSDictionary msidDictionaryFromWWWFormURLEncodedString:query];
     NSString* appURLString = [queryParams objectForKey:@"app_link"];
     __block NSURL* appURL = [NSURL URLWithString:appURLString];
                         

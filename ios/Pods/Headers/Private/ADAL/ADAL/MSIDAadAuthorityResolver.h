@@ -1,0 +1,1 @@
+../../../../ADAL/ADAL/IdentityCore/IdentityCore/src/validation/MSIDAadAuthorityResolver.h
