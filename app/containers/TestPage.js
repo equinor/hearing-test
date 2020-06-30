@@ -79,6 +79,9 @@ class TestPage extends Component {
     Sound.setCategory('Playback');
     Sound.setMode('Measurement');
     Sound.setActive(true);
+
+    // Pre-load audio file from `assets/audio`
+    this.silentAudioClip = new Sound('1000Hz_dobbel.wav', Sound.MAIN_BUNDLE);
   }
 
   state = {
@@ -100,6 +103,8 @@ class TestPage extends Component {
     }
     if (this.props.testIsFinished !== prevProps.testIsFinished) {
       if (this.props.testIsFinished) {
+        this.stopSilentAudioClip();
+        Sound.setActive(false);
         this.props.actionPostTest(this.props.test);
         navigate('TestResultRoute');
       }
@@ -109,9 +114,6 @@ class TestPage extends Component {
   onSwipeUp() {
     this.hideAbortTestSection();
   }
-
-  timer: number;
-  clickRegisteredTimeoutId: number;
 
   registerPress(node) {
     this.showClickFeedbackMessage();
@@ -151,6 +153,7 @@ class TestPage extends Component {
   }
 
   abortTest() {
+    this.stopSilentAudioClip();
     Sound.setActive(false);
     clearInterval(this.state.intervalId);
     this.props.actionStopTest();
@@ -187,7 +190,23 @@ class TestPage extends Component {
     });
   }
 
+  playSilentAudioClip() {
+    if (!this.isPlayingSilentAudioClip) {
+      this.isPlayingSilentAudioClip = true;
+      this.silentAudioClip.setVolume(0);
+      this.silentAudioClip.setNumberOfLoops(-1);
+      this.silentAudioClip.play();
+    }
+  }
+
+  stopSilentAudioClip() {
+    this.isPlayingSilentAudioClip = false;
+    this.silentAudioClip.stop();
+    this.silentAudioClip.release();
+  }
+
   runNode(node) {
+    this.playSilentAudioClip();
     if (node && node.data && node.data.sound) {
       // Load the audio for current node
       // and wait with starting the node-timer until the sound is ready.
@@ -212,11 +231,9 @@ class TestPage extends Component {
           const intervalId = setInterval(() => {
             const { postDelayMs, preDelayMs } = node.data;
 
-            if (this.timer > preDelayMs) {
-              if (!soundHasBeenPlayed) {
-                this.playAudioTest(node.data, sound);
-                soundHasBeenPlayed = true;
-              }
+            if (this.timer > preDelayMs && !soundHasBeenPlayed) {
+              this.playAudioTest(node.data, sound);
+              soundHasBeenPlayed = true;
             }
             if (this.timer < preDelayMs + postDelayMs) {
               this.timer = new Date() - startTime;
