@@ -39,6 +39,8 @@ NSString *const AD_FAILED_NO_CONTROLLER = @"The Application does not have a curr
     id _foregroundObserver;
 }
 
+@property (nonatomic) BOOL presentInParentController;
+
 @end
 
 @implementation ADAuthenticationViewController
@@ -62,6 +64,7 @@ NSString *const AD_FAILED_NO_CONTROLLER = @"The Application does not have a curr
     // hijack the delegate on the webview.
     if (_webView)
     {
+        self.presentInParentController = NO;
         _webView.delegate = self;
         return YES;
     }
@@ -95,7 +98,7 @@ NSString *const AD_FAILED_NO_CONTROLLER = @"The Application does not have a curr
     [webView setDelegate:self];
     [rootView addSubview:webView];
     _webView = webView;
-
+    webView.accessibilityIdentifier = @"ADAL_SIGN_IN_WEBVIEW";
     _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     [_activityIndicator setColor:[UIColor blackColor]];
     [_activityIndicator setCenter:rootView.center];
@@ -107,6 +110,8 @@ NSString *const AD_FAILED_NO_CONTROLLER = @"The Application does not have a curr
                                                                                   target:self
                                                                                   action:@selector(onCancel:)];
     self.navigationItem.leftBarButtonItem = cancelButton;
+    
+    self.presentInParentController = YES;
 
     return YES;
 }
@@ -137,9 +142,17 @@ NSString *const AD_FAILED_NO_CONTROLLER = @"The Application does not have a curr
 
     //if webview is created by us, dismiss and then complete and return;
     //otherwise just complete and return.
-    if (_parentController)
+    if (_parentController && self.presentInParentController)
     {
-        [_parentController dismissViewControllerAnimated:YES completion:completion];
+        if (_parentController.parentViewController && _parentController.presentedViewController)
+        {
+            [_parentController dismissViewControllerAnimated:YES completion:completion];
+        }
+        else
+        {
+            [_parentController dismissViewControllerAnimated:NO completion:nil];
+            completion();
+        }
     }
     else
     {
@@ -153,6 +166,8 @@ NSString *const AD_FAILED_NO_CONTROLLER = @"The Application does not have a curr
 - (void)startRequest:(NSURLRequest *)request
 {
     [self loadRequest:request];
+    
+    if (!self.presentInParentController) return;
 
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self];
 
@@ -163,6 +178,13 @@ NSString *const AD_FAILED_NO_CONTROLLER = @"The Application does not have a curr
     else
     {
         [navController setModalPresentationStyle:UIModalPresentationFormSheet];
+        
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+        if (@available(iOS 13.0, *))
+        {
+            [navController setModalInPresentation:YES];
+        }
+#endif
     }
 
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -228,7 +250,7 @@ NSString *const AD_FAILED_NO_CONTROLLER = @"The Application does not have a curr
                                                                      queue:nil
                                                                 usingBlock:^(__unused NSNotification *notification)
                    {
-                       AD_LOG_VERBOSE(nil, @"Application will resign active");
+                       MSID_LOG_VERBOSE(nil, @"Application will resign active");
                        [self startTrackingForegroundAppTransition];
                        [self startBackgroundTask];
                    }];
@@ -238,7 +260,7 @@ NSString *const AD_FAILED_NO_CONTROLLER = @"The Application does not have a curr
 {
     if (_bgObserver)
     {
-        AD_LOG_VERBOSE(nil, @"Stop background application tracking");
+        MSID_LOG_VERBOSE(nil, @"Stop background application tracking");
         [[NSNotificationCenter defaultCenter] removeObserver:_bgObserver];
         _bgObserver = nil;
     }
@@ -256,7 +278,7 @@ NSString *const AD_FAILED_NO_CONTROLLER = @"The Application does not have a curr
                                                                              queue:nil
                                                                         usingBlock:^(__unused NSNotification * _Nonnull note) {
 
-                                                                            AD_LOG_VERBOSE(nil, @"Application did become active");
+                                                                            MSID_LOG_VERBOSE(nil, @"Application did become active");
                                                                             [self stopBackgroundTask];
                                                                             [self stopTrackingForegroundAppTransition];
                                                                         }];
@@ -266,7 +288,7 @@ NSString *const AD_FAILED_NO_CONTROLLER = @"The Application does not have a curr
 {
     if (_foregroundObserver)
     {
-        AD_LOG_VERBOSE(nil, @"Stop foreground application tracking");
+        MSID_LOG_VERBOSE(nil, @"Stop foreground application tracking");
 
         [[NSNotificationCenter defaultCenter] removeObserver:_foregroundObserver];
         _foregroundObserver = nil;
@@ -286,11 +308,11 @@ NSString *const AD_FAILED_NO_CONTROLLER = @"The Application does not have a curr
         return;
     }
 
-    AD_LOG_INFO(nil, @"Start background app task");
+    MSID_LOG_INFO(nil, @"Start background app task");
 
     _bgTask = [[ADAppExtensionUtil sharedApplication] beginBackgroundTaskWithName:@"Interactive login"
                                                                 expirationHandler:^{
-                                                                    AD_LOG_INFO(nil, @"Background task expired");
+                                                                    MSID_LOG_INFO(nil, @"Background task expired");
                                                                     [self stopBackgroundTask];
                                                                     [self stopTrackingForegroundAppTransition];
                                                                 }];
@@ -304,7 +326,7 @@ NSString *const AD_FAILED_NO_CONTROLLER = @"The Application does not have a curr
         return;
     }
 
-    AD_LOG_INFO(nil, @"Stop background task");
+    MSID_LOG_INFO(nil, @"Stop background task");
     [[ADAppExtensionUtil sharedApplication] endBackgroundTask:_bgTask];
     _bgTask = UIBackgroundTaskInvalid;
 }

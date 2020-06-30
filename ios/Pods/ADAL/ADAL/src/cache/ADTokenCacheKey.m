@@ -26,7 +26,12 @@
 #import "ADAuthenticationContext.h"
 #import "ADHelpers.h"
 #import "ADTokenCacheKey.h"
-#import "NSString+ADHelperMethods.h"
+
+@interface ADTokenCacheKey()
+
+@property (readwrite) NSString *applicationIdentifier;
+
+@end
 
 @implementation ADTokenCacheKey
 
@@ -58,9 +63,22 @@
     return self;
 }
 
++ (ADTokenCacheKey *)keyWithAuthority:(NSString *)authority
+                             resource:(NSString *)resource
+                             clientId:(NSString *)clientId
+                                error:(ADAuthenticationError * __autoreleasing *)error
+{
+    return [ADTokenCacheKey keyWithAuthority:authority
+                                    resource:resource
+                                    clientId:clientId
+                               appIdentifier:nil
+                                       error:error];
+}
+
 + (id)keyWithAuthority:(NSString *)authority
               resource:(NSString *)resource
               clientId:(NSString *)clientId
+         appIdentifier:(NSString *)appIdentifier
                  error:(ADAuthenticationError * __autoreleasing *)error
 {
     API_ENTRY;
@@ -68,12 +86,13 @@
     // needed to ensure that the cache handles correctly same items with different
     // character case:
     authority = [ADHelpers canonicalizeAuthority:authority];
-    resource = resource.adTrimmedString.lowercaseString;
-    clientId = clientId.adTrimmedString.lowercaseString;
+    resource = resource.msidTrimmedString.lowercaseString;
+    clientId = clientId.msidTrimmedString.lowercaseString;
     RETURN_NIL_ON_NIL_ARGUMENT(authority);
     RETURN_NIL_ON_NIL_EMPTY_ARGUMENT(clientId);
     
     ADTokenCacheKey* key = [[ADTokenCacheKey alloc] initWithAuthority:authority resource:resource clientId:clientId];
+    key.applicationIdentifier = appIdentifier;
     return key;
 }
 
@@ -157,7 +176,7 @@
 
 - (ADTokenCacheKey *)mrrtKey
 {
-    return [[self class] keyWithAuthority:_authority resource:nil clientId:_clientId error:nil];
+    return [[self class] keyWithAuthority:_authority resource:nil clientId:_clientId appIdentifier:nil error:nil];
 }
 
 @end

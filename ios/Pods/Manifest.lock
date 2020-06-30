@@ -1,9 +1,9 @@
 PODS:
-  - ADAL (2.6.10):
-    - ADAL/app-lib (= 2.6.10)
-  - ADAL/app-lib (2.6.10):
+  - ADAL (2.7.18):
+    - ADAL/app-lib (= 2.7.18)
+  - ADAL/app-lib (2.7.18):
     - ADAL/tokencacheheader
-  - ADAL/tokencacheheader (2.6.10)
+  - ADAL/tokencacheheader (2.7.18)
   - RCTSystemSetting (1.7.4):
     - React
   - React (0.59.10):
@@ -28,7 +28,7 @@ PODS:
   - yoga (0.59.10.React)
 
 DEPENDENCIES:
-  - ADAL (~> 2.6.3)
+  - ADAL (~> 2.7.16)
   - RCTSystemSetting (from `../node_modules/react-native-system-setting`)
   - React (from `../node_modules/react-native`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
@@ -41,9 +41,10 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
-    - ADAL
     - SDWebImage
     - TrustKit
+  trunk:
+    - ADAL
 
 EXTERNAL SOURCES:
   RCTSystemSetting:
@@ -62,7 +63,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  ADAL: 2e61915209c39974d6dd5f38d24a9792c58243e8
+  ADAL: d2ca059f15688c96c05ac16d25ba87d581a777b7
   RCTSystemSetting: f3123e7de51bf918bc4243167ba2885a72bf09ec
   React: 36d0768f9e93be2473b37e7fa64f92c1d5341eef
   react-native-netinfo: 3dd993921571d01b78a8f91f1caaffcab7a1e1c7
@@ -73,6 +74,6 @@ SPEC CHECKSUMS:
   TrustKit: c3d01e1dcc1d76c095efad63be70bbb6b57eed08
   yoga: 684513b14b03201579ba3cee20218c9d1298b0cc
 
-PODFILE CHECKSUM: 62f4f391e46dc31cbdbceba4d92f33001d4b176e
+PODFILE CHECKSUM: 2f10464e668bb82346a6f58a0c6d7ef4bf008827
 
 COCOAPODS: 1.8.4

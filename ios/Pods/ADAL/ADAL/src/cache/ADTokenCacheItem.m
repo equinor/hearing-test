@@ -24,15 +24,11 @@
 #import "ADAL_Internal.h"
 #import "ADTokenCacheItem.h"
 #import "ADUserInformation.h"
-#import "ADOAuth2Constants.h"
 #import "ADAuthenticationSettings.h"
 #import "ADTokenCacheKey.h"
 #import "ADTokenCacheItem+Internal.h"
 
 @implementation ADTokenCacheItem
-{
-    NSString *_storageAuthority;
-}
 
 @synthesize accessToken = _accessToken;
 @synthesize accessTokenType = _accessTokenType;
@@ -57,16 +53,16 @@
 
 - (void)calculateHash
 {
-    _hash = [[NSString stringWithFormat:@"%@%@%@%@", _resource, _authority, _clientId, _userInformation.userId] hash];
+    _hash = [[NSString stringWithFormat:@"%@%@%@%@%@", _resource, _authority, _clientId, _userInformation.userId, _applicationIdentifier] hash];
 }
 
 //Multi-resource refresh tokens are stored separately, as they apply to all resources. As such,
 //we create a special, "broad" cache item, with nil resource and access token:
 - (BOOL)isMultiResourceRefreshToken
 {
-    return [NSString adIsStringNilOrBlank:_resource]
-        && [NSString adIsStringNilOrBlank:_accessToken]
-       && ![NSString adIsStringNilOrBlank:_refreshToken];
+    return [NSString msidIsStringNilOrBlank:_resource]
+        && [NSString msidIsStringNilOrBlank:_accessToken]
+       && ![NSString msidIsStringNilOrBlank:_refreshToken];
 }
 
 - (id)copyWithZone:(NSZone*) zone
@@ -83,7 +79,6 @@
     item->_expiresOn = [_expiresOn copyWithZone:zone];
     item->_userInformation = [_userInformation copyWithZone:zone];
     item->_sessionKey = [_sessionKey copyWithZone:zone];
-    item->_additionalClient = [_additionalClient mutableCopyWithZone:zone];
     item->_additionalServer = [_additionalServer copyWithZone:zone];
     
     [item calculateHash];
@@ -98,12 +93,14 @@
         return [ADTokenCacheKey keyWithAuthority:_storageAuthority
                                         resource:_resource
                                         clientId:_clientId
+                                   appIdentifier:_applicationIdentifier
                                            error:error];
     }
     
     return [ADTokenCacheKey keyWithAuthority:_authority
                                     resource:_resource
                                     clientId:_clientId
+                               appIdentifier:_applicationIdentifier
                                        error:error];
 }
 
@@ -143,8 +140,9 @@
     [aCoder encodeObject:_sessionKey forKey:@"sessionKey"];
     [aCoder encodeObject:_expiresOn forKey:@"expiresOn"];
     [aCoder encodeObject:_userInformation forKey:@"userInformation"];
-    [aCoder encodeObject:_additionalClient forKey:@"additionalClient"];
     [aCoder encodeObject:_additionalServer forKey:@"additionalServer"];
+    [aCoder encodeObject:_enrollmentId forKey:@"enrollmentId"];
+    [aCoder encodeObject:_applicationIdentifier forKey:@"applicationIdentifier"];
 }
 
 //Deserializer:
@@ -167,8 +165,9 @@
     _refreshToken = [aDecoder decodeObjectOfClass:[NSString class] forKey:@"refreshToken"];
     _expiresOn = [aDecoder decodeObjectOfClass:[NSDate class] forKey:@"expiresOn"];
     _userInformation = [aDecoder decodeObjectOfClass:[ADUserInformation class] forKey:@"userInformation"];
-    _additionalClient = [aDecoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"additionalClient"];
     _additionalServer = [aDecoder decodeObjectOfClass:[NSDictionary class] forKey:@"additionalServer"];
+    _enrollmentId = [aDecoder decodeObjectOfClass:[NSString class] forKey:@"enrollmentId"];
+    _applicationIdentifier = [aDecoder decodeObjectOfClass:[NSString class] forKey:@"applicationIdentifier"];
     
     [self calculateHash];
     
@@ -206,8 +205,9 @@
     result &= [self.expiresOn isEqualToDate:rhs.expiresOn] || (self.expiresOn == rhs.expiresOn);
     result &= [self.userInformation isEqual:rhs.userInformation]  || (self.userInformation == rhs.userInformation);
     result &= [self.sessionKey isEqualToData:rhs.sessionKey] || (self.sessionKey == rhs.sessionKey);
-    result &= [self.additionalClient isEqualToDictionary:rhs.additionalClient] || (self.additionalClient == rhs.additionalClient);
     result &= [self.additionalServer isEqualToDictionary:rhs.additionalServer] || (self.additionalServer == rhs.additionalServer);
+    result &= [self.enrollmentId isEqualToString:rhs.enrollmentId] || (self.enrollmentId == rhs.enrollmentId);
+    result &= [self.applicationIdentifier isEqualToString:rhs.applicationIdentifier] || (self.applicationIdentifier == rhs.applicationIdentifier);
 
     return result;
 }
@@ -216,8 +216,8 @@
 {
     return [NSString stringWithFormat:@"(authority=%@ clientId=%@ accessToken=%@ accessTokenType=%@ refreshToken=%@ resource=%@)",
             _authority, _clientId,
-            [NSString adIsStringNilOrBlank:_accessToken] ? @"(nil)" : [ADLogger getHash:_accessToken], _accessTokenType,
-            [NSString adIsStringNilOrBlank:_refreshToken] ? @"(nil)" : [ADLogger getHash:_refreshToken], _resource];
+            [NSString msidIsStringNilOrBlank:_accessToken] ? @"(nil)" : [_accessToken msidTokenHash], _accessTokenType,
+            [NSString msidIsStringNilOrBlank:_refreshToken] ? @"(nil)" : [_refreshToken msidTokenHash], _resource];
 }
 
 - (NSString *)clientId

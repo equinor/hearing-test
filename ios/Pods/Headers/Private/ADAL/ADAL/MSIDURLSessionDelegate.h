@@ -1,0 +1,1 @@
+../../../../ADAL/ADAL/IdentityCore/IdentityCore/src/network/session_delegate/MSIDURLSessionDelegate.h
