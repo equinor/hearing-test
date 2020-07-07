@@ -36,7 +36,7 @@ steps:
   - bash: 'sed -i.bak s/Today/"$(TZ=":Europe/Oslo" date)"/g app/settings.json'
     displayName: "Updating build-date in the about-page"
 
-  - task: PlistPatch@3
+  - task: PlistPatch@4
     inputs:
       SyntaxType: 'slick'
       PlistWorkingDir: 'ios/madapp'
