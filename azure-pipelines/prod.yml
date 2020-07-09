@@ -34,6 +34,16 @@ steps:
   - bash: 'sed -i.bak s/Today/"$(TZ=":Europe/Oslo" date)"/g app/settings.json'
     displayName: "Updating build-date in the about-page"
 
+  - task: PlistPatch@4
+    inputs:
+      SyntaxType: 'slick'
+      PlistWorkingDir: 'ios/madapp'
+      PlistTargetFilters: 'Info.plist'
+      PlistPatchContent: '= /CFBundleDisplayName => "$(DisplayName)"'
+      OutputPatchFile: true
+      FailIfNoPatchApplied: true
+      TreatErrors: 'ERROR'
+
   - task: UseNode@1
     displayName: 'Specifying Node version'
 
