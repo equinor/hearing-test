@@ -49,8 +49,8 @@ steps:
   - task: UseNode@1
     displayName: 'Specifying Node version'
 
-  - bash: 'npm i'
-    displayName: 'Installing JS dependencies with NPM'
+  - bash: 'npm install --production'
+    displayName: 'Installing JS prod dependencies with NPM'
 
   - task: InstallAppleCertificate@2
     displayName: 'Install Apple certificate - dd.mm.2021'
