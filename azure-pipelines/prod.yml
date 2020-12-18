@@ -47,6 +47,9 @@ steps:
   - task: UseNode@1
     displayName: 'Specifying Node version'
 
+  - bash: "cat <<< $(jq 'del(.devDependencies.detox)' package.json) > package.json"
+    displayName: "Remove Detox devDependency ( Since npm install production for some reason makes the xcode build crash in devops (ツ)_/¯"
+
   - bash: 'npm i'
     displayName: 'Installing JS dependencies with NPM'
 
@@ -67,6 +70,7 @@ steps:
       actions: 'build'
       xcWorkspacePath: 'ios/madapp.xcworkspace'
       scheme: 'madapp'
+      xcodeVersion: '11'
       packageApp: true
       exportPath: '$(agent.builddirectory)/output/$(SDK)/$(BuildConfiguration)'
       signingOption: 'manual'
@@ -84,7 +88,7 @@ steps:
   - task: PublishBuildArtifacts@1
     displayName: 'Publishing the Artifact: drop'
 
-  - bash: 'mv $(build.artifactstagingdirectory)/$(BuildConfiguration)/madapp.ipa $(build.artifactstagingdirectory)/$(BuildConfiguration)/$(appName)-$(BuildConfiguration).ipa'
+  - bash: 'mv $(build.artifactstagingdirectory)/$(BuildConfiguration)/hearingtest.ipa $(build.artifactstagingdirectory)/$(BuildConfiguration)/$(appName)-$(BuildConfiguration).ipa'
     displayName: 'Rename app to $(appName)-$(BuildConfiguration)'
 
 

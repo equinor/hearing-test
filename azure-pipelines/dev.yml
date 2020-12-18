@@ -49,8 +49,11 @@ steps:
   - task: UseNode@1
     displayName: 'Specifying Node version'
 
-  - bash: 'npm install --production'
-    displayName: 'Installing JS prod dependencies with NPM'
+  - bash: "cat <<< $(jq 'del(.devDependencies.detox)' package.json) > package.json"
+    displayName: "Remove Detox devDependency ( Since npm install production for some reason makes the xcode build crash in devops (ツ)_/¯"
+
+  - bash: 'npm install'
+    displayName: 'Installing JS dependencies with NPM'
 
   - task: InstallAppleCertificate@2
     displayName: 'Install Apple certificate - dd.mm.2021'
@@ -87,7 +90,8 @@ steps:
   - task: PublishBuildArtifacts@1
     displayName: 'Publishing the Artifact: drop'
 
-  - bash: 'mv $(build.artifactstagingdirectory)/$(BuildConfiguration)/madapp.ipa $(build.artifactstagingdirectory)/$(BuildConfiguration)/$(appName)-$(BuildConfiguration).ipa'
+
+  - bash: 'mv $(build.artifactstagingdirectory)/$(BuildConfiguration)/hearingtest.ipa $(build.artifactstagingdirectory)/$(BuildConfiguration)/$(appName)-$(BuildConfiguration).ipa'
     displayName: 'Rename app to $(appName)-$(BuildConfiguration)'
 
 
