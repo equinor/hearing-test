@@ -160,11 +160,12 @@ class TestPage extends Component {
     navigate('DefaultRoute');
   }
 
-  nodeFinished() {
+  async nodeFinished() {
     const payload = {
       reactionTimeMs: this.state.reactionTimeMs,
       numberOfClicks: this.state.numberOfPresses,
       success: this.state.success,
+      systemVolume: await SystemSetting.getVolume(),
     };
     if (this.state.success) {
       this.props.actionSuccess(payload);
