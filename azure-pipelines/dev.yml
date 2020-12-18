@@ -69,6 +69,7 @@ steps:
       actions: 'build'
       xcWorkspacePath: 'ios/madapp.xcworkspace'
       scheme: 'madapp'
+      xcodeVersion: '11'
       packageApp: true
       exportPath: '$(agent.builddirectory)/output/$(SDK)/$(BuildConfiguration)'
       signingOption: 'manual'
