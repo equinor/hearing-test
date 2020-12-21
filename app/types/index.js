@@ -8,6 +8,7 @@ export const stateKeys = {
   TOAST: 'toast',
   NAV: 'navigation',
   TEST: 'test',
+  TESTS: 'tests',
 };
 
 export const requestTypes = {
