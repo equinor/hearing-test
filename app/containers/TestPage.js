@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Sound from 'react-native-sound';
 import GestureRecognizer from 'react-native-swipe-gestures';
-// import SystemSetting from 'react-native-system-setting';
+import SystemSetting from 'react-native-system-setting';
 import { defaultNavOptions } from '../navigation';
 import ButtonEDS from '../components/common/EDS/Button';
 import BigRoundButton from '../components/common/atoms/BigRoundButton';
@@ -160,11 +160,12 @@ class TestPage extends Component {
     navigate('DefaultRoute');
   }
 
-  nodeFinished() {
+  async nodeFinished() {
     const payload = {
       reactionTimeMs: this.state.reactionTimeMs,
       numberOfClicks: this.state.numberOfPresses,
       success: this.state.success,
+      systemVolume: await SystemSetting.getVolume(),
     };
     if (this.state.success) {
       this.props.actionSuccess(payload);
@@ -177,7 +178,7 @@ class TestPage extends Component {
     // Setting master volume
     // Setting volume each time just to make sure the volume is not changed between plays
     // also, if headset was plugged in after componentDidMount() was called, we need to call this again
-    // SystemSetting.setVolume(0.5, { showUI: true }); //Todo: Disabling this until we know how the calibration step should be done..
+    SystemSetting.setVolume(0.8, { showUI: true });
 
     // Setting playback volume
     sound.setVolume(node.stimulusMultiplicative);

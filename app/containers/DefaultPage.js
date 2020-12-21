@@ -86,6 +86,7 @@ class DefaultPage extends Component {
             Velkommen til din hørselsmonitorering
           </Text>
           <ButtonEDS onPress={() => navigate('PreTestRoute')} text="Ta hørselstesten" />
+          <ButtonEDS onPress={() => navigate('TestLogRoute')} text="Fullførte tester" />
         </View>
       </View>
     );

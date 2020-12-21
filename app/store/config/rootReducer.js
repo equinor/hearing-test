@@ -7,6 +7,7 @@ import changelogReducer from '../changelog/reducer';
 import serviceMessageReducer from '../service-message/reducer';
 import toastReducer from '../toast/reducer';
 import testReducer from '../test/reducer';
+import testsReducer from '../tests/reducer';
 import { stateKeys } from '../../types';
 
 export default combineReducers({
@@ -18,4 +19,5 @@ export default combineReducers({
   [stateKeys.AUTH]: authReducer,
   [stateKeys.TOAST]: toastReducer,
   [stateKeys.TEST]: testReducer,
+  [stateKeys.TESTS]: testsReducer,
 });

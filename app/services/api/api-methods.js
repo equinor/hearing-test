@@ -67,8 +67,19 @@ export function getReleaseNote(version) {
 
 export const getServiceMessage = () => fetchOpenData(`/ServiceMessage/${name}`, 'common');
 
-export const fetchTest = () => fetchData(`/me/tests/takeTest`);
+export const fetchTest = () =>
+  postData(`/me/tests/takeTest`, {
+    Hz500Db: 0,
+    Hz1000Db: 0,
+    Hz2000Db: 0,
+    Hz3000Db: 0,
+    Hz4000Db: 0,
+    Hz6000Db: 0,
+    Hz8000Db: 0,
+  });
 
 export const postTest = body => postData(`/me/tests`, body);
 
 export const appInit = () => fetchData('/appStartup/init', defaultResource, false);
+
+export const fetchTests = () => fetchData('/me/tests');

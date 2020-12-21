@@ -34,8 +34,21 @@ steps:
   - bash: 'sed -i.bak s/Today/"$(TZ=":Europe/Oslo" date)"/g app/settings.json'
     displayName: "Updating build-date in the about-page"
 
+  - task: PlistPatch@4
+    inputs:
+      SyntaxType: 'slick'
+      PlistWorkingDir: 'ios/madapp'
+      PlistTargetFilters: 'Info.plist'
+      PlistPatchContent: '= /CFBundleDisplayName => "$(DisplayName)"'
+      OutputPatchFile: true
+      FailIfNoPatchApplied: true
+      TreatErrors: 'ERROR'
+
   - task: UseNode@1
     displayName: 'Specifying Node version'
+
+  - bash: "cat <<< $(jq 'del(.devDependencies.detox)' package.json) > package.json"
+    displayName: "Remove Detox devDependency ( Since npm install production for some reason makes the xcode build crash in devops (ツ)_/¯"
 
   - bash: 'npm i'
     displayName: 'Installing JS dependencies with NPM'
@@ -57,6 +70,7 @@ steps:
       actions: 'build'
       xcWorkspacePath: 'ios/madapp.xcworkspace'
       scheme: 'madapp'
+      xcodeVersion: '11'
       packageApp: true
       exportPath: '$(agent.builddirectory)/output/$(SDK)/$(BuildConfiguration)'
       signingOption: 'manual'
@@ -74,7 +88,7 @@ steps:
   - task: PublishBuildArtifacts@1
     displayName: 'Publishing the Artifact: drop'
 
-  - bash: 'mv $(build.artifactstagingdirectory)/$(BuildConfiguration)/madapp.ipa $(build.artifactstagingdirectory)/$(BuildConfiguration)/$(appName)-$(BuildConfiguration).ipa'
+  - bash: 'mv $(build.artifactstagingdirectory)/$(BuildConfiguration)/hearingtest.ipa $(build.artifactstagingdirectory)/$(BuildConfiguration)/$(appName)-$(BuildConfiguration).ipa'
     displayName: 'Rename app to $(appName)-$(BuildConfiguration)'
 
 
