@@ -68,7 +68,7 @@ class TestLogPage extends Component {
     return (
       <SafeAreaView>
         <FlatList
-          data={this.props.tests}
+          data={this.props.tests.sort((a, b) => new Date(b.dateTaken) - new Date(a.dateTaken))}
           keyExtractor={item => item.id}
           renderItem={e => {
             const { item } = e;
@@ -90,7 +90,9 @@ class TestLogPage extends Component {
                 }}
               >
                 <Text style={{ color: 'white' }}>{item.name}</Text>
-                <Text style={{ color: 'white' }}>{new Date(item.dateTaken).toLocaleString()}</Text>
+                <Text style={{ color: 'white' }}>
+                  {new Date(item.dateTaken).toLocaleString('nb-NO')}
+                </Text>
               </TouchableOpacity>
             );
           }}
@@ -141,7 +143,7 @@ class TestLogPage extends Component {
                     fontWeight: 'normal',
                   }}
                 >
-                  {new Date(this.state.selectedTest.dateTaken).toLocaleString()}
+                  {new Date(this.state.selectedTest.dateTaken).toLocaleString('nb-NO')}
                 </Text>
               </View>
               <View style={{ padding: 22 }}>
