@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   Dimensions,
   FlatList,
-  Image,
   Modal,
   SafeAreaView,
   StyleSheet,
@@ -12,6 +11,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
+import ImageModal from 'react-native-image-modal';
 import { defaultNavOptions } from '../navigation';
 import Spinner from '../components/common/atoms/Spinner';
 import { fetchTests } from '../store/tests/actions';
@@ -104,15 +104,15 @@ class TestLogPage extends Component {
                 style={{
                   backgroundColor: 'white',
                   borderRadius: 4,
-                  padding: 12,
                   marginTop: 40,
                   marginBottom: 20,
                 }}
               >
                 <View style={{ alignItems: 'center' }}>
-                  <Image
+                  <ImageModal
+                    resizeMode="contain"
+                    imageBackgroundColor="#ffffff"
                     style={{
-                      resizeMode: 'contain',
                       width: Dimensions.get('window').width,
                       height: Dimensions.get('window').width * 0.8,
                     }}
