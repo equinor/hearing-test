@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import ImageModal from 'react-native-image-modal';
 import { defaultNavOptions } from '../navigation';
 import ButtonEDS from '../components/common/EDS/Button';
 import { navigate } from '../navigation/service';
@@ -70,9 +71,10 @@ class TestResultPage extends Component {
           >
             {/*  Results-header section */}
             {testResult && testResult.audiogram ? (
-              <Image
+              <ImageModal
+                resizeMode="contain"
+                imageBackgroundColor="#ffffff"
                 style={{
-                  resizeMode: 'contain',
                   width: Dimensions.get('window').width,
                   height: Dimensions.get('window').width * 0.8,
                 }}
