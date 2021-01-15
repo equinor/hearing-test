@@ -1,80 +1,65 @@
-# React Native template app
+Hørselsmonitorering
+--------------------
+An app to simplify the process of monitoring your hearing over time.
 
-A React Native app, which serves as a template for the [mad-app](https://github.com/Statoil/mad-rn-generator) yeoman generator project.
+The app is buildt upon the [mad-app-template](https://github.com/Statoil/mad-rn-generator).
 
-## Prerequisites
+# Taking a test
 
-* [CocoaPods](https://cocoapods.org/) (for IOS version)
-  * Smart to run ```pod setup``` before starting
-* [Node](nodejs.org)
-* [React-Native CLI](https://facebook.github.io/react-native/docs/getting-started.html)
+The API provides a test-tree in a json format for the app to traverse.
 
+A test consist of multiple subtests.
+Every subtest is a binary tree consisting of test-nodes.
 
-## installing/running
-*NOTE* To create an app for a new project, you must use the [mad-app](https://github.com/Statoil/mad-rn-generator) yeoman generator.
-
-Otherwise, clone and ```npm install```, then ```npm run ios``` or ```npm run android```.
-
-## Notes about Podfile and react-native link
-When a Podfile is present, the ```react-native link``` command will not automatically add .h/.m/.a files to the IOS project, and you have to do this manually in XCode. 
-
-A workaround for this is to: 
-1) rename the ```Podfile``` to something like ```Podfile.bak```
-2) npm install the new dependencies (which includes native code)
-3) run ```react-native link```
-4) rename ```Podfile.bak``` back to ```Podfile``` (not required unless you want to do a new pod install)
-
-
-# Mad-rn-generator cheat-sheet
-## Sub generators
-The following sub-generators are available:
-### :data-entity
-Create a folder with the following files inside of ```app/store```:
-* actions.js
-* reducer.js
-* reducer.spec.js
-* saga.js
-* index.js
-
-Arguments:
-* entityName: (string) name that will be used for naming actions, selectors, saga and folder
-* actionType: (optional string) verb to use as prefix for actions. Defaults to ```fetch``` 
-
-Example:
-```
-yo mad-app:data-entity Feed [fetch]
-```
-
-### :container
-Stubs a container component and save it to ```app/containers```. A container component is normally a top-level component that includes a feature's logic and that is connection to redux (if applicable).
-
-Arguments:
-* componentName: (string) Name of component
-
-Example:
-```
-yo mad-app:container FeedPage
-```
-
-### :component
-Stubs a view component and save it to ```app/components``` (or the folder the command is run from if inside this folder). A view component should be agnostic of the redux store and only relay on data through props. It should not contain logic besides presentation logic.
-
-Arguments:
-* componentName: (string) Name of component
-* stateless: (optional bool) If it should be created as a pure function. Otherwise it will default to creating a js class.
-
-Example:
-```
-yo mad-app:component FeedList [true]
-```
-
-### :version
-Update the version number in package.json and the ios and android projects if applicable.
-
-Arguments:
-* version: (string) New version number
-
-Example:
-```
-yo mad-app:version 1.1.0
+```json5
+{
+  // Some metadata about the whole test.
+  "id": "b792197a-6d6b-4594-9555-5be7d51bc55b",
+  "userId": "",
+  "name": "Short test",
+  "dateTaken": null,
+  "subTests": [
+    {
+      data: {
+        // DATA - Contains data for running one audio sample.
+        "index": 1,
+        "sound": {
+          // The audio file we play. The app only cares about the url.
+          "name": "3kHz_Dobbelpip.wav",
+          "hz": 3000.0,
+          "url": "https://heardevhfjmkdbuaotts.blob.core.windows.net/sounds/3kHz_Dobbelpip.wav"
+        },
+        "preDelayMs": 2000, // ms before playing the audio.
+        "postDelayMs": 1500, // ms after playing the audio.
+        "panning": -1.0, // What ear you want the audio in. -1 for left 1.
+        "stimulusDb": -60.0, // We don't use this in the test, but nice to have to verify the stimulusMultiplicative.
+        "headsetProfileDb": 0.0, // headsetProfileDb - Also, Metadata. We don't use it in the test, but we store it here for future ref.
+        // This is calculated from the stimulusDb and is used by the app to Set the output volume. A decimal number between 0 and 1.
+        "stimulusMultiplicative": 0.001,
+        // The results of the test gets stored in the userResponse. Controlled by the client.
+        "userResponse": {
+          "success": null, // Boolean true or false. We set it to true if the user presses the button during the postDelay.
+          "reactionTimeMs": null, // time in ms before the button was last pressed.
+          "numberOfClicks": null, // The number of clicks that was.
+          "systemVolume": null // Logging what the system volume was when playing the audio.
+        },
+        // If user succeeds, we move along this branch.
+        success: {
+          // Success leads to the next test-node. With the same structure as the parent.
+          data: {},
+          success: {},
+          failure: {}
+        },
+        // If user fails, we move along this branch.
+        failure: {
+          // Failure leads to the next test-node. With the same structure as the parent.
+          data: {},
+          success: {},
+          failure: {}
+        },
+        //Note that each test-node have the same structure.
+      },
+    },
+  ]
+}
 ```
