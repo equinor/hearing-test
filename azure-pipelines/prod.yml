@@ -25,6 +25,9 @@ variables:
     value: 'hearingtest'
   - name: BuildConfiguration
     value: 'prod'
+  - name: DisplayName
+    value: 'Hørselsmonitorering'
+
 
 steps:
 
@@ -88,9 +91,8 @@ steps:
   - task: PublishBuildArtifacts@1
     displayName: 'Publishing the Artifact: drop'
 
-  - bash: 'mv $(build.artifactstagingdirectory)/$(BuildConfiguration)/hearingtest.ipa $(build.artifactstagingdirectory)/$(BuildConfiguration)/$(appName)-$(BuildConfiguration).ipa'
+  - bash: 'mv $(build.artifactstagingdirectory)/$(BuildConfiguration)/*.ipa $(build.artifactstagingdirectory)/$(BuildConfiguration)/$(appName)-$(BuildConfiguration).ipa'
     displayName: 'Rename app to $(appName)-$(BuildConfiguration)'
-
 
   - task: AppCenterDistribute@3
     inputs:
