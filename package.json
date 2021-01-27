@@ -55,7 +55,7 @@
     "lodash": "^4.17.15",
     "normalizr": "^3.2.4",
     "prop-types": "^15.6.0",
-    "react": "16.8.3",
+    "react": "16.14.0",
     "react-native": "0.59.10",
     "react-native-cookies": "^3.3.0",
     "react-native-device-info": "2.3.2",
