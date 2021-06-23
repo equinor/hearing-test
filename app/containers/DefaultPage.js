@@ -17,12 +17,16 @@ import { navigate } from '../navigation/service';
 import ButtonEDS from '../components/common/EDS/Button';
 import { appStartupInit } from '../store/test/actions';
 import { selectError } from '../store/test/reducer';
+import Typography from '../components/common/atoms/Typography';
+import { NavigationList } from '../components/common';
+import Card from '../components/common/atoms/Card';
+import NavigationItem from '../components/common/atoms/NavigationItem';
 
 const styles = StyleSheet.create({
   component: {
     flex: 1,
-    backgroundColor: 'white',
-    padding: 12,
+    backgroundColor: colors.GRAY_BACKGROUND,
+    padding: 24,
   },
 });
 
@@ -73,20 +77,17 @@ class DefaultPage extends Component {
           </TouchableHighlight>
         )}
         <View style={styles.component}>
-          <Text
-            style={{
-              color: '#243746',
-              fontSize: 15,
-              paddingTop: 65,
-              paddingBottom: 65,
-              textAlign: 'center',
-              fontWeight: 'bold',
-            }}
-          >
-            Velkommen til din hørselsmonitorering
-          </Text>
-          <ButtonEDS onPress={() => navigate('PreTestRoute')} text="Ta hørselstesten" />
-          <ButtonEDS onPress={() => navigate('TestLogRoute')} text="Fullførte tester" />
+          <Typography variant="h1" style={{paddingLeft: 4, paddingBottom:32}}>Hei [Navn],</Typography>
+          <Card>
+            <Typography variant="h2" style={{paddingBottom: 16}}>Er du klar for en ny test?</Typography>
+            <Typography variant="p" style={{paddingBottom: 32}}>{"Husk å teste hørselen din regelmessig for at vi skal kunne kartlegge hørselshelsen din over tid."}</Typography>
+            <View style={{width:139, height:40, marginBottom:6}}>
+              <ButtonEDS onPress={() => navigate('PreTestRoute')} text="Ta hørselstesten" />
+            </View>
+          </Card>
+          <Typography variant="h2" style={{paddingBottom: 16, paddingTop: 32, }}>Din oversikt</Typography>
+          <NavigationItem title="Informasjon om testen" />
+          <NavigationItem onPress={() => navigate('TestLogRoute')} title="Mine resultater" />
         </View>
       </View>
     );
