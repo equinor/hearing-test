@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import Spinner from '../atoms/Spinner';
+import Typography from '../atoms/Typography';
 
 export default class ButtonEDS extends Component<{
   onPress: () => void,
@@ -38,15 +39,16 @@ export default class ButtonEDS extends Component<{
           {loading ? (
             <Spinner color="#6F6F6F" />
           ) : (
-            <Text
+            <Typography variant="p"
               style={{
                 color: outlined ? '#007079' : 'white',
-                fontSize: 17,
+                fontSize: 18,
                 textAlign: 'center',
+                fontWeight:'600'
               }}
             >
               {text}
-            </Text>
+            </Typography>
           )}
         </View>
       </TouchableOpacity>
