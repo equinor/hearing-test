@@ -1,12 +1,8 @@
-import React, { Component } from 'react';
-import { Image, View } from 'react-native';
-import indicatorDone from '../../../assets/indicator-done.png';
-import indicatorCurrent from '../../../assets/indicator-current.png';
-import indicatorTodo from '../../../assets/indicator-todo.png';
+import React from 'react';
+import { View } from 'react-native';
 import { EQUINOR_GREEN } from '../../../stylesheets/colors';
 
-export default class Indicators extends Component<{ iterable: [] }> {
-  render() {
+export default function Indicators(props:{ iterable: [] }) {
     return (
       <View
         style={{
@@ -16,7 +12,7 @@ export default class Indicators extends Component<{ iterable: [] }> {
           alignItems:'center'
         }}
       >
-        {this.props.iterable.map(({ current, done }) => {
+        {props.iterable.map(({ current, done }) => {
           const diameter = 16;
           const style = { width: diameter, height: diameter };
           if (current) {
@@ -26,5 +22,4 @@ export default class Indicators extends Component<{ iterable: [] }> {
         })}
       </View>
     );
-  }
 }
