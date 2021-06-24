@@ -25,13 +25,14 @@ export default class ButtonEDS extends Component<{
         <View
           style={{
             height: 40,
+            width:160,
             alignSelf: 'center',
             alignItems: 'center',
             justifyContent: 'center',
             borderRadius: 4,
-            marginBottom: 23,
+            marginBottom: 18,
             borderWidth: !danger && 1,
-            width: small ? '50%' : '100%',
+            //width: small ? '50%' : '100%',
             backgroundColor: this.getBackgroundColor(this.props),
             borderColor: disabled || loading ? `#DCDCDC` : '#007079',
           }}
