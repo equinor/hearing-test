@@ -21,6 +21,7 @@ import Typography from '../components/common/atoms/Typography';
 import { NavigationList } from '../components/common';
 import Card from '../components/common/atoms/Card';
 import NavigationItem from '../components/common/atoms/NavigationItem';
+import { fetchMe } from '../services/api/api-methods';
 
 const styles = StyleSheet.create({
   component: {
@@ -50,12 +51,20 @@ class DefaultPage extends Component {
     error: PropTypes.object.isRequired,
   };
 
+  state = {
+    firstName: null
+  }
+
+  
+
   componentDidMount() {
     this.props.actionAppInit();
+    fetchMe().then(response => this.setState({firstName:response.firstName}))
   }
 
   render() {
     const { error } = this.props;
+    if (!this.state.firstName) return <></>
     return (
       <View style={{ flex: 1 }}>
         {error && error.status && (
@@ -77,7 +86,7 @@ class DefaultPage extends Component {
           </TouchableHighlight>
         )}
         <View style={styles.component}>
-          <Typography variant="h1" style={{paddingLeft: 4, paddingBottom:32}}>Hei [Navn],</Typography>
+          <Typography variant="h1" style={{paddingLeft: 4, paddingBottom:32}}>Hei {this.state.firstName},</Typography>
           <Card>
             <Typography variant="h2" style={{paddingBottom: 16}}>Er du klar for en ny test?</Typography>
             <Typography variant="p" style={{paddingBottom: 32}}>{"Husk å teste hørselen din regelmessig for at vi skal kunne kartlegge hørselshelsen din over tid."}</Typography>
