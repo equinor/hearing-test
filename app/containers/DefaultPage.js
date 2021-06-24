@@ -90,7 +90,7 @@ class DefaultPage extends Component {
           <Card>
             <Typography variant="h2" style={{paddingBottom: 16}}>Er du klar for en ny test?</Typography>
             <Typography variant="p" style={{paddingBottom: 32}}>{"Husk å teste hørselen din regelmessig for at vi skal kunne kartlegge hørselshelsen din over tid."}</Typography>
-            <View style={{width:139, height:40, marginBottom:6}}>
+            <View style={{width:160}}>
               <ButtonEDS onPress={() => navigate('PreTestRoute')} text="Ta hørselstesten" />
             </View>
           </Card>
