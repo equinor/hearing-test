@@ -6,7 +6,7 @@ import { EQUINOR_GREEN } from '../../../stylesheets/colors';
  * The new design for this app only has 3 different textvariants: Big headers, small headers, and paragraphs.
  * I have therefore only made 3 variants 
  **/ 
-const Typography = (props:{variant:'h1' | 'h2' | 'p' | 'button', color?:string, children?:any, style?:any}) => {
+const Typography = (props:{variant:'h1' | 'h2' | 'p' | 'button', color?:string, children?:any, style?:any, numberOfLines?:number}) => {
     let color, size, weight,fontFamily; 
     let lineHeight = 24;
     if (props.variant.startsWith('h')) {
@@ -32,7 +32,7 @@ const Typography = (props:{variant:'h1' | 'h2' | 'p' | 'button', color?:string, 
         weight="500";
     }
 
-    return <Text style={{fontSize:size, fontWeight:weight, color, fontFamily, lineHeight, ...props.style}}>{props.children}</Text>
+    return <Text numberOfLines={props.numberOfLines} style={{fontSize:size, fontWeight:weight, color, fontFamily, lineHeight, ...props.style}}>{props.children}</Text>
 }
 
 export default Typography;
