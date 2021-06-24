@@ -19,6 +19,7 @@ import { selectTests } from '../store/tests';
 import { selectIsFetchingTests } from '../store/tests/reducer';
 import { EQUINOR_GREEN } from '../stylesheets/colors';
 import ButtonEDS from '../components/common/EDS/Button';
+import NavigationItem from '../components/common/atoms/NavigationItem';
 
 const styles = StyleSheet.create({
   component: {
@@ -66,39 +67,20 @@ class TestLogPage extends Component {
         </View>
       );
     return (
-      <SafeAreaView>
+      <SafeAreaView style={styles.component}>
         <FlatList
+          style={{paddingTop:32, paddingHorizontal:24}}
           data={this.props.tests.sort((a, b) => new Date(b.dateTaken) - new Date(a.dateTaken))}
           keyExtractor={item => item.id}
           renderItem={e => {
             const { item } = e;
             return (
-              <TouchableOpacity
-                testID={`test-${e.index}`}
-                onPress={() => this.showTest(item)}
-                style={{
-                  margin: 8,
-                  marginHorizontal: 24,
-                  borderRadius: 4,
-                  padding: 12,
-                  flexDirection: 'row',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  backgroundColor: EQUINOR_GREEN,
-                  opacity: 0.8,
-                }}
-              >
-                <Text style={{ color: 'white' }}>{item.name}</Text>
-                <Text style={{ color: 'white' }}>
-                  {new Date(item.dateTaken).toLocaleString('nb-NO')}
-                </Text>
-              </TouchableOpacity>
+              <NavigationItem title={new Date(item.dateTaken).toLocaleDateString('nb-NO')} onPress={() => this.showTest(item)} />
             );
           }}
         />
         <Modal animationType="slide" visible={this.state.modalVisible}>
-          <View style={{ flex: 1, paddingTop: 22, backgroundColor: '#d7edee' }}>
+          <View style={{ flex: 1, paddingTop: 22, backgroundColor: 'white' }}>
             <SafeAreaView>
               <View
                 style={{
