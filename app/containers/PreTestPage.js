@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { cloneDeep } from 'lodash';
 import { defaultNavOptions } from '../navigation';
-import manWithHeadset from '../assets/man-headset.png';
+//import manWithHeadset from '../assets/man-headset.png';
 import manIsOK from '../assets/man-ok.png';
 import manInEnvironment from '../assets/man-environment.png';
 import audioWaveWithDots from '../assets/audiowave-dots.png';
@@ -10,13 +10,20 @@ import manIsSick from '../assets/man-temperature.png';
 import ButtonEDS from '../components/common/EDS/Button';
 import Indicators from '../components/common/molecules/Indicators';
 import { navigate } from '../navigation/service';
+import { GRAY_BACKGROUND } from '../stylesheets/colors';
+import Typography from '../components/common/atoms/Typography';
+import thumbsUp from '../assets/thumbs-up.png';
+import sickMan from '../assets/sick-man.png'
+import manWithHeadset from '../assets/man-with-headset.png';
+import headset from '../assets/headset.png';
 
 const styles = StyleSheet.create({
   component: {
     display: 'flex',
     flex: 1,
-    backgroundColor: 'white',
-    padding: 16,
+    backgroundColor: GRAY_BACKGROUND,
+    padding: 54,
+    paddingTop:80
   },
 });
 
@@ -30,53 +37,47 @@ export default class PreTestPage extends Component {
   state = {
     pages: [
       {
-        title: 'Før testen',
-        content: '- Du må ta hørselstesten hver 6. måned\n- Testen tar ca. 15 minutter',
-        current: true,
-        done: false,
-        image: manWithHeadset,
-        buttons: [{ text: 'Start', onPress: () => this.nextPage() }],
-      },
-      {
         title: 'Er du forkjølet?',
         content:
-          'For at resultatene skal være pålitelige, kan du ikke ta testen om du er forkjølet',
-        current: false,
+          'For at resultatene skal bli pålitelige, skal du ikke ta denne testen når du er syk.',
+        current: true,
         done: false,
-        image: manIsOK,
+        image: sickMan,
         buttons: [
-          { text: 'Jeg er klar for testen', onPress: () => this.nextPage() },
+          { text: 'Fortsett', onPress: () => this.nextPage() },
           {
             text: 'Jeg er forkjølet',
+            outlined:true,
             onPress: () =>
               this.showCustomPage({
-                title: 'Er du ikke helt i form?',
-                content: 'Du vil motta en ny invitasjon om en uke',
+                title: '',
+                content: 'Vi sender deg en ny invitasjon ved neste arbeidsperiode.',
                 current: true,
                 done: true,
-                image: manIsSick,
-                buttons: [{ text: 'Tilbake til menyen', onPress: () => navigate('DefaultRoute') }],
+                image: thumbsUp,
+                ignoreStep: true,
+                buttons: [{ text: 'Hjem', onPress: () => navigate('DefaultRoute') }],
               }),
           },
         ],
       },
       {
-        title: 'Forberedelse',
+        title: 'Utstyr',
         content:
-          'Til hørselstesten trenger du følgende:\n\n- Et stille rom uten andre mennesker (lugar anbefalt)\n- Et godkjent headset (kontakt HMS-leder for informasjon om hvor dette er tilgjengelig)',
+          'Du trenger et godkjent headset for å utføre testen. Dette kobles til din mobile enhet. Blå skal på venstre øre og rød skal på høyre øre.',
         current: false,
         done: false,
-        image: manInEnvironment,
-        buttons: [{ text: 'Se hvordan testen fungerer', onPress: () => this.nextPage() }],
+        image: headset,
+        buttons: [{ text: 'Fortsett', onPress: () => this.nextPage() }],
       },
       {
-        title: 'Hvordan hørselstesten fungerer',
+        title: 'Testen',
         content:
-          '- Appen vil foreta 3 måleserier. Du vil ha mulighet til å stoppe mellom hver av dem.\n- Hver gang du hører en lyd, klikk på "Jeg hører en lyd nå"-knappen\n- Når testen er ferdig utført vil du se resultatet på skjermen din',
+          'Appen vil foreta 1 måleserie. Ved forstyrrelser er det mulig å pause testen og fortsette der du slapp.',
         current: false,
         done: false,
-        image: audioWaveWithDots,
-        buttons: [{ text: 'Start hørselstest', onPress: () => this.nextPage() }],
+        image: manWithHeadset,
+        buttons: [{ text: 'Fortsett', onPress: () => this.nextPage() }],
       },
     ],
   };
@@ -109,40 +110,28 @@ export default class PreTestPage extends Component {
     const view = this.currentPage();
     return (
       <View style={styles.component}>
-        <ScrollView>
+        <View style={{display:'flex', height:'100%'}}>
           <View style={{ alignItems: 'center' }}>
             <Image source={view.image} style={{ height: 250, resizeMode: 'contain' }} />
           </View>
-          <View>
-            <Text
-              style={{
-                color: '#243746',
-                fontSize: 15,
-                paddingTop: 16,
-                paddingBottom: 16,
-                fontWeight: 'bold',
-              }}
-            >
+          <View style={{marginTop:32}}>
+            <Typography variant="h2" style={{textAlign:'center', paddingBottom:8}}>
               {view.title}
-            </Text>
-            <Text
-              style={{
-                color: '#243746',
-                fontSize: 16,
-                lineHeight: 24,
-                paddingBottom: 32,
-                fontWeight: 'normal',
-              }}
-            >
+            </Typography>
+            <Typography variant="p" style={{textAlign:'center', height:18*4}} numberOfLines={4}>
               {view.content}
-            </Text>
+            </Typography>
           </View>
-          {view.buttons.map(({ onPress, text }) => {
-            return <ButtonEDS text={text} onPress={onPress} key={text} />;
-          })}
-        </ScrollView>
-        <View style={{ height: 80, justifyContent: 'center' }}>
-          <Indicators iterable={this.state.pages} />
+          {view.ignoreStep?<></>:
+          <View style={{ height: 80, justifyContent: 'center' }}>
+            <Indicators iterable={this.state.pages} />
+          </View>
+          }
+          <View style={{display:'flex', flex:1,flexDirection:'column-reverse',justifyContent:'flex-start', paddingBottom:32}}>
+            {view.buttons.map(({ onPress, text, outlined }) => {
+              return <ButtonEDS text={text} onPress={onPress} key={text} outlined={outlined}/>;
+            })}
+          </View>
         </View>
       </View>
     );
