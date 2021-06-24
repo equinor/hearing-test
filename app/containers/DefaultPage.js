@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   Linking,
+  Modal,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -22,6 +23,7 @@ import { NavigationList } from '../components/common';
 import Card from '../components/common/atoms/Card';
 import NavigationItem from '../components/common/atoms/NavigationItem';
 import { fetchMe } from '../services/api/api-methods';
+import TestLogPage from './TestLogPage';
 
 const styles = StyleSheet.create({
   component: {
@@ -52,7 +54,8 @@ class DefaultPage extends Component {
   };
 
   state = {
-    firstName: null
+    firstName: null,
+    testLogPageVisible: false
   }
 
   
@@ -96,8 +99,22 @@ class DefaultPage extends Component {
           </Card>
           <Typography variant="h2" style={{paddingBottom: 16, paddingTop: 32, }}>Din oversikt</Typography>
           <NavigationItem title="Informasjon om testen" />
-          <NavigationItem onPress={() => navigate('TestLogRoute')} title="Mine resultater" />
+          <NavigationItem onPress={() => this.setState({testLogPageVisible:true})} title="Mine resultater" />
         </View>
+        <Modal animationType="Slide" presentationStyle="overFullScreen" transparent={true} visible={this.state.testLogPageVisible} onDismiss={() => {console.log("Dismissed!");this.setState({testLogPageVisible:false})}}onRequestClose={() => this.setState({testLogPageVisible:false})}>
+          <View style={{display:'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center', padding:24, borderBottomWidth:1, borderStyle:'solid', borderColor:'#DCDCDC', marginTop:110, backgroundColor:'white', borderTopRightRadius:12, borderTopLeftRadius:12,shadowColor: '#000',
+        shadowOffset: { width: 2, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 3,  
+        elevation: 5,}}>
+            <Typography variant="p">i</Typography>
+            <Typography variant="h1">Din hørsel</Typography>
+            <TouchableOpacity onPress={() => this.setState({testLogPageVisible:false})}>
+              <Typography variant="p">x</Typography>
+            </TouchableOpacity>
+          </View>
+          <TestLogPage />
+        </Modal>
       </View>
     );
   }
