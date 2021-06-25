@@ -6,10 +6,10 @@ import serviceMessage from '../utils/serviceMessage';
 
 export const mapParamsToProps = ScreenComponent =>
   class extends Component {
-    static navigationOptions = ScreenComponent.navigationOptions;
     static propTypes = {
       navigation: PropTypes.object.isRequired,
     };
+    static navigationOptions = ScreenComponent.navigationOptions;
     render() {
       const { params } = this.props.navigation.state;
       return <ScreenComponent {...this.props} {...params} />;
