@@ -5,7 +5,7 @@
     "jest"
   ],
   "rules": {
-    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
+    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx", "ts", "tsx"] }],
     "react/forbid-prop-types": ["error", { "forbid": ["any"]}],
     "react/prefer-stateless-function": "off",
     "react/no-typos": "warn",
