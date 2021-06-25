@@ -1,21 +1,29 @@
-import React, { useState } from "react"
-import { Text } from "react-native"
-import { SafeAreaView, View } from "react-native"
-import { Dimensions, Modal } from "react-native"
-import ImageModal from "react-native-image-modal"
-import { TestResult } from "../../../types"
-import Typography from "../atoms/Typography"
-import ButtonEDS from "../EDS/Button"
-import IconButton from "../EDS/IconButton"
+import React from 'react';
+import { SafeAreaView, View, Dimensions } from 'react-native';
+import ImageModal from 'react-native-image-modal';
+import { TestResult } from '../../../types';
+import Typography from '../atoms/Typography';
+import IconButton from '../EDS/IconButton';
 
-const TestResultItem = (props:{data:TestResult, backToList: CallableFunction}) => {
-    return <View style={{ flex: 1, paddingTop: 4, backgroundColor: 'white' }}>
+const TestResultItem = (props: { data: TestResult; backToList: Function }) => {
+  return (
+    <View style={{ flex: 1, paddingTop: 4, backgroundColor: 'white' }}>
       <SafeAreaView>
-          <View style={{display:'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center', paddingHorizontal:24}}>
-              <IconButton icon="chevron-left" onPress={props.backToList}/>
-              <Typography variant="h2">{new Date(props.data.dateTaken).toLocaleDateString('nb-NO')}</Typography>
-              <View style={{width:48, height:48}} />
-          </View>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            paddingHorizontal: 24,
+          }}
+        >
+          <IconButton icon="chevron-left" onPress={props.backToList} />
+          <Typography variant="h2">
+            {new Date(props.data.dateTaken).toLocaleDateString('nb-NO')}
+          </Typography>
+          <View style={{ width: 48, height: 48 }} />
+        </View>
         <View
           style={{
             backgroundColor: 'white',
@@ -24,7 +32,7 @@ const TestResultItem = (props:{data:TestResult, backToList: CallableFunction}) =
             marginBottom: 20,
           }}
         >
-            <Typography variant="p" style={{paddingLeft:18}}>
+          <Typography variant="p" style={{ paddingLeft: 18 }}>
             {props.data.name}
           </Typography>
           <View style={{ alignItems: 'center' }}>
@@ -43,6 +51,7 @@ const TestResultItem = (props:{data:TestResult, backToList: CallableFunction}) =
         </View>
       </SafeAreaView>
     </View>
-}
+  );
+};
 
-export default TestResultItem
+export default TestResultItem;
