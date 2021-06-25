@@ -1,19 +1,14 @@
 import React, { Component } from 'react';
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import { cloneDeep } from 'lodash';
 import { defaultNavOptions } from '../navigation';
-//import manWithHeadset from '../assets/man-headset.png';
-import manIsOK from '../assets/man-ok.png';
-import manInEnvironment from '../assets/man-environment.png';
-import audioWaveWithDots from '../assets/audiowave-dots.png';
-import manIsSick from '../assets/man-temperature.png';
 import ButtonEDS from '../components/common/EDS/Button';
 import Indicators from '../components/common/molecules/Indicators';
 import { navigate } from '../navigation/service';
 import { GRAY_BACKGROUND } from '../stylesheets/colors';
 import Typography from '../components/common/atoms/Typography';
 import thumbsUp from '../assets/thumbs-up.png';
-import sickMan from '../assets/sick-man.png'
+import sickMan from '../assets/sick-man.png';
 import manWithHeadset from '../assets/man-with-headset.png';
 import headset from '../assets/headset.png';
 
@@ -23,7 +18,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: GRAY_BACKGROUND,
     padding: 54,
-    paddingTop:80
+    paddingTop: 80,
   },
 });
 
@@ -47,7 +42,7 @@ export default class PreTestPage extends Component {
           { text: 'Fortsett', onPress: () => this.nextPage() },
           {
             text: 'Jeg er forkjølet',
-            outlined:true,
+            outlined: true,
             onPress: () =>
               this.showCustomPage({
                 title: '',
@@ -110,26 +105,40 @@ export default class PreTestPage extends Component {
     const view = this.currentPage();
     return (
       <View style={styles.component}>
-        <View style={{display:'flex', height:'100%'}}>
+        <View style={{ display: 'flex', height: '100%' }}>
           <View style={{ alignItems: 'center' }}>
             <Image source={view.image} style={{ height: 250, resizeMode: 'contain' }} />
           </View>
-          <View style={{marginTop:32}}>
-            <Typography variant="h2" style={{textAlign:'center', paddingBottom:8}}>
+          <View style={{ marginTop: 32 }}>
+            <Typography variant="h2" style={{ textAlign: 'center', paddingBottom: 8 }}>
               {view.title}
             </Typography>
-            <Typography variant="p" style={{textAlign:'center', height:18*4}} numberOfLines={4}>
+            <Typography
+              variant="p"
+              style={{ textAlign: 'center', height: 18 * 4 }}
+              numberOfLines={4}
+            >
               {view.content}
             </Typography>
           </View>
-          {view.ignoreStep?<></>:
-          <View style={{ height: 80, justifyContent: 'center' }}>
-            <Indicators iterable={this.state.pages} />
-          </View>
-          }
-          <View style={{display:'flex', flex:1,flexDirection:'column-reverse',justifyContent:'flex-start', paddingBottom:32}}>
+          {view.ignoreStep ? (
+            <></>
+          ) : (
+            <View style={{ height: 80, justifyContent: 'center' }}>
+              <Indicators iterable={this.state.pages} />
+            </View>
+          )}
+          <View
+            style={{
+              display: 'flex',
+              flex: 1,
+              flexDirection: 'column-reverse',
+              justifyContent: 'flex-start',
+              paddingBottom: 32,
+            }}
+          >
             {view.buttons.map(({ onPress, text, outlined }) => {
-              return <ButtonEDS text={text} onPress={onPress} key={text} outlined={outlined}/>;
+              return <ButtonEDS text={text} onPress={onPress} key={text} outlined={outlined} />;
             })}
           </View>
         </View>
