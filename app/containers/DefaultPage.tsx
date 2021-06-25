@@ -19,11 +19,10 @@ import ButtonEDS from '../components/common/EDS/Button';
 import { appStartupInit } from '../store/test/actions';
 import { selectError } from '../store/test/reducer';
 import Typography from '../components/common/atoms/Typography';
-import { NavigationList } from '../components/common';
 import Card from '../components/common/atoms/Card';
 import NavigationItem from '../components/common/atoms/NavigationItem';
 import { fetchMe } from '../services/api/api-methods';
-import TestLogPage from './TestLogPage';
+import TestResultsModal from '../components/common/molecules/TestResultsModal';
 
 const styles = StyleSheet.create({
   component: {
@@ -33,7 +32,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class DefaultPage extends Component {
+class DefaultPage extends Component<{ actionAppInit: Function; error?: any }> {
   static navigationOptions = ({ navigation }) => ({
     ...defaultNavOptions,
     headerRight: (
@@ -55,19 +54,21 @@ class DefaultPage extends Component {
 
   state = {
     firstName: null,
-    testLogPageVisible: false
-  }
-
-  
+    testResultsModalVisible: false,
+  };
 
   componentDidMount() {
     this.props.actionAppInit();
-    fetchMe().then(response => this.setState({firstName:response.firstName}))
+    fetchMe().then(response => this.setState({ firstName: response.firstName }));
   }
+
+  setModalVisible = (value: boolean) => {
+    this.setState({ testResultsModalVisible: value });
+  };
 
   render() {
     const { error } = this.props;
-    if (!this.state.firstName) return <></>
+    if (!this.state.firstName) return <></>;
     return (
       <View style={{ flex: 1 }}>
         {error && error.status && (
@@ -89,32 +90,31 @@ class DefaultPage extends Component {
           </TouchableHighlight>
         )}
         <View style={styles.component}>
-          <Typography variant="h1" style={{paddingLeft: 4, paddingBottom:32}}>Hei {this.state.firstName},</Typography>
+          <Typography variant="h1" style={{ paddingLeft: 4, paddingBottom: 32 }}>
+            Hei {this.state.firstName},
+          </Typography>
           <Card>
-            <Typography variant="h2" style={{paddingBottom: 16}}>Er du klar for en ny test?</Typography>
-            <Typography variant="p" style={{paddingBottom: 32}}>{"Husk å teste hørselen din regelmessig for at vi skal kunne kartlegge hørselshelsen din over tid."}</Typography>
-            <View style={{width:160}}>
+            <Typography variant="h2" style={{ paddingBottom: 16 }}>
+              Er du klar for en ny test?
+            </Typography>
+            <Typography variant="p" style={{ paddingBottom: 32 }}>
+              Husk å teste hørselen din regelmessig for at vi skal kunne kartlegge hørselshelsen din
+              over tid.
+            </Typography>
+            <View style={{ width: 160 }}>
               <ButtonEDS onPress={() => navigate('PreTestRoute')} text="Ta hørselstesten" />
             </View>
           </Card>
-          <Typography variant="h2" style={{paddingBottom: 16, paddingTop: 32, }}>Din oversikt</Typography>
-          <NavigationItem title="Informasjon om testen" />
-          <NavigationItem onPress={() => this.setState({testLogPageVisible:true})} title="Mine resultater" />
+          <Typography variant="h2" style={{ paddingBottom: 16, paddingTop: 32 }}>
+            Din oversikt
+          </Typography>
+          {/* NOT AVAILABLE YET: <NavigationItem title="Informasjon om testen" /> */}
+          <NavigationItem onPress={() => this.setModalVisible(true)} title="Mine resultater" />
         </View>
-        <Modal animationType="Slide" presentationStyle="overFullScreen" transparent={true} visible={this.state.testLogPageVisible} onDismiss={() => {console.log("Dismissed!");this.setState({testLogPageVisible:false})}}onRequestClose={() => this.setState({testLogPageVisible:false})}>
-          <View style={{display:'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center', padding:24, borderBottomWidth:1, borderStyle:'solid', borderColor:'#DCDCDC', marginTop:110, backgroundColor:'white', borderTopRightRadius:12, borderTopLeftRadius:12,shadowColor: '#000',
-        shadowOffset: { width: 2, height: 2 },
-        shadowOpacity: 0.3,
-        shadowRadius: 3,  
-        elevation: 5,}}>
-            <Typography variant="p">i</Typography>
-            <Typography variant="h1">Din hørsel</Typography>
-            <TouchableOpacity onPress={() => this.setState({testLogPageVisible:false})}>
-              <Typography variant="p">x</Typography>
-            </TouchableOpacity>
-          </View>
-          <TestLogPage />
-        </Modal>
+        <TestResultsModal
+          visible={this.state.testResultsModalVisible}
+          setVisible={this.setModalVisible}
+        />
       </View>
     );
   }
