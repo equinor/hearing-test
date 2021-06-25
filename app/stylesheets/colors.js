@@ -11,7 +11,7 @@ export const GRAY_1 = '#333333';
 export const GRAY_2 = '#808080';
 export const GRAY_3 = '#E4E4E4';
 export const GRAY_4 = '#f2f2f2';
-export const GRAY_BACKGROUND = '#F7F7F7'
+export const GRAY_BACKGROUND = '#F7F7F7';
 
 export const GRAY_MAIN = '#fafafa';
 
