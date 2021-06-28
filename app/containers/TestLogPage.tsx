@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
-// import { PropTypes } from 'prop-types';
 import { defaultNavOptions } from '../navigation';
 import Spinner from '../components/common/atoms/Spinner';
 import { fetchTests } from '../store/tests/actions';
@@ -27,8 +26,6 @@ class TestLogPage extends Component<{
   static navigationOptions = () => ({
     ...defaultNavOptions,
   });
-
-  // static propTypes = { fetching: PropTypes.bool.isRequired, tests: PropTypes.array.isRequired };
 
   showTest(selectedTest: TestResult) {
     this.props.setSelectedItem(selectedTest);
