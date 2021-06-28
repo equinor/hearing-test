@@ -26,6 +26,10 @@ export const authStatusTypes = {
   SIGNED_OUT: 'SIGNED_OUT',
 };
 
-
-export type TestResult =
-  {audiogram:string,name:string, dateTaken:number, id:any}
+export type TestResult = {
+  audiogram: string;
+  name: string;
+  dateTaken: number;
+  id: string;
+  userId: string;
+};
