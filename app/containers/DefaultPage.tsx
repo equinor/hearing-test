@@ -58,7 +58,11 @@ class DefaultPage extends Component<{ actionAppInit: Function; error?: any }> {
 
   componentDidMount() {
     this.props.actionAppInit();
-    fetchMe().then(response => this.setState({ firstName: response.firstName }));
+    fetchMe()
+      .then(response => this.setState({ firstName: response.firstName }))
+      .catch(() => {
+        this.setState({ firstName: null });
+      });
   }
 
   setModalVisible = (value: boolean) => {
@@ -90,7 +94,7 @@ class DefaultPage extends Component<{ actionAppInit: Function; error?: any }> {
         )}
         <View style={styles.component}>
           <Typography variant="h1" style={{ paddingLeft: 4, paddingBottom: 32 }}>
-            Hei {this.state.firstName},
+            Hei{this.state.firstName ? ` ${this.state.firstName}` : ''},
           </Typography>
           <Card>
             <Typography variant="h2" style={{ paddingBottom: 16 }}>
