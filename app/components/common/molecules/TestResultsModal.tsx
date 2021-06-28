@@ -7,10 +7,6 @@ import Typography from '../atoms/Typography';
 import IconButton from '../EDS/IconButton';
 import TestResultItem from './TestResultItem';
 
-const getTestLogPage = (setPageFunction: Function) => {
-  return <TestLogPage showResults={data => setPageFunction('testResultItem', data)} />;
-};
-
 const TestResultsModal = (props: { visible: boolean; setVisible: Function }) => {
   const [activePage, setActivePage] = useState(<></>);
 
@@ -19,13 +15,17 @@ const TestResultsModal = (props: { visible: boolean; setVisible: Function }) => 
   }
   const setPage = (page: 'testLogPage' | 'testResultItem', data?: TestResult) => {
     if (page === 'testLogPage') {
-      setActivePage(getTestLogPage(setPage));
+      setActivePage(<TestLogPage showResults={d => setPage('testResultItem', d)} />);
     } else {
       setActivePage(<TestResultItem data={data} backToList={() => setPage('testLogPage')} />);
     }
   };
 
-  useEffect(() => setActivePage(getTestLogPage(setPage)), []); // activePage, setPage and testLogPage all reference each other, this is the result...
+  // Once setPage is defined, we can set default active page
+  useEffect(
+    () => setActivePage(<TestLogPage showResults={data => setPage('testResultItem', data)} />),
+    []
+  );
 
   return (
     <Modal
