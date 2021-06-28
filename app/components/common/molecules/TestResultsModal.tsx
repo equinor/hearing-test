@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { Modal, View } from 'react-native';
 import TestLogPage from '../../../containers/TestLogPage';
@@ -7,25 +7,8 @@ import Typography from '../atoms/Typography';
 import IconButton from '../EDS/IconButton';
 import TestResultItem from './TestResultItem';
 
-const TestResultsModal = (props: { visible: boolean; setVisible: Function }) => {
-  const [activePage, setActivePage] = useState(<></>);
-
-  function setInvisible() {
-    props.setVisible(false);
-  }
-  const setPage = (page: 'testLogPage' | 'testResultItem', data?: TestResult) => {
-    if (page === 'testLogPage') {
-      setActivePage(<TestLogPage showResults={d => setPage('testResultItem', d)} />);
-    } else {
-      setActivePage(<TestResultItem data={data} backToList={() => setPage('testLogPage')} />);
-    }
-  };
-
-  // Once setPage is defined, we can set default active page
-  useEffect(
-    () => setActivePage(<TestLogPage showResults={data => setPage('testResultItem', data)} />),
-    []
-  );
+const TestResultsModal = (props: { visible: boolean; setInvisible: Function }) => {
+  const [selectedItem, setSelectedItem] = useState<TestResult | null>(null);
 
   return (
     <Modal
@@ -33,8 +16,8 @@ const TestResultsModal = (props: { visible: boolean; setVisible: Function }) => 
       presentationStyle="overFullScreen"
       transparent
       visible={props.visible}
-      onDismiss={setInvisible}
-      onRequestClose={setInvisible}
+      onDismiss={() => props.setInvisible()}
+      onRequestClose={() => props.setInvisible()}
     >
       <View
         style={{
@@ -60,13 +43,17 @@ const TestResultsModal = (props: { visible: boolean; setVisible: Function }) => 
         <IconButton
           icon="list"
           onPress={() => {
-            setPage('testLogPage');
+            setSelectedItem(null);
           }}
         />
         <Typography variant="h1">Din hørsel</Typography>
-        <IconButton icon="close" onPress={setInvisible} />
+        <IconButton icon="close" onPress={() => props.setInvisible()} />
       </View>
-      {activePage}
+      {selectedItem ? (
+        <TestResultItem data={selectedItem} resetSelectedItem={() => setSelectedItem(null)} />
+      ) : (
+        <TestLogPage setSelectedItem={(d: TestResult) => setSelectedItem(d)} />
+      )}
     </Modal>
   );
 };

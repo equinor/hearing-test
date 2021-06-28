@@ -1,24 +1,12 @@
 import React, { Component } from 'react';
-import {
-  Dimensions,
-  FlatList,
-  Modal,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
-//import { PropTypes } from 'prop-types';
-import ImageModal from 'react-native-image-modal';
+// import { PropTypes } from 'prop-types';
 import { defaultNavOptions } from '../navigation';
 import Spinner from '../components/common/atoms/Spinner';
 import { fetchTests } from '../store/tests/actions';
 import { selectTests } from '../store/tests';
 import { selectIsFetchingTests } from '../store/tests/reducer';
-import { EQUINOR_GREEN } from '../stylesheets/colors';
-import ButtonEDS from '../components/common/EDS/Button';
 import NavigationItem from '../components/common/atoms/NavigationItem';
 import { TestResult } from '../types';
 
@@ -31,24 +19,19 @@ const styles = StyleSheet.create({
   },
 });
 
-class TestLogPage extends Component<{showResults:CallableFunction, fetching?:boolean, tests?:[]}> {
+class TestLogPage extends Component<{
+  setSelectedItem: Function;
+  fetching: boolean;
+  tests: [];
+}> {
   static navigationOptions = () => ({
     ...defaultNavOptions,
   });
 
-  //static propTypes = { fetching: PropTypes.bool.isRequired, tests: PropTypes.array.isRequired };
+  // static propTypes = { fetching: PropTypes.bool.isRequired, tests: PropTypes.array.isRequired };
 
-  state = {
-    selectedTest: { name: '', dateTaken: null, id: '', userId: '', audiogram: '' },
-    modalVisible: false,
-  };
-
-  setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
-  }
-
-  showTest(selectedTest:TestResult) {
-    this.props.showResults(selectedTest);
+  showTest(selectedTest: TestResult) {
+    this.props.setSelectedItem(selectedTest);
   }
 
   render() {
@@ -68,17 +51,23 @@ class TestLogPage extends Component<{showResults:CallableFunction, fetching?:boo
     return (
       <SafeAreaView style={styles.component}>
         <FlatList
-          style={{paddingTop:32, paddingHorizontal:24}}
-          data={this.props.tests.sort((a:TestResult, b:TestResult) => new Date(b.dateTaken).getTime() - new Date(a.dateTaken).getTime())}
-          keyExtractor={(item:TestResult) => item.id}
+          style={{ paddingTop: 32, paddingHorizontal: 24 }}
+          data={this.props.tests.sort(
+            (a: TestResult, b: TestResult) =>
+              new Date(b.dateTaken).getTime() - new Date(a.dateTaken).getTime()
+          )}
+          keyExtractor={(item: TestResult) => item.id}
           renderItem={e => {
             const { item } = e;
             return (
-              <NavigationItem title={new Date((item as TestResult).dateTaken).toLocaleDateString('nb-NO')} onPress={() => this.showTest(item)} />
+              <NavigationItem
+                title={new Date(item.dateTaken).toLocaleDateString('nb-NO')}
+                onPress={() => this.showTest(item)}
+              />
             );
           }}
         />
-      </SafeAreaView> 
+      </SafeAreaView>
     );
   }
 }

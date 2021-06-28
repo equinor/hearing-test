@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
   Linking,
-  Modal,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -113,7 +112,7 @@ class DefaultPage extends Component<{ actionAppInit: Function; error?: any }> {
         </View>
         <TestResultsModal
           visible={this.state.testResultsModalVisible}
-          setVisible={this.setModalVisible}
+          setInvisible={() => this.setModalVisible(false)}
         />
       </View>
     );

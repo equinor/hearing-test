@@ -5,7 +5,7 @@ import { TestResult } from '../../../types';
 import Typography from '../atoms/Typography';
 import IconButton from '../EDS/IconButton';
 
-const TestResultItem = (props: { data: TestResult; backToList: Function }) => {
+const TestResultItem = (props: { data: TestResult; resetSelectedItem: Function }) => {
   return (
     <View style={{ flex: 1, paddingTop: 4, backgroundColor: 'white' }}>
       <SafeAreaView>
@@ -18,7 +18,7 @@ const TestResultItem = (props: { data: TestResult; backToList: Function }) => {
             paddingHorizontal: 24,
           }}
         >
-          <IconButton icon="chevron-left" onPress={props.backToList} />
+          <IconButton icon="chevron-left" onPress={props.resetSelectedItem} />
           <Typography variant="h2">
             {new Date(props.data.dateTaken).toLocaleDateString('nb-NO')}
           </Typography>
