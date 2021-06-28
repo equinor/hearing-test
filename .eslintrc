@@ -4,8 +4,15 @@
   "plugins": [
     "jest"
   ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
   "rules": {
-    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
+    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx", "ts", "tsx"] }],
     "react/forbid-prop-types": ["error", { "forbid": ["any"]}],
     "react/prefer-stateless-function": "off",
     "react/no-typos": "warn",
@@ -26,7 +33,17 @@
         "singleQuote": true,
         "printWidth": 100
       }
-    ]
+    ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+   ]
   },
   "globals": { "fetch": false },
   "env": {

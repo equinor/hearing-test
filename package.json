@@ -12,7 +12,8 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
     "test:watch": "npm test -- --watch",
-    "test:save": "jest --collectCoverage --json --outputFile=test-results.json"
+    "test:save": "jest --collectCoverage --json --outputFile=test-results.json",
+    "prepare": "husky install"
   },
   "repository": "https://github.com/equinor/mad-project-hearing-test-client",
   "keywords": [],
@@ -20,6 +21,10 @@
     "@babel/core": "^7.5.5",
     "@babel/preset-flow": "^7.0.0",
     "@babel/runtime": "^7.5.5",
+    "@types/jest": "^26.0.23",
+    "@types/react": "^17.0.11",
+    "@types/react-native": "^0.64.10",
+    "@types/react-test-renderer": "^17.0.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^9.0.0",
     "babel-jest": "^24.9.0",
@@ -35,18 +40,19 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.5.1",
     "fetch-mock": "^6.0.0-beta.9",
-    "husky": ">=1",
+    "husky": "^4.2.1",
     "jasmine-reporters": "^2.3.2",
     "jest": "^24.9.0",
     "jest-fetch-mock": "^1.4.0",
-    "lint-staged": ">=8",
+    "lint-staged": "^10.0.7",
     "metro-react-native-babel-preset": "^0.56.0",
     "prettier": "1.18.2",
     "react-dom": "^16.12.0",
     "react-test-renderer": "16.8.3",
     "rnpm-plugin-windows": "^0.2.11",
     "schedule": "^0.4.0",
-    "sinon": "^4.2.2"
+    "sinon": "^4.2.2",
+    "typescript": "^4.3.4"
   },
   "dependencies": {
     "@react-native-community/netinfo": "^4.2.2",
@@ -56,7 +62,7 @@
     "normalizr": "^3.2.4",
     "prop-types": "^15.6.0",
     "react": "16.8.3",
-    "react-native": "0.59.10",
+    "react-native": "^0.59.10",
     "react-native-cookies": "^3.3.0",
     "react-native-device-info": "2.3.2",
     "react-native-image-modal": "^1.0.16",
@@ -109,6 +115,11 @@
   "lint-staged": {
     "*.js": [
       "eslint --fix"
+    ]
+  },
+  "rnpm": {
+    "assets": [
+      "./app/assets/fonts/"
     ]
   }
 }
