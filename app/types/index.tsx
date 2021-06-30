@@ -37,7 +37,7 @@ export type TestResult = {
 export type SoundCheckPageJSON = {
   title: string;
   description: string;
-  button: JSX.Element;
+  button: 'variant1' | 'variant2';
   hearNoSoundButtonVisible: boolean;
   sound: {
     play: boolean;
