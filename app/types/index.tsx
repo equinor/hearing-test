@@ -33,3 +33,14 @@ export type TestResult = {
   id: string;
   userId: string;
 };
+
+export type SoundCheckPageJSON = {
+  title: string;
+  description: string;
+  button: 'variant1' | 'variant2';
+  hearNoSoundButtonVisible: boolean;
+  sound: {
+    play: boolean;
+    ear?: 'left' | 'right';
+  };
+};

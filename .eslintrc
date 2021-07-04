@@ -45,7 +45,7 @@
       }
    ]
   },
-  "globals": { "fetch": false },
+  "globals": { "fetch": false, "JSX": "readonly" },
   "env": {
     "jest/globals": true
   }
