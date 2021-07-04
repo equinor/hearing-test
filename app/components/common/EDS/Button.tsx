@@ -10,6 +10,7 @@ const ButtonEDS = (props: {
   danger?: boolean;
   loading?: boolean;
   disabled?: boolean;
+  style?: any;
 }) => {
   function getBackgroundColor() {
     if (props.disabled || props.loading || props.outlined) return `#EAEAEA`;
@@ -32,6 +33,7 @@ const ButtonEDS = (props: {
           borderWidth: !danger && 1,
           backgroundColor: getBackgroundColor(),
           borderColor: disabled || loading ? `#DCDCDC` : '#007079',
+          ...props.style,
         }}
       >
         {loading ? (
