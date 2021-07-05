@@ -187,10 +187,7 @@ class TestPage extends Component {
     // Setting playback volume
     sound.setVolume(node.stimulusMultiplicative);
     sound.setPan(node.panning);
-    sound.play(successPlay => {
-      if (!successPlay) {
-        // this.setState({ errorMessage: 'playback failed due to audio decoding errors' });
-      }
+    sound.play(() => {
       sound.release();
     });
   }
@@ -419,102 +416,6 @@ class TestPage extends Component {
         </View>
       </View>
     );
-
-    /* <View style={{ flex: 1 }}>
-        {error && error.status && (
-          <TouchableHighlight
-            style={{ backgroundColor: STOP, padding: 12, margin: 0 }}
-            onPress={() =>
-              Linking.openURL(
-                `https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/${error.status}`
-              )
-            }
-          >
-            <>
-              <Text style={{ color: 'white' }}>Could not fetch test due to</Text>
-              <Text style={{ fontSize: 23, color: 'white', marginVertical: 4 }}>
-                ERROR: {error.status} {error.message && `| ${error.message}`}
-              </Text>
-              <Text style={{ color: 'white' }}>Click to learn more...</Text>
-            </>
-          </TouchableHighlight>
-        )}
-        <SafeAreaView style={styles.component}>
-          <View style={{ flex: 1 }}>
-            // Stop The test section 
-            {showStopTheTestSection ? (
-              <GestureRecognizer
-                onSwipeUp={() => this.onSwipeUp()}
-                style={{
-                  backgroundColor: '#DEEDEE',
-                  // flex: 0.8,
-                  // justifyContent: 'space-between',
-                  paddingHorizontal: '8%',
-                  paddingVertical: 12,
-                }}
-              >
-                <Text style={{ paddingVertical: 8 }}>
-                  Hvis du trykker på Stopp, må du starte testen på nytt neste gang.
-                </Text>
-                <ButtonEDS onPress={() => this.abortTest()} text="Stopp testen" danger />
-                <View
-                  style={{
-                    height: 8,
-                    width: 60,
-                    backgroundColor: '#C4C4C4',
-                    alignSelf: 'center',
-                    borderRadius: 4,
-                  }}
-                />
-              </GestureRecognizer>
-            ) : (
-              <View style={{ flex: 1, padding: 24 }}>
-                <ButtonEDS
-                  small
-                  outlined
-                  onPress={this.showAbortTextSection()}
-                  text="Jeg har behov for å stoppe testen"
-                />
-              </View>
-            )}
-          </View>
-          <View style={{ justifyContent: 'center', padding: 12 }}>
-            // TextSection / Middle-section 
-            {!testIsRunning ? (
-              <ButtonEDS
-                loading={isFetching}
-                onPress={() => actionStartTest()}
-                text="Start testen"
-              />
-            ) : (
-              <View style={{ flex: 1, padding: 12, justifyContent: 'center' }}>
-                {pushRegistered && (
-                  <Text style={{ color: 'red', textAlign: 'center', padding: 24 }}>
-                    Ditt trykk har blitt registrert
-                  </Text>
-                )}
-              </View>
-            )}
-            <View style={{ height: 100, padding: 10 }}>
-              <Text style={{ color: 'red', textAlign: 'center', padding: 24 }}>
-                {this.state.errorMessage ? `Error: ${this.state.errorMessage}` : ''}
-              </Text>
-              <Text style={{ textAlign: 'center', padding: 12 }}>
-                Trykk på knappen nedenfor når du hører en lyd
-              </Text>
-            </View>
-          </View>
-
-          <View style={{ alignItems: 'center', padding: 12 }}>
-            // Register when you hear a sound section
-            <BigRoundButton
-              disabled={isFetching || !testIsRunning}
-              onPress={() => this.registerPress(node)}
-              text="Jeg hører en lyd nå"
-            />
-          </View>
-        </SafeAreaView>
-                </View> */
   }
 }
 
