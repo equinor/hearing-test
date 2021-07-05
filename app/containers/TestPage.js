@@ -56,12 +56,9 @@ class TestPage extends Component {
     actionStopTest: PropTypes.func.isRequired,
     actionSuccess: PropTypes.func.isRequired,
     // Selectors
-    // error: PropTypes.object.isRequired,
-    // isFetching: PropTypes.bool.isRequired,
     node: PropTypes.object.isRequired,
     test: PropTypes.object.isRequired,
     testIsFinished: PropTypes.bool.isRequired,
-    // testIsRunning: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -81,12 +78,9 @@ class TestPage extends Component {
   }
 
   state = {
-    // pushRegistered: false,
-    // showStopTheTestSection: false,
     intervalId: '',
     reactionTimeMs: null,
     numberOfPresses: 0,
-    // errorMessage: null,
     modalVisible: false,
     testStarted: false,
     nextNodeWaiting: false,
@@ -132,28 +126,6 @@ class TestPage extends Component {
       }
       this.setState({ reactionTimeMs, numberOfPresses: this.state.numberOfPresses + 1 });
     }
-  }
-
-  showClickFeedbackMessage() {
-    // this.setState({ pushRegistered: true });
-    if (this.clickRegisteredTimeoutId) {
-      clearTimeout(this.clickRegisteredTimeoutId);
-    }
-    /* this.clickRegisteredTimeoutId = setTimeout(
-      () => this.setState({ pushRegistered: false }),
-      1200
-    ); */
-  }
-
-  showAbortTextSection() {
-    return () => {
-      // this.setState({ showStopTheTestSection: true });
-      setTimeout(() => this.hideAbortTestSection(), 5000);
-    };
-  }
-
-  hideAbortTestSection() {
-    // this.setState({ showStopTheTestSection: false });
   }
 
   abortTest() {
@@ -216,10 +188,8 @@ class TestPage extends Component {
         if (error) {
           // eslint-disable-next-line no-console
           console.error('failed to load the sound', error);
-          // this.setState({ errorMessage: error.message });
         } else {
           this.setState({
-            // errorMessage: null,
             numberOfPresses: 0,
             reactionTimeMs: null,
             success: false,
@@ -252,7 +222,7 @@ class TestPage extends Component {
 
   render() {
     // const { showStopTheTestSection, pushRegistered } = this.state;
-    const { actionStartTest, node /* isFetching, testIsRunning, error */ } = this.props;
+    const { actionStartTest, node } = this.props;
     return (
       <View style={{ height: '100%', backgroundColor: GRAY_BACKGROUND }}>
         <ProgressAnimationBar
@@ -329,7 +299,6 @@ class TestPage extends Component {
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  // flex: 1,
                   height: '100%',
                 }}
               >
@@ -357,7 +326,6 @@ class TestPage extends Component {
                           },
                         ]
                       );
-                      // navigate('DefaultRoute');
                     }}
                   />
                   <MenuItem
@@ -419,7 +387,6 @@ class TestPage extends Component {
   }
 }
 
-// eslint-disable-next-line
 const MenuItem = ({ icon, text, onPress }) => {
   return (
     <TouchableOpacity
@@ -439,6 +406,12 @@ const MenuItem = ({ icon, text, onPress }) => {
       </Typography>
     </TouchableOpacity>
   );
+};
+
+MenuItem.propTypes = {
+  icon: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  onPress: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
