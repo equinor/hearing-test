@@ -257,6 +257,7 @@ class TestPage extends Component {
               justifyContent: 'space-between',
               alignItems: 'center',
               flex: 1,
+              paddingBottom: 40,
             }}
           >
             <Typography variant="p" style={{ height: 18 * 3 }}>
