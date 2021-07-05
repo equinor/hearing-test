@@ -1,21 +1,11 @@
 import React, { Component } from 'react';
-import {
-  Linking,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { SafeAreaView, StyleSheet, TouchableOpacity, View, Modal, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import Sound from 'react-native-sound';
-import GestureRecognizer from 'react-native-swipe-gestures';
 import SystemSetting from 'react-native-system-setting';
 import { defaultNavOptions } from '../navigation';
-import ButtonEDS from '../components/common/EDS/Button';
 import BigRoundButton from '../components/common/atoms/BigRoundButton';
 import { navigate } from '../navigation/service';
 import {
@@ -27,13 +17,19 @@ import {
 } from '../store/test/reducer';
 import { failure, fetchTest, postTest, startTest, stopTest, success } from '../store/test/actions';
 import { selectIsFetching } from '../store/test';
-import { STOP } from '../stylesheets/colors';
+import { GRAY_BACKGROUND } from '../stylesheets/colors';
+import Typography from '../components/common/atoms/Typography';
+import IconButton from '../components/common/EDS/IconButton';
+import ProgressAnimationBar from '../components/common/molecules/ProgressAnimationBar';
+import ButtonEDS from '../components/common/EDS/Button';
 
 const styles = StyleSheet.create({
   component: {
+    display: 'flex',
     flex: 1,
-    backgroundColor: 'white',
-    justifyContent: 'space-between',
+    backgroundColor: GRAY_BACKGROUND,
+    padding: 16,
+    paddingBottom: 60,
   },
 });
 
@@ -60,12 +56,12 @@ class TestPage extends Component {
     actionStopTest: PropTypes.func.isRequired,
     actionSuccess: PropTypes.func.isRequired,
     // Selectors
-    error: PropTypes.object.isRequired,
-    isFetching: PropTypes.bool.isRequired,
+    // error: PropTypes.object.isRequired,
+    // isFetching: PropTypes.bool.isRequired,
     node: PropTypes.object.isRequired,
     test: PropTypes.object.isRequired,
     testIsFinished: PropTypes.bool.isRequired,
-    testIsRunning: PropTypes.bool.isRequired,
+    // testIsRunning: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -85,12 +81,15 @@ class TestPage extends Component {
   }
 
   state = {
-    pushRegistered: false,
-    showStopTheTestSection: false,
+    // pushRegistered: false,
+    // showStopTheTestSection: false,
     intervalId: '',
     reactionTimeMs: null,
     numberOfPresses: 0,
-    errorMessage: null,
+    // errorMessage: null,
+    modalVisible: false,
+    testStarted: false,
+    nextNodeWaiting: false,
   };
 
   componentDidMount() {
@@ -98,8 +97,13 @@ class TestPage extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.node !== prevProps.node) {
-      this.runNode(this.props.node);
+    if (this.props.node !== prevProps.node || this.state.nextNodeWaiting) {
+      if (!this.state.modalVisible) {
+        this.runNode(this.props.node);
+        if (this.state.nextNodeWaiting) this.setState({ nextNodeWaiting: false }); //eslint-disable-line
+      } else if (!this.state.nextNodeWaiting) {
+        this.setState({ nextNodeWaiting: true }); //eslint-disable-line 
+      }
     }
     if (this.props.testIsFinished !== prevProps.testIsFinished) {
       if (this.props.testIsFinished) {
@@ -131,25 +135,25 @@ class TestPage extends Component {
   }
 
   showClickFeedbackMessage() {
-    this.setState({ pushRegistered: true });
+    // this.setState({ pushRegistered: true });
     if (this.clickRegisteredTimeoutId) {
       clearTimeout(this.clickRegisteredTimeoutId);
     }
-    this.clickRegisteredTimeoutId = setTimeout(
+    /* this.clickRegisteredTimeoutId = setTimeout(
       () => this.setState({ pushRegistered: false }),
       1200
-    );
+    ); */
   }
 
   showAbortTextSection() {
     return () => {
-      this.setState({ showStopTheTestSection: true });
+      // this.setState({ showStopTheTestSection: true });
       setTimeout(() => this.hideAbortTestSection(), 5000);
     };
   }
 
   hideAbortTestSection() {
-    this.setState({ showStopTheTestSection: false });
+    // this.setState({ showStopTheTestSection: false });
   }
 
   abortTest() {
@@ -185,7 +189,7 @@ class TestPage extends Component {
     sound.setPan(node.panning);
     sound.play(successPlay => {
       if (!successPlay) {
-        this.setState({ errorMessage: 'playback failed due to audio decoding errors' });
+        // this.setState({ errorMessage: 'playback failed due to audio decoding errors' });
       }
       sound.release();
     });
@@ -215,10 +219,10 @@ class TestPage extends Component {
         if (error) {
           // eslint-disable-next-line no-console
           console.error('failed to load the sound', error);
-          this.setState({ errorMessage: error.message });
+          // this.setState({ errorMessage: error.message });
         } else {
           this.setState({
-            errorMessage: null,
+            // errorMessage: null,
             numberOfPresses: 0,
             reactionTimeMs: null,
             success: false,
@@ -250,10 +254,173 @@ class TestPage extends Component {
   }
 
   render() {
-    const { showStopTheTestSection, pushRegistered } = this.state;
-    const { actionStartTest, node, isFetching, testIsRunning, error } = this.props;
+    // const { showStopTheTestSection, pushRegistered } = this.state;
+    const { actionStartTest, node /* isFetching, testIsRunning, error */ } = this.props;
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ height: '100%', backgroundColor: GRAY_BACKGROUND }}>
+        <ProgressAnimationBar
+          duration={0}
+          timeout={0}
+          disabled
+          key="disabled until we figure out how to solve this"
+        />
+
+        <View style={styles.component}>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: 40,
+            }}
+          >
+            <View style={{ width: 48, height: 48 }} />
+            <Typography variant="h1">Hørselstest</Typography>
+            <IconButton
+              icon="pause"
+              onPress={() => {
+                this.setState({ modalVisible: true });
+              }}
+            />
+          </View>
+          <View
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flex: 1,
+            }}
+          >
+            <Typography variant="p" style={{ height: 18 * 3 }}>
+              Trykk på sirkelen under når du er klar for å starte hørselstesten.
+            </Typography>
+            {!this.state.testStarted ? (
+              <BigRoundButton
+                variant="secondary"
+                text="Trykk for å starte"
+                onPress={() => {
+                  /* Start */
+                  this.setState({ testStarted: true });
+                  actionStartTest();
+                }}
+              />
+            ) : (
+              <BigRoundButton
+                variant="primary"
+                text="Jeg hører lyden"
+                onPress={() => {
+                  /* Register click */
+                  this.registerPress(node);
+                }}
+              />
+            )}
+          </View>
+          <Modal
+            animationType="fade"
+            transparent
+            visible={this.state.modalVisible}
+            style={{ display: 'flex' }}
+          >
+            <SafeAreaView style={{ display: 'flex' }}>
+              <View
+                style={{
+                  backgroundColor: 'rgba(0,0,0,0.5)',
+                  borderRadius: 4,
+                  padding: 16,
+                  paddingBottom: 60,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  // flex: 1,
+                  height: '100%',
+                }}
+              >
+                <View style={{ backgroundColor: '#FFFFFF', padding: 8, borderRadius: 4 }}>
+                  <MenuItem
+                    icon="delete"
+                    text="Avslutte testen"
+                    onPress={() => {
+                      Alert.alert(
+                        'Avslutte hørselstesten?',
+                        'Da må du begynne på nytt neste gang',
+                        [
+                          {
+                            text: 'Cancel',
+                            onPress: () => {},
+                            style: 'default',
+                          },
+                          {
+                            text: 'Exit',
+                            onPress: () => {
+                              this.setState({ modalVisible: false });
+                              this.abortTest();
+                            },
+                            style: 'destructive',
+                          },
+                        ]
+                      );
+                      // navigate('DefaultRoute');
+                    }}
+                  />
+                  <MenuItem
+                    icon="refresh"
+                    text="Start på ny"
+                    onPress={() => {
+                      Alert.alert('Starte på nytt?', 'Dette vil slette all data fra denne testen', [
+                        {
+                          text: 'Cancel',
+                          onPress: () => {},
+                          style: 'default',
+                        },
+                        {
+                          text: 'Restart',
+                          onPress: () => {
+                            this.setState({ modalVisible: false });
+                            this.abortTest();
+                            navigate('TestRoute');
+                          },
+                          style: 'destructive',
+                        },
+                      ]);
+                    }}
+                  />
+                  <MenuItem
+                    icon="school"
+                    text="Ta ny lydsjekk"
+                    onPress={() => {
+                      Alert.alert('Ta ny lydsjekk?', 'Dette vil slette all data fra denne testen', [
+                        {
+                          text: 'Cancel',
+                          onPress: () => {},
+                          style: 'default',
+                        },
+                        {
+                          text: 'Ny lydsjekk',
+                          onPress: () => {
+                            this.setState({ modalVisible: false });
+                            this.abortTest();
+                            navigate('SoundCheckRoute');
+                          },
+                          style: 'destructive',
+                        },
+                      ]);
+                    }}
+                  />
+                  <ButtonEDS
+                    text="Fortsette hørselstesten"
+                    onPress={() => this.setState({ modalVisible: false })}
+                    style={{ width: '100%', margin: 0 }}
+                  />
+                </View>
+              </View>
+            </SafeAreaView>
+          </Modal>
+        </View>
+      </View>
+    );
+
+    /* <View style={{ flex: 1 }}>
         {error && error.status && (
           <TouchableHighlight
             style={{ backgroundColor: STOP, padding: 12, margin: 0 }}
@@ -274,7 +441,7 @@ class TestPage extends Component {
         )}
         <SafeAreaView style={styles.component}>
           <View style={{ flex: 1 }}>
-            {/* Stop The test section */}
+            // Stop The test section 
             {showStopTheTestSection ? (
               <GestureRecognizer
                 onSwipeUp={() => this.onSwipeUp()}
@@ -312,7 +479,7 @@ class TestPage extends Component {
             )}
           </View>
           <View style={{ justifyContent: 'center', padding: 12 }}>
-            {/*  TextSection / Middle-section */}
+            // TextSection / Middle-section 
             {!testIsRunning ? (
               <ButtonEDS
                 loading={isFetching}
@@ -339,7 +506,7 @@ class TestPage extends Component {
           </View>
 
           <View style={{ alignItems: 'center', padding: 12 }}>
-            {/* Register when you hear a sound section */}
+            // Register when you hear a sound section
             <BigRoundButton
               disabled={isFetching || !testIsRunning}
               onPress={() => this.registerPress(node)}
@@ -347,10 +514,31 @@ class TestPage extends Component {
             />
           </View>
         </SafeAreaView>
-      </View>
-    );
+                </View> */
   }
 }
+
+// eslint-disable-next-line
+const MenuItem = ({ icon, text, onPress }) => {
+  return (
+    <TouchableOpacity
+      style={{
+        width: '100%',
+        height: 40,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        margin: 8,
+      }}
+      onPress={onPress}
+    >
+      <Icon name={icon} size={24} color="#6F6F6F" style={{ paddingRight: 12 }} />
+      <Typography variant="p" style={{ flex: 1 }}>
+        {text}
+      </Typography>
+    </TouchableOpacity>
+  );
+};
 
 const mapDispatchToProps = dispatch => ({
   actionFailure: reactionTimeMs => dispatch(failure(reactionTimeMs)),
