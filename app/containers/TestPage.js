@@ -94,9 +94,9 @@ class TestPage extends Component {
     if (this.props.node !== prevProps.node || this.state.nextNodeWaiting) {
       if (!this.state.modalVisible) {
         this.runNode(this.props.node);
-        if (this.state.nextNodeWaiting) this.setState({ nextNodeWaiting: false }); //eslint-disable-line
+        if (this.state.nextNodeWaiting) this.setState({ nextNodeWaiting: false }); // eslint-disable-line react/no-did-update-set-state
       } else if (!this.state.nextNodeWaiting) {
-        this.setState({ nextNodeWaiting: true }); //eslint-disable-line 
+        this.setState({ nextNodeWaiting: true }); // eslint-disable-line react/no-did-update-set-state
       }
     }
     if (this.props.testIsFinished !== prevProps.testIsFinished) {
