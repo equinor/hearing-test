@@ -63,7 +63,6 @@ class TestPage extends Component {
 
   static defaultProps = {
     // TODO
-    // Test
   };
 
   constructor() {
