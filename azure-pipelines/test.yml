@@ -63,7 +63,7 @@ steps:
   - task: InstallAppleProvisioningProfile@1
     displayName: 'Install Apple provisioning profile'
     inputs:
-      provProfileSecureFile: 'HearingTest_Test.mobileprovision'
+      provProfileSecureFile: 'HearingTest_Test_25.jan.2022.mobileprovision'
 
   - task: Xcode@5
     inputs:
