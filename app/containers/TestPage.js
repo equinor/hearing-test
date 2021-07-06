@@ -114,7 +114,6 @@ class TestPage extends Component {
   }
 
   registerPress(node) {
-    this.showClickFeedbackMessage();
     if (!!node && !!node.data) {
       const reactionTimeMs = this.timer - node.data.preDelayMs;
       // We register a press if it was done in the postDelay window
