@@ -108,7 +108,13 @@
     "test-runner": "jest"
   },
   "lint-staged": {
-    "*.{js, ts, tsx}": [
+    "*.tsx": [
+      "eslint --fix"
+    ],
+    "*.ts": [
+      "eslint --fix"
+    ],
+    "*.js": [
       "eslint --fix"
     ]
   },
