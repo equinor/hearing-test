@@ -59,6 +59,7 @@ class TestPage extends Component {
     node: PropTypes.object.isRequired,
     test: PropTypes.object.isRequired,
     testIsFinished: PropTypes.bool.isRequired,
+    testIsRunning: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -82,7 +83,6 @@ class TestPage extends Component {
     reactionTimeMs: null,
     numberOfPresses: 0,
     modalVisible: false,
-    testStarted: false,
     nextNodeWaiting: false,
   };
 
@@ -114,7 +114,6 @@ class TestPage extends Component {
   }
 
   registerPress(node) {
-    this.showClickFeedbackMessage();
     if (!!node && !!node.data) {
       const reactionTimeMs = this.timer - node.data.preDelayMs;
       // We register a press if it was done in the postDelay window
@@ -263,13 +262,12 @@ class TestPage extends Component {
             <Typography variant="p" style={{ height: 18 * 3 }}>
               Trykk på sirkelen under når du er klar for å starte hørselstesten.
             </Typography>
-            {!this.state.testStarted ? (
+            {!this.props.testIsRunning ? (
               <BigRoundButton
                 variant="secondary"
                 text="Trykk for å starte"
                 onPress={() => {
                   /* Start */
-                  this.setState({ testStarted: true });
                   actionStartTest();
                 }}
               />
