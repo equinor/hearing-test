@@ -27,9 +27,7 @@ class TestLogPage extends Component<{
     ...defaultNavOptions,
   });
 
-  showTest(selectedTest: TestResult) {
-    this.props.setSelectedItem(selectedTest);
-  }
+  showTest(selectedTest: TestResult) {this.props.setSelectedItem(selectedTest);}
 
   render() {
     if (this.props.fetching) {
