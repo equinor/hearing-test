@@ -1,19 +1,19 @@
 {
   "AzureADTenantId": "statoilsrm.onmicrosoft.com",
   "AzureADAuthority": "https://login.microsoftonline.com/statoilsrm.onmicrosoft.com",
-  "AzureADClientId": "f8ff2f9f-d270-40bf-9f61-e36cc8f4b014",
+  "AzureADClientId": "6e6d75c4-39b2-47f7-b08c-6e82c7f2f83e",
   "AzureADRedirectUrl": "http://localhost",
   "HockeyAppIdentifier": "10000000000000000000000000000000",
-  "BuildConfiguration": "Dev",
+  "BuildConfiguration": "Test",
   "BuildDate": "Today",
   "Resources": {
     "mad": {
-      "AzureADResourceId": "690a86bf-838c-4591-909c-9f45219445ab",
-      "ApiBaseUrl": "https://api.statoil.com/app/mad/dev/api/v1"
+      "AzureADResourceId": "830a7388-cd89-4e25-a631-bd615bf225a4",
+      "ApiBaseUrl": "https://api.statoil.com/app/mad/test/api/v1"
     },
     "hearing": {
-      "AzureADResourceId": "d110ddd9-08ae-4784-a597-8432fdabb0a8",
-      "ApiBaseUrl": "https://api-dev.gateway.equinor.com/hearing/v1.0/api/v1"
+      "AzureADResourceId": "51cb4e59-b091-4223-8f5b-54c6e785dd4e",
+      "ApiBaseUrl": "https://api-test.gateway.equinor.com/hearing/v1.0/api/v1"
     }
   }
 }
