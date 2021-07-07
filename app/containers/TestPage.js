@@ -260,7 +260,9 @@ class TestPage extends Component {
             }}
           >
             <Typography variant="p" style={{ height: 18 * 3 }}>
-              Trykk på sirkelen under når du er klar for å starte hørselstesten.
+              {!this.props.testIsRunning
+                ? 'Trykk på sirkelen under når du er klar for å starte hørselstesten.'
+                : 'Trykk på sirkelen under når du hører en lyd'}
             </Typography>
             {!this.props.testIsRunning ? (
               <BigRoundButton
