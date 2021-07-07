@@ -13,9 +13,7 @@ const TestResultItem = (props: {
   return (
     <View style={{ flex: 1, paddingTop: 4, backgroundColor: 'white' }}>
       <SafeAreaView>
-        {props.hideTop ? (
-          <></>
-        ) : (
+        {!props.hideTop && (
           <View
             style={{
               display: 'flex',
@@ -60,6 +58,10 @@ const TestResultItem = (props: {
       </SafeAreaView>
     </View>
   );
+};
+
+TestResultItem.defaultProps = {
+  hideTop: false,
 };
 
 export default TestResultItem;
