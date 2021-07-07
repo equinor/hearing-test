@@ -83,6 +83,7 @@ class TestPage extends Component {
     reactionTimeMs: null,
     numberOfPresses: 0,
     modalVisible: false,
+    pauseAfterNode: false,
     nextNodeWaiting: false,
   };
 
@@ -92,11 +93,11 @@ class TestPage extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.node !== prevProps.node || this.state.nextNodeWaiting) {
-      if (!this.state.modalVisible) {
+      if (!this.state.pauseAfterNode && !this.state.modalVisible) {
         this.runNode(this.props.node);
         if (this.state.nextNodeWaiting) this.setState({ nextNodeWaiting: false }); // eslint-disable-line react/no-did-update-set-state
       } else if (!this.state.nextNodeWaiting) {
-        this.setState({ nextNodeWaiting: true }); // eslint-disable-line react/no-did-update-set-state
+        this.setState({ nextNodeWaiting: true, pauseAfterNode: false, modalVisible: true }); // eslint-disable-line react/no-did-update-set-state
       }
     }
     if (this.props.testIsFinished !== prevProps.testIsFinished) {
@@ -244,9 +245,9 @@ class TestPage extends Component {
             <View style={{ width: 48, height: 48 }} />
             <Typography variant="h1">Hørselstest</Typography>
             <IconButton
-              icon="pause"
+              icon={this.state.pauseAfterNode ? 'hourglass-empty' : 'pause'}
               onPress={() => {
-                this.setState({ modalVisible: true });
+                this.setState({ pauseAfterNode: true });
               }}
             />
           </View>
