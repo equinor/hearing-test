@@ -63,7 +63,7 @@ steps:
   - task: InstallAppleProvisioningProfile@1
     displayName: 'Install Apple provisioning profile'
     inputs:
-      provProfileSecureFile: 'HearingTest_Test.mobileprovision'
+      provProfileSecureFile: 'HearingTest_Test_25.jan.2022.mobileprovision'
 
   - task: Xcode@5
     inputs:
@@ -75,7 +75,7 @@ steps:
       exportPath: '$(agent.builddirectory)/output/$(SDK)/$(BuildConfiguration)'
       signingOption: 'manual'
       signingIdentity: 'iPhone Distribution: Statoil ASA'
-      provisioningProfileUuid: 'f080d5ec-96a2-42e8-a434-84457aa23fcd'
+      provisioningProfileUuid: '9e6a6ea4-616f-4dd2-a304-1b4a39f84b54'
       args: 'PRODUCT_BUNDLE_IDENTIFIER=com.equinor.$(AppName).$(BuildConfiguration)'
 
   - task: CopyFiles@2
@@ -88,7 +88,7 @@ steps:
   - task: PublishBuildArtifacts@1
     displayName: 'Publishing the Artifact: drop'
 
-  - bash: 'mv $(build.artifactstagingdirectory)/$(BuildConfiguration)/hearingtest.ipa $(build.artifactstagingdirectory)/$(BuildConfiguration)/$(appName)-$(BuildConfiguration).ipa'
+  - bash: 'mv $(build.artifactstagingdirectory)/$(BuildConfiguration)/madapp.ipa $(build.artifactstagingdirectory)/$(BuildConfiguration)/$(appName)-$(BuildConfiguration).ipa'
     displayName: 'Rename app to $(appName)-$(BuildConfiguration)'
 
 

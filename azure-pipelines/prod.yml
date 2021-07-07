@@ -62,7 +62,7 @@ steps:
   - task: InstallAppleProvisioningProfile@1
     displayName: 'Install Apple provisioning profile'
     inputs:
-      provProfileSecureFile: 'HearingTest_Prod.mobileprovision'
+      provProfileSecureFile: 'HearingTest_Prod_25.jan.2022.mobileprovision'
 
 
   - task: Xcode@5
@@ -75,7 +75,7 @@ steps:
       exportPath: '$(agent.builddirectory)/output/$(SDK)/$(BuildConfiguration)'
       signingOption: 'manual'
       signingIdentity: 'iPhone Distribution: Statoil ASA'
-      provisioningProfileUuid: '26ce6540-bd16-4830-9dc9-ceb94f5a06a0'
+      provisioningProfileUuid: '69c5f667-03c4-41cb-af89-7355c2e5c51c'
       args: 'PRODUCT_BUNDLE_IDENTIFIER=com.equinor.$(AppName)'
 
   - task: CopyFiles@2
