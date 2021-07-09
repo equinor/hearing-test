@@ -24,7 +24,7 @@ import IconButton from '../components/common/EDS/IconButton';
 import Typography from '../components/common/atoms/Typography';
 import TestResultItem from '../components/common/molecules/TestResultItem';
 
-const FORMS_URL =
+export const FORMS_URL =
   'https://forms.office.com/Pages/ResponsePage.aspx?id=NaKkOuK21UiRlX_PBbRZsC9rzeD3BlFJi0JbArgz2wRURUxPWVRWUVBPSlVYUVc5UElIQjJXMFRSWS4u';
 
 const styles = StyleSheet.create({
