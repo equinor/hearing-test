@@ -68,7 +68,7 @@
     "react-native-image-modal": "^1.0.16",
     "react-native-keyboard-aware-scrollview": "^2.1.0",
     "react-native-ms-adal": "^0.4.0",
-    "react-native-salute": "github:statoil/react-native-salute#bfa628bd263c6969c5d828e02d4d00e9aeb49a5e",
+    "react-native-salute": "git+https://github.com/Equinor/react-native-salute.git#bfa628bd263c6969c5d828e02d4d00e9aeb49a5e",
     "react-native-sound": "^0.11.0",
     "react-native-splash-screen": "3.0.6",
     "react-native-swipe-gestures": "^1.0.4",
