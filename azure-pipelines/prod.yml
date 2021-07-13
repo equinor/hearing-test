@@ -25,6 +25,8 @@ variables:
     value: 'hearingtest'
   - name: BuildConfiguration
     value: 'prod'
+  - name: DisplayName
+    value: 'Hørselstest Dev'
 
 steps:
 
