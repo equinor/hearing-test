@@ -52,6 +52,9 @@ steps:
   - bash: "cat <<< $(jq 'del(.devDependencies.detox)' package.json) > package.json"
     displayName: "Remove Detox devDependency ( Since npm install production for some reason makes the xcode build crash in devops (ツ)_/¯"
 
+  - bash: 'npm i -g husky'
+    displayName: 'Installing JS dependencies with NPM'
+
   - bash: 'npm install'
     displayName: 'Installing JS dependencies with NPM'
 
