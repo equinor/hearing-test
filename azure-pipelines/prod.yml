@@ -73,7 +73,8 @@ steps:
       actions: 'build'
       xcWorkspacePath: 'ios/madapp.xcworkspace'
       scheme: 'madapp'
-      xcodeVersion: '12.4'
+      xcodeVersion: specifyPath
+      xcodeDeveloperDir: '/Applications/Xcode_12.4.app'
       packageApp: true
       exportPath: '$(agent.builddirectory)/output/$(SDK)/$(BuildConfiguration)'
       signingOption: 'manual'
