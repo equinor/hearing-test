@@ -15,7 +15,7 @@ trigger:
 pr: none
 
 pool:
-  vmImage: 'macos-latest'
+  vmImage: 'macos-11'
 
 variables:
   - group: AppiOS
