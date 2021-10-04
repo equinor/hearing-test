@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  Alert,
   Linking,
   StyleSheet,
   Text,
@@ -22,6 +23,7 @@ import Card from '../components/common/atoms/Card';
 import NavigationItem from '../components/common/atoms/NavigationItem';
 import { fetchMe } from '../services/api/api-methods';
 import TestResultsModal from '../components/common/molecules/TestResultsModal';
+import { FORMS_URL } from './TestResultPage';
 
 const styles = StyleSheet.create({
   component: {
@@ -113,6 +115,17 @@ class DefaultPage extends Component<{ actionAppInit: Function; error?: any }> {
           </Typography>
           {/* NOT AVAILABLE YET: <NavigationItem title="Informasjon om testen" /> */}
           <NavigationItem onPress={() => this.setModalVisible(true)} title="Mine resultater" />
+          <NavigationItem
+            onPress={async () => {
+              const supported = await Linking.canOpenURL(FORMS_URL);
+              if (supported) {
+                await Linking.openURL(FORMS_URL);
+              } else {
+                Alert.alert(`Don't know how to open this URL: ${FORMS_URL}`);
+              }
+            }}
+            title="Gi tilbakemelding"
+          />
         </View>
         <TestResultsModal
           visible={this.state.testResultsModalVisible}

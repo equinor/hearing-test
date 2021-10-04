@@ -24,6 +24,9 @@ import IconButton from '../components/common/EDS/IconButton';
 import Typography from '../components/common/atoms/Typography';
 import TestResultItem from '../components/common/molecules/TestResultItem';
 
+export const FORMS_URL =
+  'https://forms.office.com/Pages/ResponsePage.aspx?id=NaKkOuK21UiRlX_PBbRZsC9rzeD3BlFJi0JbArgz2wRURUxPWVRWUVBPSlVYUVc5UElIQjJXMFRSWS4u';
+
 const styles = StyleSheet.create({
   component: {
     flex: 1,
@@ -89,8 +92,23 @@ class TestResultPage extends Component {
         },
       },
     },
+    {
+      title: 'Testen er fullført',
+      image: thumbsUp,
+      subTitle: 'Takk for at du testet appen!',
+      description: 'Vennligst trykk på knappen under for å gi tilbakemelding',
+      secondaryButton: {
+        enable: true,
+        text: 'Se resultater',
+        onPress: () => {
+          this.setModalVisible(true);
+        },
+      },
+    },
   ];
-  page = this.pages[Math.floor(Math.random() * 3)]; // TODO in the future, the backend will probably decide which page to show
+
+  // Feedback page
+  page = this.pages[3]; // TODO in the future, the backend will probably decide which page to show
 
   render() {
     const { error, testResult } = this.props;
@@ -176,13 +194,7 @@ class TestResultPage extends Component {
             }}
           >
             {/*  Buttons-section */}
-            <ButtonEDS
-              onPress={() => this.setModalVisible(true)}
-              text="Se resultater"
-              outlined={false}
-              small={false}
-              danger={false}
-            />
+
             {this.page.secondaryButton.enable ? (
               <ButtonEDS
                 onPress={this.page.secondaryButton.onPress}
@@ -192,6 +204,20 @@ class TestResultPage extends Component {
             ) : (
               <></>
             )}
+            <ButtonEDS
+              onPress={async () => {
+                const supported = await Linking.canOpenURL(FORMS_URL);
+                if (supported) {
+                  await Linking.openURL(FORMS_URL);
+                } else {
+                  Alert.alert(`Don't know how to open this URL: ${FORMS_URL}`);
+                }
+              }}
+              text="Gi tilbakemelding" // "Se resultater"
+              outlined={false}
+              small={false}
+              danger={false}
+            />
           </View>
           <Modal
             animationType="slide"
