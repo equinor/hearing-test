@@ -15,7 +15,7 @@ trigger:
 pr: none
 
 pool:
-  vmImage: 'macos-latest'
+  vmImage: 'macos-11'
 
 variables:
   - group: AppiOS
@@ -25,6 +25,9 @@ variables:
     value: 'hearingtest'
   - name: BuildConfiguration
     value: 'prod'
+  - name: DisplayName
+    value: 'Hørselsmonitorering'
+
 
 steps:
 
@@ -70,7 +73,8 @@ steps:
       actions: 'build'
       xcWorkspacePath: 'ios/madapp.xcworkspace'
       scheme: 'madapp'
-      xcodeVersion: '11'
+      xcodeVersion: specifyPath
+      xcodeDeveloperDir: '/Applications/Xcode_12.4.app'
       packageApp: true
       exportPath: '$(agent.builddirectory)/output/$(SDK)/$(BuildConfiguration)'
       signingOption: 'manual'
@@ -88,9 +92,8 @@ steps:
   - task: PublishBuildArtifacts@1
     displayName: 'Publishing the Artifact: drop'
 
-  - bash: 'mv $(build.artifactstagingdirectory)/$(BuildConfiguration)/hearingtest.ipa $(build.artifactstagingdirectory)/$(BuildConfiguration)/$(appName)-$(BuildConfiguration).ipa'
+  - bash: 'mv $(build.artifactstagingdirectory)/$(BuildConfiguration)/*.ipa $(build.artifactstagingdirectory)/$(BuildConfiguration)/$(appName)-$(BuildConfiguration).ipa'
     displayName: 'Rename app to $(appName)-$(BuildConfiguration)'
-
 
   - task: AppCenterDistribute@3
     inputs:
@@ -102,4 +105,4 @@ steps:
         New update!
         Please test it.
       destinationType: 'groups'
-      distributionGroupId: '42417862-f1c1-4ee5-abc5-7945f9c2b992'
+      distributionGroupId: 'ff26f77c-45ad-4af9-ba7c-b574e7161b65'
