@@ -14,7 +14,7 @@ trigger:
 pr: none
 
 pool:
-  vmImage: 'macos-latest'
+  vmImage: 'macos-11'
 
 variables:
   - group: AppiOS
@@ -73,7 +73,8 @@ steps:
       actions: 'build'
       xcWorkspacePath: 'ios/madapp.xcworkspace'
       scheme: 'madapp'
-      xcodeVersion: '11'
+      xcodeVersion: specifyPath
+      xcodeDeveloperDir: '/Applications/Xcode_12.4.app'
       packageApp: true
       exportPath: '$(agent.builddirectory)/output/$(SDK)/$(BuildConfiguration)'
       signingOption: 'manual'
