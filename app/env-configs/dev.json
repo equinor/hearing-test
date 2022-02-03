@@ -13,7 +13,7 @@
     },
     "hearing": {
       "AzureADResourceId": "51cb4e59-b091-4223-8f5b-54c6e785dd4e",
-      "ApiBaseUrl": "https://api.statoil.com/app/hearing/test"
+      "ApiBaseUrl": "https://api.statoil.com/app/hearing/dev/api/v1"
     }
   }
 }
