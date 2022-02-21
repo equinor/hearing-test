@@ -70,7 +70,7 @@
     "react-native-ms-adal": "^0.4.0",
     "react-native-salute": "github:equinor/react-native-salute#bfa628bd263c6969c5d828e02d4d00e9aeb49a5e",
     "react-native-sound": "^0.11.0",
-    "react-native-splash-screen": "3.0.6",
+    "react-native-splash-screen": "3.3.0",
     "react-native-swipe-gestures": "^1.0.4",
     "react-native-system-setting": "^1.7.4",
     "react-native-trustkit-wrapper": "^0.0.8",
