@@ -74,7 +74,7 @@
     "react-native-swipe-gestures": "^1.0.4",
     "react-native-system-setting": "^1.7.4",
     "react-native-trustkit-wrapper": "^0.0.8",
-    "react-native-vector-icons": "6.6.0",
+    "react-native-vector-icons": "6.7.0",
     "react-native-windows": "^0.59.0-rc.3",
     "react-navigation": "^2.17.0",
     "react-redux": "^5.0.6",
