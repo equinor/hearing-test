@@ -13,7 +13,7 @@
     },
     "hearing": {
       "AzureADResourceId": "51cb4e59-b091-4223-8f5b-54c6e785dd4e",
-      "ApiBaseUrl": "https://api-test.gateway.equinor.com/hearing/v1.0/api/v1"
+      "ApiBaseUrl": "https://api.statoil.com/app/hearing/test/api/v1"
     }
   }
 }
