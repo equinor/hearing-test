@@ -52,6 +52,9 @@ steps:
   - bash: "cat <<< $(jq 'del(.devDependencies.detox)' package.json) > package.json"
     displayName: "Remove Detox devDependency ( Since npm install production for some reason makes the xcode build crash in devops (ツ)_/¯"
 
+  - bash: 'npm i -g husky'
+    displayName: 'Installing JS dependencies with NPM'
+
   - bash: 'npm install'
     displayName: 'Installing JS dependencies with NPM'
 
@@ -78,7 +81,7 @@ steps:
       exportPath: '$(agent.builddirectory)/output/$(SDK)/$(BuildConfiguration)'
       signingOption: 'manual'
       signingIdentity: 'iPhone Distribution: Statoil ASA'
-      provisioningProfileUuid: '983aa4f0-3bc2-4631-947a-a1c82bab92f5'
+      provisioningProfileUuid: '58d601e0-a60b-41b1-a03f-9ce4c3ecda48'
       args: 'PRODUCT_BUNDLE_IDENTIFIER=com.equinor.$(AppName).$(BuildConfiguration)'
 
   - task: CopyFiles@2

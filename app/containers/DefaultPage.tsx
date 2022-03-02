@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  Alert,
   Linking,
   StyleSheet,
   Text,
@@ -17,16 +18,22 @@ import { navigate } from '../navigation/service';
 import ButtonEDS from '../components/common/EDS/Button';
 import { appStartupInit } from '../store/test/actions';
 import { selectError } from '../store/test/reducer';
+import Typography from '../components/common/atoms/Typography';
+import Card from '../components/common/atoms/Card';
+import NavigationItem from '../components/common/atoms/NavigationItem';
+import { fetchMe } from '../services/api/api-methods';
+import TestResultsModal from '../components/common/molecules/TestResultsModal';
+import { FORMS_URL } from './TestResultPage';
 
 const styles = StyleSheet.create({
   component: {
     flex: 1,
-    backgroundColor: 'white',
-    padding: 12,
+    backgroundColor: colors.GRAY_BACKGROUND,
+    padding: 24,
   },
 });
 
-class DefaultPage extends Component {
+class DefaultPage extends Component<{ actionAppInit: Function; error?: any }> {
   static navigationOptions = ({ navigation }) => ({
     ...defaultNavOptions,
     headerRight: (
@@ -46,12 +53,27 @@ class DefaultPage extends Component {
     error: PropTypes.object.isRequired,
   };
 
+  state = {
+    firstName: null,
+    testResultsModalVisible: false,
+  };
+
   componentDidMount() {
     this.props.actionAppInit();
+    fetchMe()
+      .then(response => this.setState({ firstName: response.firstName }))
+      .catch(() => {
+        this.setState({ firstName: null });
+      });
   }
+
+  setModalVisible = (value: boolean) => {
+    this.setState({ testResultsModalVisible: value });
+  };
 
   render() {
     const { error } = this.props;
+    if (!this.state.firstName) return <></>;
     return (
       <View style={{ flex: 1 }}>
         {error && error.status && (
@@ -73,21 +95,42 @@ class DefaultPage extends Component {
           </TouchableHighlight>
         )}
         <View style={styles.component}>
-          <Text
-            style={{
-              color: '#243746',
-              fontSize: 15,
-              paddingTop: 65,
-              paddingBottom: 65,
-              textAlign: 'center',
-              fontWeight: 'bold',
+          <Typography variant="h1" style={{ paddingLeft: 4, paddingBottom: 32 }}>
+            Hei{this.state.firstName ? ` ${this.state.firstName}` : ''},
+          </Typography>
+          <Card>
+            <Typography variant="h2" style={{ paddingBottom: 16 }}>
+              Er du klar for en ny test?
+            </Typography>
+            <Typography variant="p" style={{ paddingBottom: 32 }}>
+              Husk å teste hørselen din regelmessig for at vi skal kunne kartlegge hørselshelsen din
+              over tid.
+            </Typography>
+            <View style={{ width: 160 }}>
+              <ButtonEDS onPress={() => navigate('PreTestRoute')} text="Ta hørselstesten" />
+            </View>
+          </Card>
+          <Typography variant="h2" style={{ paddingBottom: 16, paddingTop: 32 }}>
+            Din oversikt
+          </Typography>
+          {/* NOT AVAILABLE YET: <NavigationItem title="Informasjon om testen" /> */}
+          <NavigationItem onPress={() => this.setModalVisible(true)} title="Mine resultater" />
+          <NavigationItem
+            onPress={async () => {
+              const supported = await Linking.canOpenURL(FORMS_URL);
+              if (supported) {
+                await Linking.openURL(FORMS_URL);
+              } else {
+                Alert.alert(`Don't know how to open this URL: ${FORMS_URL}`);
+              }
             }}
-          >
-            Velkommen til din hørselsmonitorering
-          </Text>
-          <ButtonEDS onPress={() => navigate('PreTestRoute')} text="Ta hørselstesten" />
-          <ButtonEDS onPress={() => navigate('TestLogRoute')} text="Fullførte tester" />
+            title="Gi tilbakemelding"
+          />
         </View>
+        <TestResultsModal
+          visible={this.state.testResultsModalVisible}
+          setInvisible={() => this.setModalVisible(false)}
+        />
       </View>
     );
   }

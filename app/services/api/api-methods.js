@@ -74,3 +74,5 @@ export const postTest = body => postData(`/me/tests`, body);
 export const appInit = () => fetchData('/appStartup/init', defaultResource, false);
 
 export const fetchTests = () => fetchData('/me/tests');
+
+export const fetchMe = () => fetchData('/me');

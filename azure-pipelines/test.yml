@@ -51,6 +51,9 @@ steps:
   - bash: "cat <<< $(jq 'del(.devDependencies.detox)' package.json) > package.json"
     displayName: "Remove Detox devDependency ( Since npm install production for some reason makes the xcode build crash in devops (ツ)_/¯"
 
+  - bash: 'npm i -g husky'
+    displayName: 'Installing JS dependencies with NPM'
+    
   - bash: 'npm i'
     displayName: 'Installing JS dependencies with NPM'
 
@@ -76,7 +79,7 @@ steps:
       exportPath: '$(agent.builddirectory)/output/$(SDK)/$(BuildConfiguration)'
       signingOption: 'manual'
       signingIdentity: 'iPhone Distribution: Statoil ASA'
-      provisioningProfileUuid: 'f080d5ec-96a2-42e8-a434-84457aa23fcd'
+      provisioningProfileUuid: '48108dd6-cf89-40ed-8687-a75583d36c52'
       args: 'PRODUCT_BUNDLE_IDENTIFIER=com.equinor.$(AppName).$(BuildConfiguration)'
 
   - task: CopyFiles@2
@@ -89,7 +92,7 @@ steps:
   - task: PublishBuildArtifacts@1
     displayName: 'Publishing the Artifact: drop'
 
-  - bash: 'mv $(build.artifactstagingdirectory)/$(BuildConfiguration)/hearingtest.ipa $(build.artifactstagingdirectory)/$(BuildConfiguration)/$(appName)-$(BuildConfiguration).ipa'
+  - bash: 'mv $(build.artifactstagingdirectory)/$(BuildConfiguration)/*.ipa $(build.artifactstagingdirectory)/$(BuildConfiguration)/$(appName)-$(BuildConfiguration).ipa'
     displayName: 'Rename app to $(appName)-$(BuildConfiguration)'
 
 
@@ -103,4 +106,4 @@ steps:
         New update!
         Please test it.
       destinationType: 'groups'
-      distributionGroupId: '42417862-f1c1-4ee5-abc5-7945f9c2b992'
+      distributionGroupId: '42417862-f1c1-4ee5-abc5-7945f9c2b992,ff26f77c-45ad-4af9-ba7c-b574e7161b65'

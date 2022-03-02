@@ -25,3 +25,22 @@ export const authStatusTypes = {
   FAILED: 'FAILED',
   SIGNED_OUT: 'SIGNED_OUT',
 };
+
+export type TestResult = {
+  audiogram: string;
+  name: string;
+  dateTaken: number;
+  id: string;
+  userId: string;
+};
+
+export type SoundCheckPageJSON = {
+  title: string;
+  description: string;
+  button: 'variant1' | 'variant2';
+  hearNoSoundButtonVisible: boolean;
+  sound: {
+    play: boolean;
+    ear?: 'left' | 'right';
+  };
+};
