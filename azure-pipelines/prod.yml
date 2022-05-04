@@ -61,13 +61,13 @@ steps:
   - task: InstallAppleCertificate@2
     displayName: 'Install Apple certificate - dd.mm.2021'
     inputs:
-      certSecureFile: 'statoil_desi.p12'
+      certSecureFile: 'EquinorASADist.p12'
       certPwd: '$(p12Password)'
 
   - task: InstallAppleProvisioningProfile@1
     displayName: 'Install Apple provisioning profile'
     inputs:
-      provProfileSecureFile: 'HearingTest_Prod_25.jan.2022.mobileprovision'
+      provProfileSecureFile: 'HearingTest_Prod.mobileprovision'
 
 
   - task: Xcode@5
@@ -81,7 +81,7 @@ steps:
       exportPath: '$(agent.builddirectory)/output/$(SDK)/$(BuildConfiguration)'
       signingOption: 'manual'
       signingIdentity: 'iPhone Distribution: Statoil ASA'
-      provisioningProfileUuid: '69c5f667-03c4-41cb-af89-7355c2e5c51c'
+      provisioningProfileUuid: 'bf8e5df7-160b-481e-a61e-27b5b6bac595'
       args: 'PRODUCT_BUNDLE_IDENTIFIER=com.equinor.$(AppName)'
 
   - task: CopyFiles@2
