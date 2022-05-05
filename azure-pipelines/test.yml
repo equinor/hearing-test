@@ -60,7 +60,7 @@ steps:
   - task: InstallAppleCertificate@2
     displayName: 'Install Apple certificate - dd.mm.2021'
     inputs:
-      certSecureFile: 'statoil_desi.p12'
+      certSecureFile: 'EquinorASADist.p12'
       certPwd: '$(p12Password)'
 
   - task: InstallAppleProvisioningProfile@1
