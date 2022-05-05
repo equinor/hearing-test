@@ -79,7 +79,7 @@ steps:
       exportPath: '$(agent.builddirectory)/output/$(SDK)/$(BuildConfiguration)'
       signingOption: 'manual'
       signingIdentity: 'iPhone Distribution: Statoil ASA'
-      provisioningProfileUuid: '48108dd6-cf89-40ed-8687-a75583d36c52'
+      provisioningProfileUuid: 'c6b2def9-ea7a-4a0a-9f5c-095e40e7f100'
       args: 'PRODUCT_BUNDLE_IDENTIFIER=com.equinor.$(AppName).$(BuildConfiguration)'
 
   - task: CopyFiles@2
