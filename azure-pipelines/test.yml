@@ -47,6 +47,8 @@ steps:
 
   - task: UseNode@1
     displayName: 'Specifying Node version'
+    inputs: 
+      version: 14.x
 
   - bash: "cat <<< $(jq 'del(.devDependencies.detox)' package.json) > package.json"
     displayName: "Remove Detox devDependency ( Since npm install production for some reason makes the xcode build crash in devops (ツ)_/¯"
