@@ -1,1 +1,0 @@
-../../../../ADAL/ADAL/IdentityCore/IdentityCore/src/util/ios/UIApplication+MSIDExtensions.h

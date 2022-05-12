@@ -1,1 +1,0 @@
-../../../../ADAL/ADAL/IdentityCore/IdentityCore/src/webview/embeddedWebview/MSIDOAuth2EmbeddedWebviewController.h

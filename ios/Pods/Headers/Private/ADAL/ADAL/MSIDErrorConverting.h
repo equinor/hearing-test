@@ -1,1 +1,0 @@
-../../../../ADAL/ADAL/IdentityCore/IdentityCore/src/MSIDErrorConverting.h

@@ -1,1 +1,0 @@
-../../../../ADAL/ADAL/IdentityCore/IdentityCore/src/network/request/MSIDOpenIdConfigurationInfoResponseSerializer.h

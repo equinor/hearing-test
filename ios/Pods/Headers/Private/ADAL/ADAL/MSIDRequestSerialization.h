@@ -1,1 +1,0 @@
-../../../../ADAL/ADAL/IdentityCore/IdentityCore/src/network/request_serializer/MSIDRequestSerialization.h

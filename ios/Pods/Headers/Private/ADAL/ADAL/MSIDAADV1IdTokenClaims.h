@@ -1,1 +1,0 @@
-../../../../ADAL/ADAL/IdentityCore/IdentityCore/src/oauth2/aad_v1/MSIDAADV1IdTokenClaims.h
