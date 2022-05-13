@@ -1,10 +1,17 @@
-import React, { Component } from 'react';
-import DeviceInfo from 'react-native-device-info';
-import { getResource, getConfiguredResources, BuildConfiguration, BuildDate } from '../settings';
-import AppInfo from '../components/AppInfo';
-import { defaultNavOptions } from '../navigation';
+import React, { Component } from "react";
+import { Platform } from "react-native";
+import DeviceInfo from "react-native-device-info";
 
-const aboutListTitle = 'About app';
+import appJson from "../../app.json";
+import {
+  getResource,
+  getConfiguredResources,
+  BuildConfiguration,
+} from "../../constants/settings";
+import AppInfo from "../components/AppInfo";
+import { defaultNavOptions } from "../navigation";
+
+const aboutListTitle = "About app";
 
 export default class AboutPage extends Component {
   static navigationOptions = () => ({
@@ -14,26 +21,41 @@ export default class AboutPage extends Component {
 
   render() {
     const resources = getConfiguredResources();
-
     const getApiEndpoints = () =>
-      resources.map(resource => getResource(resource).ApiBaseUrl.toString()).join('\n');
+      resources
+        .map((resource) => getResource(resource).ApiBaseUrl.toString())
+        .join("\n");
 
     const sections = [
       {
-        key: 'Client',
+        key: "Client",
         data: [
-          { key: 'BuildConfig', label: 'Configuration', text: BuildConfiguration },
-          { key: 'BuildNr', label: 'BuildNr', text: DeviceInfo.getBuildNumber().toString() },
-          { key: 'AppVersion', label: 'App version', text: DeviceInfo.getReadableVersion() },
-          { key: 'BuildDate', label: 'Build Date', text: BuildDate },
+          {
+            key: "BuildConfig",
+            label: "Configuration",
+            text: BuildConfiguration,
+          },
+          {
+            key: "BuildNr",
+            label: "BuildNr",
+            text:
+              Platform.OS === "ios"
+                ? appJson.expo.ios.buildNumber
+                : appJson.expo.web.buildNumber,
+          },
+          {
+            key: "AppVersion",
+            label: "App version",
+            text: appJson.expo.version,
+          },
         ],
       },
       {
-        key: 'Api',
+        key: "Api",
         data: [
           {
-            key: 'ApiBaseUrl',
-            label: resources.length > 1 ? 'Endpoints' : 'Endpoint',
+            key: "ApiBaseUrl",
+            label: resources.length > 1 ? "Endpoints" : "Endpoint",
             text: getApiEndpoints(),
           },
         ],

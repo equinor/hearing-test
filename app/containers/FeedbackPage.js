@@ -1,23 +1,28 @@
-import React, { Component } from 'react';
-import { Text, TextInput, View, SafeAreaView, StyleSheet } from 'react-native';
-import PropTypes from 'prop-types';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
-import { connect } from 'react-redux';
-import DeviceInfo from 'react-native-device-info';
-import MadButton from '../components/common/atoms/MadButton';
-import textStyle from '../stylesheets/text';
-import { getCurrentUser } from '../store/auth';
-import { BuildConfiguration, getConfiguredResources, getResource } from '../settings';
-import { authenticateSilently } from '../services/adal';
-import Spinner from '../components/common/atoms/Spinner';
-import * as colors from '../stylesheets/colors';
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { Text, TextInput, View, SafeAreaView, StyleSheet } from "react-native";
+import DeviceInfo from "react-native-device-info";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
+import { connect } from "react-redux";
 
-const navBarTitle = 'Feedback';
+import {
+  BuildConfiguration,
+  getConfiguredResources,
+  getResource,
+} from "../../constants/settings";
+import { authenticateSilently } from "../../services/adal";
+import { getCurrentUser } from "../../store/auth";
+import MadButton from "../components/common/atoms/MadButton";
+import Spinner from "../components/common/atoms/Spinner";
+import * as colors from "../stylesheets/colors";
+import textStyle from "../stylesheets/text";
+
+const navBarTitle = "Feedback";
 
 const styles = StyleSheet.create({
   systemInfoText: {
     ...textStyle.p,
-    textAlign: 'justify',
+    textAlign: "justify",
     lineHeight: 23,
   },
 });
@@ -33,45 +38,45 @@ class FeedbackPage extends Component {
 
   state = {
     isBusy: false,
-    feedbackText: '',
-    statusMessage: '',
-    status: '',
+    feedbackText: "",
+    statusMessage: "",
+    status: "",
   };
 
-  updateFeedback = feedbackText => {
+  updateFeedback = (feedbackText) => {
     this.setState({ feedbackText });
   };
 
   createUrl = (resource, path) => `${getResource(resource).ApiBaseUrl}${path}`;
 
   postData = (path, data, onSuccess, onError) =>
-    authenticateSilently('mad').then(r =>
-      fetch(this.createUrl('mad', path), {
-        method: 'POST',
+    authenticateSilently("mad").then((r) =>
+      fetch(this.createUrl("mad", path), {
+        method: "POST",
         body: JSON.stringify(data),
         withCredentials: true,
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
+          Accept: "application/json",
+          "Content-Type": "application/json",
           Authorization: `Bearer ${r.accessToken}`,
         },
       })
-        .then(response => {
+        .then((response) => {
           if (response.ok) {
             onSuccess(response.text);
           }
           this.setState({ isBusy: false });
         })
-        .catch(err => {
+        .catch((err) => {
           onError(err);
         })
     );
 
   sendFeedback = (Product, User, Msg, SystemMsg) => {
-    this.setState({ isBusy: true, statusMessage: '' });
+    this.setState({ isBusy: true, statusMessage: "" });
 
     this.postData(
-      '/Feedback',
+      "/Feedback",
       {
         Product,
         User,
@@ -82,17 +87,17 @@ class FeedbackPage extends Component {
       () => {
         this.setState({
           isBusy: false,
-          feedbackText: '',
-          statusMessage: 'Thank you for the feedback!',
-          status: 'OK',
+          feedbackText: "",
+          statusMessage: "Thank you for the feedback!",
+          status: "OK",
         });
       },
       // error
       () => {
         this.setState({
           isBusy: false,
-          statusMessage: 'Failed to post feedback. Please try again later.',
-          status: 'ERROR',
+          statusMessage: "Failed to post feedback. Please try again later.",
+          status: "ERROR",
         });
       }
     );
@@ -103,7 +108,9 @@ class FeedbackPage extends Component {
     const { isBusy } = this.state;
     const resources = getConfiguredResources();
     const getApiEndpoints = () =>
-      resources.map(resource => getResource(resource).ApiBaseUrl.toString()).join('\n - ');
+      resources
+        .map((resource) => getResource(resource).ApiBaseUrl.toString())
+        .join("\n - ");
     const userId = user.displayableId ? user.displayableId : user.userId;
     const environment = BuildConfiguration;
     const apiEndpoints = getApiEndpoints();
@@ -119,15 +126,20 @@ class FeedbackPage extends Component {
     };
 
     const items = [
-      { key: 'User', value: userId },
-      { key: 'Device brand', value: device.brand },
-      { key: 'Device id', value: device.id },
-      { key: 'Operation System', value: device.os },
-      { key: 'TimeZone', value: device.timeZone },
-      { key: 'Locale', value: device.locale },
-    ].map(item => (
-      <View key={item.key} style={{ flexDirection: 'row', alignContent: 'center' }}>
-        <Text style={[styles.systemInfoText, { width: 180 }]}>- {item.key}:</Text>
+      { key: "User", value: userId },
+      { key: "Device brand", value: device.brand },
+      { key: "Device id", value: device.id },
+      { key: "Operation System", value: device.os },
+      { key: "TimeZone", value: device.timeZone },
+      { key: "Locale", value: device.locale },
+    ].map((item) => (
+      <View
+        key={item.key}
+        style={{ flexDirection: "row", alignContent: "center" }}
+      >
+        <Text style={[styles.systemInfoText, { width: 180 }]}>
+          - {item.key}:
+        </Text>
         <Text style={styles.systemInfoText}>{item.value}</Text>
       </View>
     ));
@@ -139,42 +151,47 @@ class FeedbackPage extends Component {
           return [this.textInputRef];
         }}
       >
-        <SafeAreaView style={{ marginLeft: 42, marginRight: 42, margin: 16, flex: 1 }}>
+        <SafeAreaView
+          style={{ marginLeft: 42, marginRight: 42, margin: 16, flex: 1 }}
+        >
           {!!statusMessage && (
             <View
               style={{
                 borderRadius: 4,
                 padding: 16,
                 marginBottom: 6,
-                backgroundColor: status === 'OK' ? colors.GO : colors.STOP,
+                backgroundColor: status === "OK" ? colors.GO : colors.STOP,
               }}
             >
-              <Text style={[textStyle.h3, { color: 'white' }]}>{statusMessage}</Text>
+              <Text style={[textStyle.h3, { color: "white" }]}>
+                {statusMessage}
+              </Text>
             </View>
           )}
           <Text style={textStyle.h1}>Have some feedback?</Text>
           <Text style={[textStyle.p, { lineHeight: 23 }]}>
-            We are collecting some information about your device as a part of the feedback-process.
-            By submitting you agree to share the following info:
+            We are collecting some information about your device as a part of
+            the feedback-process. By submitting you agree to share the following
+            info:
           </Text>
           <View style={{ paddingTop: 16, paddingBottom: 8 }}>{items}</View>
           <TextInput
             testID="InputFeedback"
-            ref={ref => {
+            ref={(ref) => {
               this.textInputRef = ref;
             }}
             value={feedbackText}
             editable
             multiline
             placeholder="Write your feedback here"
-            onChangeText={text => this.updateFeedback(text)}
+            onChangeText={(text) => this.updateFeedback(text)}
             style={[
               textStyle.p,
               {
                 minHeight: 150,
                 borderWidth: 1,
-                borderColor: 'gray',
-                backgroundColor: 'white',
+                borderColor: "gray",
+                backgroundColor: "white",
                 borderRadius: 4,
                 paddingTop: 16,
                 padding: 16,
@@ -191,7 +208,7 @@ class FeedbackPage extends Component {
                 `${DeviceInfo.getApplicationName()} | v${DeviceInfo.getReadableVersion()} (${DeviceInfo.getBuildNumber()})`,
                 ` ${userId}`,
                 `${feedbackText.trim()}`,
-                '\n\n' +
+                "\n\n" +
                   `*Device brand:* ${device.brand}\n` +
                   `*Device Id:* ${device.id}\n` +
                   `*Operation System:* ${device.os}\n` +
@@ -209,7 +226,7 @@ class FeedbackPage extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   user: getCurrentUser(state),
 });
 

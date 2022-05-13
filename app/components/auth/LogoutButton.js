@@ -1,30 +1,30 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { StyleSheet } from 'react-native';
-import { NavigationActions } from 'react-navigation';
-import { Button } from '../common';
-import * as colors from '../../stylesheets/colors';
-import { getAuthStatus, actions } from '../../store/auth';
-import { authStatusTypes } from '../../types';
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { StyleSheet } from "react-native";
+import { connect } from "react-redux";
+
+import { getAuthStatus, actions } from "../../../store/auth";
+import * as colors from "../../stylesheets/colors";
+import { authStatusTypes } from "../../types";
+import { Button } from "../common";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     margin: 0,
     padding: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   defaultButton: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   buttonText: {
     color: colors.RED,
-    textAlign: 'right',
+    textAlign: "right",
     paddingLeft: 15,
     paddingRight: 15,
-    fontWeight: '500',
+    fontWeight: "500",
   },
 });
 
@@ -40,9 +40,12 @@ class LogoutButton extends Component {
     const { nav, authStatus: nextAuthStatus } = this.props;
     const { authStatus: prevAuthStatus } = prevProps;
 
-    if (nextAuthStatus !== prevAuthStatus && nextAuthStatus === authStatusTypes.SIGNED_OUT) {
+    if (
+      nextAuthStatus !== prevAuthStatus &&
+      nextAuthStatus === authStatusTypes.SIGNED_OUT
+    ) {
       const navigateAction = NavigationActions.navigate({
-        routeName: 'LoginRoute',
+        routeName: "LoginRoute",
       });
       nav.dispatch(navigateAction);
     }
@@ -73,15 +76,12 @@ LogoutButton.propTypes = {
   signOut: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   authStatus: getAuthStatus(state),
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   signOut: () => dispatch(actions.loginSignOut()),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LogoutButton);
+export default connect(mapStateToProps, mapDispatchToProps)(LogoutButton);

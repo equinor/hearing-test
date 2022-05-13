@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import DeviceInfo from 'react-native-device-info';
-import { connect } from 'react-redux';
-import * as actions from '../store';
-import { getAuthStatus, getCurrentUser } from '../store/auth';
-import { getVersion } from '../store/version';
-import { getIsConnected } from '../store/connectivity';
-import { LoginView } from '../components/auth';
-import { authStatusTypes } from '../types';
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import DeviceInfo from "react-native-device-info";
+import { connect } from "react-redux";
+
+import * as actions from "../../store";
+import { getAuthStatus, getCurrentUser } from "../../store/auth";
+import { getIsConnected } from "../../store/connectivity";
+import { getVersion } from "../../store/version";
+import { LoginView } from "../components/auth";
+import { authStatusTypes } from "../types";
 
 class LoginPage extends Component {
   static propTypes = {
@@ -37,7 +38,10 @@ class LoginPage extends Component {
     const { authStatus: nextAuthStatus } = this.props;
     const { authStatus: prevAuthStatus } = prevProps;
 
-    if (nextAuthStatus !== prevAuthStatus && nextAuthStatus === authStatusTypes.AUTHENTICATED) {
+    if (
+      nextAuthStatus !== prevAuthStatus &&
+      nextAuthStatus === authStatusTypes.AUTHENTICATED
+    ) {
       this.checkAppVersionAndNavigate();
     }
   }
@@ -46,9 +50,9 @@ class LoginPage extends Component {
     // If version number is persisted and same, do not show onboarding/features
     const version = DeviceInfo.getVersion();
     if (this.props.appVersion === version) {
-      this.props.navigation.navigate('MainRoute');
+      this.props.navigation.navigate("MainRoute");
     } else {
-      this.props.navigation.navigate('FeatureRoute');
+      this.props.navigation.navigate("FeatureRoute");
     }
   }
 
@@ -63,19 +67,16 @@ class LoginPage extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(actions.setCurrentUser(user)),
-  authenticate: silent => dispatch(actions.login(silent)),
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentUser: (user) => dispatch(actions.setCurrentUser(user)),
+  authenticate: (silent) => dispatch(actions.login(silent)),
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   appVersion: getVersion(state),
   hasConnectivity: getIsConnected(state),
   authStatus: getAuthStatus(state),
   currentUser: getCurrentUser(state),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

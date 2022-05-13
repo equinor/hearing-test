@@ -1,0 +1,24 @@
+{
+  "AzureADTenantId": "statoilsrm.onmicrosoft.com",
+  "AzureADAuthority": "https://login.microsoftonline.com/statoilsrm.onmicrosoft.com",
+  "AzureADClientId": "6e6d75c4-39b2-47f7-b08c-6e82c7f2f83e",
+  "AzureADRedirectUrl": "http://localhost",
+  "AzureADRedirectUrlWeb": "http://localhost:19006",
+  "BuildConfiguration": "Test",
+  "Resources": {
+    "mad": {
+      "AzureADResourceId": "830a7388-cd89-4e25-a631-bd615bf225a4",
+      "ApiBaseUrl": "https://api.statoil.com/app/mad/test/api/v1",
+      "scopes": [
+        "830a7388-cd89-4e25-a631-bd615bf225a4/user_impersonation"
+      ]
+    },
+    "hearing": {
+      "AzureADResourceId": "51cb4e59-b091-4223-8f5b-54c6e785dd4e",
+      "ApiBaseUrl": "https://api.statoil.com/app/hearing/test/api/v1",
+      "scopes": [
+        "51cb4e59-b091-4223-8f5b-54c6e785dd4e/user_impersonation"
+      ]
+    }
+  }
+}

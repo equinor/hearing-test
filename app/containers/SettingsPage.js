@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { defaultNavOptions } from '../navigation';
-import { getCurrentUser } from '../store/auth';
-import Settings from '../components/Settings';
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+
+import { getCurrentUser } from "../../store/auth";
+import Settings from "../components/Settings";
+import { defaultNavOptions } from "../navigation";
 
 class SettingsPage extends Component {
   static propTypes = {
@@ -18,7 +19,7 @@ class SettingsPage extends Component {
 
   static navigationOptions = () => ({
     ...defaultNavOptions,
-    title: 'Settings',
+    title: "Settings",
   });
 
   render() {
@@ -27,7 +28,7 @@ class SettingsPage extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   currentUser: getCurrentUser(state),
 });
 

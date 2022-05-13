@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import PropTypes from "prop-types";
+import React, { Component } from "react";
 import {
   Alert,
   Image,
@@ -9,23 +10,23 @@ import {
   TouchableHighlight,
   View,
   Modal,
-} from 'react-native';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import thumbsUp from '../assets/thumbs-up.png';
-import warning from '../assets/warning.png';
-import doctor from '../assets/doctor.png';
-import { defaultNavOptions } from '../navigation';
-import ButtonEDS from '../components/common/EDS/Button';
-import { navigate } from '../navigation/service';
-import { selectError, selectTestResult } from '../store/test/reducer';
-import { GRAY_BACKGROUND, STOP } from '../stylesheets/colors';
-import IconButton from '../components/common/EDS/IconButton';
-import Typography from '../components/common/atoms/Typography';
-import TestResultItem from '../components/common/molecules/TestResultItem';
+} from "react-native";
+import { connect } from "react-redux";
+
+import { selectError, selectTestResult } from "../../store/test/reducer";
+import doctor from "../assets/doctor.png";
+import thumbsUp from "../assets/thumbs-up.png";
+import warning from "../assets/warning.png";
+import ButtonEDS from "../components/common/EDS/Button";
+import IconButton from "../components/common/EDS/IconButton";
+import Typography from "../components/common/atoms/Typography";
+import TestResultItem from "../components/common/molecules/TestResultItem";
+import { defaultNavOptions } from "../navigation";
+import { navigate } from "../navigation/service";
+import { GRAY_BACKGROUND, STOP } from "../stylesheets/colors";
 
 export const FORMS_URL =
-  'https://forms.office.com/Pages/ResponsePage.aspx?id=NaKkOuK21UiRlX_PBbRZsC9rzeD3BlFJi0JbArgz2wRURUxPWVRWUVBPSlVYUVc5UElIQjJXMFRSWS4u';
+  "https://forms.office.com/Pages/ResponsePage.aspx?id=NaKkOuK21UiRlX_PBbRZsC9rzeD3BlFJi0JbArgz2wRURUxPWVRWUVBPSlVYUVc5UElIQjJXMFRSWS4u";
 
 const styles = StyleSheet.create({
   component: {
@@ -58,48 +59,49 @@ class TestResultPage extends Component {
 
   pages = [
     {
-      title: 'Testen er fullført',
+      title: "Testen er fullført",
       image: thumbsUp,
-      subTitle: 'Dette ser fint ut!',
+      subTitle: "Dette ser fint ut!",
       description:
-        'Du vil få en ny invitasjon om 6 måneder, men vær oppmerksom på at jo oftere du tar testen, jo bedre.',
+        "Du vil få en ny invitasjon om 6 måneder, men vær oppmerksom på at jo oftere du tar testen, jo bedre.",
       secondaryButton: {
         enable: false,
       },
     },
     {
-      title: 'Her ble det litt krøll',
+      title: "Her ble det litt krøll",
       image: warning,
-      subTitle: 'Takk for at du gjennomførte testen',
-      description: 'For beste mulige resultater, vennligst ta hørselstesten på ny.',
+      subTitle: "Takk for at du gjennomførte testen",
+      description:
+        "For beste mulige resultater, vennligst ta hørselstesten på ny.",
       secondaryButton: {
         enable: true,
-        text: 'Ta ny test',
-        onPress: () => navigate('TestRoute'),
+        text: "Ta ny test",
+        onPress: () => navigate("TestRoute"),
       },
     },
     {
-      title: 'Testen er fullført',
+      title: "Testen er fullført",
       image: doctor,
-      subTitle: 'Takk for at du gjennomførte testen',
+      subTitle: "Takk for at du gjennomførte testen",
       description:
-        'Det er oppdaget en endring i hørselen din. Vennligst ta kontakt med sykepleier for en manuell undersøkelse.',
+        "Det er oppdaget en endring i hørselen din. Vennligst ta kontakt med sykepleier for en manuell undersøkelse.",
       secondaryButton: {
         enable: true,
-        text: 'Kontakt sykepleier',
+        text: "Kontakt sykepleier",
         onPress: () => {
           /* TODO */
         },
       },
     },
     {
-      title: 'Testen er fullført',
+      title: "Testen er fullført",
       image: thumbsUp,
-      subTitle: 'Takk for at du testet appen!',
-      description: 'Vennligst trykk på knappen under for å gi tilbakemelding',
+      subTitle: "Takk for at du testet appen!",
+      description: "Vennligst trykk på knappen under for å gi tilbakemelding",
       secondaryButton: {
         enable: true,
-        text: 'Se resultater',
+        text: "Se resultater",
         onPress: () => {
           this.setModalVisible(true);
         },
@@ -113,7 +115,7 @@ class TestResultPage extends Component {
   render() {
     const { error, testResult } = this.props;
     return (
-      <View style={{ flex: 1, width: '100%' }}>
+      <View style={{ flex: 1, width: "100%" }}>
         {error && error.status && (
           <TouchableHighlight
             style={{ backgroundColor: STOP, padding: 12, margin: 0 }}
@@ -124,11 +126,13 @@ class TestResultPage extends Component {
             }
           >
             <>
-              <Text style={{ color: 'white' }}>Could not submit test due to</Text>
-              <Text style={{ fontSize: 23, color: 'white', marginVertical: 4 }}>
+              <Text style={{ color: "white" }}>
+                Could not submit test due to
+              </Text>
+              <Text style={{ fontSize: 23, color: "white", marginVertical: 4 }}>
                 ERROR: {error.status} {error.message && `| ${error.message}`}
               </Text>
-              <Text style={{ color: 'white' }}>Click to learn more...</Text>
+              <Text style={{ color: "white" }}>Click to learn more...</Text>
             </>
           </TouchableHighlight>
         )}
@@ -136,17 +140,17 @@ class TestResultPage extends Component {
           <View
             style={{
               flex: 1,
-              alignItems: 'center',
-              width: '100%',
+              alignItems: "center",
+              width: "100%",
             }}
           >
             <View
               style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                width: '100%',
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                width: "100%",
                 padding: 36,
                 paddingTop: 12,
               }}
@@ -154,18 +158,22 @@ class TestResultPage extends Component {
               <IconButton
                 icon="close"
                 onPress={() =>
-                  Alert.alert('Avslutte?', 'Du kan fortsatt se resultatene dine fra startsiden.', [
-                    {
-                      text: 'Cancel',
-                      onPress: () => {},
-                      style: 'default',
-                    },
-                    {
-                      text: 'Avslutt',
-                      onPress: () => navigate('DefaultRoute'),
-                      style: 'default',
-                    },
-                  ])
+                  Alert.alert(
+                    "Avslutte?",
+                    "Du kan fortsatt se resultatene dine fra startsiden.",
+                    [
+                      {
+                        text: "Cancel",
+                        onPress: () => {},
+                        style: "default",
+                      },
+                      {
+                        text: "Avslutt",
+                        onPress: () => navigate("DefaultRoute"),
+                        style: "default",
+                      },
+                    ]
+                  )
                 }
               />
               <Typography variant="h1">{this.page.title}</Typography>
@@ -174,12 +182,12 @@ class TestResultPage extends Component {
             {/*  Results-header section */}
             <Image
               source={this.page.image}
-              style={{ height: 250, resizeMode: 'contain', marginBottom: 24 }}
+              style={{ height: 250, resizeMode: "contain", marginBottom: 24 }}
             />
             <Typography variant="h2">{this.page.subTitle}</Typography>
             <Typography
               variant="p"
-              style={{ margin: 12, paddingHorizontal: 36, textAlign: 'center' }}
+              style={{ margin: 12, paddingHorizontal: 36, textAlign: "center" }}
             >
               {this.page.description}
             </Typography>
@@ -188,8 +196,8 @@ class TestResultPage extends Component {
             style={{
               flex: 1,
               marginBottom: 40,
-              flexDirection: 'column-reverse',
-              justifyContent: 'flex-start',
+              flexDirection: "column-reverse",
+              justifyContent: "flex-start",
               padding: 12,
             }}
           >
@@ -229,20 +237,20 @@ class TestResultPage extends Component {
           >
             <View
               style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
                 paddingHorizontal: 24,
                 paddingVertical: 12,
                 borderBottomWidth: 1,
-                borderStyle: 'solid',
-                borderColor: '#DCDCDC',
+                borderStyle: "solid",
+                borderColor: "#DCDCDC",
                 marginTop: 110,
-                backgroundColor: 'white',
+                backgroundColor: "white",
                 borderTopRightRadius: 12,
                 borderTopLeftRadius: 12,
-                shadowColor: '#000',
+                shadowColor: "#000",
                 shadowOffset: { width: 2, height: 2 },
                 shadowOpacity: 0.3,
                 shadowRadius: 3,
@@ -251,9 +259,16 @@ class TestResultPage extends Component {
             >
               <View style={{ width: 48, height: 48 }} />
               <Typography variant="h1">Resultater</Typography>
-              <IconButton icon="close" onPress={() => this.setModalVisible(false)} />
+              <IconButton
+                icon="close"
+                onPress={() => this.setModalVisible(false)}
+              />
             </View>
-            <TestResultItem data={testResult} resetSelectedItem={() => {}} hideTop />
+            <TestResultItem
+              data={testResult}
+              resetSelectedItem={() => {}}
+              hideTop
+            />
           </Modal>
         </SafeAreaView>
       </View>
@@ -263,12 +278,9 @@ class TestResultPage extends Component {
 
 const mapDispatchToProps = () => ({});
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   error: selectError(state),
   testResult: selectTestResult(state),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TestResultPage);
+export default connect(mapStateToProps, mapDispatchToProps)(TestResultPage);

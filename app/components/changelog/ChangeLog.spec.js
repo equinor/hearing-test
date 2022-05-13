@@ -1,11 +1,12 @@
-import 'react-native';
-import React from 'react';
-import { shallow } from 'enzyme';
-import sinon from 'sinon';
-import ChangeLog from './ChangeLog';
-import { ReleaseNotes } from '../../services/api/mocked-api-methods/mock-data.json';
+import "react-native";
+import { shallow } from "enzyme";
+import React from "react";
+import sinon from "sinon";
 
-it('renders correctly', () => {
+import { ReleaseNotes } from "../../../services/api/mocked-api-methods/mock-data.json";
+import ChangeLog from "./ChangeLog";
+
+it("renders correctly", () => {
   const goToMain = sinon.spy();
   const props = {
     releaseNote: {},
@@ -17,6 +18,6 @@ it('renders correctly', () => {
   expect(goToMain.calledOnce).toBe(false);
   wrapper.setProps({ releaseNote: ReleaseNotes, fetching: false });
   expect(wrapper).toMatchSnapshot();
-  wrapper.find('Button').simulate('press');
+  wrapper.find("Button").simulate("press");
   expect(goToMain.calledOnce).toBe(true);
 });

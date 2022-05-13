@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import DeviceInfo from 'react-native-device-info';
-import { ChangeLog } from '../components/changelog';
-import { selectChangeLog, isFetching } from '../store/changelog';
-import * as actions from '../store';
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { Text } from "react-native";
+import DeviceInfo from "react-native-device-info";
+import { connect } from "react-redux";
+
+import * as actions from "../../store";
+import { selectChangeLog, isFetching } from "../../store/changelog";
+import { ChangeLog } from "../components/changelog";
 
 class FeaturePage extends Component {
   static propTypes = {
@@ -18,6 +20,7 @@ class FeaturePage extends Component {
   static defaultProps = {
     releaseNote: {},
   };
+  /*
 
   componentWillMount() {
     const version = DeviceInfo.getVersion();
@@ -34,28 +37,30 @@ class FeaturePage extends Component {
 
   goToMain = () => {
     this.props.setVersion(DeviceInfo.getVersion());
-    this.props.navigation.navigate('MainRoute');
+    this.props.navigation.navigate("MainRoute");
   };
-
+*/
   render() {
     const { releaseNote, fetching } = this.props;
     return (
-      <ChangeLog releaseNote={releaseNote} fetching={fetching} affirm={() => this.goToMain()} />
+      <Text>Testing fra FeaturePage</Text>
+      // <ChangeLog
+      //   releaseNote={releaseNote}
+      //   fetching={fetching}
+      //   affirm={() => this.goToMain()}
+      // />
     );
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  setVersion: version => dispatch(actions.setVersion(version)),
-  fetchChangelog: version => dispatch(actions.fetchChangelog(version)),
+const mapDispatchToProps = (dispatch) => ({
+  setVersion: (version) => dispatch(actions.setVersion(version)),
+  fetchChangelog: (version) => dispatch(actions.fetchChangelog(version)),
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   releaseNote: selectChangeLog(state),
   fetching: isFetching(state),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FeaturePage);
+export default connect(mapStateToProps, mapDispatchToProps)(FeaturePage);

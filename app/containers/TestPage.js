@@ -1,31 +1,46 @@
-import React, { Component } from 'react';
-import { SafeAreaView, StyleSheet, TouchableOpacity, View, Modal, Alert } from 'react-native';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import Sound from 'react-native-sound';
-import SystemSetting from 'react-native-system-setting';
-import { defaultNavOptions } from '../navigation';
-import BigRoundButton from '../components/common/atoms/BigRoundButton';
-import { navigate } from '../navigation/service';
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import {
+  SafeAreaView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Modal,
+  Alert,
+} from "react-native";
+import Sound from "react-native-sound";
+import SystemSetting from "react-native-system-setting";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import { connect } from "react-redux";
+
+import { selectIsFetching } from "../../store/test";
+import {
+  failure,
+  fetchTest,
+  postTest,
+  startTest,
+  stopTest,
+  success,
+} from "../../store/test/actions";
 import {
   selectError,
   selectNode,
   selectTest,
   selectTestIsFinished,
   selectTestIsRunning,
-} from '../store/test/reducer';
-import { failure, fetchTest, postTest, startTest, stopTest, success } from '../store/test/actions';
-import { selectIsFetching } from '../store/test';
-import { GRAY_BACKGROUND } from '../stylesheets/colors';
-import Typography from '../components/common/atoms/Typography';
-import IconButton from '../components/common/EDS/IconButton';
-import ProgressAnimationBar from '../components/common/molecules/ProgressAnimationBar';
-import ButtonEDS from '../components/common/EDS/Button';
+} from "../../store/test/reducer";
+import ButtonEDS from "../components/common/EDS/Button";
+import IconButton from "../components/common/EDS/IconButton";
+import BigRoundButton from "../components/common/atoms/BigRoundButton";
+import Typography from "../components/common/atoms/Typography";
+import ProgressAnimationBar from "../components/common/molecules/ProgressAnimationBar";
+import { defaultNavOptions } from "../navigation";
+import { navigate } from "../navigation/service";
+import { GRAY_BACKGROUND } from "../stylesheets/colors";
 
 const styles = StyleSheet.create({
   component: {
-    display: 'flex',
+    display: "flex",
     flex: 1,
     backgroundColor: GRAY_BACKGROUND,
     padding: 16,
@@ -38,7 +53,7 @@ class TestPage extends Component {
     ...defaultNavOptions,
     headerRight: (
       <TouchableOpacity
-        onPress={() => navigation.navigate('SettingsRoute')}
+        onPress={() => navigation.navigate("SettingsRoute")}
         style={{ paddingLeft: 15, paddingRight: 15 }}
       >
         <Icon name="md-more" color="white" size={24} />
@@ -70,16 +85,16 @@ class TestPage extends Component {
     super();
 
     // Setup the playback
-    Sound.setCategory('Playback');
-    Sound.setMode('Measurement');
+    Sound.setCategory("Playback");
+    Sound.setMode("Measurement");
     Sound.setActive(true);
 
     // Pre-load audio file from `assets/audio`
-    this.silentAudioClip = new Sound('1000Hz_dobbel.wav', Sound.MAIN_BUNDLE);
+    this.silentAudioClip = new Sound("1000Hz_dobbel.wav", Sound.MAIN_BUNDLE);
   }
 
   state = {
-    intervalId: '',
+    intervalId: "",
     reactionTimeMs: null,
     numberOfPresses: 0,
     modalVisible: false,
@@ -95,9 +110,14 @@ class TestPage extends Component {
     if (this.props.node !== prevProps.node || this.state.nextNodeWaiting) {
       if (!this.state.pauseAfterNode && !this.state.modalVisible) {
         this.runNode(this.props.node);
-        if (this.state.nextNodeWaiting) this.setState({ nextNodeWaiting: false }); // eslint-disable-line react/no-did-update-set-state
+        if (this.state.nextNodeWaiting)
+          this.setState({ nextNodeWaiting: false }); // eslint-disable-line react/no-did-update-set-state
       } else if (!this.state.nextNodeWaiting) {
-        this.setState({ nextNodeWaiting: true, pauseAfterNode: false, modalVisible: true }); // eslint-disable-line react/no-did-update-set-state
+        this.setState({
+          nextNodeWaiting: true,
+          pauseAfterNode: false,
+          modalVisible: true,
+        }); // eslint-disable-line react/no-did-update-set-state
       }
     }
     if (this.props.testIsFinished !== prevProps.testIsFinished) {
@@ -105,7 +125,7 @@ class TestPage extends Component {
         this.stopSilentAudioClip();
         Sound.setActive(false);
         this.props.actionPostTest(this.props.test);
-        navigate('TestResultRoute');
+        navigate("TestResultRoute");
       }
     }
   }
@@ -124,7 +144,10 @@ class TestPage extends Component {
       ) {
         this.setState({ success: true });
       }
-      this.setState({ reactionTimeMs, numberOfPresses: this.state.numberOfPresses + 1 });
+      this.setState({
+        reactionTimeMs,
+        numberOfPresses: this.state.numberOfPresses + 1,
+      });
     }
   }
 
@@ -133,7 +156,7 @@ class TestPage extends Component {
     Sound.setActive(false);
     clearInterval(this.state.intervalId);
     this.props.actionStopTest();
-    navigate('DefaultRoute');
+    navigate("DefaultRoute");
   }
 
   async nodeFinished() {
@@ -184,10 +207,10 @@ class TestPage extends Component {
     if (node && node.data && node.data.sound) {
       // Load the audio for current node
       // and wait with starting the node-timer until the sound is ready.
-      const sound = new Sound(node.data.sound.url, null, error => {
+      const sound = new Sound(node.data.sound.url, null, (error) => {
         if (error) {
           // eslint-disable-next-line no-console
-          console.error('failed to load the sound', error);
+          console.error("failed to load the sound", error);
         } else {
           this.setState({
             numberOfPresses: 0,
@@ -224,7 +247,7 @@ class TestPage extends Component {
     // const { showStopTheTestSection, pushRegistered } = this.state;
     const { actionStartTest, node } = this.props;
     return (
-      <View style={{ height: '100%', backgroundColor: GRAY_BACKGROUND }}>
+      <View style={{ height: "100%", backgroundColor: GRAY_BACKGROUND }}>
         <ProgressAnimationBar
           duration={0}
           timeout={0}
@@ -235,17 +258,17 @@ class TestPage extends Component {
         <View style={styles.component}>
           <View
             style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
               marginBottom: 40,
             }}
           >
             <View style={{ width: 48, height: 48 }} />
             <Typography variant="h1">Hørselstest</Typography>
             <IconButton
-              icon={this.state.pauseAfterNode ? 'hourglass-empty' : 'pause'}
+              icon={this.state.pauseAfterNode ? "hourglass-empty" : "pause"}
               onPress={() => {
                 this.setState({ pauseAfterNode: true });
               }}
@@ -253,17 +276,17 @@ class TestPage extends Component {
           </View>
           <View
             style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
               flex: 1,
               paddingBottom: 40,
             }}
           >
             <Typography variant="p" style={{ height: 18 * 3 }}>
               {!this.props.testIsRunning
-                ? 'Trykk på sirkelen under når du er klar for å starte hørselstesten.'
-                : 'Trykk på sirkelen under når du hører en lyd'}
+                ? "Trykk på sirkelen under når du er klar for å starte hørselstesten."
+                : "Trykk på sirkelen under når du hører en lyd"}
             </Typography>
             {!this.props.testIsRunning ? (
               <BigRoundButton
@@ -289,42 +312,48 @@ class TestPage extends Component {
             animationType="fade"
             transparent
             visible={this.state.modalVisible}
-            style={{ display: 'flex' }}
+            style={{ display: "flex" }}
           >
-            <SafeAreaView style={{ display: 'flex' }}>
+            <SafeAreaView style={{ display: "flex" }}>
               <View
                 style={{
-                  backgroundColor: 'rgba(0,0,0,0.5)',
+                  backgroundColor: "rgba(0,0,0,0.5)",
                   borderRadius: 4,
                   padding: 16,
                   paddingBottom: 60,
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '100%',
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "100%",
                 }}
               >
-                <View style={{ backgroundColor: '#FFFFFF', padding: 8, borderRadius: 4 }}>
+                <View
+                  style={{
+                    backgroundColor: "#FFFFFF",
+                    padding: 8,
+                    borderRadius: 4,
+                  }}
+                >
                   <MenuItem
                     icon="delete"
                     text="Avslutte testen"
                     onPress={() => {
                       Alert.alert(
-                        'Avslutte hørselstesten?',
-                        'Da må du begynne på nytt neste gang',
+                        "Avslutte hørselstesten?",
+                        "Da må du begynne på nytt neste gang",
                         [
                           {
-                            text: 'Cancel',
+                            text: "Cancel",
                             onPress: () => {},
-                            style: 'default',
+                            style: "default",
                           },
                           {
-                            text: 'Exit',
+                            text: "Exit",
                             onPress: () => {
                               this.setState({ modalVisible: false });
                               this.abortTest();
                             },
-                            style: 'destructive',
+                            style: "destructive",
                           },
                         ]
                       );
@@ -334,50 +363,58 @@ class TestPage extends Component {
                     icon="refresh"
                     text="Start på ny"
                     onPress={() => {
-                      Alert.alert('Starte på nytt?', 'Dette vil slette all data fra denne testen', [
-                        {
-                          text: 'Cancel',
-                          onPress: () => {},
-                          style: 'default',
-                        },
-                        {
-                          text: 'Restart',
-                          onPress: () => {
-                            this.setState({ modalVisible: false });
-                            this.abortTest();
-                            navigate('TestRoute');
+                      Alert.alert(
+                        "Starte på nytt?",
+                        "Dette vil slette all data fra denne testen",
+                        [
+                          {
+                            text: "Cancel",
+                            onPress: () => {},
+                            style: "default",
                           },
-                          style: 'destructive',
-                        },
-                      ]);
+                          {
+                            text: "Restart",
+                            onPress: () => {
+                              this.setState({ modalVisible: false });
+                              this.abortTest();
+                              navigate("TestRoute");
+                            },
+                            style: "destructive",
+                          },
+                        ]
+                      );
                     }}
                   />
                   <MenuItem
                     icon="school"
                     text="Ta ny lydsjekk"
                     onPress={() => {
-                      Alert.alert('Ta ny lydsjekk?', 'Dette vil slette all data fra denne testen', [
-                        {
-                          text: 'Cancel',
-                          onPress: () => {},
-                          style: 'default',
-                        },
-                        {
-                          text: 'Ny lydsjekk',
-                          onPress: () => {
-                            this.setState({ modalVisible: false });
-                            this.abortTest();
-                            navigate('SoundCheckRoute');
+                      Alert.alert(
+                        "Ta ny lydsjekk?",
+                        "Dette vil slette all data fra denne testen",
+                        [
+                          {
+                            text: "Cancel",
+                            onPress: () => {},
+                            style: "default",
                           },
-                          style: 'destructive',
-                        },
-                      ]);
+                          {
+                            text: "Ny lydsjekk",
+                            onPress: () => {
+                              this.setState({ modalVisible: false });
+                              this.abortTest();
+                              navigate("SoundCheckRoute");
+                            },
+                            style: "destructive",
+                          },
+                        ]
+                      );
                     }}
                   />
                   <ButtonEDS
                     text="Fortsette hørselstesten"
                     onPress={() => this.setState({ modalVisible: false })}
-                    style={{ width: '100%', margin: 0 }}
+                    style={{ width: "100%", margin: 0 }}
                   />
                 </View>
               </View>
@@ -393,16 +430,21 @@ const MenuItem = ({ icon, text, onPress }) => {
   return (
     <TouchableOpacity
       style={{
-        width: '100%',
+        width: "100%",
         height: 40,
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
         margin: 8,
       }}
       onPress={onPress}
     >
-      <Icon name={icon} size={24} color="#6F6F6F" style={{ paddingRight: 12 }} />
+      <Icon
+        name={icon}
+        size={24}
+        color="#6F6F6F"
+        style={{ paddingRight: 12 }}
+      />
       <Typography variant="p" style={{ flex: 1 }}>
         {text}
       </Typography>
@@ -416,16 +458,16 @@ MenuItem.propTypes = {
   onPress: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = dispatch => ({
-  actionFailure: reactionTimeMs => dispatch(failure(reactionTimeMs)),
+const mapDispatchToProps = (dispatch) => ({
+  actionFailure: (reactionTimeMs) => dispatch(failure(reactionTimeMs)),
   actionFetchTest: () => dispatch(fetchTest()),
-  actionPostTest: test => dispatch(postTest(test)),
+  actionPostTest: (test) => dispatch(postTest(test)),
   actionStartTest: () => dispatch(startTest()),
   actionStopTest: () => dispatch(stopTest()),
-  actionSuccess: reactionTimeMs => dispatch(success(reactionTimeMs)),
+  actionSuccess: (reactionTimeMs) => dispatch(success(reactionTimeMs)),
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   error: selectError(state),
   isFetching: selectIsFetching(state),
   node: selectNode(state),
@@ -434,7 +476,4 @@ const mapStateToProps = state => ({
   testIsRunning: selectTestIsRunning(state),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TestPage);
+export default connect(mapStateToProps, mapDispatchToProps)(TestPage);

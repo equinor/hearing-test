@@ -19,16 +19,36 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.equinor.assetfacts.qa",
+      "buildNumber": "1",
+      "infoPlist": {
+        "CFBundleAllowMixedLocalizations": true
+      },
+      "config": {
+        "usesNonExemptEncryption": false
+      }
     },
     "android": {
+      "package": "com.equinor.hearingtest.test",
+      "versionCode": 1,
+      "permissions": [],
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       }
     },
+    "plugins": [
+      [
+        "react-native-msal",
+        {
+          "androidPackageSignatureHash": "<base64 package signature hash>"
+        }
+      ]
+    ],
     "web": {
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/favicon.png",
+      "buildNumber": "1"
     }
   },
   "name": "hearingtest",

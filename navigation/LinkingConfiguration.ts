@@ -7,10 +7,15 @@
 import { LinkingOptions } from "@react-navigation/native";
 import * as Linking from "expo-linking";
 
+import { HearingTestURLSchemeWeb } from "../constants/settings";
 import { RootStackParamList } from "../types";
 
 const linking: LinkingOptions<RootStackParamList> = {
-  prefixes: [Linking.makeUrl("/")],
+  prefixes: [
+    Linking.makeUrl("/"),
+    "http://localhost:19006",
+    HearingTestURLSchemeWeb,
+  ],
   config: {
     screens: {
       Root: {
@@ -27,7 +32,11 @@ const linking: LinkingOptions<RootStackParamList> = {
           },
         },
       },
+      AboutRoute: "about",
+      FeedbackRoute: "feedback",
+      SettingsRoute: "settings",
       Modal: "modal",
+      Feature: "feature",
       NotFound: "*",
     },
   },

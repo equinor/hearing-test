@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { View, StyleSheet } from 'react-native';
-import Banner from '../components/common/molecules/Banner';
-import { selectServiceMessage } from '../store/service-message/reducer';
-import * as Colors from '../stylesheets/colors';
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { View, StyleSheet } from "react-native";
+import { connect } from "react-redux";
+
+import { selectServiceMessage } from "../../store/service-message/reducer";
+import Banner from "../components/common/molecules/Banner";
+import * as Colors from "../stylesheets/colors";
 
 const styles = StyleSheet.create({
   viewStyle: {
@@ -18,7 +19,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const serviceMessage = ScreenComponent => {
+const serviceMessage = (ScreenComponent) => {
   class serviceMessageComponent extends Component {
     static navigationOptions = ScreenComponent.navigationOptions;
     static propTypes = {
@@ -40,16 +41,13 @@ const serviceMessage = ScreenComponent => {
     }
   }
 
-  const mapStateToProps = state => ({
+  const mapStateToProps = (state) => ({
     message: selectServiceMessage(state),
   });
 
   const mapDispatchToProps = () => ({});
 
-  return connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(serviceMessageComponent);
+  return connect(mapStateToProps, mapDispatchToProps)(serviceMessageComponent);
 };
 
 export default serviceMessage;

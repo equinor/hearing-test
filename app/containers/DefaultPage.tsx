@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import PropTypes from "prop-types";
+import React, { Component } from "react";
 import {
   Alert,
   Linking,
@@ -7,23 +8,23 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   View,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { defaultNavOptions } from '../navigation';
-import * as colors from '../stylesheets/colors';
-import { STOP } from '../stylesheets/colors';
-import { navigate } from '../navigation/service';
-import ButtonEDS from '../components/common/EDS/Button';
-import { appStartupInit } from '../store/test/actions';
-import { selectError } from '../store/test/reducer';
-import Typography from '../components/common/atoms/Typography';
-import Card from '../components/common/atoms/Card';
-import NavigationItem from '../components/common/atoms/NavigationItem';
-import { fetchMe } from '../services/api/api-methods';
-import TestResultsModal from '../components/common/molecules/TestResultsModal';
-import { FORMS_URL } from './TestResultPage';
+} from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
+import { connect } from "react-redux";
+
+import { fetchMe } from "../../services/api/api-methods";
+import { appStartupInit } from "../../store/test/actions";
+import { selectError } from "../../store/test/reducer";
+import ButtonEDS from "../components/common/EDS/Button";
+import Card from "../components/common/atoms/Card";
+import NavigationItem from "../components/common/atoms/NavigationItem";
+import Typography from "../components/common/atoms/Typography";
+import TestResultsModal from "../components/common/molecules/TestResultsModal";
+import { defaultNavOptions } from "../navigation";
+import { navigate } from "../navigation/service";
+import { STOP } from "../stylesheets/colors";
+import * as colors from "../stylesheets/colors";
+import { FORMS_URL } from "./TestResultPage";
 
 const styles = StyleSheet.create({
   component: {
@@ -39,7 +40,7 @@ class DefaultPage extends Component<{ actionAppInit: Function; error?: any }> {
     headerRight: (
       <TouchableOpacity
         testID="ButtonSettings"
-        onPress={() => navigation.navigate('SettingsRoute')}
+        onPress={() => navigation.navigate("SettingsRoute")}
         style={{ paddingLeft: 15, paddingRight: 15 }}
       >
         <Icon name="md-cog" color={colors.EQUINOR_GREEN} size={24} />
@@ -61,7 +62,7 @@ class DefaultPage extends Component<{ actionAppInit: Function; error?: any }> {
   componentDidMount() {
     this.props.actionAppInit();
     fetchMe()
-      .then(response => this.setState({ firstName: response.firstName }))
+      .then((response) => this.setState({ firstName: response.firstName }))
       .catch(() => {
         this.setState({ firstName: null });
       });
@@ -86,35 +87,49 @@ class DefaultPage extends Component<{ actionAppInit: Function; error?: any }> {
             }
           >
             <>
-              <Text style={{ color: 'white' }}>Could not init the app due to</Text>
-              <Text style={{ fontSize: 23, color: 'white', marginVertical: 4 }}>
+              <Text style={{ color: "white" }}>
+                Could not init the app due to
+              </Text>
+              <Text style={{ fontSize: 23, color: "white", marginVertical: 4 }}>
                 ERROR: {error.status} {error.message && `| ${error.message}`}
               </Text>
-              <Text style={{ color: 'white' }}>Click to learn more...</Text>
+              <Text style={{ color: "white" }}>Click to learn more...</Text>
             </>
           </TouchableHighlight>
         )}
         <View style={styles.component}>
-          <Typography variant="h1" style={{ paddingLeft: 4, paddingBottom: 32 }}>
-            Hei{this.state.firstName ? ` ${this.state.firstName}` : ''},
+          <Typography
+            variant="h1"
+            style={{ paddingLeft: 4, paddingBottom: 32 }}
+          >
+            Hei{this.state.firstName ? ` ${this.state.firstName}` : ""},
           </Typography>
           <Card>
             <Typography variant="h2" style={{ paddingBottom: 16 }}>
               Er du klar for en ny test?
             </Typography>
             <Typography variant="p" style={{ paddingBottom: 32 }}>
-              Husk å teste hørselen din regelmessig for at vi skal kunne kartlegge hørselshelsen din
-              over tid.
+              Husk å teste hørselen din regelmessig for at vi skal kunne
+              kartlegge hørselshelsen din over tid.
             </Typography>
             <View style={{ width: 160 }}>
-              <ButtonEDS onPress={() => navigate('PreTestRoute')} text="Ta hørselstesten" />
+              <ButtonEDS
+                onPress={() => nawvigate("PreTestRoute")}
+                text="Ta hørselstesten"
+              />
             </View>
           </Card>
-          <Typography variant="h2" style={{ paddingBottom: 16, paddingTop: 32 }}>
+          <Typography
+            variant="h2"
+            style={{ paddingBottom: 16, paddingTop: 32 }}
+          >
             Din oversikt
           </Typography>
           {/* NOT AVAILABLE YET: <NavigationItem title="Informasjon om testen" /> */}
-          <NavigationItem onPress={() => this.setModalVisible(true)} title="Mine resultater" />
+          <NavigationItem
+            onPress={() => this.setModalVisible(true)}
+            title="Mine resultater"
+          />
           <NavigationItem
             onPress={async () => {
               const supported = await Linking.canOpenURL(FORMS_URL);
@@ -136,14 +151,11 @@ class DefaultPage extends Component<{ actionAppInit: Function; error?: any }> {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   error: selectError(state),
 });
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   actionAppInit: () => dispatch(appStartupInit()),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DefaultPage);
+export default connect(mapStateToProps, mapDispatchToProps)(DefaultPage);

@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
+import React, { Component } from "react";
 import {
   View,
   StyleSheet,
@@ -8,9 +8,10 @@ import {
   FlatList,
   TouchableOpacity,
   RefreshControl,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import * as colors from '../../../stylesheets/colors';
+} from "react-native";
+import Icon from "react-native-vector-icons/MaterialIcons";
+
+import * as colors from "../../../stylesheets/colors";
 
 const styles = StyleSheet.create({
   scrollView: {
@@ -18,20 +19,20 @@ const styles = StyleSheet.create({
     backgroundColor: colors.GRAY_BACKGROUND,
   },
   itemContainer: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     height: 56,
     borderBottomWidth: 1,
     borderBottomColor: colors.GRAY_3,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   icon: {
     color: colors.BLACK_LIGHT,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   textStyle: {
     fontSize: 16,
-    color: colors.BLACK_GRAY,
+    color: colors.BLACK_GREY,
     flex: 1,
     paddingHorizontal: 15,
   },
@@ -58,13 +59,16 @@ export default class NavigationList extends Component {
     onRefresh: null,
   };
 
-  handleClick = index => {
+  handleClick = (index) => {
     const item = this.props.items[index];
     this.props.navigation.navigate(item.route, item.params);
   };
 
   renderItem = ({ item, index }) => (
-    <TouchableOpacity onPress={() => this.handleClick(index)} underlayColor={colors.GRAY_3}>
+    <TouchableOpacity
+      onPress={() => this.handleClick(index)}
+      underlayColor={colors.GRAY_3}
+    >
       <View style={styles.itemContainer}>
         <Text style={styles.textStyle}>{item.label}</Text>
         <Icon name="chevron-right" style={styles.icon} size={26} />
@@ -77,9 +81,17 @@ export default class NavigationList extends Component {
     return (
       <ScrollView
         style={styles.scrollView}
-        refreshControl={onRefresh && <RefreshControl refreshing={fetching} onRefresh={onRefresh} />}
+        refreshControl={
+          onRefresh && (
+            <RefreshControl refreshing={fetching} onRefresh={onRefresh} />
+          )
+        }
       >
-        <FlatList data={items} keyExtractor={item => item.key} renderItem={this.renderItem} />
+        <FlatList
+          data={items}
+          keyExtractor={(item) => item.key}
+          renderItem={this.renderItem}
+        />
       </ScrollView>
     );
   }
