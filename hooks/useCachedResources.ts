@@ -5,6 +5,14 @@ import { msalInit } from "mad-expo-core";
 import { useEffect, useState } from "react";
 import { Platform } from "react-native";
 
+import equinorBold from "../assets/fonts/Equinor-Bold.ttf";
+import equinorBoldItalic from "../assets/fonts/Equinor-BoldItalic.ttf";
+import equinorItalic from "../assets/fonts/Equinor-Italic.ttf";
+import equinorLight from "../assets/fonts/Equinor-Light.ttf";
+import equinorLightItalic from "../assets/fonts/Equinor-LightItalic.ttf";
+import equinorMedium from "../assets/fonts/Equinor-Medium.ttf";
+import equinorMediumItalic from "../assets/fonts/Equinor-MediumItalic.ttf";
+import equinorRegular from "../assets/fonts/Equinor-Regular.ttf";
 import {
   AzureADRedirectUrl,
   AzureADRedirectUrlWeb,
@@ -24,6 +32,14 @@ export default function useCachedResources() {
         await Font.loadAsync({
           ...FontAwesome.font,
           "space-mono": require("../assets/fonts/SpaceMono-Regular.ttf"),
+          "Equinor-Bold": equinorBold,
+          "Equinor-BoldItalic": equinorBoldItalic,
+          "Equinor-Italic": equinorItalic,
+          "Equinor-Light": equinorLight,
+          "Equinor-LightItalic": equinorLightItalic,
+          "Equinor-Medium": equinorMedium,
+          "Equinor-MediumItalic": equinorMediumItalic,
+          "Equinor-Regular": equinorRegular,
         });
         await msalInit(
           AzureADClientId,
