@@ -1,9 +1,10 @@
 import { authenticateSilently } from "mad-expo-core";
 
-import { name } from "../../app.json";
+import appJson from "../../app.json";
 import { NetworkException } from "../../app/utils/Exception";
 import { getResource } from "../../constants/settings";
 
+const appName = appJson.expo.name;
 const defaultResource = "hearing";
 const jsonHeaders = {
   Accept: "application/json",
@@ -15,7 +16,7 @@ const createUrl = (resource, path) =>
 
 // Helper functions
 const fetchData = (path, resource = defaultResource, parseJson = true) =>
-  authenticateSilently(resource).then((r) =>
+  authenticateSilently(getResource(resource).scopes[0]).then((r) =>
     fetch(createUrl(resource, path), {
       method: "GET",
       withCredentials: true,
@@ -35,7 +36,8 @@ const fetchData = (path, resource = defaultResource, parseJson = true) =>
   );
 
 const postData = (path, data, method = "POST", resource = defaultResource) =>
-  authenticateSilently(resource).then((r) =>
+  // TODO: Change this after changing to allowing array of scopes. Do this for all authenticateSilently methods
+  authenticateSilently(getResource(resource).scopes[0]).then((r) =>
     fetch(createUrl(resource, path), {
       method,
       body: JSON.stringify(data),
@@ -64,11 +66,11 @@ const fetchOpenData = (path, resource = defaultResource) =>
   });
 
 export function getReleaseNote(version) {
-  return fetchData(`/ReleaseNote/${name}/${version}`, "common");
+  return fetchData(`/ReleaseNote/${appName}/${version}`, "mad");
 }
 
 export const getServiceMessage = () =>
-  fetchOpenData(`/ServiceMessage/${name}`, "common");
+  fetchOpenData(`/ServiceMessage/${appName}`, "mad");
 
 export const fetchTest = () => fetchData(`/me/tests/takeTest`);
 

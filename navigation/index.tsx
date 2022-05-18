@@ -4,7 +4,7 @@
  *
  */
 
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   NavigationContainer,
@@ -14,13 +14,9 @@ import {
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as Localization from "expo-localization";
-import {
-  SettingsScreen as ExpoSettings,
-  FeedbackScreen,
-  LoginScreen,
-} from "mad-expo-core";
+import { SettingsScreen as ExpoSettings, LoginScreen } from "mad-expo-core";
 import * as React from "react";
-import { ColorSchemeName, Pressable } from "react-native";
+import { ColorSchemeName, Pressable, TouchableOpacity } from "react-native";
 import { withCommander } from "react-native-salute";
 import { useDispatch } from "react-redux";
 
@@ -28,7 +24,15 @@ import * as appJSON from "../app.json";
 import AboutPage from "../app/containers/AboutPage";
 import DefaultPage from "../app/containers/DefaultPage";
 import FeaturePage from "../app/containers/FeaturePage";
+import FeedbackPage from "../app/containers/FeedbackPage";
+import PreTestPage from "../app/containers/PreTestPage";
+import SettingsPage from "../app/containers/SettingsPage";
+import SoundCheckFinishedPage from "../app/containers/SoundCheckFinishedPage";
+import SoundCheckPage from "../app/containers/SoundCheckPage";
+import TestPage from "../app/containers/TestPage";
+import TestResultPage from "../app/containers/TestResultPage";
 import withUtilities from "../app/navigation/utils";
+import { EQUINOR_GREEN } from "../app/stylesheets/colors";
 import Colors from "../constants/Colors";
 import * as ENVIRONMENT from "../constants/settings";
 import useColorScheme from "../hooks/useColorScheme";
@@ -70,7 +74,14 @@ function RootNavigator() {
   const dispatch = useDispatch();
 
   return (
-    <Stack.Navigator initialRouteName="Login">
+    <Stack.Navigator
+      initialRouteName="Login"
+      screenOptions={{
+        headerTitleStyle: { color: "black" },
+        headerTitleAlign: "center",
+        headerTintColor: EQUINOR_GREEN,
+      }}
+    >
       <Stack.Screen
         name="Login"
         children={
@@ -78,9 +89,9 @@ function RootNavigator() {
             //withCommander(
             <LoginScreen
               navigation={navigation}
-              scope={ENVIRONMENT.getResource("mad").scopes[0]}
+              scope={ENVIRONMENT.getResource("hearing").scopes[0]}
               bundleIdentifier={appJSON.expo.ios.bundleIdentifier}
-              mainRoute="DefaultRoute"
+              mainRoute="Feature"
               logo={logo}
               showDemoButton
               onDemoPress={() => {
@@ -93,11 +104,57 @@ function RootNavigator() {
         }
         options={{ headerShown: false }}
       />
+      <Stack.Screen name="Feature" component={withCommander(FeaturePage)} />
       <Stack.Screen
         name="DefaultRoute"
         component={withCommander(DefaultPage)}
+        options={({ navigation }: any) => ({
+          headerRight: () => (
+            <TouchableOpacity
+              testID="ButtonSettings"
+              onPress={() => navigation.navigate("SettingsRoute")}
+              style={{ paddingLeft: 15, paddingRight: 15 }}
+            >
+              <Ionicons name="md-cog" color={EQUINOR_GREEN} size={24} />
+            </TouchableOpacity>
+          ),
+          headerBackVisible: false,
+        })}
       />
-      <Stack.Screen name="Feature" component={withCommander(FeaturePage)} />
+      <Stack.Screen
+        name="PreTestRoute"
+        component={withCommander(PreTestPage)}
+        //options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SoundCheckRoute"
+        component={withUtilities(SoundCheckPage)}
+        //options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SoundCheckFinishedRoute"
+        component={withUtilities(SoundCheckFinishedPage)}
+      />
+      <Stack.Screen
+        name="TestRoute"
+        component={withUtilities(TestPage)}
+        options={({ navigation }: any) => ({
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() => navigation.navigate("SettingsRoute")}
+              style={{ paddingLeft: 15, paddingRight: 15 }}
+            >
+              <MaterialIcons name="md-more" color="white" size={24} />
+            </TouchableOpacity>
+          ),
+          headerBackVisible: false,
+        })}
+      />
+      <Stack.Screen
+        name="TestResultRoute"
+        component={withUtilities(TestResultPage)}
+        options={{ headerBackVisible: false }}
+      />
       <Stack.Screen
         name="Root"
         component={BottomTabNavigator}
@@ -114,49 +171,17 @@ function RootNavigator() {
       <Stack.Group>
         <Stack.Screen
           name="SettingsRoute"
+          component={withUtilities(SettingsPage)}
           options={{
-            headerTintColor: "green",
+            headerTintColor: EQUINOR_GREEN,
+            title: "Settings",
           }}
-          children={({ navigation }) => (
-            <ExpoSettings
-              config={[
-                {
-                  icon: "arrow-forward-ios",
-                  title: "About",
-                  route: "AboutRoute",
-                },
-                {
-                  icon: "arrow-forward-ios",
-                  title: "Feedback",
-                  route: "FeedbackRoute",
-                },
-              ]}
-              navigation={navigation}
-              onLogout={() => {
-                dispatch(actions.setConfig({ key: "demoMode", value: false }));
-                navigation.dispatch(
-                  CommonActions.reset({
-                    index: 0,
-                    routes: [{ name: "Login" }],
-                  })
-                );
-              }}
-            />
-          )}
         />
         <Stack.Screen
           name="FeedbackRoute"
-          children={() => (
-            <FeedbackScreen
-              locale={Localization.locale}
-              timezone={Localization.timezone}
-              scope={ENVIRONMENT.getResource("mad").scopes[0]}
-              apiBaseUrl={`${ENVIRONMENT.getResource("mad").ApiBaseUrl}`}
-              product={`${appJSON.expo.name} | ${appJSON.expo.version}(${appJSON.expo.ios.buildNumber})`}
-            />
-          )}
+          component={withUtilities(FeedbackPage)}
           options={{
-            headerTintColor: "green",
+            headerTintColor: EQUINOR_GREEN,
             title: "Feedback",
           }}
         />
@@ -164,7 +189,7 @@ function RootNavigator() {
           name="AboutRoute"
           component={withUtilities(AboutPage)}
           options={{
-            headerTintColor: "green",
+            headerTintColor: EQUINOR_GREEN,
             title: "About",
           }}
         />

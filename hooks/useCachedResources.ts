@@ -41,6 +41,7 @@ export default function useCachedResources() {
           "Equinor-MediumItalic": equinorMediumItalic,
           "Equinor-Regular": equinorRegular,
         });
+
         await msalInit(
           AzureADClientId,
           Platform.OS === "web" ? AzureADRedirectUrlWeb : AzureADRedirectUrl
@@ -53,7 +54,6 @@ export default function useCachedResources() {
         SplashScreen.hideAsync();
       }
     }
-
     loadResourcesAndDataAsync();
   }, []);
 

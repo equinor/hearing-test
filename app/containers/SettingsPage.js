@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 
 import { getCurrentUser } from "../../store/auth";
 import Settings from "../components/Settings";
-import { defaultNavOptions } from "../navigation";
 
 class SettingsPage extends Component {
   static propTypes = {
@@ -16,11 +15,6 @@ class SettingsPage extends Component {
       state: PropTypes.object,
     }).isRequired,
   };
-
-  static navigationOptions = () => ({
-    ...defaultNavOptions,
-    title: "Settings",
-  });
 
   render() {
     const { navigation, currentUser } = this.props;

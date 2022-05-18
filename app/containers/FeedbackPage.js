@@ -1,3 +1,4 @@
+import { authenticateSilently } from "mad-expo-core";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Text, TextInput, View, SafeAreaView, StyleSheet } from "react-native";
@@ -10,7 +11,6 @@ import {
   getConfiguredResources,
   getResource,
 } from "../../constants/settings";
-import { authenticateSilently } from "../../services/adal";
 import { getCurrentUser } from "../../store/auth";
 import MadButton from "../components/common/atoms/MadButton";
 import Spinner from "../components/common/atoms/Spinner";
@@ -50,7 +50,7 @@ class FeedbackPage extends Component {
   createUrl = (resource, path) => `${getResource(resource).ApiBaseUrl}${path}`;
 
   postData = (path, data, onSuccess, onError) =>
-    authenticateSilently("mad").then((r) =>
+    authenticateSilently(getResource("mad").scopes[0]).then((r) =>
       fetch(this.createUrl("mad", path), {
         method: "POST",
         body: JSON.stringify(data),
@@ -111,7 +111,9 @@ class FeedbackPage extends Component {
       resources
         .map((resource) => getResource(resource).ApiBaseUrl.toString())
         .join("\n - ");
-    const userId = user.displayableId ? user.displayableId : user.userId;
+    // TODO
+    const userId = "TODO";
+    //const userId = //user.displayableId ? user.displayableId : user.userId;
     const environment = BuildConfiguration;
     const apiEndpoints = getApiEndpoints();
 

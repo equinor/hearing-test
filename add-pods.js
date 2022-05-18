@@ -2,10 +2,9 @@
  * PLEASE READ
  * Do not add pods unless it is strictly necessary. If there is an equivalent expo package available, use that instead.
  * This plugin should only be used as a last resort.
- * 
+ *
  * PS: Could this plugin be available in mad-expo-core?
  */
-
 
 const { withDangerousMod, withPlugins } = require("@expo/config-plugins");
 const {
@@ -17,7 +16,6 @@ const path = require("path");
 //Add pods below
 let podSrc = "";
 addPod("RCTSystemSetting", "../node_modules/react-native-system-setting");
-addPod("ExampleName", "PATH");
 
 /**
  * addPod('NAME_ARG', 'PATH_ARG') adds line to podSrc: "pod 'NAME_ARG', :path => 'PATH_ARG'"

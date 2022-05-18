@@ -7,7 +7,6 @@ import { fetchTests } from "../../store/tests/actions";
 import { selectIsFetchingTests } from "../../store/tests/reducer";
 import NavigationItem from "../components/common/atoms/NavigationItem";
 import Spinner from "../components/common/atoms/Spinner";
-import { defaultNavOptions } from "../navigation";
 import { TestResult } from "../types";
 
 const styles = StyleSheet.create({
@@ -24,10 +23,6 @@ class TestLogPage extends Component<{
   fetching: boolean;
   tests: [];
 }> {
-  static navigationOptions = () => ({
-    ...defaultNavOptions,
-  });
-
   showTest(selectedTest: TestResult) {
     this.props.setSelectedItem(selectedTest);
   }

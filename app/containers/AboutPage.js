@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Platform } from "react-native";
-import DeviceInfo from "react-native-device-info";
 
 import appJson from "../../app.json";
 import {
@@ -9,16 +8,8 @@ import {
   BuildConfiguration,
 } from "../../constants/settings";
 import AppInfo from "../components/AppInfo";
-import { defaultNavOptions } from "../navigation";
-
-const aboutListTitle = "About app";
 
 export default class AboutPage extends Component {
-  static navigationOptions = () => ({
-    ...defaultNavOptions,
-    title: aboutListTitle,
-  });
-
   render() {
     const resources = getConfiguredResources();
     const getApiEndpoints = () =>

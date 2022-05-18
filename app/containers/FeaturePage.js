@@ -1,13 +1,11 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { Text } from "react-native";
-import DeviceInfo from "react-native-device-info";
 import { connect } from "react-redux";
 
+import appJson from "../../app.json";
 import * as actions from "../../store";
 import { selectChangeLog, isFetching } from "../../store/changelog";
 import { ChangeLog } from "../components/changelog";
-
 class FeaturePage extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
@@ -20,10 +18,9 @@ class FeaturePage extends Component {
   static defaultProps = {
     releaseNote: {},
   };
-  /*
 
   componentWillMount() {
-    const version = DeviceInfo.getVersion();
+    const version = appJson.expo.version;
     this.props.fetchChangelog(version);
   }
 
@@ -31,29 +28,30 @@ class FeaturePage extends Component {
     const { fetching } = this.props;
     if (!fetching && prevProps.fetching && !this.props.releaseNote.changes) {
       // If releaseNotes errored on retrieval, go directly to main.
-      this.goToMain();
+      // TODO
+      //this.goToMain();
     }
   }
 
   goToMain = () => {
-    this.props.setVersion(DeviceInfo.getVersion());
-    this.props.navigation.navigate("MainRoute");
+    this.props.setVersion(appJson.expo.version);
+    this.props.navigation.navigate("DefaultRoute");
   };
-*/
+
   render() {
     const { releaseNote, fetching } = this.props;
     return (
-      <Text>Testing fra FeaturePage</Text>
-      // <ChangeLog
-      //   releaseNote={releaseNote}
-      //   fetching={fetching}
-      //   affirm={() => this.goToMain()}
-      // />
+      <ChangeLog
+        releaseNote={releaseNote}
+        fetching={fetching}
+        affirm={() => this.goToMain()}
+      />
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
+  // TODO: setVersion doesn't do anything
   setVersion: (version) => dispatch(actions.setVersion(version)),
   fetchChangelog: (version) => dispatch(actions.fetchChangelog(version)),
 });

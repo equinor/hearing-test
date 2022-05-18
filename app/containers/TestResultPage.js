@@ -21,7 +21,6 @@ import ButtonEDS from "../components/common/EDS/Button";
 import IconButton from "../components/common/EDS/IconButton";
 import Typography from "../components/common/atoms/Typography";
 import TestResultItem from "../components/common/molecules/TestResultItem";
-import { defaultNavOptions } from "../navigation";
 import { navigate } from "../navigation/service";
 import { GRAY_BACKGROUND, STOP } from "../stylesheets/colors";
 
@@ -37,11 +36,6 @@ const styles = StyleSheet.create({
 });
 
 class TestResultPage extends Component {
-  static navigationOptions = () => ({
-    ...defaultNavOptions,
-    headerRight: null,
-    headerLeft: null,
-  });
   static propTypes = {
     error: PropTypes.object.isRequired,
     testResult: PropTypes.object.isRequired,
@@ -169,7 +163,8 @@ class TestResultPage extends Component {
                       },
                       {
                         text: "Avslutt",
-                        onPress: () => navigate("DefaultRoute"),
+                        onPress: () =>
+                          this.props.navigation.navigate("DefaultRoute"),
                         style: "default",
                       },
                     ]

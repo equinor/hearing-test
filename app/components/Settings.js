@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { SectionList, StyleSheet, Text, View } from 'react-native';
-// import HockeyApp from 'react-native-hockeyapp';
-import { Button, TextLink } from './common';
-import LogoutButton from './auth/LogoutButton';
-import * as Colors from '../stylesheets/colors';
-import { navigate } from '../navigation/service';
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { SectionList, StyleSheet, Text, View } from "react-native";
+
+import * as Colors from "../stylesheets/colors";
+import LogoutButton from "./auth/LogoutButton";
+import { Button, TextLink } from "./common";
 
 const styles = StyleSheet.create({
   page: {
@@ -16,7 +15,7 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.GRAY_3,
   },
   itemContainer: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     height: 46,
     borderBottomWidth: 1,
     borderBottomColor: Colors.GRAY_3,
@@ -29,25 +28,25 @@ const styles = StyleSheet.create({
   itemText: {
     lineHeight: 30,
     fontSize: 16,
-    color: Colors.BLUE,
-    alignSelf: 'flex-start',
+    color: Colors.EQUINOR_GREEN,
+    alignSelf: "flex-start",
   },
   textStyle: {
     color: Colors.GRAY_1,
     fontSize: 16,
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
   },
   viewStyle: {
     paddingHorizontal: 0,
     paddingVertical: 0,
-    justifyContent: 'flex-start',
+    justifyContent: "flex-start",
   },
 });
 
-const aboutListTitle = 'About app';
-const feedbackListTitle = 'Feedback';
-const loggedInAsText = 'Logged in as';
-const logOutText = 'Log out';
+const aboutListTitle = "About app";
+const feedbackListTitle = "Feedback";
+const loggedInAsText = "Logged in as";
+const logOutText = "Log out";
 
 export default class Settings extends Component {
   static propTypes = {
@@ -60,10 +59,10 @@ export default class Settings extends Component {
     }).isRequired,
   };
 
-  RenderItem = props => {
-    if (props.item.key === 'User') {
+  RenderItem = (props) => {
+    if (props.item.key === "User") {
       return this.TextItem(props);
-    } else if (props.item.key === 'Feedback') {
+    } else if (props.item.key === "Feedback") {
       return this.ButtonItem(props);
     }
     return this.LinkItem(props);
@@ -71,7 +70,11 @@ export default class Settings extends Component {
 
   LinkItem = ({ item }) => (
     <View style={styles.itemContainer}>
-      <TextLink textStyle={styles.itemText} data={item} nav={this.props.navigation} />
+      <TextLink
+        textStyle={styles.itemText}
+        data={item}
+        nav={this.props.navigation}
+      />
     </View>
   );
 
@@ -82,11 +85,11 @@ export default class Settings extends Component {
   );
 
   feedBack = () => {
-    navigate('FeedbackRoute');
+    this.props.navigation.navigate("FeedbackRoute");
   };
 
   ButtonItem = ({ item }) => {
-    if (item.key === 'Logout') {
+    if (item.key === "Logout") {
       return <LogoutButton data={item} nav={this.props.navigation} />;
     }
     return (
@@ -108,28 +111,29 @@ export default class Settings extends Component {
 
     const sections = [
       {
-        key: 'Links',
+        key: "Links",
         renderItem: this.RenderItem,
         data: [
           {
             name: aboutListTitle,
-            key: 'About',
-            route: 'AboutRoute',
+            key: "About",
+            route: "AboutRoute",
           },
           {
-            key: 'Feedback',
+            key: "Feedback",
             name: feedbackListTitle,
           },
           {
-            name: `${loggedInAsText}: ${this.props.currentUser.displayableId}`,
-            key: 'User',
+            // TODO Use displayableId from currentUser
+            name: `${loggedInAsText}: ${"USERNAME - TODO: Change this"}`,
+            key: "User",
           },
         ],
       },
       {
-        key: 'Buttons',
+        key: "Buttons",
         renderItem: this.ButtonItem,
-        data: [{ text: logOutText, key: 'Logout' }],
+        data: [{ text: logOutText, key: "Logout" }],
       },
     ];
 

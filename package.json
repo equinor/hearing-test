@@ -3,12 +3,13 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
-    "build": "eas build --profile development --platform ios",
+    "build": "eas build --profile development --platform ios --local",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "refresh-core": "cd ../mad-expo-core && yalc publish && cd ../mad-project-hearing-test-client && yalc add mad-expo-core && expo start -w"
   },
   "jest": {
     "preset": "jest-expo"
@@ -30,13 +31,14 @@
     "expo-dev-client": "^0.8.5",
     "expo-font": "10.0.5",
     "expo-linking": "3.0.0",
+    "expo-localization": "~12.0.0",
     "expo-random": "12.1.1",
     "expo-splash-screen": "0.14.2",
     "expo-status-bar": "1.2.0",
     "expo-system-ui": "1.1.1",
     "expo-web-browser": "10.1.1",
     "lodash": "^4.17.15",
-    "mad-expo-core": "git+https://github.com/equinor/mad-expo-core.git#f/settingsScreenRedesign",
+    "mad-expo-core": "github:equinor/mad-expo-core",
     "normalizr": "^3.2.4",
     "prop-types": "^15.6.0",
     "react": "17.0.1",
@@ -64,8 +66,7 @@
     "redux-saga": "0.16.2",
     "reselect": "^3.0.1",
     "shortid": "^2.2.8",
-    "url": "^0.11.0",
-    "expo-localization": "~12.0.0"
+    "url": "^0.11.0"
   },
   "devDependencies": {
     "@babel/core": "7.12.9",

@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
 });
 
 class TestPage extends Component {
+  // TODO: Change to new React Navigation
   static navigationOptions = ({ navigation }) => ({
     ...defaultNavOptions,
     headerRight: (
@@ -125,7 +126,7 @@ class TestPage extends Component {
         this.stopSilentAudioClip();
         Sound.setActive(false);
         this.props.actionPostTest(this.props.test);
-        navigate("TestResultRoute");
+        this.props.navigation.navigate("TestResultRoute");
       }
     }
   }

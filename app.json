@@ -2,10 +2,10 @@
   "expo": {
     "name": "hearingtest",
     "slug": "hearingtest",
-    "version": "1.0.0",
+    "version": "0.2.5",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "hearingtest",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",
@@ -20,11 +20,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.equinor.assetfacts.qa",
+      "bundleIdentifier": "com.equinor.hearingtest.test",
       "buildNumber": "1",
-      "infoPlist": {
-        "CFBundleAllowMixedLocalizations": true
-      },
       "config": {
         "usesNonExemptEncryption": false
       }
@@ -46,7 +43,6 @@
         }
       ],
       "./add-pods"
-
     ],
     "web": {
       "favicon": "./assets/images/favicon.png",

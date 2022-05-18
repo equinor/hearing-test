@@ -1,28 +1,30 @@
-import React, { Component } from 'react';
-import { View, Text, Button, ScrollView, StyleSheet } from 'react-native';
-import PropTypes from 'prop-types';
-import { Spinner } from './../common';
-import * as Colors from '../../stylesheets/colors';
+import { Button } from "mad-expo-core";
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { View, Text, ScrollView, StyleSheet } from "react-native";
+
+import * as Colors from "../../stylesheets/colors";
+import { Spinner } from "./../common";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 50,
-    justifyContent: 'center',
+    justifyContent: "center",
     backgroundColor: Colors.GRAY_4,
   },
   footer: {
     height: 50,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     borderColor: Colors.GRAY_2,
     borderTopWidth: 0.5,
   },
   titleHeader: {
     marginVertical: 15,
-    alignSelf: 'center',
-    fontWeight: '500',
+    alignSelf: "center",
+    fontWeight: "500",
     fontSize: 30,
     color: Colors.GRAY_1,
   },
@@ -43,11 +45,11 @@ const styles = StyleSheet.create({
     color: Colors.GRAY_1,
   },
   buttonStyle: {
-    backgroundColor: '#0288D1',
+    backgroundColor: Colors.EQUINOR_GREEN,
     margin: 20,
   },
   bulletList: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   changelogItem: {
     marginBottom: 15,
@@ -57,7 +59,7 @@ const styles = StyleSheet.create({
 });
 
 const featureTitle = "What's new";
-const affirmText = 'OK';
+const affirmText = "OK";
 
 export default class ChangeLog extends Component {
   static propTypes = {
@@ -67,7 +69,8 @@ export default class ChangeLog extends Component {
   };
 
   renderChangeLog(release) {
-    const { changelogItem, subtitleHeader, changelogText, bullet, bulletList } = styles;
+    const { changelogItem, subtitleHeader, changelogText, bullet, bulletList } =
+      styles;
 
     const changes = release.changes || [];
     return (
@@ -77,7 +80,7 @@ export default class ChangeLog extends Component {
         <View style={{ margin: 5, marginLeft: 10 }}>
           {changes.map((change, index) => (
             <View key={index.toString()} style={bulletList}>
-              <Text style={bullet}>{'\u2022'}</Text>
+              <Text style={bullet}>{"\u2022"}</Text>
               <Text style={changelogText}>{change}</Text>
             </View>
           ))}
@@ -87,7 +90,7 @@ export default class ChangeLog extends Component {
   }
 
   render() {
-    const { container, footer, titleHeader } = styles;
+    const { container, footer, titleHeader, buttonStyle } = styles;
 
     const { releaseNote, affirm, fetching } = this.props;
 
@@ -100,7 +103,7 @@ export default class ChangeLog extends Component {
         <Text style={titleHeader}>{featureTitle}</Text>
         {this.renderChangeLog(releaseNote)}
         <View style={footer}>
-          <Button title={affirmText} buttonStyle={styles.buttonStyle} onPress={affirm} />
+          <Button title={affirmText} onPress={affirm} style={buttonStyle} />
         </View>
       </View>
     );

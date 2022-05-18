@@ -26,6 +26,11 @@ export type RootStackParamList = {
   AboutRoute: undefined;
   FeedbackRoute: undefined;
   DefaultRoute: undefined;
+  PreTestRoute: undefined;
+  SoundCheckRoute: undefined;
+  SoundCheckFinishedRoute: undefined;
+  TestRoute: undefined;
+  TestResultRoute: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =

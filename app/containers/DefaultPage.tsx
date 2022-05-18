@@ -6,10 +6,8 @@ import {
   StyleSheet,
   Text,
   TouchableHighlight,
-  TouchableOpacity,
   View,
 } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons";
 import { connect } from "react-redux";
 
 import { fetchMe } from "../../services/api/api-methods";
@@ -20,8 +18,6 @@ import Card from "../components/common/atoms/Card";
 import NavigationItem from "../components/common/atoms/NavigationItem";
 import Typography from "../components/common/atoms/Typography";
 import TestResultsModal from "../components/common/molecules/TestResultsModal";
-import { defaultNavOptions } from "../navigation";
-import { navigate } from "../navigation/service";
 import { STOP } from "../stylesheets/colors";
 import * as colors from "../stylesheets/colors";
 import { FORMS_URL } from "./TestResultPage";
@@ -35,20 +31,6 @@ const styles = StyleSheet.create({
 });
 
 class DefaultPage extends Component<{ actionAppInit: Function; error?: any }> {
-  static navigationOptions = ({ navigation }) => ({
-    ...defaultNavOptions,
-    headerRight: (
-      <TouchableOpacity
-        testID="ButtonSettings"
-        onPress={() => navigation.navigate("SettingsRoute")}
-        style={{ paddingLeft: 15, paddingRight: 15 }}
-      >
-        <Icon name="md-cog" color={colors.EQUINOR_GREEN} size={24} />
-      </TouchableOpacity>
-    ),
-    headerLeft: null,
-  });
-
   static propTypes = {
     actionAppInit: PropTypes.func.isRequired,
     error: PropTypes.object.isRequired,
@@ -61,11 +43,14 @@ class DefaultPage extends Component<{ actionAppInit: Function; error?: any }> {
 
   componentDidMount() {
     this.props.actionAppInit();
-    fetchMe()
-      .then((response) => this.setState({ firstName: response.firstName }))
-      .catch(() => {
-        this.setState({ firstName: null });
-      });
+    // fetchMe()
+    //   .then((response) => this.setState({ firstName: response.firstName }))
+    //   .catch(() => {
+    //     this.setState({ firstName: null });
+    //   });
+
+    // TODO
+    this.setState({ firstName: "TODO: First Name" });
   }
 
   setModalVisible = (value: boolean) => {
@@ -73,7 +58,7 @@ class DefaultPage extends Component<{ actionAppInit: Function; error?: any }> {
   };
 
   render() {
-    const { error } = this.props;
+    const { error, navigation } = this.props;
     if (!this.state.firstName) return <></>;
     return (
       <View style={{ flex: 1 }}>
@@ -114,7 +99,7 @@ class DefaultPage extends Component<{ actionAppInit: Function; error?: any }> {
             </Typography>
             <View style={{ width: 160 }}>
               <ButtonEDS
-                onPress={() => nawvigate("PreTestRoute")}
+                onPress={() => navigation.navigate("PreTestRoute")}
                 text="Ta hørselstesten"
               />
             </View>
