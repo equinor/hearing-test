@@ -15,5 +15,4 @@
       "ApiBaseUrl": "https://api.statoil.com/app/hearing/dev/api/v1"
     }
   },
-  "HearingTestURLSchemeWeb": "http://localhost:19006"
 }

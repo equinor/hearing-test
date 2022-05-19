@@ -7,7 +7,6 @@ export {
   AzureADRedirectUrl,
   AzureADRedirectUrlWeb,
   BuildConfiguration,
-  HearingTestURLSchemeWeb,
 } from "./settings.json";
 
 export const getResource = (name) => Resources[name];
