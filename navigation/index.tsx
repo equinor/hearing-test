@@ -10,21 +10,17 @@ import {
   NavigationContainer,
   DefaultTheme,
   DarkTheme,
-  CommonActions,
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import * as Localization from "expo-localization";
-import { SettingsScreen as ExpoSettings, LoginScreen } from "mad-expo-core";
 import * as React from "react";
 import { ColorSchemeName, Pressable, TouchableOpacity } from "react-native";
 import { withCommander } from "react-native-salute";
-import { useDispatch } from "react-redux";
 
-import * as appJSON from "../app.json";
 import AboutPage from "../app/containers/AboutPage";
 import DefaultPage from "../app/containers/DefaultPage";
 import FeaturePage from "../app/containers/FeaturePage";
 import FeedbackPage from "../app/containers/FeedbackPage";
+import LoginPage from "../app/containers/LoginPage";
 import PreTestPage from "../app/containers/PreTestPage";
 import SettingsPage from "../app/containers/SettingsPage";
 import SoundCheckFinishedPage from "../app/containers/SoundCheckFinishedPage";
@@ -34,14 +30,11 @@ import TestResultPage from "../app/containers/TestResultPage";
 import withUtilities from "../app/navigation/utils";
 import { EQUINOR_GREEN } from "../app/stylesheets/colors";
 import Colors from "../constants/Colors";
-import * as ENVIRONMENT from "../constants/settings";
 import useColorScheme from "../hooks/useColorScheme";
-import logo from "../resources/images/logo.png";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import TabOneScreen from "../screens/TabOneScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
-import * as actions from "../store";
 import {
   RootStackParamList,
   RootTabParamList,
@@ -71,8 +64,6 @@ export default function Navigation({
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
-  const dispatch = useDispatch();
-
   return (
     <Stack.Navigator
       initialRouteName="Login"
@@ -84,24 +75,7 @@ function RootNavigator() {
     >
       <Stack.Screen
         name="Login"
-        children={
-          ({ navigation }) => (
-            //withCommander(
-            <LoginScreen
-              navigation={navigation}
-              scope={ENVIRONMENT.getResource("hearing").scopes[0]}
-              bundleIdentifier={appJSON.expo.ios.bundleIdentifier}
-              mainRoute="Feature"
-              logo={logo}
-              showDemoButton
-              onDemoPress={() => {
-                dispatch(actions.setConfig({ key: "demoMode", value: true }));
-                navigation.navigate("DefaultRoute");
-              }}
-            />
-          )
-          //)
-        }
+        component={withCommander(LoginPage)}
         options={{ headerShown: false }}
       />
       <Stack.Screen name="Feature" component={withCommander(FeaturePage)} />
