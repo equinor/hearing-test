@@ -42,15 +42,13 @@ class DefaultPage extends Component<{ actionAppInit: Function; error?: any }> {
   };
 
   componentDidMount() {
-    this.props.actionAppInit();
-    // fetchMe()
-    //   .then((response) => this.setState({ firstName: response.firstName }))
-    //   .catch(() => {
-    //     this.setState({ firstName: null });
-    //   });
-
-    // TODO
-    this.setState({ firstName: "TODO: First Name" });
+    fetchMe()
+      .then((response) => {
+        this.setState({ firstName: response.firstName });
+      })
+      .catch(() => {
+        this.setState({ firstName: null });
+      });
   }
 
   setModalVisible = (value: boolean) => {
