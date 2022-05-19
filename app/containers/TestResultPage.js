@@ -71,7 +71,7 @@ class TestResultPage extends Component {
       secondaryButton: {
         enable: true,
         text: "Ta ny test",
-        onPress: () => navigate("TestRoute"),
+        onPress: () => this.props.navigation.navigate("TestRoute"),
       },
     },
     {

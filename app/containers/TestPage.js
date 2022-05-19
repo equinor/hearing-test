@@ -157,7 +157,7 @@ class TestPage extends Component {
     Sound.setActive(false);
     clearInterval(this.state.intervalId);
     this.props.actionStopTest();
-    navigate("DefaultRoute");
+    this.props.navigation.navigate("DefaultRoute");
   }
 
   async nodeFinished() {
@@ -378,7 +378,7 @@ class TestPage extends Component {
                             onPress: () => {
                               this.setState({ modalVisible: false });
                               this.abortTest();
-                              navigate("TestRoute");
+                              this.props.navigation.navigate("TestRoute");
                             },
                             style: "destructive",
                           },
@@ -404,7 +404,7 @@ class TestPage extends Component {
                             onPress: () => {
                               this.setState({ modalVisible: false });
                               this.abortTest();
-                              navigate("SoundCheckRoute");
+                              this.props.navigation.navigate("SoundCheckRoute");
                             },
                             style: "destructive",
                           },
