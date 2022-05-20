@@ -22,6 +22,9 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.equinor.hearingtest.test",
       "buildNumber": "1",
+      "infoPlist": {
+        "CFBundleAllowMixedLocalizations": true
+      },
       "config": {
         "usesNonExemptEncryption": false
       }
