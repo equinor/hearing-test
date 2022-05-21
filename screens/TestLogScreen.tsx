@@ -1,9 +1,9 @@
+import { Spinner } from "mad-expo-core";
 import React, { Component } from "react";
 import { FlatList, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { connect } from "react-redux";
 
 import NavigationItem from "../components/common/atoms/NavigationItem";
-import Spinner from "../components/common/atoms/Spinner";
 import { selectTests } from "../store/tests";
 import { fetchTests } from "../store/tests/actions";
 import { selectIsFetchingTests } from "../store/tests/reducer";

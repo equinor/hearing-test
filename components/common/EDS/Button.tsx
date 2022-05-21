@@ -1,7 +1,8 @@
-import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
-import Spinner from '../atoms/Spinner';
-import Typography from '../atoms/Typography';
+import { Spinner } from "mad-expo-core";
+import React from "react";
+import { TouchableOpacity, View } from "react-native";
+
+import Typography from "../atoms/Typography";
 
 const ButtonEDS = (props: {
   onPress: () => void;
@@ -14,8 +15,8 @@ const ButtonEDS = (props: {
 }) => {
   function getBackgroundColor() {
     if (props.disabled || props.loading || props.outlined) return `#EAEAEA`;
-    if (props.danger) return '#EB0000';
-    return '#007079';
+    if (props.danger) return "#EB0000";
+    return "#007079";
   }
 
   const { danger, disabled, loading, onPress, outlined, text } = props;
@@ -25,25 +26,25 @@ const ButtonEDS = (props: {
         style={{
           height: 40,
           width: 160,
-          alignSelf: 'center',
-          alignItems: 'center',
-          justifyContent: 'center',
+          alignSelf: "center",
+          alignItems: "center",
+          justifyContent: "center",
           borderRadius: 4,
           marginBottom: 18,
           borderWidth: !danger && 1,
           backgroundColor: getBackgroundColor(),
-          borderColor: disabled || loading ? `#DCDCDC` : '#007079',
+          borderColor: disabled || loading ? `#DCDCDC` : "#007079",
           ...props.style,
         }}
       >
         {loading ? (
-          <Spinner color="#6F6F6F" />
+          <Spinner />
         ) : (
           <Typography
             variant="button"
-            color={outlined ? '#007079' : 'white'}
+            color={outlined ? "#007079" : "white"}
             style={{
-              textAlign: 'center',
+              textAlign: "center",
             }}
           >
             {text}
