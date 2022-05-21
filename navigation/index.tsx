@@ -4,8 +4,7 @@
  *
  */
 
-import { FontAwesome, Ionicons, MaterialIcons } from "@expo/vector-icons";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { MaterialIcons as Icon } from "@expo/vector-icons";
 import {
   NavigationContainer,
   DefaultTheme,
@@ -13,8 +12,7 @@ import {
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
-import { ColorSchemeName, Pressable, TouchableOpacity } from "react-native";
-import { withCommander } from "react-native-salute";
+import { ColorSchemeName, TouchableOpacity } from "react-native";
 
 import AboutPage from "../app/containers/AboutPage";
 import DefaultPage from "../app/containers/DefaultPage";
@@ -29,17 +27,9 @@ import TestPage from "../app/containers/TestPage";
 import TestResultPage from "../app/containers/TestResultPage";
 import withUtilities from "../app/navigation/utils";
 import { EQUINOR_GREEN } from "../app/stylesheets/colors";
-import Colors from "../constants/Colors";
-import useColorScheme from "../hooks/useColorScheme";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
-import TabOneScreen from "../screens/TabOneScreen";
-import TabTwoScreen from "../screens/TabTwoScreen";
-import {
-  RootStackParamList,
-  RootTabParamList,
-  RootTabScreenProps,
-} from "../types";
+import { RootStackParamList } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 
 export default function Navigation({
@@ -66,7 +56,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName="Login"
+      initialRouteName="LoginRoute"
       screenOptions={{
         headerTitleStyle: { color: "black" },
         headerTitleAlign: "center",
@@ -74,65 +64,55 @@ function RootNavigator() {
       }}
     >
       <Stack.Screen
-        name="Login"
-        component={withCommander(LoginPage)}
+        name="LoginRoute"
+        component={withUtilities(LoginPage)}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="Feature" component={withCommander(FeaturePage)} />
+      <Stack.Screen
+        name="FeatureRoute"
+        component={withUtilities(FeaturePage)}
+      />
       <Stack.Screen
         name="DefaultRoute"
-        component={withCommander(DefaultPage)}
+        component={withUtilities(DefaultPage)}
         options={({ navigation }: any) => ({
           headerRight: () => (
             <TouchableOpacity
               testID="ButtonSettings"
               onPress={() => navigation.navigate("SettingsRoute")}
-              style={{ paddingLeft: 15, paddingRight: 15 }}
+              style={{ paddingHorizontal: 15 }}
             >
-              <Ionicons name="md-cog" color={EQUINOR_GREEN} size={24} />
+              <Icon name="more-vert" color={EQUINOR_GREEN} size={24} />
             </TouchableOpacity>
           ),
           headerBackVisible: false,
+          headerTitle: "",
         })}
       />
       <Stack.Screen
         name="PreTestRoute"
-        component={withCommander(PreTestPage)}
-        //options={{ headerShown: false }}
+        component={withUtilities(PreTestPage)}
+        options={{ headerBackVisible: false, headerTitle: "" }}
       />
       <Stack.Screen
         name="SoundCheckRoute"
         component={withUtilities(SoundCheckPage)}
-        //options={{ headerShown: false }}
+        options={{ headerBackVisible: false, headerTitle: "" }}
       />
       <Stack.Screen
         name="SoundCheckFinishedRoute"
         component={withUtilities(SoundCheckFinishedPage)}
+        options={{ headerBackVisible: false, headerTitle: "" }}
       />
       <Stack.Screen
         name="TestRoute"
         component={withUtilities(TestPage)}
-        options={({ navigation }: any) => ({
-          headerRight: () => (
-            <TouchableOpacity
-              onPress={() => navigation.navigate("SettingsRoute")}
-              style={{ paddingLeft: 15, paddingRight: 15 }}
-            >
-              <MaterialIcons name="md-more" color="white" size={24} />
-            </TouchableOpacity>
-          ),
-          headerBackVisible: false,
-        })}
+        options={{ headerBackVisible: false, headerTitle: "" }}
       />
       <Stack.Screen
         name="TestResultRoute"
         component={withUtilities(TestResultPage)}
-        options={{ headerBackVisible: false }}
-      />
-      <Stack.Screen
-        name="Root"
-        component={BottomTabNavigator}
-        options={{ headerShown: false }}
+        options={{ headerBackVisible: false, headerTitle: "" }}
       />
       <Stack.Screen
         name="NotFound"
@@ -170,65 +150,4 @@ function RootNavigator() {
       </Stack.Group>
     </Stack.Navigator>
   );
-}
-
-/**
- * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
- * https://reactnavigation.org/docs/bottom-tab-navigator
- */
-const BottomTab = createBottomTabNavigator<RootTabParamList>();
-
-function BottomTabNavigator() {
-  const colorScheme = useColorScheme();
-
-  return (
-    <BottomTab.Navigator
-      initialRouteName="TabOne"
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
-      }}
-    >
-      <BottomTab.Screen
-        name="TabOne"
-        component={TabOneScreen}
-        options={({ navigation }: RootTabScreenProps<"TabOne">) => ({
-          title: "Tab One",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate("Modal")}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}
-            >
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
-        })}
-      />
-      <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoScreen}
-        options={{
-          title: "Tab Two",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-        }}
-      />
-    </BottomTab.Navigator>
-  );
-}
-
-/**
- * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
- */
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>["name"];
-  color: string;
-}) {
-  return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
 }

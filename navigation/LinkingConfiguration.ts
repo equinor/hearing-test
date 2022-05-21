@@ -13,25 +13,12 @@ const linking: LinkingOptions<RootStackParamList> = {
   prefixes: [Linking.makeUrl("/"), "http://localhost:19006"],
   config: {
     screens: {
-      Root: {
-        screens: {
-          TabOne: {
-            screens: {
-              TabOneScreen: "one",
-            },
-          },
-          TabTwo: {
-            screens: {
-              TabTwoScreen: "two",
-            },
-          },
-        },
-      },
+      LoginRoute: "login",
+      SettingsRoute: "settings",
       AboutRoute: "about",
       FeedbackRoute: "feedback",
-      SettingsRoute: "settings",
       Modal: "modal",
-      Feature: "feature",
+      FeatureRoute: "feature",
       NotFound: "*",
     },
   },
