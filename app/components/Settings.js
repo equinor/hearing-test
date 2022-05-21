@@ -43,11 +43,6 @@ const styles = StyleSheet.create({
   },
 });
 
-const aboutListTitle = "About app";
-const feedbackListTitle = "Feedback";
-const loggedInAsText = "Logged in as";
-const logOutText = "Log out";
-
 export default class Settings extends Component {
   static propTypes = {
     currentUser: PropTypes.shape({
@@ -62,8 +57,6 @@ export default class Settings extends Component {
   RenderItem = (props) => {
     if (props.item.key === "User") {
       return this.TextItem(props);
-    } else if (props.item.key === "Feedback") {
-      return this.ButtonItem(props);
     }
     return this.LinkItem(props);
   };
@@ -115,17 +108,17 @@ export default class Settings extends Component {
         renderItem: this.RenderItem,
         data: [
           {
-            name: aboutListTitle,
             key: "About",
+            name: "About",
             route: "AboutRoute",
           },
           {
             key: "Feedback",
-            name: feedbackListTitle,
+            name: "Feedback",
+            route: "FeedbackRoute",
           },
           {
-            // TODO Use displayableId from currentUser
-            name: `${loggedInAsText}: ${"USERNAME - TODO: Change this"}`,
+            name: `Logged in as: ${this.props.currentUser}`,
             key: "User",
           },
         ],
@@ -133,7 +126,7 @@ export default class Settings extends Component {
       {
         key: "Buttons",
         renderItem: this.ButtonItem,
-        data: [{ text: logOutText, key: "Logout" }],
+        data: [{ text: "Log out", key: "Logout" }],
       },
     ];
 
