@@ -13,10 +13,10 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 
+import doctor from "../../assets/images/doctor.png";
+import thumbsUp from "../../assets/images/thumbs-up.png";
+import warning from "../../assets/images/warning.png";
 import { selectError, selectTestResult } from "../../store/test/reducer";
-import doctor from "../assets/doctor.png";
-import thumbsUp from "../assets/thumbs-up.png";
-import warning from "../assets/warning.png";
 import ButtonEDS from "../components/common/EDS/Button";
 import IconButton from "../components/common/EDS/IconButton";
 import Typography from "../components/common/atoms/Typography";

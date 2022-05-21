@@ -2,7 +2,7 @@ import React from "react";
 import { View, Image, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 
-import thumbsUp from "../assets/thumbs-up.png";
+import thumbsUp from "../../assets/images/thumbs-up.png";
 import ButtonEDS from "../components/common/EDS/Button";
 import Typography from "../components/common/atoms/Typography";
 import { GRAY_BACKGROUND } from "../stylesheets/colors";

@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Image, StyleSheet, View } from "react-native";
 
-import headset from "../assets/headset.png";
-import manWithHeadset from "../assets/man-with-headset.png";
-import sickMan from "../assets/sick-man.png";
-import thumbsUp from "../assets/thumbs-up.png";
+import headset from "../../assets/images/headset.png";
+import manWithHeadset from "../../assets/images/man-with-headset.png";
+import sickMan from "../../assets/images/sick-man.png";
+import thumbsUp from "../../assets/images/thumbs-up.png";
 import ButtonEDS from "../components/common/EDS/Button";
 import Typography from "../components/common/atoms/Typography";
 import Indicators from "../components/common/molecules/Indicators";
