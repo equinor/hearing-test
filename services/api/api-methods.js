@@ -1,8 +1,8 @@
 import { authenticateSilently } from "mad-expo-core";
 
 import appJson from "../../app.json";
-import { NetworkException } from "../../app/utils/Exception";
 import { getResource } from "../../constants/settings";
+import { NetworkException } from "../../utils/Exception";
 
 const appName = appJson.expo.name;
 const defaultResource = "hearing";
@@ -16,7 +16,7 @@ const createUrl = (resource, path) =>
 
 // Helper functions
 const fetchData = (path, resource = defaultResource, parseJson = true) =>
-  authenticateSilently(getResource(resource).scopes[0]).then((r) =>
+  authenticateSilently(getResource(resource).scopes).then((r) =>
     fetch(createUrl(resource, path), {
       method: "GET",
       withCredentials: true,
@@ -37,7 +37,7 @@ const fetchData = (path, resource = defaultResource, parseJson = true) =>
 
 const postData = (path, data, method = "POST", resource = defaultResource) =>
   // TODO: Change this after changing to allowing array of scopes. Do this for all authenticateSilently methods
-  authenticateSilently(getResource(resource).scopes[0]).then((r) =>
+  authenticateSilently(getResource(resource).scopes).then((r) =>
     fetch(createUrl(resource, path), {
       method,
       body: JSON.stringify(data),
@@ -55,15 +55,17 @@ const postData = (path, data, method = "POST", resource = defaultResource) =>
   );
 
 const fetchOpenData = (path, resource = defaultResource) =>
-  fetch(createUrl(resource, path), {
-    method: "GET",
-    ...jsonHeaders,
-  }).then((response) => {
-    if (response.ok) {
-      return response.json();
-    }
-    throw new NetworkException(response.statusText, response.status);
-  });
+  authenticateSilently(getResource(resource).scopes).then((r) =>
+    fetch(createUrl(resource, path), {
+      method: "GET",
+      ...jsonHeaders,
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new NetworkException(response.statusText, response.status);
+    })
+  );
 
 export function getReleaseNote(version) {
   return fetchData(`/ReleaseNote/${appName}/${version}`, "mad");

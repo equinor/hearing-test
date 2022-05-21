@@ -3,9 +3,9 @@ import React, { Component } from "react";
 import { View, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 
-import { selectServiceMessage } from "../../store/service-message/reducer";
-import Banner from "../components/common/molecules/Banner";
-import * as Colors from "../stylesheets/colors";
+import Banner from "../app/components/common/molecules/Banner";
+import * as Colors from "../app/stylesheets/colors";
+import { selectServiceMessage } from "../store/service-message/reducer";
 
 const styles = StyleSheet.create({
   viewStyle: {

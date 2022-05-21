@@ -1,15 +1,16 @@
-import { giveSalute, types } from 'react-native-salute';
-import ToastStyles from '../stylesheets/ToastStyles'; // eslint-disable-line
+import { giveSalute, types } from "react-native-salute";
+
+import ToastStyles from '../app/stylesheets/ToastStyles'; // eslint-disable-line
 
 export const ToastTypes = {
-  SUCCESS: 'SUCCESS',
-  INFO: 'INFO',
-  WARNING: 'WARNING',
-  ERROR: 'ERROR',
-  REFRESH: 'REFRESH',
+  SUCCESS: "SUCCESS",
+  INFO: "INFO",
+  WARNING: "WARNING",
+  ERROR: "ERROR",
+  REFRESH: "REFRESH",
 };
 
-const applyType = type => {
+const applyType = (type) => {
   switch (type) {
     case ToastTypes.SUCCESS:
       return types.SUCCESS;
@@ -24,7 +25,7 @@ const applyType = type => {
   }
 };
 
-const applyStyles = type => {
+const applyStyles = (type) => {
   switch (type) {
     case ToastTypes.SUCCESS:
       return ToastStyles.success;
@@ -40,7 +41,7 @@ const applyStyles = type => {
   }
 };
 
-const applyDurationByType = type => {
+const applyDurationByType = (type) => {
   switch (type) {
     case ToastTypes.ERROR:
       return 5000;
@@ -54,7 +55,7 @@ const applyDurationByType = type => {
   }
 };
 
-export const addToast = toast => {
+export const addToast = (toast) => {
   giveSalute({
     ...toast,
     type: applyType(toast.type),

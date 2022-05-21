@@ -1,24 +1,22 @@
+import { handleActions } from "redux-actions";
+
+import { stateKeys } from "../../types";
 import { setConfig } from "./actions";
 
-import { handleActions } from "redux-actions";
-import { stateKeys } from "../../types";
-
 const defaultState = {
-  current: {}
+  current: {},
 };
-
 
 export default handleActions(
   {
-    [setConfig]: (state, action) => { 
-      
+    [setConfig]: (state, action) => {
       const { key, value } = action.payload;
       return {
-      current: {
-        ...state.current,
-        [key]: value,
-      }
-    };
+        current: {
+          ...state.current,
+          [key]: value,
+        },
+      };
     },
   },
   defaultState

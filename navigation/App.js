@@ -12,8 +12,8 @@ import { Provider } from "react-redux";
 //import AppNavigator from "../app/navigation";
 import { setNavigator } from "../app/navigation/service";
 import trustKitConfig from "../app/trustKitConfig.json";
-import { metricKeys, track } from "../app/utils/metrics";
 import store from "../store/config";
+import { metricKeys, track } from "../utils/metrics";
 import Navigation from "./";
 import AuthContext from "./AuthContext";
 

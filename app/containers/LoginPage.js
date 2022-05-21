@@ -25,7 +25,7 @@ class LoginPage extends Component {
     return (
       <LoginScreen
         navigation={this.props.navigation}
-        scope={ENVIRONMENT.getResource("hearing").scopes[0]}
+        scopes={ENVIRONMENT.getResource("hearing").scopes}
         bundleIdentifier={appJson.expo.ios.bundleIdentifier}
         mainRoute={
           // If version number is persisted and same, do not show onboarding/features

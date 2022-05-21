@@ -1,7 +1,7 @@
 import { put, call, takeLatest } from "redux-saga/effects";
 
-import handleError from "../../app/utils/handleNetworkErrors";
 import api from "../../services/api";
+import handleError from "../../utils/handleNetworkErrors";
 import * as actions from "./actions";
 
 function* fetchServiceMessage(action) {
