@@ -1,8 +1,13 @@
-import React, { useEffect, useRef } from 'react';
-import { Animated, Easing, View } from 'react-native';
-import { EQUINOR_GREEN } from '../../../stylesheets/colors';
+import React, { useEffect, useRef } from "react";
+import { Animated, Easing, View } from "react-native";
 
-const ProgressAnimationBar = (props: { duration: number; timeout: number; disabled: boolean }) => {
+import { EQUINOR_GREEN } from "../../../../constants/colors";
+
+const ProgressAnimationBar = (props: {
+  duration: number;
+  timeout: number;
+  disabled: boolean;
+}) => {
   const progressAnim = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     if (!props.disabled)
@@ -24,15 +29,18 @@ const ProgressAnimationBar = (props: { duration: number; timeout: number; disabl
     <View
       style={{
         height: 4,
-        width: '100%',
-        backgroundColor: '#DCDCDC',
+        width: "100%",
+        backgroundColor: "#DCDCDC",
       }}
     >
       <Animated.View
         style={{
-          height: '100%',
+          height: "100%",
           backgroundColor: EQUINOR_GREEN,
-          width: progressAnim.interpolate({ inputRange: [0, 100], outputRange: ['0%', '100%'] }),
+          width: progressAnim.interpolate({
+            inputRange: [0, 100],
+            outputRange: ["0%", "100%"],
+          }),
         }}
       />
     </View>

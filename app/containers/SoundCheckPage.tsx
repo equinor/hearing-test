@@ -1,3 +1,4 @@
+import { MaterialIcons as Icon } from "@expo/vector-icons";
 import React, { useState, useEffect, useRef } from "react";
 import {
   Alert,
@@ -9,16 +10,14 @@ import {
 } from "react-native";
 import Sound from "react-native-sound";
 import SystemSetting from "react-native-system-setting";
-// TODO: replace with @expo/vector-icons
-import Icon from "react-native-vector-icons/MaterialIcons";
 import { connect } from "react-redux";
 
+import { EQUINOR_GREEN, GRAY_BACKGROUND } from "../../constants/colors";
 import ButtonEDS from "../components/common/EDS/Button";
 import IconButton from "../components/common/EDS/IconButton";
 import BigRoundButton from "../components/common/atoms/BigRoundButton";
 import Typography from "../components/common/atoms/Typography";
 import ProgressAnimationBar from "../components/common/molecules/ProgressAnimationBar";
-import { EQUINOR_GREEN, GRAY_BACKGROUND } from "../stylesheets/colors";
 import { SoundCheckPageJSON } from "../types";
 
 const styles = StyleSheet.create({
@@ -51,12 +50,16 @@ const SoundCheckPage = (props: any) => {
 
   useEffect(() => {
     setSound(
-      new Sound("1000Hz_dobbel.wav", Sound.MAIN_BUNDLE, (error) => {
-        if (error) {
-          // eslint-disable-next-line no-console
-          console.log("failed to load the sound", error);
+      new Sound(
+        require("../../assets/audio/1000Hz_dobbel.wav"),
+        //new Sound("1000Hz_dobbel.wav", Sound.MAIN_BUNDLE, Sound.MAIN_BUNDLE,
+        (error) => {
+          if (error) {
+            // eslint-disable-next-line no-console
+            console.log("failed to load the sound", error);
+          }
         }
-      })
+      )
     );
 
     // change the volume

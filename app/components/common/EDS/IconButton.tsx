@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { MaterialIcons as Icon } from "@expo/vector-icons";
+import React, { useState } from "react";
+import { TouchableOpacity, View } from "react-native";
 
-import { TouchableOpacity, View } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { EQUINOR_GREEN } from '../../../stylesheets/colors';
+import { EQUINOR_GREEN } from "../../../../constants/colors";
 
-const IconButton = (props: { icon: string; onPress?: Function }) => {
+const IconButton = (props: { icon: string; onPress: Function }) => {
   const [activeTouch, setActiveTouch] = useState(false);
 
   return (
@@ -14,9 +14,9 @@ const IconButton = (props: { icon: string; onPress?: Function }) => {
         aspectRatio: 1,
         height: 48,
         width: 48,
-        backgroundColor: activeTouch ? '#DEEDEE' : 'transparent',
-        justifyContent: 'center',
-        alignItems: 'center',
+        backgroundColor: activeTouch ? "#DEEDEE" : "transparent",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
       <TouchableOpacity
@@ -31,11 +31,6 @@ const IconButton = (props: { icon: string; onPress?: Function }) => {
       </TouchableOpacity>
     </View>
   );
-};
-IconButton.defaultProps = {
-  onPress: () => {
-    return null;
-  },
 };
 
 export default IconButton;

@@ -1,4 +1,4 @@
-import { Ionicons as Icon } from "@expo/vector-icons";
+import { MaterialIcons as Icon } from "@expo/vector-icons";
 import React from "react";
 import {
   StyleProp,
@@ -9,7 +9,7 @@ import {
   View,
 } from "react-native";
 
-import * as Colors from "../../../stylesheets/colors";
+import * as Colors from "../../../../constants/colors";
 
 const TextLink = ({
   data,
@@ -28,8 +28,8 @@ const TextLink = ({
       <Text style={[styles.defaultText, textStyle]}>{data.name}</Text>
       <Icon
         color={Colors.GRAY_2}
-        name="ios-arrow-forward"
-        size={20}
+        name="arrow-forward-ios"
+        size={12}
         style={styles.icon}
       />
     </View>

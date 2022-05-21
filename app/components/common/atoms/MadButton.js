@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
-import * as colors from '../../../stylesheets/colors';
+import * as colors from '../../../../constants/colors';
 
 const MadButton = (props: { onPress: any, text: string, active: boolean, testID: string }) => (
   <TouchableOpacity

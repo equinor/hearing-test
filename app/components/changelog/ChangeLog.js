@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { View, Text, ScrollView, StyleSheet } from "react-native";
 
-import * as Colors from "../../stylesheets/colors";
+import * as Colors from "../../../constants/colors";
 import { Spinner } from "./../common";
 
 const styles = StyleSheet.create({

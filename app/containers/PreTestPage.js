@@ -7,10 +7,10 @@ import headset from "../../assets/images/headset.png";
 import manWithHeadset from "../../assets/images/man-with-headset.png";
 import sickMan from "../../assets/images/sick-man.png";
 import thumbsUp from "../../assets/images/thumbs-up.png";
+import { GRAY_BACKGROUND } from "../../constants/colors";
 import ButtonEDS from "../components/common/EDS/Button";
 import Typography from "../components/common/atoms/Typography";
 import Indicators from "../components/common/molecules/Indicators";
-import { GRAY_BACKGROUND } from "../stylesheets/colors";
 
 const styles = StyleSheet.create({
   component: {

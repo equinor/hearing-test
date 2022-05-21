@@ -1,15 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { View, SectionList, StyleSheet, Text } from 'react-native';
-import { SimpleInfoItem } from './common';
-import * as Colors from '../stylesheets/colors';
+import PropTypes from "prop-types";
+import React from "react";
+import { View, SectionList, StyleSheet, Text } from "react-native";
+
+import * as Colors from "../../constants/colors";
+import { SimpleInfoItem } from "./common";
 
 const SEPARATOR_HEIGHT = StyleSheet.hairlineWidth;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     paddingTop: 10,
   },
   header: {
@@ -19,7 +20,7 @@ const styles = StyleSheet.create({
     lineHeight: 30,
     fontSize: 18,
     color: Colors.GRAY_1,
-    fontWeight: '500',
+    fontWeight: "500",
   },
   item: {
     paddingHorizontal: 20,
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
   separator: {
     marginTop: 10,
     height: SEPARATOR_HEIGHT,
-    backgroundColor: 'rgb(200, 199, 204)',
+    backgroundColor: "rgb(200, 199, 204)",
   },
 });
 

@@ -2,8 +2,8 @@ import React from "react";
 
 //import AppNavigator from './AppNavigator';
 import { displayName } from "../../app.json";
+import * as colors from "../../constants/colors";
 import { Button } from "../components/common";
-import * as colors from "../stylesheets/colors";
 import { goBack } from "./service";
 
 //export default AppNavigator;

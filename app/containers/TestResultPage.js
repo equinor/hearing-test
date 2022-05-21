@@ -16,13 +16,12 @@ import { connect } from "react-redux";
 import doctor from "../../assets/images/doctor.png";
 import thumbsUp from "../../assets/images/thumbs-up.png";
 import warning from "../../assets/images/warning.png";
+import { GRAY_BACKGROUND, STOP } from "../../constants/colors";
 import { selectError, selectTestResult } from "../../store/test/reducer";
 import ButtonEDS from "../components/common/EDS/Button";
 import IconButton from "../components/common/EDS/IconButton";
 import Typography from "../components/common/atoms/Typography";
 import TestResultItem from "../components/common/molecules/TestResultItem";
-import { navigate } from "../navigation/service";
-import { GRAY_BACKGROUND, STOP } from "../stylesheets/colors";
 
 export const FORMS_URL =
   "https://forms.office.com/Pages/ResponsePage.aspx?id=NaKkOuK21UiRlX_PBbRZsC9rzeD3BlFJi0JbArgz2wRURUxPWVRWUVBPSlVYUVc5UElIQjJXMFRSWS4u";

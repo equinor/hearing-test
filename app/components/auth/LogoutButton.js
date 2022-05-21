@@ -3,8 +3,8 @@ import React, { Component } from "react";
 import { StyleSheet } from "react-native";
 import { connect } from "react-redux";
 
+import * as colors from "../../../constants/colors";
 import { getAuthStatus, actions } from "../../../store/auth";
-import * as colors from "../../stylesheets/colors";
 import { authStatusTypes } from "../../types";
 import { Button } from "../common";
 

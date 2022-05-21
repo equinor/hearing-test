@@ -1,4 +1,5 @@
-import { authenticateSilently } from "mad-expo-core";
+//import * as Device from "expo-device";
+import { authenticateSilently, getAccount } from "mad-expo-core";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Text, TextInput, View, SafeAreaView, StyleSheet } from "react-native";
@@ -6,6 +7,7 @@ import DeviceInfo from "react-native-device-info";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
 import { connect } from "react-redux";
 
+import * as colors from "../../constants/colors";
 import {
   BuildConfiguration,
   getConfiguredResources,
@@ -14,7 +16,6 @@ import {
 import { getCurrentUser } from "../../store/auth";
 import MadButton from "../components/common/atoms/MadButton";
 import Spinner from "../components/common/atoms/Spinner";
-import * as colors from "../stylesheets/colors";
 import textStyle from "../stylesheets/text";
 
 const navBarTitle = "Feedback";
@@ -41,7 +42,21 @@ class FeedbackPage extends Component {
     feedbackText: "",
     statusMessage: "",
     status: "",
+    username: null,
   };
+
+  setUsername() {
+    getAccount().then((response) => {
+      if (this.state.username === null) {
+        this.setState((prevState) => ({
+          ...prevState,
+          userName: response.username.split("@")[0],
+        }));
+      }
+    });
+  }
+
+  onComponentDidMount() {}
 
   updateFeedback = (feedbackText) => {
     this.setState({ feedbackText });
@@ -112,8 +127,8 @@ class FeedbackPage extends Component {
         .map((resource) => getResource(resource).ApiBaseUrl.toString())
         .join("\n - ");
     // TODO
-    const userId = "TODO";
-    //const userId = //user.displayableId ? user.displayableId : user.userId;
+
+    //user.displayableId ? user.displayableId : user.userId;
     const environment = BuildConfiguration;
     const apiEndpoints = getApiEndpoints();
 

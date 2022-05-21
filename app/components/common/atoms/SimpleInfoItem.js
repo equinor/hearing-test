@@ -1,7 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { StyleSheet, Text, View } from 'react-native';
-import * as Colors from '../../../stylesheets/colors';
+import PropTypes from "prop-types";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+
+import * as Colors from "../../../../constants/colors";
 
 const styles = StyleSheet.create({
   container: {
@@ -9,7 +10,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 12,
-    fontStyle: 'italic',
+    fontStyle: "italic",
   },
   text: {
     color: Colors.GRAY_1,

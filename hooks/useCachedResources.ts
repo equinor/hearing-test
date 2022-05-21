@@ -1,4 +1,4 @@
-import { FontAwesome } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { msalInit } from "mad-expo-core";
@@ -30,7 +30,7 @@ export default function useCachedResources() {
 
         // Load fonts
         await Font.loadAsync({
-          ...FontAwesome.font,
+          ...MaterialIcons.font,
           "space-mono": require("../assets/fonts/SpaceMono-Regular.ttf"),
           "Equinor-Bold": equinorBold,
           "Equinor-BoldItalic": equinorBoldItalic,

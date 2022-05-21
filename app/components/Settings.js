@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { SectionList, StyleSheet, Text, View } from "react-native";
 
-import * as Colors from "../stylesheets/colors";
+import * as Colors from "../../constants/colors";
 import LogoutButton from "./auth/LogoutButton";
 import { Button, TextLink } from "./common";
 

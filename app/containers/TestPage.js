@@ -1,3 +1,4 @@
+import { MaterialIcons as Icon } from "@expo/vector-icons";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import {
@@ -10,9 +11,9 @@ import {
 } from "react-native";
 import Sound from "react-native-sound";
 import SystemSetting from "react-native-system-setting";
-import Icon from "react-native-vector-icons/MaterialIcons";
 import { connect } from "react-redux";
 
+import { GRAY_BACKGROUND } from "../../constants/colors";
 import { selectIsFetching } from "../../store/test";
 import {
   failure,
@@ -34,9 +35,6 @@ import IconButton from "../components/common/EDS/IconButton";
 import BigRoundButton from "../components/common/atoms/BigRoundButton";
 import Typography from "../components/common/atoms/Typography";
 import ProgressAnimationBar from "../components/common/molecules/ProgressAnimationBar";
-import { defaultNavOptions } from "../navigation";
-import { navigate } from "../navigation/service";
-import { GRAY_BACKGROUND } from "../stylesheets/colors";
 
 const styles = StyleSheet.create({
   component: {
@@ -49,20 +47,6 @@ const styles = StyleSheet.create({
 });
 
 class TestPage extends Component {
-  // TODO: Change to new React Navigation
-  static navigationOptions = ({ navigation }) => ({
-    ...defaultNavOptions,
-    headerRight: (
-      <TouchableOpacity
-        onPress={() => navigation.navigate("SettingsRoute")}
-        style={{ paddingLeft: 15, paddingRight: 15 }}
-      >
-        <Icon name="md-more" color="white" size={24} />
-      </TouchableOpacity>
-    ),
-    headerLeft: null,
-  });
-
   static propTypes = {
     // Actions
     actionFailure: PropTypes.func.isRequired,

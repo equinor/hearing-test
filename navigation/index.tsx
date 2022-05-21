@@ -26,7 +26,7 @@ import SoundCheckPage from "../app/containers/SoundCheckPage";
 import TestPage from "../app/containers/TestPage";
 import TestResultPage from "../app/containers/TestResultPage";
 import withUtilities from "../app/navigation/utils";
-import { EQUINOR_GREEN } from "../app/stylesheets/colors";
+import { EQUINOR_GREEN } from "../constants/colors";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import { RootStackParamList } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";

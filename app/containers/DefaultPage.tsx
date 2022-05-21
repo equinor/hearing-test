@@ -10,6 +10,8 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 
+import { STOP } from "../../constants/colors";
+import * as colors from "../../constants/colors";
 import { fetchMe } from "../../services/api/api-methods";
 import { appStartupInit } from "../../store/test/actions";
 import { selectError } from "../../store/test/reducer";
@@ -18,8 +20,6 @@ import Card from "../components/common/atoms/Card";
 import NavigationItem from "../components/common/atoms/NavigationItem";
 import Typography from "../components/common/atoms/Typography";
 import TestResultsModal from "../components/common/molecules/TestResultsModal";
-import { STOP } from "../stylesheets/colors";
-import * as colors from "../stylesheets/colors";
 import { FORMS_URL } from "./TestResultPage";
 
 const styles = StyleSheet.create({

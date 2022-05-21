@@ -1,38 +1,39 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Image, View, StyleSheet, ActivityIndicator } from 'react-native';
-import * as colors from '../../stylesheets/colors';
-import { Button } from '../common';
-import { authStatusTypes } from '../../types';
-import equinorLogo from '../../../resources/images/equinor_logo.png';
-import logo from '../../../resources/images/logo.png';
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { Image, View, StyleSheet, ActivityIndicator } from "react-native";
+
+import * as colors from "../../../constants/colors";
+import equinorLogo from "../../../resources/images/equinor_logo.png";
+import logo from "../../../resources/images/logo.png";
+import { authStatusTypes } from "../../types";
+import { Button } from "../common";
 
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: "column",
   },
   splashTop: {
     flex: 2,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
   },
   splashBottom: {
     flex: 3,
     backgroundColor: colors.PINK_BACKGROUND,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   splashAppLogo: {
     flex: 7,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   splashAction: {
     flex: 3,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   buttonStyle: {
     backgroundColor: colors.RED_LOGO,
@@ -42,8 +43,6 @@ const styles = StyleSheet.create({
   },
   buttonTextStyleDisabled: {},
 });
-
-const loginButtonText = 'Log in';
 
 export default class LoginView extends Component {
   static propTypes = {
@@ -56,7 +55,8 @@ export default class LoginView extends Component {
     const { hasConnectivity, authStatus, authenticate } = this.props;
 
     const isInActivity =
-      authStatus === authStatusTypes.AUTHENTICATING || authStatus === authStatusTypes.AUTHENTICATED;
+      authStatus === authStatusTypes.AUTHENTICATING ||
+      authStatus === authStatusTypes.AUTHENTICATED;
     return (
       <View style={styles.wrapper}>
         <View style={styles.splashTop}>
@@ -71,7 +71,7 @@ export default class LoginView extends Component {
               <ActivityIndicator animating />
             ) : (
               <Button
-                title={loginButtonText}
+                title="Log in"
                 onPress={() => authenticate(false)}
                 disabled={!hasConnectivity}
                 viewStyle={styles.buttonStyle}
