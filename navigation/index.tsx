@@ -27,7 +27,6 @@ import TestPage from "../app/containers/TestPage";
 import TestResultPage from "../app/containers/TestResultPage";
 import withUtilities from "../app/navigation/utils";
 import { EQUINOR_GREEN } from "../app/stylesheets/colors";
-import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import { RootStackParamList } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
@@ -119,9 +118,6 @@ function RootNavigator() {
         component={NotFoundScreen}
         options={{ title: "Oops!" }}
       />
-      <Stack.Group screenOptions={{ presentation: "modal" }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
-      </Stack.Group>
       <Stack.Group>
         <Stack.Screen
           name="SettingsRoute"

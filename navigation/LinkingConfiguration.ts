@@ -17,7 +17,6 @@ const linking: LinkingOptions<RootStackParamList> = {
       SettingsRoute: "settings",
       AboutRoute: "about",
       FeedbackRoute: "feedback",
-      Modal: "modal",
       FeatureRoute: "feature",
       NotFound: "*",
     },
