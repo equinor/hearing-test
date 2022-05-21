@@ -6,7 +6,7 @@ import appJson from "../app.json";
 import { ChangeLog } from "../components/changelog";
 import * as actions from "../store";
 import { selectChangeLog, isFetching } from "../store/changelog";
-class FeaturePage extends Component {
+class FeatureScreen extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
     setVersion: PropTypes.func.isRequired,
@@ -29,7 +29,7 @@ class FeaturePage extends Component {
     if (!fetching && prevProps.fetching && !this.props.releaseNote.changes) {
       // If releaseNotes errored on retrieval, go directly to main.
       // TODO
-      //this.goToMain();
+      this.goToMain();
     }
   }
 
@@ -51,7 +51,6 @@ class FeaturePage extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  // TODO: setVersion doesn't do anything
   setVersion: (version) => dispatch(actions.setVersion(version)),
   fetchChangelog: (version) => dispatch(actions.fetchChangelog(version)),
 });
@@ -61,4 +60,4 @@ const mapStateToProps = (state) => ({
   fetching: isFetching(state),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(FeaturePage);
+export default connect(mapStateToProps, mapDispatchToProps)(FeatureScreen);

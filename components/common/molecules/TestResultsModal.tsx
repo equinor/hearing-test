@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modal, View } from "react-native";
 
-import TestLogPage from "../../../screens/TestLogPage";
+import TestLogScreen from "../../../screens/TestLogScreen";
 import { TestResult } from "../../../types";
 import IconButton from "../EDS/IconButton";
 import Typography from "../atoms/Typography";
@@ -59,7 +59,9 @@ const TestResultsModal = (props: {
           resetSelectedItem={() => setSelectedItem(null)}
         />
       ) : (
-        <TestLogPage setSelectedItem={(d: TestResult) => setSelectedItem(d)} />
+        <TestLogScreen
+          setSelectedItem={(d: TestResult) => setSelectedItem(d)}
+        />
       )}
     </Modal>
   );

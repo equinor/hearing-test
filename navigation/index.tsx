@@ -15,18 +15,18 @@ import * as React from "react";
 import { ColorSchemeName, TouchableOpacity } from "react-native";
 
 import { EQUINOR_GREEN } from "../constants/colors";
-import AboutPage from "../screens/AboutPage";
-import DefaultPage from "../screens/DefaultPage";
-import FeaturePage from "../screens/FeaturePage";
-import FeedbackPage from "../screens/FeedbackPage";
-import LoginPage from "../screens/LoginPage";
+import AboutScreen from "../screens/AboutScreen";
+import DefaultScreen from "../screens/DefaultScreen";
+import FeatureScreen from "../screens/FeatureScreen";
+import FeedbackScreen from "../screens/FeedbackScreen";
+import LoginScreen from "../screens/LoginScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
-import PreTestPage from "../screens/PreTestPage";
-import SettingsPage from "../screens/SettingsPage";
-import SoundCheckFinishedPage from "../screens/SoundCheckFinishedPage";
-import SoundCheckPage from "../screens/SoundCheckPage";
-import TestPage from "../screens/TestPage";
-import TestResultPage from "../screens/TestResultPage";
+import PreTestScreen from "../screens/PreTestScreen";
+import SettingsScreen from "../screens/SettingsScreen";
+import SoundCheckFinishedScreen from "../screens/SoundCheckFinishedScreen";
+import SoundCheckScreen from "../screens/SoundCheckScreen";
+import TestResultScreen from "../screens/TestResultScreen";
+import TestScreen from "../screens/TestScreen";
 import { RootStackParamList } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import withUtilities from "./utils";
@@ -64,16 +64,16 @@ function RootNavigator() {
     >
       <Stack.Screen
         name="LoginRoute"
-        component={withUtilities(LoginPage)}
+        component={withUtilities(LoginScreen)}
         options={{ headerShown: false }}
       />
       <Stack.Screen
         name="FeatureRoute"
-        component={withUtilities(FeaturePage)}
+        component={withUtilities(FeatureScreen)}
       />
       <Stack.Screen
         name="DefaultRoute"
-        component={withUtilities(DefaultPage)}
+        component={withUtilities(DefaultScreen)}
         options={({ navigation }: any) => ({
           headerRight: () => (
             <TouchableOpacity
@@ -90,27 +90,27 @@ function RootNavigator() {
       />
       <Stack.Screen
         name="PreTestRoute"
-        component={withUtilities(PreTestPage)}
+        component={withUtilities(PreTestScreen)}
         options={{ headerBackVisible: false, headerTitle: "" }}
       />
       <Stack.Screen
         name="SoundCheckRoute"
-        component={withUtilities(SoundCheckPage)}
+        component={withUtilities(SoundCheckScreen)}
         options={{ headerBackVisible: false, headerTitle: "" }}
       />
       <Stack.Screen
         name="SoundCheckFinishedRoute"
-        component={withUtilities(SoundCheckFinishedPage)}
+        component={withUtilities(SoundCheckFinishedScreen)}
         options={{ headerBackVisible: false, headerTitle: "" }}
       />
       <Stack.Screen
         name="TestRoute"
-        component={withUtilities(TestPage)}
+        component={withUtilities(TestScreen)}
         options={{ headerBackVisible: false, headerTitle: "" }}
       />
       <Stack.Screen
         name="TestResultRoute"
-        component={withUtilities(TestResultPage)}
+        component={withUtilities(TestResultScreen)}
         options={{ headerBackVisible: false, headerTitle: "" }}
       />
       <Stack.Screen
@@ -121,15 +121,16 @@ function RootNavigator() {
       <Stack.Group>
         <Stack.Screen
           name="SettingsRoute"
-          component={withUtilities(SettingsPage)}
+          component={withUtilities(SettingsScreen)}
           options={{
             headerTintColor: EQUINOR_GREEN,
             title: "Settings",
+            headerBackTitle: "Home",
           }}
         />
         <Stack.Screen
           name="FeedbackRoute"
-          component={withUtilities(FeedbackPage)}
+          component={withUtilities(FeedbackScreen)}
           options={{
             headerTintColor: EQUINOR_GREEN,
             title: "Feedback",
@@ -137,7 +138,7 @@ function RootNavigator() {
         />
         <Stack.Screen
           name="AboutRoute"
-          component={withUtilities(AboutPage)}
+          component={withUtilities(AboutScreen)}
           options={{
             headerTintColor: EQUINOR_GREEN,
             title: "About",

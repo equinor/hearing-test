@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class PreTestPage extends Component {
+export default class PreTestScreen extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
   };

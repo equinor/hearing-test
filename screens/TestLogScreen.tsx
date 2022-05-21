@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class TestLogPage extends Component<{
+class TestLogScreen extends Component<{
   setSelectedItem: Function;
   fetching: boolean;
   tests: [];
@@ -76,4 +76,4 @@ const mapDispatchToProps = (dispatch) => ({
   fetchTests: dispatch(fetchTests()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TestLogPage);
+export default connect(mapStateToProps, mapDispatchToProps)(TestLogScreen);

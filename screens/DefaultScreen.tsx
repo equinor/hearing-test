@@ -20,7 +20,7 @@ import * as colors from "../constants/colors";
 import { fetchMe } from "../services/api/api-methods";
 import { appStartupInit } from "../store/test/actions";
 import { selectError } from "../store/test/reducer";
-import { FORMS_URL } from "./TestResultPage";
+import { FORMS_URL } from "./TestResultScreen";
 
 const styles = StyleSheet.create({
   component: {
@@ -30,7 +30,10 @@ const styles = StyleSheet.create({
   },
 });
 
-class DefaultPage extends Component<{ actionAppInit: Function; error?: any }> {
+class DefaultScreen extends Component<{
+  actionAppInit: Function;
+  error?: any;
+}> {
   static propTypes = {
     actionAppInit: PropTypes.func.isRequired,
     error: PropTypes.object.isRequired,
@@ -141,4 +144,4 @@ const mapDispatchToProps = (dispatch) => ({
   actionAppInit: () => dispatch(appStartupInit()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(DefaultPage);
+export default connect(mapStateToProps, mapDispatchToProps)(DefaultScreen);

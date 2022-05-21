@@ -9,7 +9,7 @@ import {
   BuildConfiguration,
 } from "../constants/settings";
 
-export default class AboutPage extends Component {
+export default class AboutScreen extends Component {
   render() {
     const resources = getConfiguredResources();
     const getApiEndpoints = () =>

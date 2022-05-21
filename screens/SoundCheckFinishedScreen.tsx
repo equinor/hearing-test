@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 });
 
 // TODO: prop type
-const SoundCheckFinishedPage = (props: any) => {
+const SoundCheckFinishedScreen = (props: any) => {
   return (
     <View style={styles.component}>
       <View style={{ display: "flex", height: "100%" }}>
@@ -72,4 +72,4 @@ const mapStateToProps = () => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SoundCheckFinishedPage);
+)(SoundCheckFinishedScreen);

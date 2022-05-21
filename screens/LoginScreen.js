@@ -1,4 +1,4 @@
-import { LoginScreen } from "mad-expo-core";
+import { LoginScreen as LoginScreenMadExpoCore } from "mad-expo-core";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { connect } from "react-redux";
@@ -9,7 +9,7 @@ import logo from "../resources/images/logo.png";
 import * as actions from "../store";
 import { getVersion } from "../store/version";
 
-class LoginPage extends Component {
+class LoginScreen extends Component {
   static propTypes = {
     navigation: PropTypes.shape({
       navigate: PropTypes.func,
@@ -23,7 +23,7 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <LoginScreen
+      <LoginScreenMadExpoCore
         navigation={this.props.navigation}
         scopes={ENVIRONMENT.getResource("hearing").scopes}
         bundleIdentifier={appJson.expo.ios.bundleIdentifier}
@@ -52,4 +52,4 @@ const mapStateToProps = (state) => ({
   appVersion: getVersion(state),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
 const ANIMATION_DURATION = 500;
 
 // TODO: prop types
-const SoundCheckPage = (props: any) => {
+const SoundCheckScreen = (props: any) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [sound, setSound] = useState<Sound>(null);
@@ -306,4 +306,4 @@ const mapStateToProps = () => ({
   // TODO
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SoundCheckPage);
+export default connect(mapStateToProps, mapDispatchToProps)(SoundCheckScreen);

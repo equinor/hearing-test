@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class TestResultPage extends Component {
+class TestResultScreen extends Component {
   static propTypes = {
     error: PropTypes.object.isRequired,
     testResult: PropTypes.object.isRequired,
@@ -277,4 +277,4 @@ const mapStateToProps = (state) => ({
   testResult: selectTestResult(state),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TestResultPage);
+export default connect(mapStateToProps, mapDispatchToProps)(TestResultScreen);

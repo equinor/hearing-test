@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import Settings from "../components/Settings";
 import { getCurrentUser } from "../store/auth";
 
-class SettingsPage extends Component {
+class SettingsScreen extends Component {
   static propTypes = {
     currentUser: PropTypes.shape({
       displayableId: PropTypes.string.isRequired,
@@ -43,4 +43,4 @@ const mapStateToProps = (state) => ({
   currentUser: getCurrentUser(state),
 });
 
-export default connect(mapStateToProps)(SettingsPage);
+export default connect(mapStateToProps)(SettingsScreen);

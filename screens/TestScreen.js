@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class TestPage extends Component {
+class TestScreen extends Component {
   static propTypes = {
     // Actions
     actionFailure: PropTypes.func.isRequired,
@@ -461,4 +461,4 @@ const mapStateToProps = (state) => ({
   testIsRunning: selectTestIsRunning(state),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TestPage);
+export default connect(mapStateToProps, mapDispatchToProps)(TestScreen);

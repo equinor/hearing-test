@@ -3,7 +3,7 @@ import { authenticateSilently, getAccount } from "mad-expo-core";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Text, TextInput, View, SafeAreaView, StyleSheet } from "react-native";
-import DeviceInfo from "react-native-device-info";
+//import DeviceInfo from "react-native-device-info";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
 import { connect } from "react-redux";
 
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class FeedbackPage extends Component {
+class FeedbackScreen extends Component {
   static navigationOptions = () => ({
     title: navBarTitle,
   });
@@ -240,4 +240,4 @@ const mapStateToProps = (state) => ({
   user: getCurrentUser(state),
 });
 
-export default connect(mapStateToProps)(FeedbackPage);
+export default connect(mapStateToProps)(FeedbackScreen);
