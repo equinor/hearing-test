@@ -1,4 +1,4 @@
-import { stateKeys } from "../../app/types";
+import { stateKeys } from "../../types";
 import * as actions from "./actions";
 import reducer from "./reducer";
 

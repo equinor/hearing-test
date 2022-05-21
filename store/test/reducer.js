@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { handleActions } from "redux-actions";
 
-import { stateKeys } from "../../app/types";
+import { stateKeys } from "../../types";
 import {
   appStartupInitFailed,
   appStartupInitRequested,

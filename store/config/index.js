@@ -7,7 +7,7 @@ import createMigration from "redux-persist-migrate";
 import { KEY_PREFIX } from "redux-persist/constants";
 import createSagaMiddleware from "redux-saga";
 
-import { stateKeys } from "../../app/types";
+import { stateKeys } from "../../types";
 import { manifest } from "../manifest";
 import reducer from "./rootReducer";
 import sagas from "./rootSaga";

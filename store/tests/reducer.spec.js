@@ -1,4 +1,4 @@
-import { stateKeys } from "../../app/types";
+import { stateKeys } from "../../types";
 import { fetchTestsSucceeded } from "./actions";
 import reducer, { selectTests } from "./reducer";
 

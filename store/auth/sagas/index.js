@@ -1,6 +1,6 @@
 import { call, take } from "redux-saga/effects";
 
-import config from "../../../app/mock-config";
+import config from "../../../mock-config";
 import * as actions from "../actions";
 
 // Use mocked auth flow if mocked authentication is enabled in mock-config.js.

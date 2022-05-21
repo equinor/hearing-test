@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, StyleSheet } from "react-native";
 
-import Banner from "../app/components/common/molecules/Banner";
+import Banner from "../components/common/molecules/Banner";
 import { BuildConfiguration } from "../constants/settings";
 
 const getBannerColor = (lowerCaseBuildConfiguration) => {

@@ -1,6 +1,6 @@
 import { handleActions } from "redux-actions";
 
-import { authStatusTypes, stateKeys } from "../../app/types";
+import { authStatusTypes, stateKeys } from "../../types";
 import * as actions from "./actions";
 
 const defaultState = {

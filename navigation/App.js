@@ -9,13 +9,13 @@ import { Provider } from "react-redux";
 
 // import HockeyApp from 'react-native-hockeyapp';
 // import { HockeyAppIdentifier, BuildConfiguration } from '../settings';
-//import AppNavigator from "../app/navigation";
-import { setNavigator } from "../app/navigation/service";
-import trustKitConfig from "../app/trustKitConfig.json";
+//import AppNavigator from "./navigation";
 import store from "../store/config";
+import trustKitConfig from "../trustKitConfig.json";
 import { metricKeys, track } from "../utils/metrics";
 import Navigation from "./";
 import AuthContext from "./AuthContext";
+import { setNavigator } from "./service";
 
 /*
 todo: Use AppCenter instead of HockeyApp

@@ -14,22 +14,22 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
 import { ColorSchemeName, TouchableOpacity } from "react-native";
 
-import AboutPage from "../app/containers/AboutPage";
-import DefaultPage from "../app/containers/DefaultPage";
-import FeaturePage from "../app/containers/FeaturePage";
-import FeedbackPage from "../app/containers/FeedbackPage";
-import LoginPage from "../app/containers/LoginPage";
-import PreTestPage from "../app/containers/PreTestPage";
-import SettingsPage from "../app/containers/SettingsPage";
-import SoundCheckFinishedPage from "../app/containers/SoundCheckFinishedPage";
-import SoundCheckPage from "../app/containers/SoundCheckPage";
-import TestPage from "../app/containers/TestPage";
-import TestResultPage from "../app/containers/TestResultPage";
-import withUtilities from "../app/navigation/utils";
 import { EQUINOR_GREEN } from "../constants/colors";
+import AboutPage from "../screens/AboutPage";
+import DefaultPage from "../screens/DefaultPage";
+import FeaturePage from "../screens/FeaturePage";
+import FeedbackPage from "../screens/FeedbackPage";
+import LoginPage from "../screens/LoginPage";
 import NotFoundScreen from "../screens/NotFoundScreen";
+import PreTestPage from "../screens/PreTestPage";
+import SettingsPage from "../screens/SettingsPage";
+import SoundCheckFinishedPage from "../screens/SoundCheckFinishedPage";
+import SoundCheckPage from "../screens/SoundCheckPage";
+import TestPage from "../screens/TestPage";
+import TestResultPage from "../screens/TestResultPage";
 import { RootStackParamList } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
+import withUtilities from "./utils";
 
 export default function Navigation({
   colorScheme,

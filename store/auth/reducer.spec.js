@@ -1,4 +1,4 @@
-import { authStatusTypes, stateKeys } from "../../app/types";
+import { authStatusTypes, stateKeys } from "../../types";
 import * as actions from "./actions";
 import reducer, { getAuthStatus, getCurrentUser } from "./reducer";
 

@@ -1,5 +1,5 @@
-import { stateKeys } from "../../app/types";
 import { ReleaseNotes } from "../../services/api/mocked-api-methods/mock-data.json";
+import { stateKeys } from "../../types";
 import * as actions from "./actions";
 import reducer, { selectChangeLog, isFetching } from "./reducer";
 

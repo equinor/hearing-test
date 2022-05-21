@@ -1,6 +1,6 @@
 import { handleActions } from "redux-actions";
 
-import { stateKeys } from "../../app/types";
+import { stateKeys } from "../../types";
 import * as actions from "./actions";
 
 export default handleActions(

@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { View, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 
-import Banner from "../app/components/common/molecules/Banner";
+import Banner from "../components/common/molecules/Banner";
 import * as Colors from "../constants/colors";
 import { selectServiceMessage } from "../store/service-message/reducer";
 

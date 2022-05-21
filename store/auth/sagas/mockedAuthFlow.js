@@ -1,7 +1,7 @@
 import { delay } from "redux-saga";
 import { put, call } from "redux-saga/effects";
 
-import mockConfig from "../../../app/mock-config";
+import mockConfig from "../../../mock-config";
 import * as actions from "../actions";
 import rehydrateUserStore from "./rehydrateUserStore";
 

@@ -1,4 +1,4 @@
-import mockConfig from "../../../app/mock-config";
+import mockConfig from "../../../mock-config";
 import { ReleaseNotes } from "./mock-data.json";
 import * as mockData from "./mock-data.json";
 

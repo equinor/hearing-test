@@ -3,7 +3,7 @@
  * load the regular api methods or the mocked ones.
  */
 
-import config from "../../app/mock-config";
+import config from "../../mock-config";
 
 if (config.enabled && config.mockAuthentication && !config.mockApi) {
   throw new Error(

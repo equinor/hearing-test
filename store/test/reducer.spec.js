@@ -1,5 +1,5 @@
-import { stateKeys } from "../../app/types";
 import { test as mockedTest } from "../../services/api/mocked-api-methods/mock-data.json";
+import { stateKeys } from "../../types";
 import { failure, fetchTestSucceeded, startTest, success } from "./actions";
 import reducer, {
   selectNode,

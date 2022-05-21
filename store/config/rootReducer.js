@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 
-import { stateKeys } from "../../app/types";
+import { stateKeys } from "../../types";
 import authReducer from "../auth/reducer";
 import changelogReducer from "../changelog/reducer";
 import connectivityReducer from "../connectivity/reducer";
