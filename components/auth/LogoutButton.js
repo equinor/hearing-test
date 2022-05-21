@@ -1,3 +1,4 @@
+import { Button } from "mad-expo-core";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { StyleSheet } from "react-native";
@@ -6,25 +7,14 @@ import { connect } from "react-redux";
 import * as colors from "../../constants/colors";
 import { getAuthStatus, actions } from "../../store/auth";
 import { authStatusTypes } from "../../types";
-import { Button } from "../common";
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    margin: 0,
-    padding: 0,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   defaultButton: {
     backgroundColor: "white",
   },
   buttonText: {
     color: colors.RED,
-    textAlign: "right",
-    paddingLeft: 15,
-    paddingRight: 15,
-    fontWeight: "500",
+    fontWeight: "bold",
   },
 });
 
@@ -61,10 +51,9 @@ class LogoutButton extends Component {
     return (
       <Button
         title={data.text}
-        style={styles.container}
-        viewStyle={styles.defaultButton}
-        textStyle={styles.buttonText}
         onPress={this.onButtonClick}
+        textStyle={styles.buttonText}
+        viewStyle={styles.defaultButton}
       />
     );
   }
