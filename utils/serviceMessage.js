@@ -1,9 +1,9 @@
+import { Banner } from "mad-expo-core";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { View, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 
-import Banner from "../components/common/molecules/Banner";
 import * as Colors from "../constants/colors";
 import { selectServiceMessage } from "../store/service-message/reducer";
 
