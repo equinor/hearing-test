@@ -1,7 +1,7 @@
 import { cloneDeep } from "lodash";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { Image, StyleSheet, View } from "react-native";
+import { Image, ScrollView, StyleSheet, View } from "react-native";
 
 import headset from "../assets/images/headset.png";
 import manWithHeadset from "../assets/images/man-with-headset.png";
@@ -109,7 +109,7 @@ export default class PreTestScreen extends Component {
   render() {
     const view = this.currentPage();
     return (
-      <View style={styles.component}>
+      <ScrollView style={styles.component}>
         <View style={{ display: "flex", height: "100%" }}>
           <View style={{ alignItems: "center" }}>
             <Image
@@ -160,7 +160,7 @@ export default class PreTestScreen extends Component {
             })}
           </View>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
