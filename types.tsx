@@ -12,18 +12,18 @@ declare global {
 }
 
 export type RootStackParamList = {
-  NotFound: undefined;
   LoginRoute: undefined;
   FeatureRoute: undefined;
+  DefaultRoute: undefined;
+  SoundCheckRoute: undefined;
+  SoundCheckFinishedRoute: undefined;
+  PreTestRoute: undefined;
+  TestRoute: undefined;
+  TestResultRoute: undefined;
   SettingsRoute: undefined;
   AboutRoute: undefined;
   FeedbackRoute: undefined;
-  DefaultRoute: undefined;
-  PreTestRoute: undefined;
-  SoundCheckRoute: undefined;
-  SoundCheckFinishedRoute: undefined;
-  TestRoute: undefined;
-  TestResultRoute: undefined;
+  NotFound: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
