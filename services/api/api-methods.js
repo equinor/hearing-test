@@ -35,8 +35,12 @@ const fetchData = (path, resource = defaultResource, parseJson = true) =>
     })
   );
 
-const postData = (path, data, method = "POST", resource = defaultResource) =>
-  // TODO: Change this after changing to allowing array of scopes. Do this for all authenticateSilently methods
+export const postData = (
+  path,
+  data,
+  method = "POST",
+  resource = defaultResource
+) =>
   authenticateSilently(getResource(resource).scopes).then((r) =>
     fetch(createUrl(resource, path), {
       method,
