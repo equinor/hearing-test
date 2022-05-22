@@ -1,35 +1,23 @@
+import { Typography } from "mad-expo-core";
 import PropTypes from "prop-types";
 import React from "react";
-import { View, SectionList, StyleSheet, Text } from "react-native";
+import { SectionList, StyleSheet, View } from "react-native";
 
-import * as Colors from "../constants/colors";
 import { SimpleInfoItem } from "./common";
-
-const SEPARATOR_HEIGHT = StyleSheet.hairlineWidth;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
     paddingTop: 10,
   },
-  header: {
-    paddingHorizontal: 20,
-  },
-  headerText: {
-    lineHeight: 30,
-    fontSize: 18,
-    color: Colors.GRAY_1,
-    fontWeight: "500",
-  },
   item: {
-    paddingHorizontal: 20,
-    marginTop: 10,
+    backgroundColor: "white",
+    marginBottom: 2,
+    padding: 16,
   },
   separator: {
-    marginTop: 10,
-    height: SEPARATOR_HEIGHT,
     backgroundColor: "rgb(200, 199, 204)",
+    height: StyleSheet.hairlineWidth,
   },
 });
 
@@ -37,8 +25,8 @@ const AppInfo = ({ sections }) => {
   const SeparatorComponent = () => <View style={styles.separator} />;
 
   const renderSectionHeader = ({ section }) => (
-    <View style={styles.header}>
-      <Text style={styles.headerText}>{section.key}</Text>
+    <View style={{ padding: 16 }}>
+      <Typography variant="h4">{section.key}</Typography>
     </View>
   );
 
@@ -62,12 +50,12 @@ const AppInfo = ({ sections }) => {
 
   return (
     <SectionList
-      style={styles.container}
-      sections={sections}
-      renderSectionHeader={renderSectionHeader}
-      renderItem={renderItem}
-      SectionSeparatorComponent={SeparatorComponent}
       removeClippedSubviews={false}
+      renderItem={renderItem}
+      renderSectionHeader={renderSectionHeader}
+      sections={sections}
+      SectionSeparatorComponent={SeparatorComponent}
+      style={styles.container}
     />
   );
 };
