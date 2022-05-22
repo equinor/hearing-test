@@ -4,13 +4,13 @@ import {
   Alert,
   Image,
   Linking,
-  SafeAreaView,
   StyleSheet,
   Text,
   TouchableHighlight,
   View,
   Modal,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { connect } from "react-redux";
 
 import doctor from "../assets/images/doctor.png";
@@ -27,11 +27,7 @@ export const FORMS_URL =
   "https://forms.office.com/Pages/ResponsePage.aspx?id=NaKkOuK21UiRlX_PBbRZsC9rzeD3BlFJi0JbArgz2wRURUxPWVRWUVBPSlVYUVc5UElIQjJXMFRSWS4u";
 
 const styles = StyleSheet.create({
-  component: {
-    flex: 1,
-    padding: 12,
-    backgroundColor: GRAY_BACKGROUND,
-  },
+  component: {},
 });
 
 class TestResultScreen extends Component {
@@ -108,33 +104,37 @@ class TestResultScreen extends Component {
   render() {
     const { error, testResult } = this.props;
     return (
-      <View style={{ flex: 1, width: "100%" }}>
-        {error && error.status && (
-          <TouchableHighlight
-            style={{ backgroundColor: STOP, padding: 12, margin: 0 }}
-            onPress={() =>
-              Linking.openURL(
-                `https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/${error.status}`
-              )
-            }
-          >
-            <>
-              <Text style={{ color: "white" }}>
-                Could not submit test due to
-              </Text>
-              <Text style={{ fontSize: 23, color: "white", marginVertical: 4 }}>
-                ERROR: {error.status} {error.message && `| ${error.message}`}
-              </Text>
-              <Text style={{ color: "white" }}>Click to learn more...</Text>
-            </>
-          </TouchableHighlight>
-        )}
-        <SafeAreaView style={styles.component}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={{ flex: 1, width: "100%" }}>
+          {error && error.status && (
+            <TouchableHighlight
+              style={{ backgroundColor: STOP, padding: 12, margin: 0 }}
+              onPress={() =>
+                Linking.openURL(
+                  `https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/${error.status}`
+                )
+              }
+            >
+              <>
+                <Text style={{ color: "white" }}>
+                  Could not submit test due to
+                </Text>
+                <Text
+                  style={{ fontSize: 23, color: "white", marginVertical: 4 }}
+                >
+                  ERROR: {error.status} {error.message && `| ${error.message}`}
+                </Text>
+                <Text style={{ color: "white" }}>Click to learn more...</Text>
+              </>
+            </TouchableHighlight>
+          )}
           <View
             style={{
               flex: 1,
+              backgroundColor: GRAY_BACKGROUND,
               alignItems: "center",
               width: "100%",
+              padding: 12,
             }}
           >
             <View
@@ -181,7 +181,11 @@ class TestResultScreen extends Component {
             <Typography variant="h2">{this.page.subTitle}</Typography>
             <Typography
               variant="p"
-              style={{ margin: 12, paddingHorizontal: 36, textAlign: "center" }}
+              style={{
+                margin: 12,
+                paddingHorizontal: 36,
+                textAlign: "center",
+              }}
             >
               {this.page.description}
             </Typography>
@@ -264,8 +268,8 @@ class TestResultScreen extends Component {
               hideTop
             />
           </Modal>
-        </SafeAreaView>
-      </View>
+        </View>
+      </SafeAreaView>
     );
   }
 }

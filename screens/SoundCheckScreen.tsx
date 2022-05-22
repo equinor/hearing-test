@@ -1,13 +1,7 @@
 import { MaterialIcons as Icon } from "@expo/vector-icons";
 import React, { useEffect, useRef, useState } from "react";
-import {
-  Alert,
-  Animated,
-  Modal,
-  SafeAreaView,
-  StyleSheet,
-  View,
-} from "react-native";
+import { Alert, Animated, Modal, StyleSheet, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Sound from "react-native-sound";
 import SystemSetting from "react-native-system-setting";
 import { connect } from "react-redux";
@@ -151,134 +145,137 @@ const SoundCheckScreen = (props: any) => {
   }, [currentPage, modalVisible]);
 
   return (
-    <View style={{ height: "100%", backgroundColor: GRAY_BACKGROUND }}>
-      <Animated.View
-        style={{
-          height: "100%",
-          backgroundColor: GRAY_BACKGROUND,
-          opacity: opacityAnim,
-        }}
-      >
-        <ProgressAnimationBar
-          duration={1000 + (sound ? sound.getDuration() * 1000 : 0)}
-          timeout={ANIMATION_DURATION}
-          disabled={currentPage === 0}
-          key={currentPage}
-        />
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: GRAY_BACKGROUND }}>
+        <Animated.View
+          style={{
+            height: "100%",
+            backgroundColor: GRAY_BACKGROUND,
+            opacity: opacityAnim,
+          }}
+        >
+          <ProgressAnimationBar
+            duration={1000 + (sound ? sound.getDuration() * 1000 : 0)}
+            timeout={ANIMATION_DURATION}
+            disabled={currentPage === 0}
+            key={currentPage}
+          />
 
-        <View style={styles.component}>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBottom: 40,
-            }}
-          >
-            <View style={{ width: 48, height: 48 }} />
-            <Typography variant="h1">{page.title}</Typography>
-            <IconButton
-              icon="close"
-              onPress={() => {
-                Alert.alert(
-                  "Avslutte lydsjekk?",
-                  "Da må du begynne på nytt neste gang",
-                  [
-                    {
-                      text: "Cancel",
-                      onPress: () => {},
-                      style: "default",
-                    },
-                    {
-                      text: "Avslutt",
-                      onPress: () => props.navigation.navigate("DefaultRoute"),
-                      style: "destructive",
-                    },
-                  ]
-                );
+          <View style={styles.component}>
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginBottom: 40,
               }}
-            />
-          </View>
-          <View
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              flex: 1,
-            }}
-          >
-            <Typography variant="p" style={{ height: 18 * 3 }}>
-              {page.description}
-            </Typography>
-            {page.button === "variant1" ? (
-              <BigRoundButton
-                variant="secondary"
-                text="Trykk her for å starte"
-                onPress={nextPage}
-              />
-            ) : (
-              <CanHearSoundButton
-                key={page.title}
-                onPress={() => setTimeout(nextPage, 500)}
-              />
-            )}
-            {page.hearNoSoundButtonVisible ? (
-              <ButtonEDS
-                text="hører ingen lyd"
-                onPress={() => setModalVisible(true)}
-              />
-            ) : (
-              <View style={{ height: 58 }} />
-            )}
-          </View>
-          <Modal
-            animationType="slide"
-            transparent={false}
-            visible={modalVisible}
-            onRequestClose={() => {
-              Alert.alert("Modal has been closed.");
-            }}
-            style={{ display: "flex" }}
-          >
-            <SafeAreaView style={{ display: "flex" }}>
-              <View
-                style={{
-                  backgroundColor: GRAY_BACKGROUND,
-                  borderRadius: 4,
-                  padding: 16,
-                  paddingBottom: 60,
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  // flex: 1,
-                  height: "100%",
+            >
+              <View style={{ width: 48, height: 48 }} />
+              <Typography variant="h1">{page.title}</Typography>
+              <IconButton
+                icon="close"
+                onPress={() => {
+                  Alert.alert(
+                    "Avslutte lydsjekk?",
+                    "Da må du begynne på nytt neste gang",
+                    [
+                      {
+                        text: "Cancel",
+                        onPress: () => {},
+                        style: "default",
+                      },
+                      {
+                        text: "Avslutt",
+                        onPress: () =>
+                          props.navigation.navigate("DefaultRoute"),
+                        style: "destructive",
+                      },
+                    ]
+                  );
                 }}
-              >
-                <View />
-                <View>
-                  <Typography variant="h2" style={{ textAlign: "center" }}>
-                    Hvis du ikke hører lyden
-                  </Typography>
-                  <Typography variant="p" style={{ textAlign: "center" }}>
-                    Sjekk at telefonen ikke er i stillemodus. Trekk ut
-                    headsettet og hør om lyden spilles gjennom høyttalerne til
-                    telefonen.
-                  </Typography>
-                </View>
-                <ButtonEDS
-                  onPress={() => {
-                    setModalVisible(false);
-                    setCurrentPage(0);
-                  }}
-                  text="Prøv på ny"
+              />
+            </View>
+            <View
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                flex: 1,
+              }}
+            >
+              <Typography variant="p" style={{ height: 18 * 3 }}>
+                {page.description}
+              </Typography>
+              {page.button === "variant1" ? (
+                <BigRoundButton
+                  variant="secondary"
+                  text="Trykk her for å starte"
+                  onPress={nextPage}
                 />
-              </View>
-            </SafeAreaView>
-          </Modal>
-        </View>
-      </Animated.View>
-    </View>
+              ) : (
+                <CanHearSoundButton
+                  key={page.title}
+                  onPress={() => setTimeout(nextPage, 500)}
+                />
+              )}
+              {page.hearNoSoundButtonVisible ? (
+                <ButtonEDS
+                  text="hører ingen lyd"
+                  onPress={() => setModalVisible(true)}
+                />
+              ) : (
+                <View style={{ height: 58 }} />
+              )}
+            </View>
+            <Modal
+              animationType="slide"
+              transparent={false}
+              visible={modalVisible}
+              onRequestClose={() => {
+                Alert.alert("Modal has been closed.");
+              }}
+              style={{ display: "flex" }}
+            >
+              <SafeAreaView style={{ display: "flex" }}>
+                <View
+                  style={{
+                    backgroundColor: GRAY_BACKGROUND,
+                    borderRadius: 4,
+                    padding: 16,
+                    paddingBottom: 60,
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    // flex: 1,
+                    height: "100%",
+                  }}
+                >
+                  <View />
+                  <View>
+                    <Typography variant="h2" style={{ textAlign: "center" }}>
+                      Hvis du ikke hører lyden
+                    </Typography>
+                    <Typography variant="p" style={{ textAlign: "center" }}>
+                      Sjekk at telefonen ikke er i stillemodus. Trekk ut
+                      headsettet og hør om lyden spilles gjennom høyttalerne til
+                      telefonen.
+                    </Typography>
+                  </View>
+                  <ButtonEDS
+                    onPress={() => {
+                      setModalVisible(false);
+                      setCurrentPage(0);
+                    }}
+                    text="Prøv på ny"
+                  />
+                </View>
+              </SafeAreaView>
+            </Modal>
+          </View>
+        </Animated.View>
+      </View>
+    </SafeAreaView>
   );
 };
 

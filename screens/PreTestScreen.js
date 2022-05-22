@@ -2,6 +2,7 @@ import { cloneDeep } from "lodash";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Image, ScrollView, StyleSheet, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import headset from "../assets/images/headset.png";
 import manWithHeadset from "../assets/images/man-with-headset.png";
@@ -109,58 +110,60 @@ export default class PreTestScreen extends Component {
   render() {
     const view = this.currentPage();
     return (
-      <ScrollView style={styles.component}>
-        <View style={{ display: "flex", height: "100%" }}>
-          <View style={{ alignItems: "center" }}>
-            <Image
-              source={view.image}
-              style={{ height: 250, resizeMode: "contain" }}
-            />
-          </View>
-          <View style={{ marginTop: 32 }}>
-            <Typography
-              variant="h2"
-              style={{ textAlign: "center", paddingBottom: 8 }}
-            >
-              {view.title}
-            </Typography>
-            <Typography
-              variant="p"
-              style={{ textAlign: "center", height: 18 * 4 }}
-              numberOfLines={4}
-            >
-              {view.content}
-            </Typography>
-          </View>
-          {view.ignoreStep ? (
-            <></>
-          ) : (
-            <View style={{ height: 80, justifyContent: "center" }}>
-              <Indicators iterable={this.state.pages} />
+      <SafeAreaView style={{ flex: 1 }}>
+        <ScrollView style={styles.component}>
+          <View style={{ display: "flex", height: "100%" }}>
+            <View style={{ alignItems: "center" }}>
+              <Image
+                source={view.image}
+                style={{ height: 250, resizeMode: "contain" }}
+              />
             </View>
-          )}
-          <View
-            style={{
-              display: "flex",
-              flex: 1,
-              flexDirection: "column-reverse",
-              justifyContent: "flex-start",
-              paddingBottom: 32,
-            }}
-          >
-            {view.buttons.map(({ onPress, text, outlined }) => {
-              return (
-                <ButtonEDS
-                  text={text}
-                  onPress={onPress}
-                  key={text}
-                  outlined={outlined}
-                />
-              );
-            })}
+            <View style={{ marginTop: 32 }}>
+              <Typography
+                variant="h2"
+                style={{ textAlign: "center", paddingBottom: 8 }}
+              >
+                {view.title}
+              </Typography>
+              <Typography
+                variant="p"
+                style={{ textAlign: "center", height: 18 * 4 }}
+                numberOfLines={4}
+              >
+                {view.content}
+              </Typography>
+            </View>
+            {view.ignoreStep ? (
+              <></>
+            ) : (
+              <View style={{ height: 80, justifyContent: "center" }}>
+                <Indicators iterable={this.state.pages} />
+              </View>
+            )}
+            <View
+              style={{
+                display: "flex",
+                flex: 1,
+                flexDirection: "column-reverse",
+                justifyContent: "flex-start",
+                paddingBottom: 32,
+              }}
+            >
+              {view.buttons.map(({ onPress, text, outlined }) => {
+                return (
+                  <ButtonEDS
+                    text={text}
+                    onPress={onPress}
+                    key={text}
+                    outlined={outlined}
+                  />
+                );
+              })}
+            </View>
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </SafeAreaView>
     );
   }
 }

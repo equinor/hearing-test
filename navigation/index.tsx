@@ -92,27 +92,27 @@ function RootNavigator() {
       <Stack.Screen
         name="PreTestRoute"
         component={withUtilities(PreTestScreen)}
-        options={{ headerBackVisible: false, headerTitle: "" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="SoundCheckRoute"
         component={withUtilities(SoundCheckScreen)}
-        options={{ headerBackVisible: false, headerTitle: "" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="SoundCheckFinishedRoute"
         component={withUtilities(SoundCheckFinishedScreen)}
-        options={{ headerBackVisible: false, headerTitle: "" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="TestRoute"
         component={withUtilities(TestScreen)}
-        options={{ headerBackVisible: false, headerTitle: "" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="TestResultRoute"
         component={withUtilities(TestResultScreen)}
-        options={{ headerBackVisible: false, headerTitle: "" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="NotFound"

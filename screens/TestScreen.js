@@ -1,14 +1,8 @@
 import { MaterialIcons as Icon } from "@expo/vector-icons";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import {
-  SafeAreaView,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  Modal,
-  Alert,
-} from "react-native";
+import { Alert, Modal, StyleSheet, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Sound from "react-native-sound";
 import SystemSetting from "react-native-system-setting";
 import { connect } from "react-redux";
@@ -232,181 +226,186 @@ class TestScreen extends Component {
     // const { showStopTheTestSection, pushRegistered } = this.state;
     const { actionStartTest, node } = this.props;
     return (
-      <View style={{ height: "100%", backgroundColor: GRAY_BACKGROUND }}>
-        <ProgressAnimationBar
-          duration={0}
-          timeout={0}
-          disabled
-          key="disabled until we figure out how to solve this"
-        />
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={{ flex: 1, backgroundColor: GRAY_BACKGROUND }}>
+          <ProgressAnimationBar
+            duration={0}
+            timeout={0}
+            disabled
+            // TODO
+            key="disabled until we figure out how to solve this"
+          />
 
-        <View style={styles.component}>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBottom: 40,
-            }}
-          >
-            <View style={{ width: 48, height: 48 }} />
-            <Typography variant="h1">Hørselstest</Typography>
-            <IconButton
-              icon={this.state.pauseAfterNode ? "hourglass-empty" : "pause"}
-              onPress={() => {
-                this.setState({ pauseAfterNode: true });
+          <View style={styles.component}>
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginBottom: 40,
               }}
-            />
-          </View>
-          <View
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              flex: 1,
-              paddingBottom: 40,
-            }}
-          >
-            <Typography variant="p" style={{ height: 18 * 3 }}>
-              {!this.props.testIsRunning
-                ? "Trykk på sirkelen under når du er klar for å starte hørselstesten."
-                : "Trykk på sirkelen under når du hører en lyd"}
-            </Typography>
-            {!this.props.testIsRunning ? (
-              <BigRoundButton
-                variant="secondary"
-                text="Trykk for å starte"
+            >
+              <View style={{ width: 48, height: 48 }} />
+              <Typography variant="h1">Hørselstest</Typography>
+              <IconButton
+                icon={this.state.pauseAfterNode ? "hourglass-empty" : "pause"}
                 onPress={() => {
-                  /* Start */
-                  actionStartTest();
+                  this.setState({ pauseAfterNode: true });
                 }}
               />
-            ) : (
-              <BigRoundButton
-                variant="primary"
-                text="Jeg hører lyden"
-                onPress={() => {
-                  /* Register click */
-                  this.registerPress(node);
-                }}
-              />
-            )}
-          </View>
-          <Modal
-            animationType="fade"
-            transparent
-            visible={this.state.modalVisible}
-            style={{ display: "flex" }}
-          >
-            <SafeAreaView style={{ display: "flex" }}>
-              <View
-                style={{
-                  backgroundColor: "rgba(0,0,0,0.5)",
-                  borderRadius: 4,
-                  padding: 16,
-                  paddingBottom: 60,
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "100%",
-                }}
-              >
+            </View>
+            <View
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                flex: 1,
+                paddingBottom: 40,
+              }}
+            >
+              <Typography variant="p" style={{ height: 18 * 3 }}>
+                {!this.props.testIsRunning
+                  ? "Trykk på sirkelen under når du er klar for å starte hørselstesten."
+                  : "Trykk på sirkelen under når du hører en lyd"}
+              </Typography>
+              {!this.props.testIsRunning ? (
+                <BigRoundButton
+                  variant="secondary"
+                  text="Trykk for å starte"
+                  onPress={() => {
+                    /* Start */
+                    actionStartTest();
+                  }}
+                />
+              ) : (
+                <BigRoundButton
+                  variant="primary"
+                  text="Jeg hører lyden"
+                  onPress={() => {
+                    /* Register click */
+                    this.registerPress(node);
+                  }}
+                />
+              )}
+            </View>
+            <Modal
+              animationType="fade"
+              transparent
+              visible={this.state.modalVisible}
+              style={{ display: "flex" }}
+            >
+              <SafeAreaView style={{ display: "flex" }}>
                 <View
                   style={{
-                    backgroundColor: "#FFFFFF",
-                    padding: 8,
+                    backgroundColor: "rgba(0,0,0,0.5)",
                     borderRadius: 4,
+                    padding: 16,
+                    paddingBottom: 60,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100%",
                   }}
                 >
-                  <MenuItem
-                    icon="delete"
-                    text="Avslutte testen"
-                    onPress={() => {
-                      Alert.alert(
-                        "Avslutte hørselstesten?",
-                        "Da må du begynne på nytt neste gang",
-                        [
-                          {
-                            text: "Cancel",
-                            onPress: () => {},
-                            style: "default",
-                          },
-                          {
-                            text: "Exit",
-                            onPress: () => {
-                              this.setState({ modalVisible: false });
-                              this.abortTest();
-                            },
-                            style: "destructive",
-                          },
-                        ]
-                      );
+                  <View
+                    style={{
+                      backgroundColor: "#FFFFFF",
+                      padding: 8,
+                      borderRadius: 4,
                     }}
-                  />
-                  <MenuItem
-                    icon="refresh"
-                    text="Start på ny"
-                    onPress={() => {
-                      Alert.alert(
-                        "Starte på nytt?",
-                        "Dette vil slette all data fra denne testen",
-                        [
-                          {
-                            text: "Cancel",
-                            onPress: () => {},
-                            style: "default",
-                          },
-                          {
-                            text: "Restart",
-                            onPress: () => {
-                              this.setState({ modalVisible: false });
-                              this.abortTest();
-                              this.props.navigation.navigate("TestRoute");
+                  >
+                    <MenuItem
+                      icon="delete"
+                      text="Avslutte testen"
+                      onPress={() => {
+                        Alert.alert(
+                          "Avslutte hørselstesten?",
+                          "Da må du begynne på nytt neste gang",
+                          [
+                            {
+                              text: "Cancel",
+                              onPress: () => {},
+                              style: "default",
                             },
-                            style: "destructive",
-                          },
-                        ]
-                      );
-                    }}
-                  />
-                  <MenuItem
-                    icon="school"
-                    text="Ta ny lydsjekk"
-                    onPress={() => {
-                      Alert.alert(
-                        "Ta ny lydsjekk?",
-                        "Dette vil slette all data fra denne testen",
-                        [
-                          {
-                            text: "Cancel",
-                            onPress: () => {},
-                            style: "default",
-                          },
-                          {
-                            text: "Ny lydsjekk",
-                            onPress: () => {
-                              this.setState({ modalVisible: false });
-                              this.abortTest();
-                              this.props.navigation.navigate("SoundCheckRoute");
+                            {
+                              text: "Exit",
+                              onPress: () => {
+                                this.setState({ modalVisible: false });
+                                this.abortTest();
+                              },
+                              style: "destructive",
                             },
-                            style: "destructive",
-                          },
-                        ]
-                      );
-                    }}
-                  />
-                  <ButtonEDS
-                    text="Fortsette hørselstesten"
-                    onPress={() => this.setState({ modalVisible: false })}
-                    style={{ width: "100%", margin: 0 }}
-                  />
+                          ]
+                        );
+                      }}
+                    />
+                    <MenuItem
+                      icon="refresh"
+                      text="Start på ny"
+                      onPress={() => {
+                        Alert.alert(
+                          "Starte på nytt?",
+                          "Dette vil slette all data fra denne testen",
+                          [
+                            {
+                              text: "Cancel",
+                              onPress: () => {},
+                              style: "default",
+                            },
+                            {
+                              text: "Restart",
+                              onPress: () => {
+                                this.setState({ modalVisible: false });
+                                this.abortTest();
+                                this.props.navigation.navigate("TestRoute");
+                              },
+                              style: "destructive",
+                            },
+                          ]
+                        );
+                      }}
+                    />
+                    <MenuItem
+                      icon="school"
+                      text="Ta ny lydsjekk"
+                      onPress={() => {
+                        Alert.alert(
+                          "Ta ny lydsjekk?",
+                          "Dette vil slette all data fra denne testen",
+                          [
+                            {
+                              text: "Cancel",
+                              onPress: () => {},
+                              style: "default",
+                            },
+                            {
+                              text: "Ny lydsjekk",
+                              onPress: () => {
+                                this.setState({ modalVisible: false });
+                                this.abortTest();
+                                this.props.navigation.navigate(
+                                  "SoundCheckRoute"
+                                );
+                              },
+                              style: "destructive",
+                            },
+                          ]
+                        );
+                      }}
+                    />
+                    <ButtonEDS
+                      text="Fortsette hørselstesten"
+                      onPress={() => this.setState({ modalVisible: false })}
+                      style={{ width: "100%", margin: 0 }}
+                    />
+                  </View>
                 </View>
-              </View>
-            </SafeAreaView>
-          </Modal>
+              </SafeAreaView>
+            </Modal>
+          </View>
         </View>
-      </View>
+      </SafeAreaView>
     );
   }
 }

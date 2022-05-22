@@ -1,6 +1,6 @@
 import { Spinner } from "mad-expo-core";
 import React, { Component } from "react";
-import { FlatList, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import { connect } from "react-redux";
 
 import NavigationItem from "../components/common/atoms/NavigationItem";
@@ -44,7 +44,7 @@ class TestLogScreen extends Component<{
         </View>
       );
     return (
-      <SafeAreaView style={styles.component}>
+      <View style={styles.component}>
         <FlatList
           style={{ paddingTop: 32, paddingHorizontal: 24 }}
           data={this.props.tests.sort(
@@ -62,7 +62,7 @@ class TestLogScreen extends Component<{
             );
           }}
         />
-      </SafeAreaView>
+      </View>
     );
   }
 }
