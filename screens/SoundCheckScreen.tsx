@@ -1,12 +1,12 @@
 import { MaterialIcons as Icon } from "@expo/vector-icons";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Alert,
+  Animated,
   Modal,
   SafeAreaView,
   StyleSheet,
   View,
-  Animated,
 } from "react-native";
 import Sound from "react-native-sound";
 import SystemSetting from "react-native-system-setting";
@@ -18,7 +18,7 @@ import BigRoundButton from "../components/common/atoms/BigRoundButton";
 import Typography from "../components/common/atoms/Typography";
 import ProgressAnimationBar from "../components/common/molecules/ProgressAnimationBar";
 import { EQUINOR_GREEN, GRAY_BACKGROUND } from "../constants/colors";
-import { SoundCheckPageJSON } from "../types/index";
+import { SoundCheckPageJSON } from "../types";
 
 const styles = StyleSheet.create({
   component: {
