@@ -70,6 +70,7 @@ function RootNavigator() {
       <Stack.Screen
         name="FeatureRoute"
         component={withUtilities(FeatureScreen)}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="DefaultRoute"

@@ -75,3 +75,9 @@ export type SoundCheckPageJSON = {
     ear?: "left" | "right";
   };
 };
+
+export type ReleaseNote = {
+  header: string;
+  subHeader: string;
+  changes: string[];
+};
