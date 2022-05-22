@@ -7,7 +7,7 @@
 // import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
 // import { connect } from "react-redux";
 
-// import MadButton from "../components/common/atoms/MadButton";
+// import { Button } from "mad-expo-core";
 // import { Spinner } from "mad-expo-core";
 // import * as colors from "../constants/colors";
 // import {
@@ -210,7 +210,7 @@
 //               marginBottom: 16,
 //             }}
 //           />
-//           <MadButton
+//           <Button
 //             text="Send"
 //             active={feedbackText.trim().length > 0}
 //             onPress={() => {
