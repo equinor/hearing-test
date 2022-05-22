@@ -1,13 +1,7 @@
 import { MaterialIcons as Icon } from "@expo/vector-icons";
+import { Typography } from "mad-expo-core";
 import React from "react";
-import {
-  StyleProp,
-  StyleSheet,
-  Text,
-  TextStyle,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { StyleProp, TextStyle, TouchableOpacity } from "react-native";
 
 import * as Colors from "../../../constants/colors";
 
@@ -22,35 +16,21 @@ const TextLink = ({
 }) => (
   <TouchableOpacity
     onPress={() => nav.navigate(data.route)}
-    style={styles.container}
+    style={{
+      flex: 1,
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+    }}
   >
-    <View style={styles.linkContainer}>
-      <Text style={[styles.defaultText, textStyle]}>{data.name}</Text>
-      <Icon
-        color={Colors.GRAY_2}
-        name="arrow-forward-ios"
-        size={12}
-        style={styles.icon}
-      />
-    </View>
+    <Typography
+      variant="h6"
+      style={[{ color: Colors.EQUINOR_GREEN }, textStyle]}
+    >
+      {data.name}
+    </Typography>
+    <Icon color={Colors.GRAY_2} name="arrow-forward-ios" size={12} />
   </TouchableOpacity>
 );
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  defaultText: {
-    flex: 1,
-  },
-  icon: {
-    alignSelf: "center",
-    justifyContent: "flex-end",
-  },
-  linkContainer: {
-    flex: 1,
-    flexDirection: "row",
-  },
-});
 
 export default TextLink;

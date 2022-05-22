@@ -1,7 +1,7 @@
-import { Button } from "mad-expo-core";
+import { Button, Typography } from "mad-expo-core";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { SectionList, StyleSheet, Text, View } from "react-native";
+import { SectionList, StyleSheet, View } from "react-native";
 
 import * as Colors from "../constants/colors";
 import LogoutButton from "./auth/LogoutButton";
@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.GRAY_3,
   },
   itemContainer: {
+    justifyContent: "center",
     backgroundColor: "white",
     height: 46,
     borderBottomWidth: 1,
@@ -46,10 +47,7 @@ const styles = StyleSheet.create({
 
 export default class Settings extends Component {
   static propTypes = {
-    currentUser: PropTypes.shape({
-      displayableId: PropTypes.string.isRequired,
-      uniqueId: PropTypes.string.isRequired,
-    }).isRequired,
+    currentUser: PropTypes.string.isRequired,
     navigation: PropTypes.shape({
       state: PropTypes.object,
     }).isRequired,
@@ -74,7 +72,7 @@ export default class Settings extends Component {
 
   TextItem = ({ item }) => (
     <View style={styles.itemContainer}>
-      <Text style={styles.textStyle}>{item.name}</Text>
+      <Typography style={styles.textStyle}>{item.name}</Typography>
     </View>
   );
 
