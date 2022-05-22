@@ -7,6 +7,7 @@ import {
   Text,
   TouchableHighlight,
   View,
+  ScrollView,
 } from "react-native";
 import { connect } from "react-redux";
 
@@ -62,7 +63,7 @@ class DefaultScreen extends Component<{
     const { error, navigation } = this.props;
     if (!this.state.firstName) return <></>;
     return (
-      <View style={{ flex: 1 }}>
+      <ScrollView style={{ flex: 1 }}>
         {error && error.status && (
           <TouchableHighlight
             style={{ backgroundColor: STOP, padding: 12, margin: 0 }}
@@ -132,7 +133,7 @@ class DefaultScreen extends Component<{
           visible={this.state.testResultsModalVisible}
           setInvisible={() => this.setModalVisible(false)}
         />
-      </View>
+      </ScrollView>
     );
   }
 }
