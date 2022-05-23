@@ -1,4 +1,4 @@
-import { Button } from "mad-expo-core";
+import { Button, logout } from "mad-expo-core";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { StyleSheet } from "react-native";
@@ -26,32 +26,15 @@ class LogoutButton extends Component {
     signOut: PropTypes.func.isRequired,
   };
 
-  componentDidUpdate(prevProps) {
-    const { nav, authStatus: nextAuthStatus } = this.props;
-    const { authStatus: prevAuthStatus } = prevProps;
-
-    if (
-      nextAuthStatus !== prevAuthStatus &&
-      nextAuthStatus === authStatusTypes.SIGNED_OUT
-    ) {
-      const navigateAction = NavigationActions.navigate({
-        routeName: "LoginRoute",
-      });
-      nav.dispatch(navigateAction);
-    }
-  }
-
-  onButtonClick = () => {
-    const { signOut } = this.props;
-    signOut();
-  };
-
   render() {
     const { data } = this.props;
     return (
       <Button
         title={data.text}
-        onPress={this.onButtonClick}
+        onPress={() => {
+          logout();
+          this.props.nav.navigate("LoginRoute");
+        }}
         textStyle={styles.buttonText}
         viewStyle={styles.defaultButton}
       />
