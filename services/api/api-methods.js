@@ -11,7 +11,7 @@ const jsonHeaders = {
   "Content-Type": "application/json",
 };
 
-const createUrl = (resource, path) =>
+export const createUrl = (resource, path) =>
   `${getResource(resource).ApiBaseUrl}${path}`;
 
 // Helper functions
