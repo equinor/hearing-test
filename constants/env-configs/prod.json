@@ -2,7 +2,7 @@
   "AzureADTenantId": "statoilsrm.onmicrosoft.com",
   "AzureADAuthority": "https://login.microsoftonline.com/statoilsrm.onmicrosoft.com",
   "AzureADClientId": "a780c0d7-8e5d-4053-b25d-6a287676f923",
-  "AzureADRedirectUrl": "com.equinor.hearingtest",
+  "AzureADRedirectUrl": "msauth.com.equinor.hearingtest://auth",
   "AzureADRedirectUrlWeb": "http://localhost:19006",
   "BuildConfiguration": "Release",
   "Resources": {
