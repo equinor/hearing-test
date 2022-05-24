@@ -4,7 +4,6 @@ import {
   Alert,
   Image,
   Linking,
-  StyleSheet,
   Text,
   TouchableHighlight,
   View,
@@ -20,15 +19,11 @@ import ButtonEDS from "../components/common/EDS/Button";
 import IconButton from "../components/common/EDS/IconButton";
 import Typography from "../components/common/atoms/Typography";
 import TestResultItem from "../components/common/molecules/TestResultItem";
-import { GRAY_BACKGROUND, STOP } from "../constants/colors";
+import { STOP } from "../constants/colors";
 import { selectError, selectTestResult } from "../store/test/reducer";
 
 export const FORMS_URL =
   "https://forms.office.com/Pages/ResponsePage.aspx?id=NaKkOuK21UiRlX_PBbRZsC9rzeD3BlFJi0JbArgz2wRURUxPWVRWUVBPSlVYUVc5UElIQjJXMFRSWS4u";
-
-const styles = StyleSheet.create({
-  component: {},
-});
 
 class TestResultScreen extends Component {
   static propTypes = {
@@ -131,7 +126,6 @@ class TestResultScreen extends Component {
           <View
             style={{
               flex: 1,
-              backgroundColor: GRAY_BACKGROUND,
               alignItems: "center",
               width: "100%",
               padding: 12,

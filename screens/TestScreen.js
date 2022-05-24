@@ -12,7 +12,6 @@ import IconButton from "../components/common/EDS/IconButton";
 import BigRoundButton from "../components/common/atoms/BigRoundButton";
 import Typography from "../components/common/atoms/Typography";
 import ProgressAnimationBar from "../components/common/molecules/ProgressAnimationBar";
-import { GRAY_BACKGROUND } from "../constants/colors";
 import { selectIsFetching } from "../store/test";
 import {
   failure,
@@ -34,7 +33,6 @@ const styles = StyleSheet.create({
   component: {
     display: "flex",
     flex: 1,
-    backgroundColor: GRAY_BACKGROUND,
     padding: 16,
     paddingBottom: 60,
   },
@@ -227,7 +225,7 @@ class TestScreen extends Component {
     const { actionStartTest, node } = this.props;
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={{ flex: 1, backgroundColor: GRAY_BACKGROUND }}>
+        <View style={{ flex: 1 }}>
           <ProgressAnimationBar
             duration={0}
             timeout={0}

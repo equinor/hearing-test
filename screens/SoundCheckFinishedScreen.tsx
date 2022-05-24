@@ -6,13 +6,11 @@ import { connect } from "react-redux";
 import thumbsUp from "../assets/images/thumbs-up.png";
 import ButtonEDS from "../components/common/EDS/Button";
 import Typography from "../components/common/atoms/Typography";
-import { GRAY_BACKGROUND } from "../constants/colors";
 
 const styles = StyleSheet.create({
   component: {
     display: "flex",
     flex: 1,
-    backgroundColor: GRAY_BACKGROUND,
     padding: 54,
     paddingTop: 80,
   },

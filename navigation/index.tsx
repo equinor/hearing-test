@@ -33,8 +33,11 @@ import withUtilities from "./utils";
 
 const LightTheme = {
   ...DefaultTheme,
+  dark: false,
   colors: {
     ...DefaultTheme.colors,
+    background: "#F7F7F7",
+    card: "#F7F7F7",
     primary: EQUINOR_GREEN,
   },
 };
@@ -95,6 +98,7 @@ function RootNavigator() {
               <Icon name="more-vert" color={EQUINOR_GREEN} size={24} />
             </TouchableOpacity>
           ),
+          headerShadowVisible: false,
         })}
       />
       <Stack.Screen

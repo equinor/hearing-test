@@ -1,6 +1,13 @@
 import { MaterialIcons as Icon } from "@expo/vector-icons";
 import React, { useEffect, useRef, useState } from "react";
-import { Alert, Animated, Modal, StyleSheet, View } from "react-native";
+import {
+  Alert,
+  Animated,
+  Modal,
+  ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Sound from "react-native-sound";
 import SystemSetting from "react-native-system-setting";
@@ -16,9 +23,7 @@ import { SoundCheckPageJSON } from "../types";
 
 const styles = StyleSheet.create({
   component: {
-    display: "flex",
     flex: 1,
-    backgroundColor: GRAY_BACKGROUND,
     padding: 16,
     paddingBottom: 60,
   },
@@ -146,11 +151,10 @@ const SoundCheckScreen = (props: any) => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View style={{ flex: 1, backgroundColor: GRAY_BACKGROUND }}>
+      <View style={{ flex: 1 }}>
         <Animated.View
           style={{
             height: "100%",
-            backgroundColor: GRAY_BACKGROUND,
             opacity: opacityAnim,
           }}
         >
@@ -235,20 +239,19 @@ const SoundCheckScreen = (props: any) => {
               onRequestClose={() => {
                 Alert.alert("Modal has been closed.");
               }}
-              style={{ display: "flex" }}
             >
-              <SafeAreaView style={{ display: "flex" }}>
-                <View
-                  style={{
-                    backgroundColor: GRAY_BACKGROUND,
-                    borderRadius: 4,
-                    padding: 16,
-                    paddingBottom: 60,
-                    display: "flex",
-                    justifyContent: "space-between",
+              <SafeAreaView
+                style={{
+                  flex: 1,
+                  backgroundColor: GRAY_BACKGROUND,
+                }}
+              >
+                <ScrollView
+                  contentContainerStyle={{
+                    flex: 1,
                     alignItems: "center",
-                    // flex: 1,
-                    height: "100%",
+                    justifyContent: "space-between",
+                    padding: 16,
                   }}
                 >
                   <View />
@@ -269,7 +272,7 @@ const SoundCheckScreen = (props: any) => {
                     }}
                     text="Prøv på ny"
                   />
-                </View>
+                </ScrollView>
               </SafeAreaView>
             </Modal>
           </View>

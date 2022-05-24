@@ -17,7 +17,6 @@ import NavigationItem from "../components/common/atoms/NavigationItem";
 import Typography from "../components/common/atoms/Typography";
 import TestResultsModal from "../components/common/molecules/TestResultsModal";
 import { STOP } from "../constants/colors";
-import * as colors from "../constants/colors";
 import { fetchMe } from "../services/api/api-methods";
 import { appStartupInit } from "../store/test/actions";
 import { selectError } from "../store/test/reducer";
@@ -26,7 +25,6 @@ import { FORMS_URL } from "./TestResultScreen";
 const styles = StyleSheet.create({
   component: {
     flex: 1,
-    backgroundColor: colors.GRAY_BACKGROUND,
     padding: 24,
   },
 });
