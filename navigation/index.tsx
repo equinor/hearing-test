@@ -31,6 +31,14 @@ import { RootStackParamList } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import withUtilities from "./utils";
 
+const LightTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: EQUINOR_GREEN,
+  },
+};
+
 export default function Navigation({
   colorScheme,
 }: {
@@ -39,7 +47,7 @@ export default function Navigation({
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
-      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+      theme={colorScheme === "dark" ? DarkTheme : LightTheme}
     >
       <RootNavigator />
     </NavigationContainer>
@@ -59,7 +67,6 @@ function RootNavigator() {
       screenOptions={{
         headerTitleStyle: { color: "black" },
         headerTitleAlign: "center",
-        headerTintColor: EQUINOR_GREEN,
       }}
     >
       <Stack.Screen
@@ -126,7 +133,6 @@ function RootNavigator() {
           component={withUtilities(SettingsScreen)}
           options={{
             headerBackTitle: "Home",
-            headerTintColor: EQUINOR_GREEN,
             title: "Settings",
           }}
         />
@@ -134,7 +140,6 @@ function RootNavigator() {
           name="FeedbackRoute"
           component={withUtilities(FeedbackScreen)}
           options={{
-            headerTintColor: EQUINOR_GREEN,
             title: "Feedback",
           }}
         />
@@ -142,7 +147,6 @@ function RootNavigator() {
           name="AboutRoute"
           component={withUtilities(AboutScreen)}
           options={{
-            headerTintColor: EQUINOR_GREEN,
             title: "About",
           }}
         />
