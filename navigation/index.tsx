@@ -65,17 +65,20 @@ function RootNavigator() {
       <Stack.Screen
         name="LoginRoute"
         component={withUtilities(LoginScreen)}
-        options={{ headerShown: false }}
+        options={{ gestureEnabled: false, headerShown: false }}
       />
       <Stack.Screen
         name="FeatureRoute"
         component={withUtilities(FeatureScreen)}
-        options={{ headerShown: false }}
+        options={{ gestureEnabled: false, headerShown: false }}
       />
       <Stack.Screen
         name="DefaultRoute"
         component={withUtilities(DefaultScreen)}
         options={({ navigation }: any) => ({
+          gestureEnabled: false,
+          headerBackVisible: false,
+          headerTitle: "",
           headerRight: () => (
             <TouchableOpacity
               testID="ButtonSettings"
@@ -85,34 +88,32 @@ function RootNavigator() {
               <Icon name="more-vert" color={EQUINOR_GREEN} size={24} />
             </TouchableOpacity>
           ),
-          headerBackVisible: false,
-          headerTitle: "",
         })}
       />
       <Stack.Screen
         name="PreTestRoute"
         component={withUtilities(PreTestScreen)}
-        options={{ headerShown: false }}
+        options={{ gestureEnabled: false, headerShown: false }}
       />
       <Stack.Screen
         name="SoundCheckRoute"
         component={withUtilities(SoundCheckScreen)}
-        options={{ headerShown: false }}
+        options={{ gestureEnabled: false, headerShown: false }}
       />
       <Stack.Screen
         name="SoundCheckFinishedRoute"
         component={withUtilities(SoundCheckFinishedScreen)}
-        options={{ headerShown: false }}
+        options={{ gestureEnabled: false, headerShown: false }}
       />
       <Stack.Screen
         name="TestRoute"
         component={withUtilities(TestScreen)}
-        options={{ headerShown: false }}
+        options={{ gestureEnabled: false, headerShown: false }}
       />
       <Stack.Screen
         name="TestResultRoute"
         component={withUtilities(TestResultScreen)}
-        options={{ headerShown: false }}
+        options={{ gestureEnabled: false, headerShown: false }}
       />
       <Stack.Screen
         name="NotFound"
@@ -124,9 +125,9 @@ function RootNavigator() {
           name="SettingsRoute"
           component={withUtilities(SettingsScreen)}
           options={{
+            headerBackTitle: "Home",
             headerTintColor: EQUINOR_GREEN,
             title: "Settings",
-            headerBackTitle: "Home",
           }}
         />
         <Stack.Screen
