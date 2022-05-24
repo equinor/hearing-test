@@ -198,7 +198,7 @@ function FeedbackScreen() {
         disabled={feedback.trim().length === 0}
         onPress={() => {
           sendFeedback({
-            product: `${appJson.expo.name} | v${appJson.expo.version} (${appJson.expo.web.buildNumber})`,
+            product: `${appJson.expo.name} | v${appJson.expo.version} (${appJson.expo.ios.buildNumber})`,
             user: ` ${account?.username.split("@")[0]}`,
             msg: `${feedback.trim()}`,
             systemMsg: getSystemMsg(),
