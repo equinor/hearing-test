@@ -78,7 +78,16 @@ export function getReleaseNote(version) {
 export const getServiceMessage = () =>
   fetchOpenData(`/ServiceMessage/${appName}`, "mad");
 
-export const fetchTest = () => fetchData(`/me/tests/takeTest`);
+export const postTakeTest = () =>
+  postData(`/me/tests/takeTest`, {
+    hz500Db: 0,
+    hz1000Db: 0,
+    hz2000Db: 0,
+    hz3000Db: 0,
+    hz4000Db: 0,
+    hz6000Db: 0,
+    hz8000Db: 0,
+  });
 
 export const postTest = (body) => postData(`/me/tests`, body);
 

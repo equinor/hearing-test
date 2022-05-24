@@ -15,4 +15,4 @@ export function getReleaseNote() {
   return fetchData(ReleaseNotes, 0.5);
 }
 
-export const fetchTest = () => fetchData(mockData.test);
+export const postTakeTest = () => fetchData(mockData.test);

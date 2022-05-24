@@ -15,7 +15,7 @@ import ProgressAnimationBar from "../components/common/molecules/ProgressAnimati
 import { selectIsFetching } from "../store/test";
 import {
   failure,
-  fetchTest,
+  postTakeTest,
   postTest,
   startTest,
   stopTest,
@@ -42,7 +42,7 @@ class TestScreen extends Component {
   static propTypes = {
     // Actions
     actionFailure: PropTypes.func.isRequired,
-    actionFetchTest: PropTypes.func.isRequired,
+    actionPostTakeTest: PropTypes.func.isRequired,
     actionPostTest: PropTypes.func.isRequired,
     actionStartTest: PropTypes.func.isRequired,
     actionStopTest: PropTypes.func.isRequired,
@@ -80,7 +80,7 @@ class TestScreen extends Component {
   };
 
   componentDidMount() {
-    this.props.actionFetchTest();
+    this.props.actionPostTakeTest();
   }
 
   componentDidUpdate(prevProps) {
@@ -442,7 +442,7 @@ MenuItem.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   actionFailure: (reactionTimeMs) => dispatch(failure(reactionTimeMs)),
-  actionFetchTest: () => dispatch(fetchTest()),
+  actionPostTakeTest: () => dispatch(postTakeTest()),
   actionPostTest: (test) => dispatch(postTest(test)),
   actionStartTest: () => dispatch(startTest()),
   actionStopTest: () => dispatch(stopTest()),

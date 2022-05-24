@@ -4,13 +4,13 @@ import api from "../../services/api";
 import handleError from "../../utils/handleNetworkErrors";
 import * as actions from "./actions";
 
-function* fetchTest(action) {
+function* postTakeTest(action) {
   try {
-    yield put(actions.fetchTestRequested());
-    const response = yield call(api.fetchTest, action.payload);
-    yield put(actions.fetchTestSucceeded(response));
+    yield put(actions.postTakeTestRequested());
+    const response = yield call(api.postTakeTest, action.payload);
+    yield put(actions.postTakeTestSucceeded(response));
   } catch (ex) {
-    yield put(actions.fetchTestFailed(ex));
+    yield put(actions.postTakeTestFailed(ex));
   }
 }
 function* postTest(action) {
@@ -34,8 +34,8 @@ function* appInit(action) {
   }
 }
 
-export function* watchFetchTest() {
-  yield takeLatest(actions.fetchTest.toString(), fetchTest);
+export function* watchPostTakeTest() {
+  yield takeLatest(actions.postTakeTest.toString(), postTakeTest);
 }
 
 export function* watchPostTest() {
