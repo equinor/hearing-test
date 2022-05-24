@@ -69,7 +69,7 @@ const SoundCheckScreen = (props: any) => {
     {
       title: "Lydsjekk",
       description:
-        "Før vi startet testen tar vi en prøverunde. Lydsjekken tar for seg et øre om gangen.",
+        "Før vi starter testen tar vi en prøverunde. Lydsjekken tar for seg et øre om gangen.",
       button: "variant1",
       hearNoSoundButtonVisible: false,
       sound: {
