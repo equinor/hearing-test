@@ -237,7 +237,6 @@ class TestScreen extends Component {
           <View style={styles.component}>
             <View
               style={{
-                display: "flex",
                 flexDirection: "row",
                 justifyContent: "space-between",
                 alignItems: "center",
@@ -246,12 +245,16 @@ class TestScreen extends Component {
             >
               <View style={{ width: 48, height: 48 }} />
               <Typography variant="h1">Hørselstest</Typography>
-              <IconButton
-                icon={this.state.pauseAfterNode ? "hourglass-empty" : "pause"}
-                onPress={() => {
-                  this.setState({ pauseAfterNode: true });
-                }}
-              />
+              {this.props.testIsRunning ? (
+                <IconButton
+                  icon={this.state.pauseAfterNode ? "hourglass-empty" : "pause"}
+                  onPress={() => {
+                    this.setState({ pauseAfterNode: true });
+                  }}
+                />
+              ) : (
+                <View style={{ width: 48, height: 48 }} />
+              )}
             </View>
             <View
               style={{
