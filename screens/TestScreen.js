@@ -1,4 +1,5 @@
 import { MaterialIcons as Icon } from "@expo/vector-icons";
+import { Spinner } from "mad-expo-core";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Alert, Modal, StyleSheet, TouchableOpacity, View } from "react-native";
@@ -154,7 +155,7 @@ class TestScreen extends Component {
     // Setting master volume
     // Setting volume each time just to make sure the volume is not changed between plays
     // also, if headset was plugged in after componentDidMount() was called, we need to call this again
-    SystemSetting.setVolume(0.8, { showUI: true });
+    SystemSetting.setVolume(0.5, { showUI: true });
 
     // Setting playback volume
     sound.setVolume(node.stimulusMultiplicative);
@@ -162,6 +163,33 @@ class TestScreen extends Component {
     sound.play(() => {
       sound.release();
     });
+  }
+
+  renderBigRoundButton() {
+    const { actionStartTest, isFetching, node, testIsRunning } = this.props;
+    const { modalVisible, pauseAfterNode } = this.state;
+    if (isFetching || pauseAfterNode || modalVisible) return <Spinner />;
+    if (testIsRunning)
+      return (
+        <BigRoundButton
+          variant="primary"
+          text="Jeg hører lyden"
+          onPress={() => {
+            /* Register click */
+            this.registerPress(node);
+          }}
+        />
+      );
+    return (
+      <BigRoundButton
+        variant="secondary"
+        text="Trykk for å starte"
+        onPress={() => {
+          /* Start */
+          actionStartTest();
+        }}
+      />
+    );
   }
 
   playSilentAudioClip() {
@@ -221,8 +249,6 @@ class TestScreen extends Component {
   }
 
   render() {
-    // const { showStopTheTestSection, pushRegistered } = this.state;
-    const { actionStartTest, node } = this.props;
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <View style={{ flex: 1 }}>
@@ -270,25 +296,7 @@ class TestScreen extends Component {
                   ? "Trykk på sirkelen under når du er klar for å starte hørselstesten."
                   : "Trykk på sirkelen under når du hører en lyd"}
               </Typography>
-              {!this.props.testIsRunning ? (
-                <BigRoundButton
-                  variant="secondary"
-                  text="Trykk for å starte"
-                  onPress={() => {
-                    /* Start */
-                    actionStartTest();
-                  }}
-                />
-              ) : (
-                <BigRoundButton
-                  variant="primary"
-                  text="Jeg hører lyden"
-                  onPress={() => {
-                    /* Register click */
-                    this.registerPress(node);
-                  }}
-                />
-              )}
+              {this.renderBigRoundButton()}
             </View>
             <Modal
               animationType="fade"
