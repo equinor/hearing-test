@@ -1,4 +1,4 @@
-import { put, call, takeLatest } from "redux-saga/effects";
+import { put, call, takeLatest, select } from "redux-saga/effects";
 
 import api from "../../services/api";
 import handleError from "../../utils/handleNetworkErrors";
@@ -6,8 +6,9 @@ import * as actions from "./actions";
 
 function* fetchTest(action) {
   try {
+    const mode =  yield select((state) => state.appConfig.current.demoMode);
     yield put(actions.fetchTestRequested());
-    const response = yield call(api.fetchTest, action.payload);
+    const response = yield call(api.fetchTest, mode);
     yield put(actions.fetchTestSucceeded(response));
   } catch (ex) {
     yield put(actions.fetchTestFailed(ex));

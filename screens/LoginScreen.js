@@ -19,6 +19,7 @@ class LoginScreen extends Component {
 
   static defaultProps = {
     appVersion: null,
+    demoMode: false,
   };
 
   render() {
@@ -45,7 +46,7 @@ class LoginScreen extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  onDemoPress: (config) => dispatch(actions.setConfig(config)),
+  onDemoPress: appConfig => dispatch(actions.setConfig(appConfig)),
 });
 
 const mapStateToProps = (state) => ({

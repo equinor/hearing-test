@@ -17,6 +17,7 @@ import {
   stopTest,
   success,
 } from "./actions";
+import * as mockData from "../../services/api/mocked-api-methods/mock-data.json";
 
 function setNextNode(state, userResponse) {
   const clonedState = _.cloneDeep(state);
@@ -180,5 +181,5 @@ export const selectTestIsFinished = (state) =>
 export const selectTestIsRunning = (state) =>
   state[stateKeys.TEST].testIsRunning;
 export const selectResults = (state) => state[stateKeys.TEST].results;
-export const selectTestResult = (state) => state[stateKeys.TEST].testResult;
+export const selectTestResult = (state) => state.appConfig.current.demoMode ? mockData.Tests[0] : state[stateKeys.TEST].testResult;
 export const selectError = (state) => state[stateKeys.TEST].error;

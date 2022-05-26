@@ -3,6 +3,7 @@ import { authenticateSilently } from "mad-expo-core";
 import appJson from "../../app.json";
 import { getResource } from "../../constants/settings";
 import { NetworkException } from "../../utils/Exception";
+import { fetchTestMock, fetchMeMock, fetchTestsMock} from "./mocked-api-methods";
 
 const appName = appJson.expo.name;
 const defaultResource = "hearing";
@@ -33,7 +34,7 @@ const fetchData = (path, resource = defaultResource, parseJson = true) =>
       }
       throw new NetworkException(response.statusText, response.status);
     })
-  );
+    );
 
 export const postData = (
   path,
@@ -78,13 +79,14 @@ export function getReleaseNote(version) {
 export const getServiceMessage = () =>
   fetchOpenData(`/ServiceMessage/${appName}`, "mad");
 
-export const fetchTest = () => fetchData(`/me/tests/takeTest`);
-
 export const postTest = (body) => postData(`/me/tests`, body);
 
 export const appInit = () =>
   fetchData("/appStartup/init", defaultResource, false);
 
-export const fetchTests = () => fetchData("/me/tests");
+export const fetchTest = demoMode => demoMode ? fetchTestMock() : fetchData(`/me/tests/takeTest`);
 
-export const fetchMe = () => fetchData("/me");
+export const fetchTests =  demoMode => demoMode ? fetchTestsMock() : fetchData("/me/tests");
+
+export const fetchMe = demoMode => demoMode ? fetchMeMock() : fetchData("/me");
+

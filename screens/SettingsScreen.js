@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 
 import Settings from "../components/Settings";
 import { getCurrentUser } from "../store/auth";
+import { getConfig } from "../store/app-config";
 
 class SettingsScreen extends Component {
   static propTypes = {
@@ -22,11 +23,15 @@ class SettingsScreen extends Component {
   };
 
   componentDidMount() {
+  if (!this.props.appConfig.demoMode) { 
     getAccount().then((response) => {
       this.setState({ currentUser: response.username });
-    });
-    console.log("HAR SATT currentUser state til: " + this.state.currentUser);
+      console.log("HAR SATT currentUser state til: " + this.state.currentUser);
+    })
+  } else {
+    this.setState({currentUser: "John"});
   }
+}
 
   render() {
     console.log("currentUser-state:" + this.state.currentUser);
@@ -40,6 +45,7 @@ class SettingsScreen extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  appConfig: getConfig(state),
   currentUser: getCurrentUser(state),
 });
 

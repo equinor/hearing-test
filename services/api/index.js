@@ -11,9 +11,5 @@ if (config.enabled && config.mockAuthentication && !config.mockApi) {
   );
 }
 
-const api =
-  config.enabled && config.mockApi
-    ? require("./mocked-api-methods")
-    : require("./api-methods");
-
+const api = require("./api-methods");
 export default api;

@@ -40,6 +40,7 @@ export const stateKeys = {
   NAV: "navigation",
   TEST: "test",
   TESTS: "tests",
+  APPCONFIG: "appConfig",
 };
 
 export const requestTypes = {

@@ -10,6 +10,7 @@ import testReducer from "../test/reducer";
 import testsReducer from "../tests/reducer";
 import toastReducer from "../toast/reducer";
 import versionReducer from "../version/reducer";
+import configReducer from "../app-config/reducer";
 
 export default combineReducers({
   [stateKeys.MANIFEST]: manifestReducer,
@@ -21,4 +22,5 @@ export default combineReducers({
   [stateKeys.TOAST]: toastReducer,
   [stateKeys.TEST]: testReducer,
   [stateKeys.TESTS]: testsReducer,
+  [stateKeys.APPCONFIG]: configReducer,
 });

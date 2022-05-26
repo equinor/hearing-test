@@ -22,6 +22,7 @@ import { fetchMe } from "../services/api/api-methods";
 import { appStartupInit } from "../store/test/actions";
 import { selectError } from "../store/test/reducer";
 import { FORMS_URL } from "./TestResultScreen";
+import { getConfig } from "../store/app-config";
 
 const styles = StyleSheet.create({
   component: {
@@ -38,6 +39,7 @@ class DefaultScreen extends Component<{
   static propTypes = {
     actionAppInit: PropTypes.func.isRequired,
     error: PropTypes.object.isRequired,
+    appConfig: PropTypes.object.isRequired,
   };
 
   state = {
@@ -46,10 +48,10 @@ class DefaultScreen extends Component<{
   };
 
   componentDidMount() {
-    fetchMe()
-      .then((response) => {
-        this.setState({ firstName: response.firstName });
-      })
+    fetchMe(this.props.appConfig.demoMode)
+    .then((response) => {
+      this.setState({ firstName: response.firstName });
+    })
       .catch(() => {
         this.setState({ firstName: null });
       });
@@ -139,8 +141,10 @@ class DefaultScreen extends Component<{
 }
 
 const mapStateToProps = (state) => ({
+  appConfig: getConfig(state),
   error: selectError(state),
 });
+
 const mapDispatchToProps = (dispatch) => ({
   actionAppInit: () => dispatch(appStartupInit()),
 });
