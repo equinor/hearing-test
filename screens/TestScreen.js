@@ -210,7 +210,7 @@ class TestScreen extends Component {
   }
 
   runNode(node) {
-    this.playSilentAudioClip();
+    //this.playSilentAudioClip();
     if (node && node.data && node.data.sound) {
       // Load the audio for current node
       // and wait with starting the node-timer until the sound is ready.
