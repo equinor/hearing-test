@@ -11,10 +11,8 @@ import { TestResult } from "../types";
 
 const styles = StyleSheet.create({
   component: {
-    display: "flex",
     flex: 1,
     backgroundColor: "white",
-    padding: 16,
   },
 });
 

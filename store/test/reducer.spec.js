@@ -1,6 +1,6 @@
 import { test as mockedTest } from "../../services/api/mocked-api-methods/mock-data.json";
 import { stateKeys } from "../../types";
-import { failure, fetchTestSucceeded, startTest, success } from "./actions";
+import { failure, postTakeTestSucceeded, startTest, success } from "./actions";
 import reducer, {
   selectNode,
   selectResults,
@@ -43,12 +43,12 @@ describe("Test Test actions, reducers and selectors", () => {
 
   it("can store and select the whole test ", () => {
     // This is the whole test, including all the subTests and all subTest-Nodes
-    updateState(fetchTestSucceeded(mockedTest));
+    updateState(postTakeTestSucceeded(mockedTest));
     expect(selectTest(state)).toEqual(mockedTest);
   });
 
   it("starts the test", () => {
-    updateState(fetchTestSucceeded(mockedTest));
+    updateState(postTakeTestSucceeded(mockedTest));
     updateState(startTest(state));
     expect(selectTestIsRunning(state)).toBe(true);
     expect(selectTestIsFinished(state)).toBe(false);
@@ -58,7 +58,7 @@ describe("Test Test actions, reducers and selectors", () => {
   });
 
   it("can go to next node on success (traversing the whole test-tree, path of success)", () => {
-    updateState(fetchTestSucceeded(mockedTest));
+    updateState(postTakeTestSucceeded(mockedTest));
     updateState(startTest(state));
     let pointer = mockedTest.subTests[0];
 
@@ -84,7 +84,7 @@ describe("Test Test actions, reducers and selectors", () => {
   });
 
   it("can go to next node on failure (traversing the whole test-tree, path of failure)", () => {
-    updateState(fetchTestSucceeded(mockedTest));
+    updateState(postTakeTestSucceeded(mockedTest));
     updateState(startTest(state));
     let pointer = mockedTest.subTests[0];
 

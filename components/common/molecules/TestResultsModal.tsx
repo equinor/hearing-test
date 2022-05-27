@@ -24,24 +24,23 @@ const TestResultsModal = (props: {
     >
       <View
         style={{
-          display: "flex",
+          alignItems: "center",
+          backgroundColor: "white",
+          borderBottomWidth: 1,
+          borderColor: "#DCDCDC",
+          borderStyle: "solid",
+          borderTopLeftRadius: 12,
+          borderTopRightRadius: 12,
+          elevation: 5,
           flexDirection: "row",
           justifyContent: "space-between",
-          alignItems: "center",
+          marginTop: 110,
           paddingHorizontal: 24,
           paddingVertical: 12,
-          borderBottomWidth: 1,
-          borderStyle: "solid",
-          borderColor: "#DCDCDC",
-          marginTop: 110,
-          backgroundColor: "white",
-          borderTopRightRadius: 12,
-          borderTopLeftRadius: 12,
           shadowColor: "#000",
           shadowOffset: { width: 2, height: 2 },
           shadowOpacity: 0.3,
           shadowRadius: 3,
-          elevation: 5,
         }}
       >
         <IconButton
