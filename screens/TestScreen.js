@@ -155,11 +155,13 @@ class TestScreen extends Component {
     // Setting master volume
     // Setting volume each time just to make sure the volume is not changed between plays
     // also, if headset was plugged in after componentDidMount() was called, we need to call this again
-    SystemSetting.setVolume(0.001, { showUI: true });
+    SystemSetting.setVolume(1, { showUI: true });
 
     // Setting playback volume
-    sound.setVolume(node.stimulusMultiplicative);
-    sound.setPan(node.panning);
+    sound.setVolume(
+      node.stimulusMultiplicative * Math.pow(10, node.headsetProfileDb / 20)
+    );
+    sound.setPan(node.panning === 0 ? -1 : node.panning);
     sound.play(() => {
       sound.release();
     });
