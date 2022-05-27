@@ -86,7 +86,11 @@ class TestScreen extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.node !== prevProps.node || this.state.nextNodeWaiting) {
-      if (!this.state.pauseAfterNode && !this.state.modalVisible) {
+      if (
+        !this.state.pauseAfterNode &&
+        !this.state.modalVisible &&
+        this.props.testIsRunning
+      ) {
         this.runNode(this.props.node);
         if (this.state.nextNodeWaiting)
           this.setState({ nextNodeWaiting: false }); // eslint-disable-line react/no-did-update-set-state
@@ -134,7 +138,7 @@ class TestScreen extends Component {
     Sound.setActive(false);
     clearInterval(this.state.intervalId);
     this.props.actionStopTest();
-    this.props.navigation.navigate("DefaultRoute");
+    this.setState({ modalVisible: false });
   }
 
   async nodeFinished() {
@@ -342,8 +346,8 @@ class TestScreen extends Component {
                             {
                               text: "Exit",
                               onPress: () => {
-                                this.setState({ modalVisible: false });
                                 this.abortTest();
+                                this.props.navigation.navigate("DefaultRoute");
                               },
                               style: "destructive",
                             },
@@ -367,7 +371,6 @@ class TestScreen extends Component {
                             {
                               text: "Restart",
                               onPress: () => {
-                                this.setState({ modalVisible: false });
                                 this.abortTest();
                                 this.props.navigation.navigate("TestRoute");
                               },
@@ -393,7 +396,6 @@ class TestScreen extends Component {
                             {
                               text: "Ny lydsjekk",
                               onPress: () => {
-                                this.setState({ modalVisible: false });
                                 this.abortTest();
                                 this.props.navigation.navigate(
                                   "SoundCheckRoute"
