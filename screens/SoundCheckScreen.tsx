@@ -67,7 +67,7 @@ const SoundCheckScreen = (props: any) => {
     Sound.setActive(true);
 
     // Load the sound file 'testBell.wav' from the app bundle
-    SystemSetting.setVolume(1, { showUI: true });
+    SystemSetting.setVolume(0.5, { showUI: true });
   }, []);
 
   const pages: SoundCheckPageJSON[] = [
@@ -121,7 +121,7 @@ const SoundCheckScreen = (props: any) => {
     // Setting volume each time just to make sure the volume is not changed between plays
     // also, if headset was plugged in after componentDidMount() was called, we need to call this again
     // SystemSetting.setVolume(0.5, { showUI: true }); //Todo: Disabling this until we know how the calibration step should be done..
-    sound.setVolume(0.25);
+    sound.setVolume(0.5);
     if (ear === "left") sound.setPan(-1);
     if (ear === "right") sound.setPan(1);
     sound.play((success) => {
