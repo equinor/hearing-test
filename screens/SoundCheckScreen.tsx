@@ -142,8 +142,8 @@ const SoundCheckScreen = (props: any) => {
         // eslint-disable-next-line no-console
         console.log("playback failed due to audio decoding errors");
       }
+      SystemSetting.setVolume(initialSystemVolume, { showUI: true });
     });
-    SystemSetting.setVolume(initialSystemVolume, { showUI: true });
   }
 
   const page = pages[currentPage];
