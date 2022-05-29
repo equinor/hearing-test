@@ -37,6 +37,7 @@ const SoundCheckScreen = (props: any) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [sound, setSound] = useState<Sound>(null);
   const opacityAnim = useRef(new Animated.Value(0)).current;
+  const [initialSystemVolume, setInitialSystemVolume] = useState(0.5);
 
   useEffect(() => {
     if (opacityAnim)
@@ -48,6 +49,15 @@ const SoundCheckScreen = (props: any) => {
   }, [opacityAnim, currentPage]);
 
   useEffect(() => {
+    const setInitialDeviceSystemVolume = async () =>
+      await SystemSetting.getVolume()
+        .then((volume) => {
+          console.log({ success: true, volume });
+          setInitialSystemVolume(volume);
+        })
+        .catch((err) => console.log({ err }));
+    setInitialDeviceSystemVolume();
+
     setSound(
       new Sound(
         require("../assets/audio/1000Hz_dobbel.wav"),
@@ -120,7 +130,7 @@ const SoundCheckScreen = (props: any) => {
   function playAudioTest(ear: "left" | "right") {
     // Setting volume each time just to make sure the volume is not changed between plays
     // also, if headset was plugged in after componentDidMount() was called, we need to call this again
-    // SystemSetting.setVolume(0.5, { showUI: true }); //Todo: Disabling this until we know how the calibration step should be done..
+    SystemSetting.setVolume(0.5, { showUI: true }); //Todo: Disabling this until we know how the calibration step should be done..
     sound.setVolume(0.5);
     if (ear === "left") sound.setPan(-1);
     if (ear === "right") sound.setPan(1);
@@ -133,6 +143,7 @@ const SoundCheckScreen = (props: any) => {
         console.log("playback failed due to audio decoding errors");
       }
     });
+    SystemSetting.setVolume(initialSystemVolume, { showUI: true });
   }
 
   const page = pages[currentPage];
