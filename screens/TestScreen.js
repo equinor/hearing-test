@@ -78,10 +78,19 @@ class TestScreen extends Component {
     modalVisible: false,
     pauseAfterNode: false,
     nextNodeWaiting: false,
+    initialSystemVolume: 0.5,
   };
 
   componentDidMount() {
     this.props.actionPostTakeTest();
+    const setInitialDeviceSystemVolume = async () =>
+      await SystemSetting.getVolume()
+        .then((volume) => {
+          console.log({ success: true, volume });
+          this.setState({ initialSystemVolume: volume });
+        })
+        .catch((err) => console.log({ err }));
+    setInitialDeviceSystemVolume();
   }
 
   componentDidUpdate(prevProps) {
@@ -168,6 +177,7 @@ class TestScreen extends Component {
     sound.setPan(node.panning === 0 ? -1 : node.panning);
     sound.play(() => {
       sound.release();
+      SystemSetting.setVolume(this.state.initialSystemVolume, { showUI: true });
     });
   }
 
