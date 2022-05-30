@@ -1,6 +1,7 @@
 import _ from "lodash";
 import { handleActions } from "redux-actions";
 
+import * as mockData from "../../services/api/mocked-api-methods/mock-data.json";
 import { stateKeys } from "../../types";
 import {
   appStartupInitFailed,
@@ -180,5 +181,8 @@ export const selectTestIsFinished = (state) =>
 export const selectTestIsRunning = (state) =>
   state[stateKeys.TEST].testIsRunning;
 export const selectResults = (state) => state[stateKeys.TEST].results;
-export const selectTestResult = (state) => state[stateKeys.TEST].testResult;
+export const selectTestResult = (state) =>
+  state.appConfig.current.demoMode
+    ? mockData.Tests[0]
+    : state[stateKeys.TEST].testResult;
 export const selectError = (state) => state[stateKeys.TEST].error;

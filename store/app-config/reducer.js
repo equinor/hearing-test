@@ -1,10 +1,10 @@
 import { handleActions } from "redux-actions";
-
 import { stateKeys } from "../../types";
 import { setConfig } from "./actions";
 
 const defaultState = {
   current: {},
+  demoMode: false,
 };
 
 export default handleActions(
@@ -22,4 +22,4 @@ export default handleActions(
   defaultState
 );
 
-export const getConfig = (state) => state[stateKeys.APPCONFIG].current;
+export const getConfig = state => state[stateKeys.APPCONFIG].current;

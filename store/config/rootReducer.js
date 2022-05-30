@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 
 import { stateKeys } from "../../types";
+import configReducer from "../app-config/reducer";
 import authReducer from "../auth/reducer";
 import changelogReducer from "../changelog/reducer";
 import connectivityReducer from "../connectivity/reducer";
@@ -21,4 +22,5 @@ export default combineReducers({
   [stateKeys.TOAST]: toastReducer,
   [stateKeys.TEST]: testReducer,
   [stateKeys.TESTS]: testsReducer,
+  [stateKeys.APPCONFIG]: configReducer,
 });

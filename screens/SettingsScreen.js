@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Settings from "../components/Settings";
+import { getConfig } from "../store/app-config";
 import { getCurrentUser } from "../store/auth";
 
 class SettingsScreen extends Component {
@@ -22,14 +23,16 @@ class SettingsScreen extends Component {
   };
 
   componentDidMount() {
-    getAccount().then((response) => {
-      this.setState({ currentUser: response.username });
-    });
-    console.log("HAR SATT currentUser state til: " + this.state.currentUser);
+    if (this.props.appConfig.demoMode) {
+      this.setState({ currentUser: "John" });
+    } else {
+      getAccount().then((response) => {
+        this.setState({ currentUser: response.username });
+      });
+    }
   }
 
   render() {
-    console.log("currentUser-state:" + this.state.currentUser);
     const { navigation } = this.props;
     return this.state.currentUser ? (
       <Settings navigation={navigation} currentUser={this.state.currentUser} />
@@ -40,6 +43,7 @@ class SettingsScreen extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  appConfig: getConfig(state),
   currentUser: getCurrentUser(state),
 });
 

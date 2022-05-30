@@ -139,6 +139,7 @@ class DefaultScreen extends Component<{
 const mapStateToProps = (state) => ({
   error: selectError(state),
 });
+
 const mapDispatchToProps = (dispatch) => ({
   actionAppInit: () => dispatch(appStartupInit()),
 });
