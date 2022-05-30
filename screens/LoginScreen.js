@@ -19,7 +19,6 @@ class LoginScreen extends Component {
 
   static defaultProps = {
     appVersion: null,
-    demoMode: false,
   };
 
   render() {
