@@ -78,15 +78,28 @@ class TestScreen extends Component {
     modalVisible: false,
     pauseAfterNode: false,
     nextNodeWaiting: false,
+    initialSystemVolume: 0.5,
   };
 
   componentDidMount() {
     this.props.actionPostTakeTest();
+    const setInitialDeviceSystemVolume = async () =>
+      await SystemSetting.getVolume()
+        .then((volume) => {
+          console.log({ success: true, volume });
+          this.setState({ initialSystemVolume: volume });
+        })
+        .catch((err) => console.log({ err }));
+    setInitialDeviceSystemVolume();
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.node !== prevProps.node || this.state.nextNodeWaiting) {
-      if (!this.state.pauseAfterNode && !this.state.modalVisible) {
+      if (
+        !this.state.pauseAfterNode &&
+        !this.state.modalVisible &&
+        this.props.testIsRunning
+      ) {
         this.runNode(this.props.node);
         if (this.state.nextNodeWaiting)
           this.setState({ nextNodeWaiting: false }); // eslint-disable-line react/no-did-update-set-state
@@ -134,7 +147,7 @@ class TestScreen extends Component {
     Sound.setActive(false);
     clearInterval(this.state.intervalId);
     this.props.actionStopTest();
-    this.props.navigation.navigate("DefaultRoute");
+    this.setState({ modalVisible: false });
   }
 
   async nodeFinished() {
@@ -155,13 +168,16 @@ class TestScreen extends Component {
     // Setting master volume
     // Setting volume each time just to make sure the volume is not changed between plays
     // also, if headset was plugged in after componentDidMount() was called, we need to call this again
-    SystemSetting.setVolume(0.8, { showUI: true });
+    SystemSetting.setVolume(1, { showUI: true });
 
     // Setting playback volume
-    sound.setVolume(node.stimulusMultiplicative);
-    sound.setPan(node.panning);
+    sound.setVolume(
+      node.stimulusMultiplicative * Math.pow(10, node.headsetProfileDb / 20)
+    );
+    sound.setPan(node.panning === 0 ? -1 : node.panning);
     sound.play(() => {
       sound.release();
+      SystemSetting.setVolume(this.state.initialSystemVolume, { showUI: true });
     });
   }
 
@@ -208,7 +224,7 @@ class TestScreen extends Component {
   }
 
   runNode(node) {
-    this.playSilentAudioClip();
+    //this.playSilentAudioClip();
     if (node && node.data && node.data.sound) {
       // Load the audio for current node
       // and wait with starting the node-timer until the sound is ready.
@@ -340,8 +356,8 @@ class TestScreen extends Component {
                             {
                               text: "Exit",
                               onPress: () => {
-                                this.setState({ modalVisible: false });
                                 this.abortTest();
+                                this.props.navigation.navigate("DefaultRoute");
                               },
                               style: "destructive",
                             },
@@ -365,7 +381,6 @@ class TestScreen extends Component {
                             {
                               text: "Restart",
                               onPress: () => {
-                                this.setState({ modalVisible: false });
                                 this.abortTest();
                                 this.props.navigation.navigate("TestRoute");
                               },
@@ -391,7 +406,6 @@ class TestScreen extends Component {
                             {
                               text: "Ny lydsjekk",
                               onPress: () => {
-                                this.setState({ modalVisible: false });
                                 this.abortTest();
                                 this.props.navigation.navigate(
                                   "SoundCheckRoute"
