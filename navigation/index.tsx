@@ -66,7 +66,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName="TestResultRoute"
+      initialRouteName="LoginRoute"
       screenOptions={{
         headerTitleStyle: { color: "black" },
         headerTitleAlign: "center",
