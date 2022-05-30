@@ -1,5 +1,4 @@
 import mockConfig from "../../../mock-config";
-import { ReleaseNotes } from "./mock-data.json";
 import * as mockData from "./mock-data.json";
 
 // Use the delayFactor parameter to vary load
@@ -21,4 +20,4 @@ export const fetchTestsMock = () => fetchMockData(mockData.Tests, 0,5);
 
 export const fetchMeMock = () => fetchMockData(mockData.Me, 0,5);
 
-export const postTakeTestMock = () => fetchData(mockData.Test);
+export const postTakeTestMock = () => fetchData(mockData.Test, 0,5);

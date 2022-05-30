@@ -4,11 +4,10 @@ import api from "../../services/api";
 import handleError from "../../utils/handleNetworkErrors";
 import * as actions from "./actions";
 
-function* postTakeTest(action) {
+function* postTakeTest() {
   try {
-    const mode =  yield select((state) => state.appConfig.current.demoMode);
     yield put(actions.postTakeTestRequested());
-    const response = yield call(api.postTakeTest, mode);
+    const response = yield call(api.postTakeTest);
     yield put(actions.postTakeTestSucceeded(response));
   } catch (ex) {
     yield put(actions.postTakeTestFailed(ex));

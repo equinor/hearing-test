@@ -46,7 +46,7 @@ class DefaultScreen extends Component<{
   };
 
   componentDidMount() {
-    fetchMe(this.props.appConfig.demoMode)
+    fetchMe()
     .then((response) => {
       this.setState({ firstName: response.firstName });
     })

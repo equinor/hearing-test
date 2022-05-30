@@ -5,9 +5,8 @@ import * as actions from "./actions";
 
 function* fetchTests() {
   try {
-    const mode =  yield select((state) => state.appConfig.current.demoMode);
     yield put(actions.fetchTestsRequested());
-    const response = yield call(api.fetchTests, mode);
+    const response = yield call(api.fetchTests);
     yield put(actions.fetchTestsSucceeded(response));
   } catch (ex) {
     yield put(actions.fetchTestsFailed(ex));

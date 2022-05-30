@@ -4,6 +4,7 @@ import appJson from "../../app.json";
 import { getResource } from "../../constants/settings";
 import { NetworkException } from "../../utils/Exception";
 import { fetchTestMock, fetchMeMock, fetchTestsMock} from "./mocked-api-methods";
+import store from "../../store/config";
 
 const appName = appJson.expo.name;
 const defaultResource = "hearing";
@@ -79,7 +80,7 @@ export function getReleaseNote(version) {
 export const getServiceMessage = () =>
   fetchOpenData(`/ServiceMessage/${appName}`, "mad");
 
-export const postTakeTest = demoMode => demoMode ? postTakeTestMock : 
+export const postTakeTest = () => store.getState().appConfig.current.demoMode  ? fetchTestMock() : 
   postData(`/me/tests/takeTest`, {
     hz500Db: 0,
     hz1000Db: 0,
@@ -95,9 +96,9 @@ export const postTest = (body) => postData(`/me/tests`, body);
 export const appInit = () =>
   fetchData("/appStartup/init", defaultResource, false);
 
-export const fetchTest = demoMode => demoMode ? fetchTestMock() : fetchData(`/me/tests/takeTest`);
+export const fetchTest = () => store.getState().appConfig.current.demoMode ? fetchTestMock() : fetchData(`/me/tests/takeTest`);
 
-export const fetchTests =  demoMode => demoMode ? fetchTestsMock() : fetchData("/me/tests");
+export const fetchTests =  () => store.getState().appConfig.current.demoMode ? fetchTestsMock() : fetchData("/me/tests");
 
-export const fetchMe = demoMode => demoMode ? fetchMeMock() : fetchData("/me");
+export const fetchMe = () => store.getState().appConfig.current.demoMode ? fetchMeMock() : fetchData("/me");
 
