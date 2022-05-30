@@ -5,9 +5,9 @@ import { getResource } from "../../constants/settings";
 import store from "../../store/config";
 import { NetworkException } from "../../utils/Exception";
 import {
-  fetchTestMock,
-  fetchMeMock,
-  fetchTestsMock,
+  postMockTakeTest,
+  fetchMockMe,
+  fetchMockTests,
 } from "./mocked-api-methods";
 
 const appName = appJson.expo.name;
@@ -86,7 +86,7 @@ export const getServiceMessage = () =>
 
 export const postTakeTest = () =>
   store.getState().appConfig.current.demoMode
-    ? postTakeTestMock()
+    ? postMockTakeTest()
     : postData(`/me/tests/takeTest`, {
         hz500Db: 0,
         hz1000Db: 0,
@@ -104,10 +104,10 @@ export const appInit = () =>
 
 export const fetchTests = () =>
   store.getState().appConfig.current.demoMode
-    ? fetchTestsMock()
+    ? fetchMockTests()
     : fetchData("/me/tests");
 
 export const fetchMe = () =>
   store.getState().appConfig.current.demoMode
-    ? fetchMeMock()
+    ? fetchMockMe()
     : fetchData("/me");

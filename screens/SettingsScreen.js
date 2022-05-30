@@ -33,7 +33,6 @@ class SettingsScreen extends Component {
   }
 
   render() {
-    console.log("currentUser-state:" + this.state.currentUser);
     const { navigation } = this.props;
     return this.state.currentUser ? (
       <Settings navigation={navigation} currentUser={this.state.currentUser} />
