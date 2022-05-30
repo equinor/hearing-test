@@ -2,9 +2,13 @@ import { authenticateSilently } from "mad-expo-core";
 
 import appJson from "../../app.json";
 import { getResource } from "../../constants/settings";
-import { NetworkException } from "../../utils/Exception";
-import { fetchTestMock, fetchMeMock, fetchTestsMock} from "./mocked-api-methods";
 import store from "../../store/config";
+import { NetworkException } from "../../utils/Exception";
+import {
+  fetchTestMock,
+  fetchMeMock,
+  fetchTestsMock,
+} from "./mocked-api-methods";
 
 const appName = appJson.expo.name;
 const defaultResource = "hearing";
@@ -35,7 +39,7 @@ const fetchData = (path, resource = defaultResource, parseJson = true) =>
       }
       throw new NetworkException(response.statusText, response.status);
     })
-    );
+  );
 
 export const postData = (
   path,
@@ -80,24 +84,30 @@ export function getReleaseNote(version) {
 export const getServiceMessage = () =>
   fetchOpenData(`/ServiceMessage/${appName}`, "mad");
 
-export const postTakeTest = () => store.getState().appConfig.current.demoMode  ? postTakeTestMock() : 
-  postData(`/me/tests/takeTest`, {
-    hz500Db: 0,
-    hz1000Db: 0,
-    hz2000Db: 0,
-    hz3000Db: -40,
-    hz4000Db: -50,
-    hz6000Db: -60,
-    hz8000Db: 0,
-  });
+export const postTakeTest = () =>
+  store.getState().appConfig.current.demoMode
+    ? postTakeTestMock()
+    : postData(`/me/tests/takeTest`, {
+        hz500Db: 0,
+        hz1000Db: 0,
+        hz2000Db: 0,
+        hz3000Db: -40,
+        hz4000Db: -50,
+        hz6000Db: -60,
+        hz8000Db: 0,
+      });
 
 export const postTest = (body) => postData(`/me/tests`, body);
 
 export const appInit = () =>
   fetchData("/appStartup/init", defaultResource, false);
 
+export const fetchTests = () =>
+  store.getState().appConfig.current.demoMode
+    ? fetchTestsMock()
+    : fetchData("/me/tests");
 
-export const fetchTests =  () => store.getState().appConfig.current.demoMode ? fetchTestsMock() : fetchData("/me/tests");
-
-export const fetchMe = () => store.getState().appConfig.current.demoMode ? fetchMeMock() : fetchData("/me");
-
+export const fetchMe = () =>
+  store.getState().appConfig.current.demoMode
+    ? fetchMeMock()
+    : fetchData("/me");

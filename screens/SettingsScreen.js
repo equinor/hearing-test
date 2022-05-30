@@ -4,8 +4,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Settings from "../components/Settings";
-import { getCurrentUser } from "../store/auth";
 import { getConfig } from "../store/app-config";
+import { getCurrentUser } from "../store/auth";
 
 class SettingsScreen extends Component {
   static propTypes = {
@@ -23,14 +23,14 @@ class SettingsScreen extends Component {
   };
 
   componentDidMount() {
-  if (this.props.appConfig.demoMode) { 
-    this.setState({currentUser: "John"});
-  } else {
-    getAccount().then((response) => {
-      this.setState({ currentUser: response.username });
-    })
+    if (this.props.appConfig.demoMode) {
+      this.setState({ currentUser: "John" });
+    } else {
+      getAccount().then((response) => {
+        this.setState({ currentUser: response.username });
+      });
+    }
   }
-}
 
   render() {
     console.log("currentUser-state:" + this.state.currentUser);

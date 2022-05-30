@@ -46,7 +46,7 @@ class LoginScreen extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  onDemoPress: appConfig => dispatch(actions.setConfig(appConfig)),
+  onDemoPress: (appConfig) => dispatch(actions.setConfig(appConfig)),
 });
 
 const mapStateToProps = (state) => ({

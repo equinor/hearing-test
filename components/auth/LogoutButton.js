@@ -3,10 +3,11 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { StyleSheet } from "react-native";
 import { connect } from "react-redux";
+
 import * as colors from "../../constants/colors";
-import { authStatusTypes } from "../../types";
 import * as actions from "../../store";
 import { getAuthStatus } from "../../store/auth";
+import { authStatusTypes } from "../../types";
 
 const styles = StyleSheet.create({
   defaultButton: {
@@ -55,7 +56,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   signOut: () => dispatch(actions.loginSignOut()),
-  setConfig: appConfig => dispatch(actions.setConfig(appConfig)),
+  setConfig: (appConfig) => dispatch(actions.setConfig(appConfig)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LogoutButton);

@@ -45,9 +45,9 @@ class DefaultScreen extends Component<{
 
   componentDidMount() {
     fetchMe()
-    .then((response) => {
-      this.setState({ firstName: response.firstName });
-    })
+      .then((response) => {
+        this.setState({ firstName: response.firstName });
+      })
       .catch(() => {
         this.setState({ firstName: null });
       });
