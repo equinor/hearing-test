@@ -31,6 +31,17 @@ import { RootStackParamList } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import withUtilities from "./utils";
 
+const LightTheme = {
+  ...DefaultTheme,
+  dark: false,
+  colors: {
+    ...DefaultTheme.colors,
+    background: "#F7F7F7",
+    card: "#F7F7F7",
+    primary: EQUINOR_GREEN,
+  },
+};
+
 export default function Navigation({
   colorScheme,
 }: {
@@ -39,7 +50,7 @@ export default function Navigation({
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
-      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+      theme={colorScheme === "dark" ? DarkTheme : LightTheme}
     >
       <RootNavigator />
     </NavigationContainer>
@@ -59,23 +70,25 @@ function RootNavigator() {
       screenOptions={{
         headerTitleStyle: { color: "black" },
         headerTitleAlign: "center",
-        headerTintColor: EQUINOR_GREEN,
       }}
     >
       <Stack.Screen
         name="LoginRoute"
         component={withUtilities(LoginScreen)}
-        options={{ headerShown: false }}
+        options={{ gestureEnabled: false, headerShown: false }}
       />
       <Stack.Screen
         name="FeatureRoute"
         component={withUtilities(FeatureScreen)}
-        options={{ headerShown: false }}
+        options={{ gestureEnabled: false, headerShown: false }}
       />
       <Stack.Screen
         name="DefaultRoute"
         component={withUtilities(DefaultScreen)}
         options={({ navigation }: any) => ({
+          gestureEnabled: false,
+          headerBackVisible: false,
+          headerTitle: "",
           headerRight: () => (
             <TouchableOpacity
               testID="ButtonSettings"
@@ -85,34 +98,33 @@ function RootNavigator() {
               <Icon name="more-vert" color={EQUINOR_GREEN} size={24} />
             </TouchableOpacity>
           ),
-          headerBackVisible: false,
-          headerTitle: "",
+          headerShadowVisible: false,
         })}
       />
       <Stack.Screen
         name="PreTestRoute"
         component={withUtilities(PreTestScreen)}
-        options={{ headerShown: false }}
+        options={{ gestureEnabled: false, headerShown: false }}
       />
       <Stack.Screen
         name="SoundCheckRoute"
         component={withUtilities(SoundCheckScreen)}
-        options={{ headerShown: false }}
+        options={{ gestureEnabled: false, headerShown: false }}
       />
       <Stack.Screen
         name="SoundCheckFinishedRoute"
         component={withUtilities(SoundCheckFinishedScreen)}
-        options={{ headerShown: false }}
+        options={{ gestureEnabled: false, headerShown: false }}
       />
       <Stack.Screen
         name="TestRoute"
         component={withUtilities(TestScreen)}
-        options={{ headerShown: false }}
+        options={{ gestureEnabled: false, headerShown: false }}
       />
       <Stack.Screen
         name="TestResultRoute"
         component={withUtilities(TestResultScreen)}
-        options={{ headerShown: false }}
+        options={{ gestureEnabled: false, headerShown: false }}
       />
       <Stack.Screen
         name="NotFound"
@@ -124,16 +136,14 @@ function RootNavigator() {
           name="SettingsRoute"
           component={withUtilities(SettingsScreen)}
           options={{
-            headerTintColor: EQUINOR_GREEN,
-            title: "Settings",
             headerBackTitle: "Home",
+            title: "Settings",
           }}
         />
         <Stack.Screen
           name="FeedbackRoute"
           component={withUtilities(FeedbackScreen)}
           options={{
-            headerTintColor: EQUINOR_GREEN,
             title: "Feedback",
           }}
         />
@@ -141,7 +151,6 @@ function RootNavigator() {
           name="AboutRoute"
           component={withUtilities(AboutScreen)}
           options={{
-            headerTintColor: EQUINOR_GREEN,
             title: "About",
           }}
         />

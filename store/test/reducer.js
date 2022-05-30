@@ -7,9 +7,9 @@ import {
   appStartupInitRequested,
   appStartupInitSucceeded,
   failure,
-  fetchTestFailed,
-  fetchTestRequested,
-  fetchTestSucceeded,
+  postTakeTestFailed,
+  postTakeTestRequested,
+  postTakeTestSucceeded,
   postTestFailed,
   postTestRequested,
   postTestSucceeded,
@@ -97,12 +97,12 @@ export default handleActions(
       fetching: false,
     }),
 
-    [fetchTestRequested]: (state) => ({
+    [postTakeTestRequested]: (state) => ({
       ...state,
       test: {},
       fetching: true,
     }),
-    [fetchTestSucceeded]: (state, action) => {
+    [postTakeTestSucceeded]: (state, action) => {
       return {
         ...state,
         test: action.payload,
@@ -110,7 +110,7 @@ export default handleActions(
         fetching: false,
       };
     },
-    [fetchTestFailed]: (state, action) => ({
+    [postTakeTestFailed]: (state, action) => ({
       ...state,
       error: action.payload,
       fetching: false,

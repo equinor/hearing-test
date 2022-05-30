@@ -25,7 +25,8 @@ const environmentBanner = (ScreenComponent) =>
       return (
         <View style={{ flex: 1 }}>
           {lowerCaseBuildConfiguration !== "release" &&
-            lowerCaseBuildConfiguration !== "prod" && (
+            lowerCaseBuildConfiguration !== "prod" &&
+            lowerCaseBuildConfiguration !== "test" && (
               <Banner
                 text={BuildConfiguration}
                 viewStyle={[styles.bannerView, { backgroundColor }]}
