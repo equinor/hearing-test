@@ -30,7 +30,7 @@
     "expo-splash-screen": "0.14.2",
     "expo-status-bar": "1.2.0",
     "lodash": "4.17.21",
-    "mad-expo-core": "github:equinor/mad-expo-core#dac7310839d6037d2205bdd92fe674f234045a89",
+    "mad-expo-core": "github:equinor/mad-expo-core#d5bcc30154c835546d3ae9631a81d374a5b7c040",
     "prop-types": "15.8.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
@@ -63,6 +63,11 @@
     "prettier": "2.6.2",
     "react-test-renderer": "17.0.1",
     "typescript": "4.6.4"
+  },
+  "overrides": {
+    "react-native": {
+      "react-devtools-core": "4.14.0"
+    }
   },
   "private": true
 }
