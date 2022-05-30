@@ -23,13 +23,12 @@ class SettingsScreen extends Component {
   };
 
   componentDidMount() {
-  if (!this.props.appConfig.demoMode) { 
+  if (this.props.appConfig.demoMode) { 
+    this.setState({currentUser: "John"});
+  } else {
     getAccount().then((response) => {
       this.setState({ currentUser: response.username });
-      console.log("HAR SATT currentUser state til: " + this.state.currentUser);
     })
-  } else {
-    this.setState({currentUser: "John"});
   }
 }
 

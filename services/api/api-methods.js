@@ -80,7 +80,7 @@ export function getReleaseNote(version) {
 export const getServiceMessage = () =>
   fetchOpenData(`/ServiceMessage/${appName}`, "mad");
 
-export const postTakeTest = () => store.getState().appConfig.current.demoMode  ? fetchTestMock() : 
+export const postTakeTest = () => store.getState().appConfig.current.demoMode  ? postTakeTestMock() : 
   postData(`/me/tests/takeTest`, {
     hz500Db: 0,
     hz1000Db: 0,
@@ -96,7 +96,6 @@ export const postTest = (body) => postData(`/me/tests`, body);
 export const appInit = () =>
   fetchData("/appStartup/init", defaultResource, false);
 
-export const fetchTest = () => store.getState().appConfig.current.demoMode ? fetchTestMock() : fetchData(`/me/tests/takeTest`);
 
 export const fetchTests =  () => store.getState().appConfig.current.demoMode ? fetchTestsMock() : fetchData("/me/tests");
 

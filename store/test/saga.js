@@ -1,13 +1,13 @@
-import { put, call, takeLatest, select } from "redux-saga/effects";
+import { put, call, takeLatest } from "redux-saga/effects";
 
 import api from "../../services/api";
 import handleError from "../../utils/handleNetworkErrors";
 import * as actions from "./actions";
 
-function* postTakeTest() {
+function* postTakeTest(action) {
   try {
     yield put(actions.postTakeTestRequested());
-    const response = yield call(api.postTakeTest);
+    const response = yield call(api.postTakeTest, action.payload);
     yield put(actions.postTakeTestSucceeded(response));
   } catch (ex) {
     yield put(actions.postTakeTestFailed(ex));
