@@ -5,8 +5,8 @@ import { StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import * as colors from "../../constants/colors";
 import { authStatusTypes } from "../../types";
-import * as action from "../../store";
-import { getAuthStatus, actions } from "../../store/auth";
+import * as actions from "../../store";
+import { getAuthStatus } from "../../store/auth";
 
 const styles = StyleSheet.create({
   defaultButton: {
@@ -32,7 +32,7 @@ class LogoutButton extends Component {
       <Button
         title={data.text}
         onPress={() => {
-          this.props.resetDemoState({ key: "demoMode", value: false });
+          this.props.setConfig({ key: "demoMode", value: false });
           logout();
           this.props.nav.navigate("LoginRoute");
         }}
@@ -55,7 +55,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   signOut: () => dispatch(actions.loginSignOut()),
-  resetDemoState: appConfig => dispatch(action.setConfig(appConfig)),
+  setConfig: appConfig => dispatch(actions.setConfig(appConfig)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LogoutButton);
