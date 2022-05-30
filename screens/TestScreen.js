@@ -176,7 +176,7 @@ class TestScreen extends Component {
     );
     sound.setPan(node.panning === 0 ? -1 : node.panning);
     sound.play(() => {
-      sound.release();
+      //sound.release();
       SystemSetting.setVolume(this.state.initialSystemVolume, { showUI: true });
     });
   }
