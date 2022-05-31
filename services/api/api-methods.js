@@ -91,12 +91,11 @@ export const postTakeTest = () =>
         hz500Db: 0,
         hz1000Db: 0,
         hz2000Db: 0,
-        hz3000Db: -55,
-        hz4000Db: -55,
-        hz6000Db: -55,
+        hz3000Db: -110,
+        hz4000Db: -110,
+        hz6000Db: -110,
         hz8000Db: 0,
       });
-
 
 export const postTest = (body) => postData(`/me/tests`, body);
 

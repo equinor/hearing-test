@@ -171,12 +171,10 @@ class TestScreen extends Component {
     SystemSetting.setVolume(1, { showUI: true });
 
     // Setting playback volume
-    sound.setVolume(
-      node.stimulusMultiplicative * Math.pow(10, node.headsetProfileDb / 20)
-    );
+    sound.setVolume(node.stimulusMultiplicative);
     sound.setPan(node.panning === 0 ? -1 : node.panning);
     sound.play(() => {
-      //sound.release();
+      sound.release();
       SystemSetting.setVolume(this.state.initialSystemVolume, { showUI: true });
     });
   }
