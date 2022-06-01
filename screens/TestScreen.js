@@ -98,7 +98,11 @@ class TestScreen extends Component {
       !this.props.testIsFinished &&
       (this.props.node !== prevProps.node || this.state.nextNodeWaiting)
     ) {
-      if (!this.state.pauseAfterNode && !this.state.modalVisible) {
+      if (
+        !this.state.pauseAfterNode &&
+        !this.state.modalVisible &&
+        this.props.testIsRunning
+      ) {
         this.runNode(this.props.node);
         if (this.state.nextNodeWaiting)
           this.setState({ nextNodeWaiting: false }); // eslint-disable-line react/no-did-update-set-state
