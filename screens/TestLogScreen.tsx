@@ -54,7 +54,11 @@ class TestLogScreen extends Component<{
             const { item } = e;
             return (
               <NavigationItem
-                title={new Date(item.dateTaken).toLocaleDateString("nb-NO")}
+                title={new Date(item.dateTaken).toLocaleDateString("nb-NO", {
+                  month: "2-digit",
+                  day: "2-digit",
+                  year: "numeric",
+                })}
                 onPress={() => this.showTest(item)}
               />
             );

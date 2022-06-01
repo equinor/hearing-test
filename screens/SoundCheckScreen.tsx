@@ -196,12 +196,12 @@ const SoundCheckScreen = (props: any) => {
                     "Da må du begynne på nytt neste gang",
                     [
                       {
-                        text: "Cancel",
+                        text: "Avbryt",
                         onPress: () => {},
                         style: "default",
                       },
                       {
-                        text: "Avslutt",
+                        text: "Bekreft",
                         onPress: () =>
                           props.navigation.navigate("DefaultRoute"),
                         style: "destructive",

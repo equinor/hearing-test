@@ -358,12 +358,12 @@ class TestScreen extends Component {
                           "Da må du begynne på nytt neste gang",
                           [
                             {
-                              text: "Cancel",
+                              text: "Avbryt",
                               onPress: () => {},
                               style: "default",
                             },
                             {
-                              text: "Exit",
+                              text: "Avslutt",
                               onPress: () => {
                                 this.abortTest();
                                 this.props.navigation.navigate("DefaultRoute");
@@ -383,12 +383,12 @@ class TestScreen extends Component {
                           "Dette vil slette all data fra denne testen",
                           [
                             {
-                              text: "Cancel",
+                              text: "Avbryt",
                               onPress: () => {},
                               style: "default",
                             },
                             {
-                              text: "Restart",
+                              text: "Omstart",
                               onPress: () => {
                                 this.abortTest();
                                 this.props.navigation.navigate("TestRoute");
@@ -408,7 +408,7 @@ class TestScreen extends Component {
                           "Dette vil slette all data fra denne testen",
                           [
                             {
-                              text: "Cancel",
+                              text: "Avbryt",
                               onPress: () => {},
                               style: "default",
                             },
