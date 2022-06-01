@@ -79,6 +79,7 @@ class TestScreen extends Component {
     pauseAfterNode: false,
     nextNodeWaiting: false,
     initialSystemVolume: 0.5,
+    isPlayingFirstNodeFirstTime: true,
   };
 
   componentDidMount() {
@@ -86,7 +87,6 @@ class TestScreen extends Component {
     const setInitialDeviceSystemVolume = async () =>
       await SystemSetting.getVolume()
         .then((volume) => {
-          console.log({ success: true, volume });
           this.setState({ initialSystemVolume: volume });
         })
         .catch((err) => console.log({ err }));
@@ -100,6 +100,13 @@ class TestScreen extends Component {
         !this.state.modalVisible &&
         this.props.testIsRunning
       ) {
+        if (
+          Object.keys(prevProps.node).length > 0 &&
+          prevProps.node.data.index !== 1 &&
+          this.props.node.data.index === 1
+        ) {
+          this.setState({ isPlayingFirstNodeFirstTime: true });
+        }
         this.runNode(this.props.node);
         if (this.state.nextNodeWaiting)
           this.setState({ nextNodeWaiting: false }); // eslint-disable-line react/no-did-update-set-state
@@ -131,15 +138,15 @@ class TestScreen extends Component {
       // We register a press if it was done in the postDelay window
       if (
         this.timer > node.data.preDelayMs &&
-        this.timer < node.data.preDelayMs + node.data.postDelayMs
+        this.timer < node.data.preDelayMs + node.data.postDelayMs &&
+        !this.state.success
       ) {
-        this.setState({ success: true });
+        this.setState({ success: true, reactionTimeMs });
       }
-      this.setState({
-        reactionTimeMs,
-        numberOfPresses: this.state.numberOfPresses + 1,
-      });
     }
+    this.setState((prevState) => ({
+      numberOfPresses: prevState.numberOfPresses + 1,
+    }));
   }
 
   abortTest() {
@@ -150,17 +157,21 @@ class TestScreen extends Component {
     this.setState({ modalVisible: false });
   }
 
-  async nodeFinished() {
+  async nodeFinished(node) {
     const payload = {
       reactionTimeMs: this.state.reactionTimeMs,
       numberOfClicks: this.state.numberOfPresses,
       success: this.state.success,
       systemVolume: await SystemSetting.getVolume(),
+      isPlayingFirstNodeFirstTime: this.state.isPlayingFirstNodeFirstTime,
     };
     if (this.state.success) {
       this.props.actionSuccess(payload);
     } else {
       this.props.actionFailure(payload);
+    }
+    if (this.state.isPlayingFirstNodeFirstTime) {
+      this.setState({ isPlayingFirstNodeFirstTime: false });
     }
   }
 
@@ -168,7 +179,7 @@ class TestScreen extends Component {
     // Setting master volume
     // Setting volume each time just to make sure the volume is not changed between plays
     // also, if headset was plugged in after componentDidMount() was called, we need to call this again
-    SystemSetting.setVolume(1, { showUI: true });
+    SystemSetting.setVolume(0.1, { showUI: true });
 
     // Setting playback volume
     sound.setVolume(node.stimulusMultiplicative);
@@ -222,7 +233,7 @@ class TestScreen extends Component {
   }
 
   runNode(node) {
-    //this.playSilentAudioClip();
+    this.playSilentAudioClip();
     if (node && node.data && node.data.sound) {
       // Load the audio for current node
       // and wait with starting the node-timer until the sound is ready.
@@ -253,7 +264,7 @@ class TestScreen extends Component {
               this.timer = new Date() - startTime;
             } else {
               clearInterval(intervalId);
-              this.nodeFinished();
+              this.nodeFinished(node);
             }
           }, intervalSpeed);
           this.setState({ intervalId });

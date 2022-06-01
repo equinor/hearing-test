@@ -22,12 +22,18 @@ import {
 function setNextNode(state, userResponse) {
   const clonedState = _.cloneDeep(state);
   clonedState.node.data.userResponse = userResponse;
-  clonedState.node = userResponse.success
-    ? clonedState.node.success
-    : clonedState.node.failure;
 
-  // Remember the path we have travelled
-  clonedState.userResponses.push(clonedState.node);
+  if (
+    (userResponse.isPlayingFirstNodeFirstTime && userResponse.success) ||
+    !userResponse.isPlayingFirstNodeFirstTime
+  ) {
+    // Remember the path we have travelled
+    clonedState.userResponses.push(clonedState.node);
+
+    clonedState.node = userResponse.success
+      ? clonedState.node.success
+      : clonedState.node.failure;
+  }
 
   if (!(clonedState.node.success && clonedState.node.failure)) {
     // We are on a leaf-node, let's save the resulting node (the leafNode we end on)
