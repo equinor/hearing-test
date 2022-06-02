@@ -91,9 +91,9 @@ export const postTakeTest = () =>
         hz500Db: 0,
         hz1000Db: 0,
         hz2000Db: 0,
-        hz3000Db: -90,
-        hz4000Db: -91.5,
-        hz6000Db: -93,
+        hz3000Db: -83.9,
+        hz4000Db: -85.4,
+        hz6000Db: -86.6,
         hz8000Db: 0,
       });
 
