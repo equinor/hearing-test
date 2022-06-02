@@ -170,7 +170,9 @@ class TestScreen extends Component {
     } else {
       this.props.actionFailure(payload);
     }
-    if (this.state.isPlayingFirstNodeFirstTime) {
+
+    // node.data.index === 1 seems redundant but it is needed
+    if (node.data.index === 1 && this.state.isPlayingFirstNodeFirstTime) {
       this.setState({ isPlayingFirstNodeFirstTime: false });
     }
   }
