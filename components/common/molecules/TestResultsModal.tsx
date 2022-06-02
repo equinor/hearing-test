@@ -54,7 +54,7 @@ const TestResultsModal = (props: {
           icon="close"
           onPress={() => {
             setSelectedItem(null);
-            return props.setInvisible();
+            props.setInvisible();
           }}
         />
       </View>
