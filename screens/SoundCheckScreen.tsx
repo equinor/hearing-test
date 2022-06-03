@@ -130,7 +130,7 @@ const SoundCheckScreen = (props: any) => {
   function playAudioTest(ear: "left" | "right") {
     // Setting volume each time just to make sure the volume is not changed between plays
     // also, if headset was plugged in after componentDidMount() was called, we need to call this again
-    SystemSetting.setVolume(0.5, { showUI: true }); //Todo: Disabling this until we know how the calibration step should be done..
+    //SystemSetting.setVolume(0.5, { showUI: true }); //Todo: Disabling this until we know how the calibration step should be done..
     sound.setVolume(0.5);
     if (ear === "left") sound.setPan(-1);
     if (ear === "right") sound.setPan(1);
@@ -142,7 +142,7 @@ const SoundCheckScreen = (props: any) => {
         // eslint-disable-next-line no-console
         console.log("playback failed due to audio decoding errors");
       }
-      SystemSetting.setVolume(initialSystemVolume, { showUI: true });
+      //SystemSetting.setVolume(initialSystemVolume, { showUI: true });
     });
   }
 
