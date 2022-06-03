@@ -358,12 +358,12 @@ class TestScreen extends Component {
                           "Da må du begynne på nytt neste gang",
                           [
                             {
-                              text: "Avbryt",
+                              text: "Nei",
                               onPress: () => {},
-                              style: "default",
+                              style: "cancel",
                             },
                             {
-                              text: "Avslutt",
+                              text: "Ja",
                               onPress: () => {
                                 this.abortTest();
                                 this.props.navigation.navigate("DefaultRoute");
@@ -383,12 +383,12 @@ class TestScreen extends Component {
                           "Dette vil slette all data fra denne testen",
                           [
                             {
-                              text: "Avbryt",
+                              text: "Nei",
                               onPress: () => {},
-                              style: "default",
+                              style: "cancel",
                             },
                             {
-                              text: "Omstart",
+                              text: "Ja",
                               onPress: () => {
                                 this.abortTest();
                                 this.props.navigation.navigate("TestRoute");
@@ -408,12 +408,12 @@ class TestScreen extends Component {
                           "Dette vil slette all data fra denne testen",
                           [
                             {
-                              text: "Avbryt",
+                              text: "Nei",
                               onPress: () => {},
-                              style: "default",
+                              style: "cancel",
                             },
                             {
-                              text: "Ny lydsjekk",
+                              text: "Ja",
                               onPress: () => {
                                 this.abortTest();
                                 this.props.navigation.navigate(
