@@ -25,7 +25,11 @@ const TestResultItem = (props: {
         >
           <IconButton icon="chevron-left" onPress={props.resetSelectedItem} />
           <Typography variant="h2">
-            {new Date(props.data.dateTaken).toLocaleDateString("nb-NO")}
+            {new Date(props.data.dateTaken).toLocaleDateString("nb-NO", {
+              month: "2-digit",
+              day: "2-digit",
+              year: "numeric",
+            })}
           </Typography>
           <View style={{ width: 48, height: 48 }} />
         </View>

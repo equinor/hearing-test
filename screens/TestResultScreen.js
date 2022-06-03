@@ -150,15 +150,15 @@ class TestResultScreen extends Component {
                     "Du kan fortsatt se resultatene dine fra startsiden.",
                     [
                       {
-                        text: "Cancel",
+                        text: "Nei",
                         onPress: () => {},
-                        style: "default",
+                        style: "cancel",
                       },
                       {
-                        text: "Avslutt",
+                        text: "Ja",
                         onPress: () =>
                           this.props.navigation.navigate("DefaultRoute"),
-                        style: "default",
+                        style: "destructive",
                       },
                     ]
                   )
