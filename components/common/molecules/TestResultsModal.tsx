@@ -50,7 +50,13 @@ const TestResultsModal = (props: {
           }}
         />
         <Typography variant="h1">Din hørsel</Typography>
-        <IconButton icon="close" onPress={() => props.setInvisible()} />
+        <IconButton
+          icon="close"
+          onPress={() => {
+            setSelectedItem(null);
+            props.setInvisible();
+          }}
+        />
       </View>
       {selectedItem ? (
         <TestResultItem
