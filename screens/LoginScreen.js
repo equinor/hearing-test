@@ -4,8 +4,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import appJson from "../app.json";
+import logo from "../assets/images/logo.png";
 import * as ENVIRONMENT from "../constants/settings";
-import logo from "../resources/images/logo.png";
 import * as actions from "../store";
 import { getVersion } from "../store/version";
 
