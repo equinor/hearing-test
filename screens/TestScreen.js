@@ -186,7 +186,7 @@ class TestScreen extends Component {
 
     // Setting playback volume
     sound.setVolume(node.stimulusMultiplicative);
-    sound.setPan(node.panning === 0 ? -1 : node.panning);
+    sound.setPan(node.panning);
     sound.play(() => {
       sound.release();
       //SystemSetting.setVolume(this.state.initialSystemVolume, { showUI: true });
