@@ -77,7 +77,7 @@ const SoundCheckScreen = (props: any) => {
     Sound.setActive(true);
 
     // Load the sound file 'testBell.wav' from the app bundle
-    SystemSetting.setVolume(0.5, { showUI: true });
+    SystemSetting.setVolume(0.5, { showUI: false });
   }, []);
 
   const pages: SoundCheckPageJSON[] = [

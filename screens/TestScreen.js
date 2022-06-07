@@ -91,7 +91,7 @@ class TestScreen extends Component {
         })
         .catch((err) => console.log({ err }));
     setInitialDeviceSystemVolume();
-    SystemSetting.setVolume(0.5, { showUI: true });
+    SystemSetting.setVolume(0.5, { showUI: false });
   }
 
   componentDidUpdate(prevProps) {
