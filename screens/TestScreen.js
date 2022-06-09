@@ -102,9 +102,8 @@ class TestScreen extends Component {
         this.props.testIsRunning
       ) {
         if (
-          Object.keys(prevProps.node).length > 0 &&
-          prevProps.node.data.index !== 1 &&
-          this.props.node.data.index === 1
+          prevProps.node.data?.index !== 1 &&
+          this.props.node.data?.index === 1
         ) {
           this.setState({ isPlayingFirstNodeFirstTime: true });
         }

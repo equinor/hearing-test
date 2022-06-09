@@ -132,6 +132,7 @@ export default handleActions(
         testResult: action.payload,
         error: { message: null, status: null },
         fetching: false,
+        testIsFinished: false,
       };
     },
     [postTestFailed]: (state, action) => ({
