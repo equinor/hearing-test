@@ -121,13 +121,14 @@ class TestScreen extends Component {
         }); // eslint-disable-line react/no-did-update-set-state
       }
     }
-    if (this.props.testIsFinished !== prevProps.testIsFinished) {
-      if (this.props.testIsFinished) {
-        //this.stopSilentAudioClip();
-        Sound.setActive(false);
-        this.props.actionPostTest(this.props.test);
-        this.props.navigation.navigate("TestResultRoute");
-      }
+    if (
+      this.props.testIsFinished &&
+      this.props.testIsFinished !== prevProps.testIsFinished
+    ) {
+      //this.stopSilentAudioClip();
+      Sound.setActive(false);
+      this.props.actionPostTest(this.props.test);
+      this.props.navigation.navigate("TestResultRoute");
     }
   }
 
