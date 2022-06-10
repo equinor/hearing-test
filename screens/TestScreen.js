@@ -95,7 +95,10 @@ class TestScreen extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.node !== prevProps.node || this.state.nextNodeWaiting) {
+    if (
+      !this.props.testIsFinished &&
+      (this.props.node !== prevProps.node || this.state.nextNodeWaiting)
+    ) {
       if (
         !this.state.pauseAfterNode &&
         !this.state.modalVisible &&
