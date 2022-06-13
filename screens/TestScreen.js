@@ -229,7 +229,7 @@ class TestScreen extends Component {
   playSilentAudioClip() {
     if (!this.isPlayingSilentAudioClip) {
       this.isPlayingSilentAudioClip = true;
-      this.silentAudioClip.setVolume(0);
+      this.silentAudioClip.setVolume(0.1);
       this.silentAudioClip.setNumberOfLoops(-1);
       this.silentAudioClip.play();
     }
