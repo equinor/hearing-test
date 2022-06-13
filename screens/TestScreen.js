@@ -68,7 +68,8 @@ class TestScreen extends Component {
     Sound.setActive(true);
 
     // Pre-load audio file from `assets/audio`
-    this.silentAudioClip = new Sound("1000Hz_dobbel.wav", Sound.MAIN_BUNDLE);
+    this.silentAudioClip = new Sound("Silence10min.wav", Sound.MAIN_BUNDLE);
+    this.playSilentAudioClip();
   }
 
   state = {
@@ -125,7 +126,7 @@ class TestScreen extends Component {
       this.props.testIsFinished &&
       this.props.testIsFinished !== prevProps.testIsFinished
     ) {
-      //this.stopSilentAudioClip();
+      this.stopSilentAudioClip();
       Sound.setActive(false);
       this.props.actionPostTest(this.props.test);
       this.props.navigation.navigate("TestResultRoute");
@@ -154,7 +155,7 @@ class TestScreen extends Component {
   }
 
   abortTest() {
-    //this.stopSilentAudioClip();
+    this.stopSilentAudioClip();
     Sound.setActive(false);
     clearInterval(this.state.intervalId);
     this.props.actionStopTest();
