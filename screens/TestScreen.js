@@ -68,8 +68,7 @@ class TestScreen extends Component {
     Sound.setActive(true);
 
     // Pre-load audio file from `assets/audio`
-    this.silentAudioClip = new Sound("Silence10min.wav", Sound.MAIN_BUNDLE);
-    this.playSilentAudioClip();
+    this.silentAudioClip = new Sound("LFNoise10min.wav", Sound.MAIN_BUNDLE);
   }
 
   state = {
@@ -93,6 +92,7 @@ class TestScreen extends Component {
         .catch((err) => console.log({ err }));
     setInitialDeviceSystemVolume();
     SystemSetting.setVolume(0.5, { showUI: false });
+    this.playSilentAudioClip();
   }
 
   componentDidUpdate(prevProps) {
