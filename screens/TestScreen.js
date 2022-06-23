@@ -68,7 +68,9 @@ class TestScreen extends Component {
     Sound.setActive(true);
 
     // Pre-load audio file from `assets/audio`
-    this.silentAudioClip = new Sound("LFNoise10min.wav", Sound.MAIN_BUNDLE);
+    this.silentAudioClip = new Sound(
+      require("../assets/audio/1000Hz_dobbel.wav")
+    );
   }
 
   state = {
@@ -92,7 +94,6 @@ class TestScreen extends Component {
         .catch((err) => console.log({ err }));
     setInitialDeviceSystemVolume();
     SystemSetting.setVolume(0.5, { showUI: false });
-    this.playSilentAudioClip();
   }
 
   componentDidUpdate(prevProps) {
@@ -220,6 +221,7 @@ class TestScreen extends Component {
         text="Trykk for å starte"
         onPress={() => {
           /* Start */
+          this.playSilentAudioClip();
           actionStartTest();
         }}
       />
@@ -229,7 +231,7 @@ class TestScreen extends Component {
   playSilentAudioClip() {
     if (!this.isPlayingSilentAudioClip) {
       this.isPlayingSilentAudioClip = true;
-      this.silentAudioClip.setVolume(0.1);
+      this.silentAudioClip.setVolume(0);
       this.silentAudioClip.setNumberOfLoops(-1);
       this.silentAudioClip.play();
     }
