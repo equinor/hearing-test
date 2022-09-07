@@ -10,14 +10,14 @@
       "AzureADResourceId": "0a429637-3fe1-4452-bd95-c87923ba340b",
       "ApiBaseUrl": "https://api.statoil.com/app/mad/api/v1",
       "scopes": [
-        "0a429637-3fe1-4452-bd95-c87923ba340b/user_impersonation"
+        "api://0a429637-3fe1-4452-bd95-c87923ba340b/user_impersonation"
       ]
     },
     "hearing": {
       "AzureADResourceId": "4b062a04-58a6-4b24-96b3-0a01bc20ea15",
       "ApiBaseUrl": "https://api.statoil.com/app/hearing/prod/api/v2",
       "scopes": [
-        "4b062a04-58a6-4b24-96b3-0a01bc20ea15/user_impersonation"
+        "api://4b062a04-58a6-4b24-96b3-0a01bc20ea15/user_impersonation"
       ]
     }
   }
