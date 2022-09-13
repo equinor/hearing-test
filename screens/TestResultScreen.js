@@ -82,7 +82,6 @@ class TestResultScreen extends Component {
       title: "Testen er fullført",
       image: thumbsUp,
       subTitle: "Takk for at du testet appen!",
-      description: "Vennligst trykk på knappen under for å gi tilbakemelding",
       secondaryButton: {
         enable: true,
         text: "Se resultater",
@@ -139,16 +138,6 @@ class TestResultScreen extends Component {
               style={{ height: 250, resizeMode: "contain", marginBottom: 24 }}
             />
             <Typography variant="h2">{this.page.subTitle}</Typography>
-            <Typography
-              variant="p"
-              style={{
-                margin: 12,
-                paddingHorizontal: 36,
-                textAlign: "center",
-              }}
-            >
-              {this.page.description}
-            </Typography>
           </View>
           <View
             style={{
