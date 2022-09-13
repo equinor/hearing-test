@@ -131,42 +131,8 @@ class TestResultScreen extends Component {
               padding: 12,
             }}
           >
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-                width: "100%",
-                padding: 36,
-                paddingTop: 12,
-              }}
-            >
-              <IconButton
-                icon="close"
-                onPress={() =>
-                  Alert.alert(
-                    "Avslutte?",
-                    "Du kan fortsatt se resultatene dine fra startsiden.",
-                    [
-                      {
-                        text: "Nei",
-                        onPress: () => {},
-                        style: "cancel",
-                      },
-                      {
-                        text: "Ja",
-                        onPress: () =>
-                          this.props.navigation.navigate("DefaultRoute"),
-                        style: "destructive",
-                      },
-                    ]
-                  )
-                }
-              />
             <Typography variant="h1">{this.page.title}</Typography>
-              <View style={{ width: 48, height: 48 }} />
-            </View>
+            <View style={{ width: 48, height: 48 }} />
             {/*  Results-header section */}
             <Image
               source={this.page.image}
