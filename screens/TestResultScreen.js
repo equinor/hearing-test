@@ -25,10 +25,10 @@ import { selectError, selectTestResult } from "../store/test/reducer";
 export const FORMS_URL =
   "https://forms.office.com/Pages/ResponsePage.aspx?id=NaKkOuK21UiRlX_PBbRZsC9rzeD3BlFJi0JbArgz2wRURUxPWVRWUVBPSlVYUVc5UElIQjJXMFRSWS4u";
 
-class TestResultScreen extends Component {
+export class TestResultScreen extends Component {
     static propTypes = {
-    error: PropTypes.object.isRequired,
-    testResult: PropTypes.object.isRequired,
+    error: PropTypes.object,
+    testResult: PropTypes.object,
     };
 
   static defaultProps = {};
@@ -99,7 +99,11 @@ class TestResultScreen extends Component {
     const { error, testResult } = this.props;
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={{ flex: 1, width: "100%" }}>
+        <View style={{ 
+          flex: 1,
+          justifyContent: "space-between",
+          flexDirection: "column",
+        }}>
             {error && error.status && (
             <TouchableHighlight
               style={{ backgroundColor: STOP, padding: 12, margin: 0 }}
@@ -126,29 +130,33 @@ class TestResultScreen extends Component {
             style={{
               flex: 1,
               alignItems: "center",
-              width: "100%",
-              padding: 12,
             }}
           >
             <Typography variant="h1">{this.page.title}</Typography>
-            <View style={{ width: 48, height: 48 }} />
             {/*  Results-header section */}
             <Image
               source={this.page.image}
-              style={{ height: 250, resizeMode: "contain", marginBottom: 24 }}
+              style={{ height: 250, resizeMode: "contain"}}
             />
             <Typography variant="h2">{this.page.subTitle}</Typography>
           </View>
           <View
             style={{
               flex: 1,
-              marginBottom: 40,
-              flexDirection: "column-reverse",
-              justifyContent: "flex-start",
-              padding: 12,
+              flexDirection: "column",
+              justifyContent: "center",
             }}
           >
             {/*  Buttons-section */}
+            <ButtonEDS
+              onPress={() =>
+                this.props.navigation.navigate("DefaultRoute")
+              }
+              text="Gå til hovedmeny"
+              outlined={false}
+              small={false}
+              danger={false}
+            />
 
             {this.page.secondaryButton.enable ? (
               <ButtonEDS
@@ -170,15 +178,6 @@ class TestResultScreen extends Component {
               }}
               text="Gi tilbakemelding" // "Se resultater"
               outlined
-              small={false}
-              danger={false}
-            />
-            <ButtonEDS
-              onPress={() =>
-                this.props.navigation.navigate("DefaultRoute")
-              }
-              text="Gå til hovedmeny"
-              outlined={false}
               small={false}
               danger={false}
             />
