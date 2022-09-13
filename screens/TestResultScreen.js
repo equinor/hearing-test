@@ -26,10 +26,10 @@ export const FORMS_URL =
   "https://forms.office.com/Pages/ResponsePage.aspx?id=NaKkOuK21UiRlX_PBbRZsC9rzeD3BlFJi0JbArgz2wRURUxPWVRWUVBPSlVYUVc5UElIQjJXMFRSWS4u";
 
 class TestResultScreen extends Component {
-  static propTypes = {
+    static propTypes = {
     error: PropTypes.object.isRequired,
     testResult: PropTypes.object.isRequired,
-  };
+    };
 
   static defaultProps = {};
 
@@ -101,7 +101,7 @@ class TestResultScreen extends Component {
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <View style={{ flex: 1, width: "100%" }}>
-          {error && error.status && (
+            {error && error.status && (
             <TouchableHighlight
               style={{ backgroundColor: STOP, padding: 12, margin: 0 }}
               onPress={() =>
@@ -164,7 +164,7 @@ class TestResultScreen extends Component {
                   )
                 }
               />
-              <Typography variant="h1">{this.page.title}</Typography>
+            <Typography variant="h1">{this.page.title}</Typography>
               <View style={{ width: 48, height: 48 }} />
             </View>
             {/*  Results-header section */}
@@ -197,13 +197,13 @@ class TestResultScreen extends Component {
 
             {this.page.secondaryButton.enable ? (
               <ButtonEDS
-                onPress={this.page.secondaryButton.onPress}
-                text={this.page.secondaryButton.text}
-                outlined
+              onPress={this.page.secondaryButton.onPress}
+              text={this.page.secondaryButton.text}
+              outlined
               />
-            ) : (
-              <></>
-            )}
+              ) : (
+                <></>
+                )}
             <ButtonEDS
               onPress={async () => {
                 const supported = await Linking.canOpenURL(FORMS_URL);
@@ -214,6 +214,15 @@ class TestResultScreen extends Component {
                 }
               }}
               text="Gi tilbakemelding" // "Se resultater"
+              outlined
+              small={false}
+              danger={false}
+            />
+            <ButtonEDS
+              onPress={() =>
+                this.props.navigation.navigate("DefaultRoute")
+              }
+              text="Gå til hovedmeny"
               outlined={false}
               small={false}
               danger={false}
