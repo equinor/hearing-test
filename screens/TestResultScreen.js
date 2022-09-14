@@ -25,11 +25,11 @@ import { selectError, selectTestResult } from "../store/test/reducer";
 export const FORMS_URL =
   "https://forms.office.com/Pages/ResponsePage.aspx?id=NaKkOuK21UiRlX_PBbRZsC9rzeD3BlFJi0JbArgz2wRURUxPWVRWUVBPSlVYUVc5UElIQjJXMFRSWS4u";
 
-export class TestResultScreen extends Component {
-    static propTypes = {
-    error: PropTypes.object,
-    testResult: PropTypes.object,
-    };
+class TestResultScreen extends Component {
+  static propTypes = {
+    error: PropTypes.object.isRequired,
+    testResult: PropTypes.object.isRequired,
+  };
 
   static defaultProps = {};
 
@@ -157,7 +157,7 @@ export class TestResultScreen extends Component {
               small={false}
               danger={false}
             />
-
+            
             {this.page.secondaryButton.enable ? (
               <ButtonEDS
               onPress={this.page.secondaryButton.onPress}
