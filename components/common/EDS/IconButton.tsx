@@ -4,7 +4,7 @@ import { TouchableOpacity, View } from "react-native";
 
 import { EQUINOR_GREEN } from "../../../constants/colors";
 
-const IconButton = (props: { icon: string; onPress: Function }) => {
+const IconButton = (props: { icon: string; onPress: Function; size?: number }) => {
   const [activeTouch, setActiveTouch] = useState(false);
 
   return (
@@ -12,8 +12,8 @@ const IconButton = (props: { icon: string; onPress: Function }) => {
       style={{
         borderRadius: 180,
         aspectRatio: 1,
-        height: 48,
-        width: 48,
+        height: props.size || 48,
+        width: props.size|| 48,
         backgroundColor: activeTouch ? "#DEEDEE" : "transparent",
         justifyContent: "center",
         alignItems: "center",
@@ -27,7 +27,7 @@ const IconButton = (props: { icon: string; onPress: Function }) => {
           props.onPress();
         }}
       >
-        <Icon name={props.icon} size={24} color={EQUINOR_GREEN} />
+        <Icon name={props.icon} size={props.size || 24} color={EQUINOR_GREEN} />
       </TouchableOpacity>
     </View>
   );

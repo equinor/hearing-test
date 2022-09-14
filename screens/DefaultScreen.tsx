@@ -13,6 +13,7 @@ import { connect } from "react-redux";
 
 import ButtonEDS from "../components/common/EDS/Button";
 import Card from "../components/common/atoms/Card";
+import IconButton from "../components/common/EDS/IconButton";
 import NavigationItem from "../components/common/atoms/NavigationItem";
 import Typography from "../components/common/atoms/Typography";
 import TestResultsModal from "../components/common/molecules/TestResultsModal";
@@ -40,16 +41,23 @@ class DefaultScreen extends Component<{
 
   state = {
     firstName: null,
+    location: null,
     testResultsModalVisible: false,
   };
 
   componentDidMount() {
     fetchMe()
       .then((response) => {
-        this.setState({ firstName: response.firstName });
+        this.setState({
+          firstName: response.firstName,
+          location: response.location
+        });
       })
       .catch(() => {
-        this.setState({ firstName: null });
+        this.setState({
+          firstName: null,
+          location: null
+        });
       });
   }
 
@@ -85,10 +93,27 @@ class DefaultScreen extends Component<{
         <View style={styles.component}>
           <Typography
             variant="h1"
-            style={{ paddingLeft: 4, paddingBottom: 32 }}
+            style={{ paddingLeft: 4, marginBottom: 4 }}
           >
             Hei{this.state.firstName ? ` ${this.state.firstName}` : ""},
           </Typography>
+          <View style={{
+              flex: 1,
+              flexDirection: "row",
+              alignItems: "center",
+              paddingLeft: 4,
+              marginBottom: 32,
+            }}
+          >
+            <Typography variant="h2" style={{ marginRight: 4 }}>
+              Din lokasjon er {(this.state.location || "ukjent")}
+            </Typography>
+            <IconButton
+              icon="help"
+              onPress={() => console.log("")}
+              size={20}
+            />
+          </View>
           <Card>
             <Typography variant="h2" style={{ paddingBottom: 16 }}>
               Er du klar for en ny test?
