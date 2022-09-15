@@ -22,6 +22,7 @@ import { fetchMe } from "../services/api/api-methods";
 import { appStartupInit } from "../store/test/actions";
 import { selectError } from "../store/test/reducer";
 import { FORMS_URL } from "./TestResultScreen";
+import { SlideModal } from "../components/common/molecules/SlideModal";
 
 const styles = StyleSheet.create({
   component: {
@@ -43,6 +44,7 @@ class DefaultScreen extends Component<{
     firstName: null,
     location: null,
     testResultsModalVisible: false,
+    locationHelpModalVisible: false
   };
 
   componentDidMount() {
@@ -63,6 +65,10 @@ class DefaultScreen extends Component<{
 
   setModalVisible = (value: boolean) => {
     this.setState({ testResultsModalVisible: value });
+  };
+
+  setLocationHelpModalVisible = (value: boolean) => {
+    this.setState({ locationHelpModalVisible: value });
   };
 
   render() {
@@ -110,7 +116,7 @@ class DefaultScreen extends Component<{
             </Typography>
             <IconButton
               icon="help"
-              onPress={() => console.log("")}
+              onPress={() => this.setLocationHelpModalVisible(true)}
               size={20}
             />
           </View>
@@ -156,6 +162,15 @@ class DefaultScreen extends Component<{
           visible={this.state.testResultsModalVisible}
           setInvisible={() => this.setModalVisible(false)}
         />
+        <SlideModal
+          title="Lokasjon Hjelp"
+          visible={this.state.locationHelpModalVisible}
+          setInvisible={() => this.setLocationHelpModalVisible(false)}
+        >
+          <Typography variant="p" style={{ paddingTop: 32, paddingHorizontal: 24 }}>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </Typography>
+        </SlideModal>
       </ScrollView>
     );
   }
