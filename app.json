@@ -1,4 +1,55 @@
 {
-  "name": "hearingtest",
-  "displayName": "Hørselsmonitorering"
+  "expo": {
+    "name": "hearingtest",
+    "slug": "hearingtest",
+    "version": "0.2.11",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "hearingtest",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.equinor.hearingtest.test",
+      "buildNumber": "1",
+      "infoPlist": {
+        "CFBundleAllowMixedLocalizations": true
+      },
+      "config": {
+        "usesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "com.equinor.hearingtest.test",
+      "versionCode": 1,
+      "permissions": [],
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "plugins": [
+      [
+        "react-native-msal",
+        {
+          "androidPackageSignatureHash": "<base64 package signature hash>"
+        }
+      ],
+      "./add-pods"
+    ],
+    "web": {
+      "favicon": "./assets/images/favicon.png",
+      "buildNumber": "1"
+    }
+  }
 }

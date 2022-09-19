@@ -1,0 +1,70 @@
+import React from "react";
+import { View, Dimensions } from "react-native";
+import ImageModal from "react-native-image-modal";
+
+import { TestResult } from "../../../types";
+import IconButton from "../EDS/IconButton";
+import Typography from "../atoms/Typography";
+
+const TestResultItem = (props: {
+  data: TestResult;
+  resetSelectedItem: Function;
+  hideTop?: boolean;
+}) => {
+  return (
+    <View style={{ flex: 1, paddingTop: 4, backgroundColor: "white" }}>
+      {!props.hideTop && (
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            paddingHorizontal: 24,
+          }}
+        >
+          <IconButton icon="chevron-left" onPress={props.resetSelectedItem} />
+          <Typography variant="h2">
+            {new Date(props.data.dateTaken).toLocaleDateString("nb-NO", {
+              month: "2-digit",
+              day: "2-digit",
+              year: "numeric",
+            })}
+          </Typography>
+          <View style={{ width: 48, height: 48 }} />
+        </View>
+      )}
+      <View
+        style={{
+          backgroundColor: "white",
+          borderRadius: 4,
+          marginTop: 40,
+          marginBottom: 20,
+        }}
+      >
+        <Typography variant="p" style={{ paddingLeft: 18 }}>
+          {props.data.name}
+        </Typography>
+        <View style={{ alignItems: "center" }}>
+          <ImageModal
+            resizeMode="contain"
+            imageBackgroundColor="#ffffff"
+            style={{
+              width: Dimensions.get("window").width,
+              height: Dimensions.get("window").width * 0.8,
+            }}
+            source={{
+              uri: props.data.audiogram,
+            }}
+          />
+        </View>
+      </View>
+    </View>
+  );
+};
+
+TestResultItem.defaultProps = {
+  hideTop: false,
+};
+
+export default TestResultItem;
