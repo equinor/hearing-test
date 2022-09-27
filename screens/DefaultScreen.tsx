@@ -12,17 +12,17 @@ import {
 import { connect } from "react-redux";
 
 import ButtonEDS from "../components/common/EDS/Button";
-import Card from "../components/common/atoms/Card";
 import IconButton from "../components/common/EDS/IconButton";
+import Card from "../components/common/atoms/Card";
 import NavigationItem from "../components/common/atoms/NavigationItem";
 import Typography from "../components/common/atoms/Typography";
+import { SlideModal } from "../components/common/molecules/SlideModal";
 import TestResultsModal from "../components/common/molecules/TestResultsModal";
 import { STOP } from "../constants/colors";
 import { fetchMe } from "../services/api/api-methods";
 import { appStartupInit } from "../store/test/actions";
 import { selectError } from "../store/test/reducer";
 import { FORMS_URL } from "./TestResultScreen";
-import { SlideModal } from "../components/common/molecules/SlideModal";
 
 const styles = StyleSheet.create({
   component: {
@@ -44,7 +44,7 @@ class DefaultScreen extends Component<{
     firstName: null,
     location: null,
     testResultsModalVisible: false,
-    locationHelpModalVisible: false
+    locationModalVisible: false,
   };
 
   componentDidMount() {
@@ -52,23 +52,23 @@ class DefaultScreen extends Component<{
       .then((response) => {
         this.setState({
           firstName: response.firstName,
-          location: response.location
+          location: response.location,
         });
       })
       .catch(() => {
         this.setState({
           firstName: null,
-          location: null
+          location: null,
         });
       });
   }
 
-  setModalVisible = (value: boolean) => {
+  setTestResultsModalVisible = (value: boolean) => {
     this.setState({ testResultsModalVisible: value });
   };
 
-  setLocationHelpModalVisible = (value: boolean) => {
-    this.setState({ locationHelpModalVisible: value });
+  setLocationModalVisible = (value: boolean) => {
+    this.setState({ locationModalVisible: value });
   };
 
   render() {
@@ -99,25 +99,32 @@ class DefaultScreen extends Component<{
         <View style={styles.component}>
           <Typography
             variant="h1"
-            style={{ paddingLeft: 4, marginBottom: 4 }}
-          >
-            Hei{this.state.firstName ? ` ${this.state.firstName}` : ""},
-          </Typography>
-          <View style={{
-              flex: 1,
-              flexDirection: "row",
-              alignItems: "center",
-              paddingLeft: 4,
-              marginBottom: 32,
+            style={{
+              marginHorizontal: 4,
+              marginBottom: -10,
             }}
           >
-            <Typography variant="h2" style={{ marginRight: 4 }}>
-              Din lokasjon er {(this.state.location || "ukjent")}
+            Hei {this.state.firstName ? this.state.firstName : ""},
+          </Typography>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginHorizontal: 4,
+              marginBottom: 18,
+            }}
+          >
+            <Typography variant="h2">
+              Din lokasjon er {this.state.location || "ukjent"}
             </Typography>
             <IconButton
               icon="help"
-              onPress={() => this.setLocationHelpModalVisible(true)}
-              size={20}
+              onPress={() => this.setLocationModalVisible(true)}
+              style={{
+                position: "relative",
+                left: -8,
+                marginBottom: 4,
+              }}
             />
           </View>
           <Card>
@@ -137,13 +144,13 @@ class DefaultScreen extends Component<{
           </Card>
           <Typography
             variant="h2"
-            style={{ paddingBottom: 16, paddingTop: 32 }}
+            style={{ marginTop: 32, marginHorizontal: 4, marginBottom: 16 }}
           >
             Din oversikt
           </Typography>
           {/* NOT AVAILABLE YET: <NavigationItem title="Informasjon om testen" /> */}
           <NavigationItem
-            onPress={() => this.setModalVisible(true)}
+            onPress={() => this.setTestResultsModalVisible(true)}
             title="Mine resultater"
           />
           <NavigationItem
@@ -160,15 +167,15 @@ class DefaultScreen extends Component<{
         </View>
         <TestResultsModal
           visible={this.state.testResultsModalVisible}
-          setInvisible={() => this.setModalVisible(false)}
+          setInvisible={() => this.setTestResultsModalVisible(false)}
         />
         <SlideModal
-          title="Lokasjon Hjelp"
-          visible={this.state.locationHelpModalVisible}
-          setInvisible={() => this.setLocationHelpModalVisible(false)}
+          title="Lokasjon"
+          visible={this.state.locationModalVisible}
+          setInvisible={() => this.setLocationModalVisible(false)}
         >
-          <Typography variant="p" style={{ paddingTop: 32, paddingHorizontal: 24 }}>
-            Du kan oppdatere lokasjonen din i SAP dersom den er ukorrekt.
+          <Typography variant="p">
+            Du kan oppdatere lokasjonen din i SAP.
           </Typography>
         </SlideModal>
       </ScrollView>
