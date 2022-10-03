@@ -12,9 +12,11 @@ import {
 import { connect } from "react-redux";
 
 import ButtonEDS from "../components/common/EDS/Button";
+import IconButton from "../components/common/EDS/IconButton";
 import Card from "../components/common/atoms/Card";
 import NavigationItem from "../components/common/atoms/NavigationItem";
 import Typography from "../components/common/atoms/Typography";
+import { SlideModal } from "../components/common/molecules/SlideModal";
 import TestResultsModal from "../components/common/molecules/TestResultsModal";
 import { STOP } from "../constants/colors";
 import { fetchMe } from "../services/api/api-methods";
@@ -40,21 +42,33 @@ class DefaultScreen extends Component<{
 
   state = {
     firstName: null,
+    location: null,
     testResultsModalVisible: false,
+    locationModalVisible: false,
   };
 
   componentDidMount() {
     fetchMe()
       .then((response) => {
-        this.setState({ firstName: response.firstName });
+        this.setState({
+          firstName: response.firstName,
+          location: response.location,
+        });
       })
       .catch(() => {
-        this.setState({ firstName: null });
+        this.setState({
+          firstName: null,
+          location: null,
+        });
       });
   }
 
-  setModalVisible = (value: boolean) => {
+  setTestResultsModalVisible = (value: boolean) => {
     this.setState({ testResultsModalVisible: value });
+  };
+
+  setLocationModalVisible = (value: boolean) => {
+    this.setState({ locationModalVisible: value });
   };
 
   render() {
@@ -85,10 +99,34 @@ class DefaultScreen extends Component<{
         <View style={styles.component}>
           <Typography
             variant="h1"
-            style={{ paddingLeft: 4, paddingBottom: 32 }}
+            style={{
+              marginHorizontal: 4,
+              marginBottom: -10,
+            }}
           >
-            Hei{this.state.firstName ? ` ${this.state.firstName}` : ""},
+            Hei {this.state.firstName ? this.state.firstName : ""},
           </Typography>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginHorizontal: 4,
+              marginBottom: 18,
+            }}
+          >
+            <Typography variant="h2">
+              Din lokasjon er {this.state.location || "ukjent"}
+            </Typography>
+            <IconButton
+              icon="help"
+              onPress={() => this.setLocationModalVisible(true)}
+              style={{
+                position: "relative",
+                left: -8,
+                marginBottom: 4,
+              }}
+            />
+          </View>
           <Card>
             <Typography variant="h2" style={{ paddingBottom: 16 }}>
               Er du klar for en ny test?
@@ -106,13 +144,13 @@ class DefaultScreen extends Component<{
           </Card>
           <Typography
             variant="h2"
-            style={{ paddingBottom: 16, paddingTop: 32 }}
+            style={{ marginTop: 32, marginHorizontal: 4, marginBottom: 16 }}
           >
             Din oversikt
           </Typography>
           {/* NOT AVAILABLE YET: <NavigationItem title="Informasjon om testen" /> */}
           <NavigationItem
-            onPress={() => this.setModalVisible(true)}
+            onPress={() => this.setTestResultsModalVisible(true)}
             title="Mine resultater"
           />
           <NavigationItem
@@ -129,8 +167,17 @@ class DefaultScreen extends Component<{
         </View>
         <TestResultsModal
           visible={this.state.testResultsModalVisible}
-          setInvisible={() => this.setModalVisible(false)}
+          setInvisible={() => this.setTestResultsModalVisible(false)}
         />
+        <SlideModal
+          title="Lokasjon"
+          visible={this.state.locationModalVisible}
+          setInvisible={() => this.setLocationModalVisible(false)}
+        >
+          <Typography variant="p">
+            Du kan oppdatere lokasjonen din i SAP.
+          </Typography>
+        </SlideModal>
       </ScrollView>
     );
   }

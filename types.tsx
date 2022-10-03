@@ -3,6 +3,7 @@
  * https://reactnavigation.org/docs/typescript/
  */
 
+import { MaterialIcons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 declare global {
@@ -82,3 +83,5 @@ export type ReleaseNote = {
   subHeader: string;
   changes: string[];
 };
+
+export type MaterialIconName = keyof typeof MaterialIcons.glyphMap;
