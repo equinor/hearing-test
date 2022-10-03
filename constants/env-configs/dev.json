@@ -10,7 +10,7 @@
       "AzureADResourceId": "690a86bf-838c-4591-909c-9f45219445ab",
       "ApiBaseUrl": "https://api.statoil.com/app/mad/dev/api/v1",
       "scopes": [
-        "api://690a86bf-838c-4591-909c-9f45219445ab/user_impersonation"
+        "690a86bf-838c-4591-909c-9f45219445ab/user_impersonation"
       ]
     },
     "hearing": {
