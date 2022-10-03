@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import {
-  Alert,
   Image,
   Linking,
   Text,
@@ -82,10 +81,11 @@ class TestResultScreen extends Component {
       title: "Testen er fullført",
       image: thumbsUp,
       subTitle: "Takk for at du testet appen!",
-      description: "Vennligst trykk på knappen under for å gi tilbakemelding",
+      description:
+        "Du blir kontaktet av en lege dersom du har problemer med hørselen.",
       secondaryButton: {
         enable: true,
-        text: "Se resultater",
+        text: "Se resultat",
         onPress: () => {
           this.setModalVisible(true);
         },
@@ -100,169 +100,122 @@ class TestResultScreen extends Component {
     const { error, testResult } = this.props;
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={{ flex: 1, width: "100%" }}>
-          {error && error.status && (
-            <TouchableHighlight
-              style={{ backgroundColor: STOP, padding: 12, margin: 0 }}
-              onPress={() =>
-                Linking.openURL(
-                  `https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/${error.status}`
-                )
-              }
-            >
-              <>
-                <Text style={{ color: "white" }}>
-                  Could not submit test due to
-                </Text>
-                <Text
-                  style={{ fontSize: 23, color: "white", marginVertical: 4 }}
-                >
-                  ERROR: {error.status} {error.message && `| ${error.message}`}
-                </Text>
-                <Text style={{ color: "white" }}>Click to learn more...</Text>
-              </>
-            </TouchableHighlight>
-          )}
+        {error && error.status && (
+          <TouchableHighlight
+            style={{ backgroundColor: STOP, padding: 12, margin: 0 }}
+            onPress={() =>
+              Linking.openURL(
+                `https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/${error.status}`
+              )
+            }
+          >
+            <>
+              <Text style={{ color: "white" }}>
+                Could not submit test due to
+              </Text>
+              <Text style={{ fontSize: 23, color: "white", marginVertical: 4 }}>
+                ERROR: {error.status} {error.message && `| ${error.message}`}
+              </Text>
+              <Text style={{ color: "white" }}>Click to learn more...</Text>
+            </>
+          </TouchableHighlight>
+        )}
+        <View
+          style={{
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: 24,
+          }}
+        >
+          <Typography variant="h1">{this.page.title}</Typography>
+          {/*  Results-header section */}
           <View
             style={{
-              flex: 1,
               alignItems: "center",
-              width: "100%",
-              padding: 12,
+              maxWidth: 300,
+              paddingBottom: 24,
             }}
           >
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-                width: "100%",
-                padding: 36,
-                paddingTop: 12,
-              }}
-            >
-              <IconButton
-                icon="close"
-                onPress={() =>
-                  Alert.alert(
-                    "Avslutte?",
-                    "Du kan fortsatt se resultatene dine fra startsiden.",
-                    [
-                      {
-                        text: "Nei",
-                        onPress: () => {},
-                        style: "cancel",
-                      },
-                      {
-                        text: "Ja",
-                        onPress: () =>
-                          this.props.navigation.navigate("DefaultRoute"),
-                        style: "destructive",
-                      },
-                    ]
-                  )
-                }
-              />
-              <Typography variant="h1">{this.page.title}</Typography>
-              <View style={{ width: 48, height: 48 }} />
-            </View>
-            {/*  Results-header section */}
             <Image
               source={this.page.image}
-              style={{ height: 250, resizeMode: "contain", marginBottom: 24 }}
+              style={{ height: 250, resizeMode: "contain" }}
             />
             <Typography variant="h2">{this.page.subTitle}</Typography>
             <Typography
               variant="p"
               style={{
-                margin: 12,
-                paddingHorizontal: 36,
+                marginTop: 12,
                 textAlign: "center",
               }}
             >
               {this.page.description}
             </Typography>
           </View>
-          <View
-            style={{
-              flex: 1,
-              marginBottom: 40,
-              flexDirection: "column-reverse",
-              justifyContent: "flex-start",
-              padding: 12,
-            }}
-          >
+          <View>
             {/*  Buttons-section */}
-
             {this.page.secondaryButton.enable ? (
               <ButtonEDS
                 onPress={this.page.secondaryButton.onPress}
                 text={this.page.secondaryButton.text}
                 outlined
+                style={{
+                  marginBottom: 12,
+                }}
               />
             ) : (
               <></>
             )}
             <ButtonEDS
-              onPress={async () => {
-                const supported = await Linking.canOpenURL(FORMS_URL);
-                if (supported) {
-                  await Linking.openURL(FORMS_URL);
-                } else {
-                  Alert.alert(`Don't know how to open this URL: ${FORMS_URL}`);
-                }
-              }}
-              text="Gi tilbakemelding" // "Se resultater"
-              outlined={false}
-              small={false}
-              danger={false}
+              onPress={() => this.props.navigation.navigate("DefaultRoute")}
+              text="Hovedmeny"
+              style={{ marginBottom: 0 }}
             />
           </View>
-          <Modal
-            animationType="slide"
-            presentationStyle="overFullScreen"
-            transparent
-            visible={this.state.modalVisible}
-            onDismiss={() => this.setModalVisible(false)}
-            onRequestClose={() => this.setModalVisible(false)}
-          >
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-                paddingHorizontal: 24,
-                paddingVertical: 12,
-                borderBottomWidth: 1,
-                borderStyle: "solid",
-                borderColor: "#DCDCDC",
-                marginTop: 110,
-                backgroundColor: "white",
-                borderTopRightRadius: 12,
-                borderTopLeftRadius: 12,
-                shadowColor: "#000",
-                shadowOffset: { width: 2, height: 2 },
-                shadowOpacity: 0.3,
-                shadowRadius: 3,
-                elevation: 5,
-              }}
-            >
-              <View style={{ width: 48, height: 48 }} />
-              <Typography variant="h1">Resultater</Typography>
-              <IconButton
-                icon="close"
-                onPress={() => this.setModalVisible(false)}
-              />
-            </View>
-            <TestResultItem
-              data={testResult}
-              resetSelectedItem={() => {}}
-              hideTop
-            />
-          </Modal>
         </View>
+        <Modal
+          animationType="slide"
+          presentationStyle="overFullScreen"
+          transparent
+          visible={this.state.modalVisible}
+          onDismiss={() => this.setModalVisible(false)}
+          onRequestClose={() => this.setModalVisible(false)}
+        >
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              paddingHorizontal: 24,
+              paddingVertical: 12,
+              borderBottomWidth: 1,
+              borderStyle: "solid",
+              borderColor: "#DCDCDC",
+              marginTop: 110,
+              backgroundColor: "white",
+              borderTopRightRadius: 12,
+              borderTopLeftRadius: 12,
+              shadowColor: "#000",
+              shadowOffset: { width: 2, height: 2 },
+              shadowOpacity: 0.3,
+              shadowRadius: 3,
+              elevation: 5,
+            }}
+          >
+            <View style={{ width: 48, height: 48 }} />
+            <Typography variant="h1">Resultater</Typography>
+            <IconButton
+              icon="close"
+              onPress={() => this.setModalVisible(false)}
+            />
+          </View>
+          <TestResultItem
+            data={testResult}
+            resetSelectedItem={() => {}}
+            hideTop
+          />
+        </Modal>
       </SafeAreaView>
     );
   }
