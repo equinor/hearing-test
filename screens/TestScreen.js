@@ -13,6 +13,7 @@ import IconButton from "../components/common/EDS/IconButton";
 import BigRoundButton from "../components/common/atoms/BigRoundButton";
 import ProgressBar from "../components/common/atoms/ProgressBar";
 import Typography from "../components/common/atoms/Typography";
+import store from "../store/config";
 import { selectIsFetching } from "../store/test";
 import {
   failure,
@@ -71,6 +72,12 @@ class TestScreen extends Component {
     this.silentAudioClip = new Sound(
       require("../assets/audio/1000Hz_dobbel.wav")
     );
+
+    this.demoModeSound = new Sound(
+      require("../assets/audio/1000Hz_dobbel.wav")
+    );
+
+    this.sounds = {};
   }
 
   state = {
@@ -84,6 +91,8 @@ class TestScreen extends Component {
     isPlayingFirstNodeFirstTime: true,
     numberOfNodesPlayed: 0,
     numberOfNodes: Infinity,
+    isDoneLoadingSounds: false,
+    isDemoMode: store.getState().appConfig.current.demoMode,
   };
 
   componentDidMount() {
@@ -98,41 +107,85 @@ class TestScreen extends Component {
     SystemSetting.setVolume(0.5, { showUI: false });
   }
 
+  createSoundFile(hz) {
+    const soundUri = this.props.test.sounds.find(
+      (sound) => sound.hz === hz
+    ).uri;
+
+    const sound = new Sound(soundUri, null, (error) => {
+      if (error) {
+        console.error("failed to load the sound", error);
+      }
+    });
+
+    return sound;
+  }
+
+  getSoundFile(hz) {
+    if (this.state.isDemoMode) return this.demoModeSound;
+
+    return this.sounds[`sound${hz}hz`];
+  }
+
+  releaseSoundFiles() {
+    Object.keys(this.sounds).forEach((key) => {
+      this.sounds[key].stop();
+      this.sounds[key].release();
+    });
+
+    this.silentAudioClip.stop();
+    this.silentAudioClip.release();
+    this.isPlayingSilentAudioClip = false;
+
+    this.demoModeSound.stop();
+    this.demoModeSound.release();
+  }
+
   componentDidUpdate(prevProps) {
-    if (
-      !this.props.testIsFinished &&
-      (this.props.node !== prevProps.node || this.state.nextNodeWaiting)
-    ) {
+    if (prevProps.isFetching && !this.props.isFetching) {
+      if (!this.state.isDemoMode) {
+        this.props.test.sounds.forEach((sound) => {
+          this.sounds[`sound${sound.hz}hz`] = this.createSoundFile(sound.hz);
+        });
+      }
+
+      this.setState({ isDoneLoadingSounds: true });
+    } else {
       if (
-        !this.state.pauseAfterNode &&
-        !this.state.modalVisible &&
-        this.props.testIsRunning
+        !this.props.testIsFinished &&
+        (this.props.node !== prevProps.node || this.state.nextNodeWaiting)
       ) {
         if (
-          prevProps.node.data?.index !== 1 &&
-          this.props.node.data?.index === 1
+          !this.state.pauseAfterNode &&
+          !this.state.modalVisible &&
+          this.props.testIsRunning
         ) {
-          this.setState({ isPlayingFirstNodeFirstTime: true });
+          if (
+            prevProps.node.data?.index !== 1 &&
+            this.props.node.data?.index === 1
+          ) {
+            this.setState({ isPlayingFirstNodeFirstTime: true });
+          }
+          this.runNode(this.props.node);
+          if (this.state.nextNodeWaiting)
+            this.setState({ nextNodeWaiting: false }); // eslint-disable-line react/no-did-update-set-state
+        } else if (!this.state.nextNodeWaiting) {
+          this.setState({
+            nextNodeWaiting: true,
+            pauseAfterNode: false,
+            modalVisible: true,
+          }); // eslint-disable-line react/no-did-update-set-state
         }
-        this.runNode(this.props.node);
-        if (this.state.nextNodeWaiting)
-          this.setState({ nextNodeWaiting: false }); // eslint-disable-line react/no-did-update-set-state
-      } else if (!this.state.nextNodeWaiting) {
-        this.setState({
-          nextNodeWaiting: true,
-          pauseAfterNode: false,
-          modalVisible: true,
-        }); // eslint-disable-line react/no-did-update-set-state
       }
-    }
-    if (
-      this.props.testIsFinished &&
-      this.props.testIsFinished !== prevProps.testIsFinished
-    ) {
-      this.stopSilentAudioClip();
-      Sound.setActive(false);
-      this.props.actionPostTest(this.props.test);
-      this.props.navigation.navigate("TestResultRoute");
+      if (
+        this.props.testIsFinished &&
+        this.props.testIsFinished !== prevProps.testIsFinished
+      ) {
+        this.releaseSoundFiles();
+        Sound.setActive(false);
+        this.props.actionPostTest(this.props.test);
+        this.props.navigation.navigate("TestResultRoute");
+      }
     }
   }
 
@@ -158,7 +211,7 @@ class TestScreen extends Component {
   }
 
   abortTest() {
-    this.stopSilentAudioClip();
+    this.releaseSoundFiles();
     Sound.setActive(false);
     clearInterval(this.state.intervalId);
     this.props.actionStopTest();
@@ -195,7 +248,6 @@ class TestScreen extends Component {
     sound.setVolume(node.stimulusMultiplicative);
     sound.setPan(node.panning);
     sound.play(() => {
-      sound.release();
       SystemSetting.setVolume(this.state.initialSystemVolume, {
         showUI: false,
       });
@@ -238,8 +290,9 @@ class TestScreen extends Component {
 
   renderBigRoundButton() {
     const { actionStartTest, isFetching, node, testIsRunning } = this.props;
-    const { modalVisible, pauseAfterNode } = this.state;
-    if (isFetching || pauseAfterNode || modalVisible) return <Spinner />;
+    const { modalVisible, pauseAfterNode, isDoneLoadingSounds } = this.state;
+    if (isFetching || !isDoneLoadingSounds || pauseAfterNode || modalVisible)
+      return <Spinner />;
     if (testIsRunning)
       return (
         <BigRoundButton
@@ -274,51 +327,39 @@ class TestScreen extends Component {
     }
   }
 
-  stopSilentAudioClip() {
-    this.isPlayingSilentAudioClip = false;
-    this.silentAudioClip.stop();
-    this.silentAudioClip.release();
-  }
-
   runNode(node) {
     //this.playSilentAudioClip();
     if (node && node.data && node.data.sound) {
       // Load the audio for current node
       // and wait with starting the node-timer until the sound is ready.
-      const sound = new Sound(node.data.sound.url, null, (error) => {
-        if (error) {
-          // eslint-disable-next-line no-console
-          console.error("failed to load the sound", error);
-        } else {
-          this.setState({
-            numberOfPresses: 0,
-            reactionTimeMs: null,
-            success: false,
-          });
-          this.timer = 0;
-
-          const startTime = new Date();
-          const intervalSpeed = 1;
-          let soundHasBeenPlayed = false;
-
-          const intervalId = setInterval(() => {
-            const { postDelayMs, preDelayMs } = node.data;
-
-            if (this.timer > preDelayMs && !soundHasBeenPlayed) {
-              this.playAudioTest(node.data, sound);
-              soundHasBeenPlayed = true;
-            }
-            if (this.timer < preDelayMs + postDelayMs) {
-              this.timer = new Date() - startTime;
-            } else {
-              clearInterval(intervalId);
-              this.nodeFinished(node);
-              this.setNumberOfNodesPlayed();
-            }
-          }, intervalSpeed);
-          this.setState({ intervalId });
-        }
+      const sound = this.getSoundFile(node.data.sound.hz);
+      this.setState({
+        numberOfPresses: 0,
+        reactionTimeMs: null,
+        success: false,
       });
+      this.timer = 0;
+
+      const startTime = new Date();
+      const intervalSpeed = 1;
+      let soundHasBeenPlayed = false;
+
+      const intervalId = setInterval(() => {
+        const { postDelayMs, preDelayMs } = node.data;
+
+        if (this.timer > preDelayMs && !soundHasBeenPlayed) {
+          this.playAudioTest(node.data, sound);
+          soundHasBeenPlayed = true;
+        }
+        if (this.timer < preDelayMs + postDelayMs) {
+          this.timer = new Date() - startTime;
+        } else {
+          clearInterval(intervalId);
+          this.nodeFinished(node);
+          this.setNumberOfNodesPlayed();
+        }
+      }, intervalSpeed);
+      this.setState({ intervalId });
     }
   }
 

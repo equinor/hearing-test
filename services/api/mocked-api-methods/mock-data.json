@@ -13,16 +13,18 @@
     "firstName": "John",
     "id": "foo@equinor.com",
     "jobTitle": "tester",
-    "location": "",
+    "location": "Heidrun",
     "surName": "Smith"
   },
-  "Tests": [{
-    "id": "b1a1d9e6-acd9-45fa-a47b-9bd1b632af1a",
-    "userId": "anheri@equinor.com",
-    "name": "Short",
-    "dateTaken": "2022-05-25T08:16:19.0119002+00:00",
-    "audiogram": "https://heardevhfjmkdbuaotts.blob.core.windows.net/audiogram/JmEbRTshG9X4kx25TYr2G1v2ViIIk6OctmnBvQRJwUwkwz11lvbSzg.png"
-  }],
+  "Tests": [
+    {
+      "id": "b1a1d9e6-acd9-45fa-a47b-9bd1b632af1a",
+      "userId": "anheri@equinor.com",
+      "name": "Short",
+      "dateTaken": "2022-05-25T08:16:19.0119002+00:00",
+      "audiogram": "https://heardevhfjmkdbuaotts.blob.core.windows.net/audiogram/JmEbRTshG9X4kx25TYr2G1v2ViIIk6OctmnBvQRJwUwkwz11lvbSzg.png"
+    }
+  ],
   "Test": {
     "id": "ac54f9cb-9dcb-427a-b559-154972d159d3",
     "userId": "",
@@ -30,6 +32,14 @@
     "jobTitle": "",
     "name": "Short test",
     "dateTaken": "0001-01-01T00:00:00+00:00",
+    "sounds": [
+      {
+        "name": "1000Hz_dobbel.wav",
+        "hz": 1000,
+        "uri": "../assets/audio/1000Hz_dobbel.wav",
+        "lastModified": "2020-02-24T12:47:10+00:00"
+      }
+    ],
     "subTests": [
       {
         "data": {

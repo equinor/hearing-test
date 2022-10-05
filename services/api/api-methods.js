@@ -8,6 +8,7 @@ import {
   postMockTakeTest,
   fetchMockMe,
   fetchMockTests,
+  fetchMockSounds,
 } from "./mocked-api-methods";
 
 const appName = appJson.expo.name;
@@ -111,3 +112,8 @@ export const fetchMe = () =>
   store.getState().appConfig.current.demoMode
     ? fetchMockMe()
     : fetchData("/me");
+
+export const fetchSounds = () =>
+  store.getState().appConfig.current.demoMode
+    ? fetchMockSounds()
+    : fetchData("/appstartup/sounds");
