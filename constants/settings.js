@@ -7,6 +7,7 @@ export {
   AzureADRedirectUrl,
   AzureADRedirectUrlWeb,
   BuildConfiguration,
+  ApplicationInsightsInstrumentationKey,
 } from "./settings.json";
 
 export const getResource = (name) => Resources[name];

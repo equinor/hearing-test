@@ -14,7 +14,7 @@ export default class AboutScreen extends Component {
     const resources = getConfiguredResources();
     const getApiEndpoints = () =>
       resources
-        .map((resource) => getResource(resource).ApiBaseUrl.toString())
+        .map((resource) => getResource(resource).apiBaseUrl.toString())
         .join("\n");
 
     const sections = [
@@ -45,7 +45,7 @@ export default class AboutScreen extends Component {
         key: "Api",
         data: [
           {
-            key: "ApiBaseUrl",
+            key: "apiBaseUrl",
             label: resources.length > 1 ? "Endpoints" : "Endpoint",
             text: getApiEndpoints(),
           },

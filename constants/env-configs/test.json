@@ -5,6 +5,7 @@
   "AzureADRedirectUrl": "msauth.com.equinor.hearingtest.test://auth",
   "AzureADRedirectUrlWeb": "http://localhost:19006",
   "BuildConfiguration": "Test",
+  "ApplicationInsightsInstrumentationKey": "ab53a6e8-7d99-49b6-9212-572a83271f65",
   "Resources": {
     "mad": {
       "AzureADResourceId": "830a7388-cd89-4e25-a631-bd615bf225a4",

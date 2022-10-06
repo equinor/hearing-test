@@ -79,7 +79,7 @@ function FeedbackScreen() {
   const resources = getConfiguredResources();
   const getApiEndpoints = () =>
     resources
-      .map((resource) => getResource(resource).ApiBaseUrl.toString())
+      .map((resource) => getResource(resource).apiBaseUrl.toString())
       .join("\n - ");
 
   const apiEndpoints = getApiEndpoints();

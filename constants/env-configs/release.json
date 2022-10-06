@@ -5,17 +5,18 @@
   "AzureADRedirectUrl": "msauth.com.equinor.hearingtest://auth",
   "AzureADRedirectUrlWeb": "http://localhost:19006",
   "BuildConfiguration": "Release",
+  "ApplicationInsightsInstrumentationKey": "8dba9ec2-bd86-43e1-a628-3850eb95b052",
   "Resources": {
     "mad": {
       "AzureADResourceId": "0a429637-3fe1-4452-bd95-c87923ba340b",
-      "ApiBaseUrl": "https://api.statoil.com/app/mad/api/v1",
+      "apiBaseUrl": "https://api.statoil.com/app/mad/api/v1",
       "scopes": [
         "api://0a429637-3fe1-4452-bd95-c87923ba340b/user_impersonation"
       ]
     },
     "hearing": {
       "AzureADResourceId": "4b062a04-58a6-4b24-96b3-0a01bc20ea15",
-      "ApiBaseUrl": "https://api.statoil.com/app/hearing/prod/api/v2",
+      "apiBaseUrl": "https://api.statoil.com/app/hearing/prod/api/v2",
       "scopes": [
         "api://4b062a04-58a6-4b24-96b3-0a01bc20ea15/user_impersonation"
       ]

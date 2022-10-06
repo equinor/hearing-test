@@ -1,7 +1,7 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import { msalInit } from "mad-expo-core";
+import { msalInit, appInsightsInit } from "mad-expo-core";
 import { useEffect, useState } from "react";
 import { Platform } from "react-native";
 
@@ -9,6 +9,7 @@ import {
   AzureADRedirectUrl,
   AzureADRedirectUrlWeb,
   AzureADClientId,
+  ApplicationInsightsInstrumentationKey,
 } from "../constants/settings";
 
 export default function useCachedResources() {
@@ -19,6 +20,10 @@ export default function useCachedResources() {
     async function loadResourcesAndDataAsync() {
       try {
         SplashScreen.preventAutoHideAsync();
+
+        appInsightsInit({
+          instrumentationKey: ApplicationInsightsInstrumentationKey,
+        });
 
         // Load fonts
         await Font.loadAsync({
