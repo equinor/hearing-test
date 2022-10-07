@@ -2,7 +2,7 @@
   "expo": {
     "name": "hearingtest",
     "slug": "hearingtest",
-    "version": "0.2.11",
+    "version": "0.2.12",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "hearingtest",
