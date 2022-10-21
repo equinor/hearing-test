@@ -27,7 +27,7 @@
     "expo-linking": "3.0.0",
     "expo-localization": "12.0.1",
     "expo-random": "12.1.2",
-    "expo-splash-screen": "0.14.2",
+    "expo-splash-screen": "0.16.2",
     "expo-status-bar": "1.2.0",
     "lodash": "4.17.21",
     "mad-expo-core": "github:equinor/mad-expo-core#d5bcc30154c835546d3ae9631a81d374a5b7c040",
