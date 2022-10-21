@@ -40,7 +40,7 @@
     "react-native-msal": "github:equinor/react-native-msal#73da8773f56cb21ce8152fde943f18e60d541a03",
     "react-native-safe-area-context": "3.3.2",
     "react-native-salute": "github:equinor/react-native-salute#4ffda15d9910de5fb0274e218c15b8e6f6ffdaeb",
-    "react-native-screens": "3.10.2",
+    "react-native-screens": "3.17.0",
     "react-native-sound": "0.11.0",
     "react-native-system-setting": "1.7.6",
     "react-redux": "8.0.1",
