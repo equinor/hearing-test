@@ -16,7 +16,7 @@ import { ButtonProps } from "../components/common/EDS/Button";
 import IconButton from "../components/common/EDS/IconButton";
 import { ErrorBanner } from "../components/common/atoms/ErrorBanner";
 import Typography from "../components/common/atoms/Typography";
-import { Buttons } from "../components/common/molecules/Buttons";
+import { ButtonGroup } from "../components/common/molecules/ButtonGroup";
 import TestResultItem from "../components/common/molecules/TestResultItem";
 import { postTest } from "../store/test/actions";
 import {
@@ -162,7 +162,7 @@ const TestResultScreen = ({
             {page.description}
           </Typography>
         </View>
-        <Buttons buttons={page.buttons} />
+        <ButtonGroup buttons={page.buttons} />
       </View>
       <Modal
         animationType="slide"
