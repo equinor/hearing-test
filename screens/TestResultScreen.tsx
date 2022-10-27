@@ -27,6 +27,14 @@ import {
 import { getUnsentTests } from "../store/unsent-tests/reducer";
 import { RootStackScreenProps, TestResult } from "../types";
 
+type Pages = {
+  newTestInSixMonths: Page;
+  newTestRecommended: Page;
+  hearingChangeDetected: Page;
+  testIsSent: Page;
+  sendingTestFailed: Page;
+};
+
 type Page = {
   title: string;
   image: ImageSourcePropType;
@@ -58,8 +66,8 @@ const TestResultScreen = ({
     outlined,
   });
 
-  const pages: Page[] = [
-    {
+  const pages: Pages = {
+    newTestInSixMonths: {
       title: "Testen er fullført",
       image: thumbsUp,
       subTitle: "Dette ser fint ut!",
@@ -67,7 +75,7 @@ const TestResultScreen = ({
         "Du vil få en ny invitasjon om 6 måneder, men vær oppmerksom på at jo oftere du tar testen, jo bedre.",
       buttons: [getHomeButton()],
     },
-    {
+    newTestRecommended: {
       title: "Her ble det litt krøll",
       image: warning,
       subTitle: "Takk for at du gjennomførte testen",
@@ -82,7 +90,7 @@ const TestResultScreen = ({
         getHomeButton(),
       ],
     },
-    {
+    hearingChangeDetected: {
       title: "Testen er fullført",
       image: doctor,
       subTitle: "Takk for at du gjennomførte testen",
@@ -99,7 +107,7 @@ const TestResultScreen = ({
         getHomeButton(),
       ],
     },
-    {
+    testIsSent: {
       title: "Testen er fullført",
       image: thumbsUp,
       subTitle: "Takk for at du testet appen!",
@@ -116,7 +124,7 @@ const TestResultScreen = ({
         getHomeButton(),
       ],
     },
-    {
+    sendingTestFailed: {
       title: "Her ble det litt krøll",
       image: warning,
       subTitle: "Testen ble ikke sendt",
@@ -124,7 +132,7 @@ const TestResultScreen = ({
         "Du kan prøve å sende testen på nytt ved å trykke på knappen under, eller fra hovedmenyen.",
       buttons: [
         {
-          outlined: resendCount !== 0,
+          outlined: resendCount > 0,
           text: "Send",
           onPress: () => {
             actionPostTest(unsentTests[0]);
@@ -135,10 +143,11 @@ const TestResultScreen = ({
         getHomeButton(resendCount === 0),
       ],
     },
-  ];
+  };
 
   // Feedback page
-  const page = unsentTests.length === 0 ? pages[3] : pages[4]; // TODO in the future, the backend will probably decide which page to show
+  const page =
+    unsentTests.length === 0 ? pages.testIsSent : pages.sendingTestFailed; // TODO in the future, the backend will probably decide which page to show
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
