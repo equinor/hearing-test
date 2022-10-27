@@ -27,7 +27,7 @@ const store = createStore(
 );
 
 persistStore(store, {
-  whitelist: [stateKeys.MANIFEST, stateKeys.VERSION],
+  whitelist: [stateKeys.MANIFEST, stateKeys.UNSENTTESTS, stateKeys.VERSION],
   storage: AsyncStorage,
 });
 

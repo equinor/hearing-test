@@ -192,4 +192,6 @@ export const selectTestResult = (state) =>
   state.appConfig.current.demoMode
     ? mockData.Tests[0]
     : state[stateKeys.TEST].testResult;
-export const selectError = (state) => state[stateKeys.TEST].error;
+export const selectError = (state): Error => state[stateKeys.TEST].error;
+
+export type Error = { message: string | null; status: number | null };

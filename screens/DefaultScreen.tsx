@@ -11,18 +11,19 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 
-import ButtonEDS from "../components/common/EDS/Button";
 import IconButton from "../components/common/EDS/IconButton";
-import Card from "../components/common/atoms/Card";
 import NavigationItem from "../components/common/atoms/NavigationItem";
 import Typography from "../components/common/atoms/Typography";
 import { SlideModal } from "../components/common/molecules/SlideModal";
+import { TestCard } from "../components/common/molecules/TestCard";
 import TestResultsModal from "../components/common/molecules/TestResultsModal";
 import { STOP } from "../constants/colors";
 import { fetchMe } from "../services/api/api-methods";
 import { appStartupInit } from "../store/test/actions";
 import { selectError } from "../store/test/reducer";
-import { FORMS_URL } from "./TestResultScreen";
+
+export const FORMS_URL =
+  "https://forms.office.com/Pages/ResponsePage.aspx?id=NaKkOuK21UiRlX_PBbRZsC9rzeD3BlFJi0JbArgz2wRURUxPWVRWUVBPSlVYUVc5UElIQjJXMFRSWS4u";
 
 const styles = StyleSheet.create({
   component: {
@@ -127,21 +128,7 @@ class DefaultScreen extends Component<{
               }}
             />
           </View>
-          <Card>
-            <Typography variant="h2" style={{ paddingBottom: 16 }}>
-              Er du klar for en ny test?
-            </Typography>
-            <Typography variant="p" style={{ paddingBottom: 32 }}>
-              Husk å teste hørselen din regelmessig for at vi skal kunne
-              kartlegge hørselshelsen din over tid.
-            </Typography>
-            <View style={{ width: 160 }}>
-              <ButtonEDS
-                onPress={() => navigation.navigate("PreTestRoute")}
-                text="Ta hørselstesten"
-              />
-            </View>
-          </Card>
+          <TestCard navigation={navigation} />
           <Typography
             variant="h2"
             style={{ marginTop: 32, marginHorizontal: 4, marginBottom: 16 }}
