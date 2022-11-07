@@ -4,6 +4,18 @@ import { handleActions } from "redux-actions";
 import { stateKeys } from "../../types";
 import { addUnsentTest, removeUnsentTest } from "./actions";
 
+const addTestToState = (state, test) => {
+  const index = state.findIndex((unsentTest) => unsentTest.id === test.id);
+
+  if (index === -1) {
+    const clonedState = _.cloneDeep(state);
+    clonedState.push(test);
+    return clonedState;
+  }
+
+  return state;
+};
+
 const removeTestFromState = (state, test) => {
   const clonedState = _.cloneDeep(state);
   const unsentTests = clonedState.filter(
@@ -15,7 +27,7 @@ const removeTestFromState = (state, test) => {
 
 export default handleActions(
   {
-    [addUnsentTest]: (state, action) => [...state, action.payload],
+    [addUnsentTest]: (state, action) => addTestToState(state, action.payload),
     [removeUnsentTest]: (state, action) =>
       removeTestFromState(state, action.payload),
   },

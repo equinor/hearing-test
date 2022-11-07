@@ -129,7 +129,7 @@ const TestResultScreen = ({
       image: warning,
       subTitle: "Testen ble ikke sendt",
       description:
-        "Du kan prøve å sende testen på nytt ved å trykke på knappen under, eller fra hovedmenyen.",
+        "Testen ble lagret, men den må sendes for undersøkelse. Koble deg på nettet og prøv igjen. Testen kan også sendes fra hovedmenyen.",
       buttons: [
         {
           outlined: resendCount > 0,
