@@ -10,6 +10,7 @@ import serviceMessageReducer from "../service-message/reducer";
 import testReducer from "../test/reducer";
 import testsReducer from "../tests/reducer";
 import toastReducer from "../toast/reducer";
+import unsentTestsReducer from "../unsent-tests/reducer";
 import versionReducer from "../version/reducer";
 
 export default combineReducers({
@@ -23,4 +24,5 @@ export default combineReducers({
   [stateKeys.TEST]: testReducer,
   [stateKeys.TESTS]: testsReducer,
   [stateKeys.APPCONFIG]: configReducer,
+  [stateKeys.UNSENTTESTS]: unsentTestsReducer,
 });

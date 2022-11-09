@@ -52,8 +52,10 @@
   },
   "devDependencies": {
     "@babel/core": "7.18.0",
+    "@types/lodash": "4.14.186",
     "@types/react": "17.0.45",
     "@types/react-native": "0.64.24",
+    "@types/redux-actions": "2.6.2",
     "@typescript-eslint/eslint-plugin": "5.25.0",
     "@typescript-eslint/parser": "5.25.0",
     "eslint": "8.16.0",

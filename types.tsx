@@ -42,6 +42,7 @@ export const stateKeys = {
   TEST: "test",
   TESTS: "tests",
   APPCONFIG: "appConfig",
+  UNSENTTESTS: "unsentTests",
 };
 
 export const requestTypes = {
