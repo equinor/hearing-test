@@ -1,7 +1,7 @@
 import { authenticateSilently } from "mad-expo-core";
 
 import appJson from "../../app.json";
-import { getResource } from "../../constants/settings";
+import { getApiBaseUrl, getScopes } from "../../constants/settings";
 import store from "../../store/config";
 import { NetworkException } from "../../utils/Exception";
 import {
@@ -19,11 +19,11 @@ const jsonHeaders = {
 };
 
 export const createUrl = (resource, path) =>
-  `${getResource(resource).ApiBaseUrl}${path}`;
+  `${getApiBaseUrl(resource)}${path}`;
 
 // Helper functions
 const fetchData = (path, resource = defaultResource, parseJson = true) =>
-  authenticateSilently(getResource(resource).scopes).then((r) =>
+  authenticateSilently(getScopes(resource)).then((r) =>
     fetch(createUrl(resource, path), {
       method: "GET",
       withCredentials: true,
@@ -48,7 +48,7 @@ export const postData = (
   method = "POST",
   resource = defaultResource
 ) =>
-  authenticateSilently(getResource(resource).scopes).then((r) =>
+  authenticateSilently(getScopes(resource)).then((r) =>
     fetch(createUrl(resource, path), {
       method,
       body: JSON.stringify(data),
@@ -66,7 +66,7 @@ export const postData = (
   );
 
 const fetchOpenData = (path, resource = defaultResource) =>
-  authenticateSilently(getResource(resource).scopes).then((r) =>
+  authenticateSilently(getScopes(resource)).then((r) =>
     fetch(createUrl(resource, path), {
       method: "GET",
       ...jsonHeaders,
@@ -77,10 +77,6 @@ const fetchOpenData = (path, resource = defaultResource) =>
       throw new NetworkException(response.statusText, response.status);
     })
   );
-
-export function getReleaseNote(version) {
-  return fetchData(`/ReleaseNote/${appName}/${version}`, "mad");
-}
 
 export const getServiceMessage = () =>
   fetchOpenData(`/ServiceMessage/${appName}`, "mad");

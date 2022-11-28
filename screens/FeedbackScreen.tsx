@@ -11,17 +11,16 @@ import React, { useEffect, useState } from "react";
 import { Platform, StyleSheet, TextInput, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { MSALAccount } from "react-native-msal";
-import { connect } from "react-redux";
 
 import appJson from "../app.json";
 import * as colors from "../constants/colors";
 import {
   BuildConfiguration,
+  getApiBaseUrl,
   getConfiguredResources,
-  getResource,
+  getScopes,
 } from "../constants/settings";
 import { createUrl } from "../services/api/api-methods";
-import { getCurrentUser } from "../store/auth";
 
 type FeedbackData = {
   product: string;
@@ -30,7 +29,7 @@ type FeedbackData = {
   systemMsg: string;
 };
 
-function FeedbackScreen() {
+const FeedbackScreen = () => {
   const [account, setAccount] = useState<MSALAccount>(null);
   const [feedback, setFeedback] = useState("");
   const [isBusy, setIsBusy] = useState(false);
@@ -48,7 +47,7 @@ function FeedbackScreen() {
     setIsBusy(true);
     setStatusMessage("");
 
-    authenticateSilently(getResource("mad").scopes).then((r) =>
+    authenticateSilently(getScopes("mad")).then((r) =>
       fetch(createUrl("mad", "/feedback"), {
         method: "POST",
         body: JSON.stringify(data),
@@ -78,9 +77,7 @@ function FeedbackScreen() {
 
   const resources = getConfiguredResources();
   const getApiEndpoints = () =>
-    resources
-      .map((resource) => getResource(resource).ApiBaseUrl.toString())
-      .join("\n - ");
+    resources.map((resource) => getApiBaseUrl(resource)).join("\n - ");
 
   const apiEndpoints = getApiEndpoints();
 
@@ -207,7 +204,7 @@ function FeedbackScreen() {
       />
     </KeyboardAwareScrollView>
   );
-}
+};
 
 function getWebBrowser() {
   let sBrowser;
@@ -246,8 +243,4 @@ function getWebBrowser() {
   return sBrowser;
 }
 
-const mapStateToProps = (state) => ({
-  user: getCurrentUser(state),
-});
-
-export default connect(mapStateToProps)(FeedbackScreen);
+export default FeedbackScreen;

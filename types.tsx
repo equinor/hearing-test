@@ -33,9 +33,7 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
 export const stateKeys = {
   AUTH: "currentUser",
   CONNECTIVITY: "connectivity",
-  VERSION: "version",
   MANIFEST: "schemaVersion",
-  CHANGELOG: "releaseNote",
   SERVICEMESSAGE: "serviceMessage",
   TOAST: "toast",
   NAV: "navigation",
@@ -86,3 +84,13 @@ export type ReleaseNote = {
 };
 
 export type MaterialIconName = keyof typeof MaterialIcons.glyphMap;
+
+export type Environment = "dev" | "test" | "prod";
+
+export type ResourceName = "mad" | "hearing";
+
+export type Resource = {
+  AzureADResourceId: string;
+  ApiBaseUrl: string;
+  scopes: string[];
+};

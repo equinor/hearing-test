@@ -11,13 +11,15 @@ import {
   DarkTheme,
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { ReleaseNoteScreen } from "mad-expo-core";
 import * as React from "react";
 import { ColorSchemeName, TouchableOpacity } from "react-native";
 
+import appJson from "../app.json";
 import { EQUINOR_GREEN } from "../constants/colors";
-import AboutScreen from "../screens/AboutScreen";
+import { getEnvironment, getScopes } from "../constants/settings";
+import { AboutScreen } from "../screens/AboutScreen";
 import DefaultScreen from "../screens/DefaultScreen";
-import FeatureScreen from "../screens/FeatureScreen";
 import FeedbackScreen from "../screens/FeedbackScreen";
 import LoginScreen from "../screens/LoginScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
@@ -27,9 +29,14 @@ import SoundCheckFinishedScreen from "../screens/SoundCheckFinishedScreen";
 import SoundCheckScreen from "../screens/SoundCheckScreen";
 import TestResultScreen from "../screens/TestResultScreen";
 import TestScreen from "../screens/TestScreen";
+import store from "../store/config";
 import { RootStackParamList } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import withUtilities from "./utils";
+
+const environment = getEnvironment();
+
+const getIsDemoMode = () => store.getState().appConfig.current.demoMode;
 
 const LightTheme = {
   ...DefaultTheme,
@@ -74,12 +81,23 @@ function RootNavigator() {
     >
       <Stack.Screen
         name="LoginRoute"
-        component={withUtilities(LoginScreen)}
+        component={LoginScreen}
         options={{ gestureEnabled: false, headerShown: false }}
       />
       <Stack.Screen
         name="FeatureRoute"
-        component={withUtilities(FeatureScreen)}
+        children={({ navigation }) => (
+          <ReleaseNoteScreen
+            name={appJson.expo.name}
+            version={appJson.expo.version}
+            environment={environment}
+            scopes={getScopes("mad")}
+            navigation={navigation}
+            versionStorageKey="version"
+            redirectRoute="DefaultRoute"
+            demoMode={getIsDemoMode()}
+          />
+        )}
         options={{ gestureEnabled: false, headerShown: false }}
       />
       <Stack.Screen
@@ -134,7 +152,7 @@ function RootNavigator() {
       <Stack.Group>
         <Stack.Screen
           name="SettingsRoute"
-          component={withUtilities(SettingsScreen)}
+          component={SettingsScreen}
           options={{
             headerBackTitle: "Home",
             title: "Settings",
