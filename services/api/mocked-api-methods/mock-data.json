@@ -9,12 +9,12 @@
     ]
   },
   "Me": {
-    "email": "foo@equinor.com",
-    "firstName": "John",
     "id": "foo@equinor.com",
-    "jobTitle": "tester",
+    "firstName": "John",
+    "surName": "Smith",
+    "email": "foo@equinor.com",
     "location": "Heidrun",
-    "surName": "Smith"
+    "jobTitle": "Tester"
   },
   "Tests": [
     {

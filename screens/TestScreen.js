@@ -1,4 +1,5 @@
 import { MaterialIcons as Icon } from "@expo/vector-icons";
+import NetInfo from "@react-native-community/netinfo";
 import { Spinner } from "mad-expo-core";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
@@ -13,6 +14,7 @@ import IconButton from "../components/common/EDS/IconButton";
 import BigRoundButton from "../components/common/atoms/BigRoundButton";
 import ProgressBar from "../components/common/atoms/ProgressBar";
 import Typography from "../components/common/atoms/Typography";
+import { TestCard } from "../components/common/molecules/TestCard";
 import store from "../store/config";
 import { selectIsFetching } from "../store/test";
 import {
@@ -93,6 +95,10 @@ class TestScreen extends Component {
     numberOfNodes: Infinity,
     isDoneLoadingSounds: false,
     isDemoMode: store.getState().appConfig.current.demoMode,
+    isConnected: null,
+    netInfoEventListener: NetInfo.addEventListener(({ isConnected }) =>
+      this.setState({ isConnected })
+    ),
   };
 
   componentDidMount() {
@@ -105,6 +111,10 @@ class TestScreen extends Component {
         .catch((err) => console.log({ err }));
     setInitialDeviceSystemVolume();
     SystemSetting.setVolume(0.5, { showUI: false });
+  }
+
+  componentWillUnmount() {
+    this.state.netInfoEventListener();
   }
 
   createSoundFile(hz) {
@@ -142,7 +152,18 @@ class TestScreen extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.isFetching && !this.props.isFetching) {
+    if (
+      this.state.isConnected &&
+      !this.props.isFetching &&
+      Object.keys(this.props.test).length === 0
+    ) {
+      this.props.actionPostTakeTest();
+    } else if (
+      prevProps.isFetching &&
+      !this.props.isFetching &&
+      this.props.test.sounds &&
+      !this.state.isDoneLoadingSounds
+    ) {
       if (!this.state.isDemoMode) {
         this.props.test.sounds.forEach((sound) => {
           this.sounds[`sound${sound.hz}hz`] = this.createSoundFile(sound.hz);
@@ -364,6 +385,16 @@ class TestScreen extends Component {
   }
 
   render() {
+    if (
+      this.state.isConnected === false &&
+      Object.keys(this.props.test).length === 0
+    )
+      return (
+        <SafeAreaView style={{ flex: 1, padding: 24 }}>
+          <TestCard isConnected={false} />
+        </SafeAreaView>
+      );
+
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <ProgressBar

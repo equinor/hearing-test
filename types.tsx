@@ -94,3 +94,16 @@ export type Resource = {
   ApiBaseUrl: string;
   scopes: string[];
 };
+
+export type Error = { message: string | null; status: number | null };
+
+export type User = {
+  id: string;
+  firstName: string;
+  surName: string;
+  email: string;
+  location: string;
+  jobTitle: string;
+};
+
+export type URL = `${string}://${string}.${string}`;

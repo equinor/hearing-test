@@ -2,7 +2,7 @@ import _ from "lodash";
 import { handleActions } from "redux-actions";
 
 import * as mockData from "../../services/api/mocked-api-methods/mock-data.json";
-import { stateKeys } from "../../types";
+import { Error, stateKeys } from "../../types";
 import {
   appStartupInitFailed,
   appStartupInitRequested,
@@ -180,12 +180,13 @@ export default handleActions(
   }
 );
 
-export const selectIsFetching = (state) => state[stateKeys.TEST].fetching;
+export const selectIsFetching = (state): boolean =>
+  state[stateKeys.TEST].fetching;
 export const selectNode = (state) => state[stateKeys.TEST].node;
 export const selectTest = (state) => state[stateKeys.TEST].test;
-export const selectTestIsFinished = (state) =>
+export const selectTestIsFinished = (state): boolean =>
   state[stateKeys.TEST].testIsFinished;
-export const selectTestIsRunning = (state) =>
+export const selectTestIsRunning = (state): boolean =>
   state[stateKeys.TEST].testIsRunning;
 export const selectResults = (state) => state[stateKeys.TEST].results;
 export const selectTestResult = (state) =>
@@ -193,5 +194,3 @@ export const selectTestResult = (state) =>
     ? mockData.Tests[0]
     : state[stateKeys.TEST].testResult;
 export const selectError = (state): Error => state[stateKeys.TEST].error;
-
-export type Error = { message: string | null; status: number | null };
