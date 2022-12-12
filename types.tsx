@@ -107,3 +107,10 @@ export type User = {
 };
 
 export type URL = `${string}://${string}.${string}`;
+
+export type Sound = {
+  name: string;
+  hz: number;
+  uri: string;
+  lastModified: Date;
+};
