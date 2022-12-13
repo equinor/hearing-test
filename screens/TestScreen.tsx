@@ -92,9 +92,11 @@ class TestScreen extends Component {
   };
 
   componentDidMount() {
-    NetInfo.addEventListener(({ isConnected }) =>
-      this.setState({ isConnected })
-    );
+    this.setState({
+      netInfoEventListener: NetInfo.addEventListener(({ isConnected }) =>
+        this.setState({ isConnected })
+      ),
+    });
     this.props.actionPostTakeTest();
     const setInitialDeviceSystemVolume = async () =>
       await SystemSetting.getVolume()
