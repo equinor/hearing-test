@@ -4,13 +4,17 @@ import React, { Component } from "react";
 import { Image, ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import headset from "../assets/images/headset.png";
-import manWithHeadset from "../assets/images/man-with-headset.png";
+import adapter from "../assets/images/adapter.png";
+import headsetVH from "../assets/images/headset-v-h.png";
+import manWithHeadsetVH from "../assets/images/man-with-headset-v-h.png";
+import scanner from "../assets/images/scanner.png";
 import sickMan from "../assets/images/sick-man.png";
+import thumbsDown from "../assets/images/thumbs-down.png";
 import thumbsUp from "../assets/images/thumbs-up.png";
 import ButtonEDS from "../components/common/EDS/Button";
 import Typography from "../components/common/atoms/Typography";
 import Indicators from "../components/common/molecules/Indicators";
+import { BarCodeScannerScreen } from "./BarCodeScannerScreen";
 
 const styles = StyleSheet.create({
   component: {
@@ -36,7 +40,7 @@ export default class PreTestScreen extends Component {
         done: false,
         image: sickMan,
         buttons: [
-          { text: "Fortsett", onPress: () => this.nextPage() },
+          { text: "Jeg er ikke forkjølet", onPress: () => this.nextPage() },
           {
             text: "Jeg er forkjølet",
             outlined: true,
@@ -61,21 +65,64 @@ export default class PreTestScreen extends Component {
         ],
       },
       {
-        title: "Utstyr",
+        title: "Husk!",
         content:
-          "Du trenger et godkjent headset for å utføre testen. Dette kobles til din mobile enhet. Blå skal på venstre øre og rød skal på høyre øre.",
+          "Husk å alltid bruke lightning adapteren som er allerede koblet til headsettet.",
         current: false,
         done: false,
-        image: headset,
+        image: adapter,
         buttons: [{ text: "Fortsett", onPress: () => this.nextPage() }],
       },
       {
-        title: "Testen",
+        title: "Bekreft utstyr",
         content:
-          "Appen vil foreta 1 måleserie. Ved forstyrrelser er det mulig å pause testen og fortsette der du slapp.",
+          "For å bekrefte at du har riktig utstyr til denne testen, må du scanne strekkoden på headsettet som du får tildelt fra helsestasjonen din.",
         current: false,
         done: false,
-        image: manWithHeadset,
+        image: scanner,
+        buttons: [{ text: "Scan", onPress: () => this.nextPage() }],
+      },
+      {
+        title: "Scan",
+        content: "Page used to scan barcode",
+        current: false,
+        done: false,
+        image: scanner,
+        buttons: [{ text: "Scan", onPress: () => this.nextPage() }],
+      },
+      {
+        title: "Ups!",
+        content:
+          "Ingen godkjent kode ble funnet. Du blir nå tatt tilbake til hovedsiden.",
+        current: false,
+        done: false,
+        image: thumbsDown,
+        buttons: [{ text: "Scan igjen", onPress: () => this.previousPage() }],
+      },
+      {
+        title: "Utstyr bekreftet",
+        content: "Flott! Du har et godkjent headset.",
+        current: false,
+        done: false,
+        image: thumbsUp,
+        buttons: [{ text: "Fortsett", onPress: () => this.nextPage() }],
+      },
+      {
+        title: "Husk å sett på headsettet ordentlig.",
+        content:
+          "Det er fort gjort å sette headsettet feil vei, husk å ha kabelen på riktig side!",
+        current: false,
+        done: false,
+        image: headsetVH,
+        buttons: [{ text: "Scan", onPress: () => this.nextPage() }],
+      },
+      {
+        title: "Tid for hørselstest!",
+        content:
+          "Én lyd på venstre side, én lyd på høyre side. Vær oppmerksom for å være sikker på at den blir hørt og fungerer.",
+        current: false,
+        done: false,
+        image: manWithHeadsetVH,
         buttons: [{ text: "Fortsett", onPress: () => this.nextPage() }],
       },
     ],
@@ -92,21 +139,42 @@ export default class PreTestScreen extends Component {
     return this.state.pages.find((page) => page.current);
   }
 
-  nextPage() {
+  nextPage(indexChange) {
+    if (typeof indexChange === "undefined") {
+      indexChange = 1;
+    }
+
     const currentIndex = this.state.pages.findIndex((page) => page.current);
     const clonedPages = cloneDeep(this.state.pages);
     clonedPages[currentIndex].done = true;
-    if (currentIndex + 1 < this.state.pages.length) {
+    if (currentIndex + indexChange < this.state.pages.length) {
       clonedPages[currentIndex].current = false;
-      clonedPages[currentIndex + 1].current = true;
+      clonedPages[currentIndex + indexChange].current = true;
       this.setState({ pages: clonedPages });
     } else {
       this.props.navigation.navigate("SoundCheckRoute");
     }
   }
 
+  previousPage() {
+    const currentIndex = this.state.pages.findIndex((page) => page.current);
+    const clonedPages = cloneDeep(this.state.pages);
+    clonedPages[currentIndex].current = false;
+    clonedPages[currentIndex - 1].current = true;
+    this.setState({ pages: clonedPages });
+  }
+
   render() {
     const view = this.currentPage();
+    if (view.title === "Scan") {
+      return (
+        <BarCodeScannerScreen
+          onFailure={() => this.nextPage()}
+          onSuccess={() => this.nextPage(2)}
+        />
+      );
+    }
+
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView style={styles.component}>
