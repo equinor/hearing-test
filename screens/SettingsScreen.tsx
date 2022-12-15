@@ -1,18 +1,17 @@
 import { getAccount } from "mad-expo-core";
 import { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
-import Settings from "../components/Settings";
+import { Settings } from "../components/Settings";
 import withUtilities from "../navigation/utils";
 import { getConfig } from "../store/app-config";
 import { RootStackScreenProps } from "../types";
 
-interface Props extends RootStackScreenProps<"SettingsRoute"> {
-  appConfig: { demoMode: boolean };
-}
+type Props = RootStackScreenProps<"SettingsRoute">;
 
-const SettingsScreen = ({ appConfig: { demoMode }, navigation }: Props) => {
+const SettingsScreen = ({ navigation }: Props) => {
   const [currentUser, setCurrentUser] = useState<string | null>(null);
+  const { demoMode } = useSelector((state) => getConfig(state));
 
   useEffect(() => {
     if (demoMode) {
@@ -31,8 +30,4 @@ const SettingsScreen = ({ appConfig: { demoMode }, navigation }: Props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  appConfig: getConfig(state),
-});
-
-export default withUtilities(connect(mapStateToProps)(SettingsScreen));
+export default withUtilities(SettingsScreen);

@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 
 import { selectIsFetching } from "../../../store/test";
 import { postTest } from "../../../store/test/actions";
@@ -11,29 +11,30 @@ import Typography from "../atoms/Typography";
 
 type Cards = {
   newTest: CardProps;
+  offline: CardProps;
   unsentTest: CardProps;
 };
 
 type CardProps = {
   title: string;
   description: string;
-  onPress: () => void;
-  buttonText: string;
+  buttonText?: string;
+  onPress?: () => void;
   loading?: boolean;
 };
 
-interface Props extends RootStackScreenProps<"DefaultRoute"> {
+type Props = RootStackScreenProps<"DefaultRoute"> & {
   actionPostTest: Function;
-  isFetching: boolean;
-  unsentTests: any[];
-}
+  isConnected: boolean | null;
+};
 
 const TestCardComponent = ({
   actionPostTest,
-  isFetching,
+  isConnected,
   navigation,
-  unsentTests,
 }: Props) => {
+  const isFetching = useSelector((state) => selectIsFetching(state));
+  const unsentTests = useSelector((state) => getUnsentTests(state));
   const isMultipleUnsentTests = unsentTests.length > 1;
 
   const cards: Cards = {
@@ -41,8 +42,13 @@ const TestCardComponent = ({
       title: "Er du klar for en ny test?",
       description:
         "Husk å teste hørselen din regelmessig for at vi skal kunne kartlegge hørselshelsen din over tid.",
-      onPress: () => navigation.navigate("PreTestRoute"),
       buttonText: "Ta hørselstesten",
+      onPress: () => navigation.navigate("PreTestRoute"),
+    },
+    offline: {
+      title: "Ingen nettverk",
+      description:
+        "Du trenger nettverkstilgang for å ta en test. Koble til Wi-Fi eller mobilnett og prøv igjen.",
     },
     unsentTest: {
       title: `Du har ${unsentTests.length} ${
@@ -51,13 +57,19 @@ const TestCardComponent = ({
       description: `Du må sende ${
         isMultipleUnsentTests ? "de usendte testene" : "den usendte testen"
       } før du kan starte en ny test.`,
-      onPress: () => actionPostTest(unsentTests[0]),
       buttonText: "Send",
+      onPress: () => actionPostTest(unsentTests[0]),
       loading: isFetching,
     },
   };
 
-  const card = unsentTests.length === 0 ? cards.newTest : cards.unsentTest;
+  let card: CardProps;
+
+  if (!isConnected) {
+    card = cards.offline;
+  } else {
+    card = unsentTests.length > 0 ? cards.unsentTest : cards.newTest;
+  }
 
   return (
     <Card>
@@ -67,13 +79,15 @@ const TestCardComponent = ({
       <Typography variant="p" style={{ paddingBottom: 32 }}>
         {card.description}
       </Typography>
-      <View style={{ width: 160 }}>
-        <ButtonEDS
-          onPress={card.onPress}
-          text={card.buttonText}
-          loading={card.loading}
-        />
-      </View>
+      {card.buttonText && card.onPress ? (
+        <View style={{ width: 160 }}>
+          <ButtonEDS
+            text={card.buttonText}
+            onPress={card.onPress}
+            loading={card.loading}
+          />
+        </View>
+      ) : null}
     </Card>
   );
 };
@@ -82,12 +96,4 @@ const mapDispatchToProps = (dispatch) => ({
   actionPostTest: (test) => dispatch(postTest(test)),
 });
 
-const mapStateToProps = (state) => ({
-  isFetching: selectIsFetching(state),
-  unsentTests: getUnsentTests(state),
-});
-
-export const TestCard = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TestCardComponent);
+export const TestCard = connect(null, mapDispatchToProps)(TestCardComponent);
