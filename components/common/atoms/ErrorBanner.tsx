@@ -1,40 +1,33 @@
-import { Linking, Text, TouchableHighlight } from "react-native";
-import { connect } from "react-redux";
+import { Typography } from "mad-expo-core";
+import { TouchableHighlight } from "react-native";
+import { useSelector } from "react-redux";
 
 import { STOP } from "../../../constants/colors";
-import { Error, selectError } from "../../../store/test/reducer";
+import { selectError } from "../../../store/test/reducer";
+import { openURL } from "../../../utils/linking";
 
-const ErrorBannerComponent = ({ error }: { error: Error }) => {
-  if (error.status)
+export const ErrorBanner = () => {
+  const { message, status } = useSelector((state) => selectError(state));
+
+  if (status)
     return (
       <TouchableHighlight
-        style={{ backgroundColor: STOP, padding: 12, margin: 0 }}
+        style={{ backgroundColor: STOP, padding: 12 }}
         onPress={() =>
-          Linking.openURL(
-            `https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/${error.status}`
+          openURL(
+            `https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/${status}`
           )
         }
       >
         <>
-          <Text style={{ color: "white" }}>Could not submit test due to</Text>
-          <Text style={{ fontSize: 23, color: "white", marginVertical: 4 }}>
-            ERROR: {error.status} {error.message && `| ${error.message}`}
-          </Text>
-          <Text style={{ color: "white" }}>Click to learn more...</Text>
+          <Typography color="white">Could not submit test due to</Typography>
+          <Typography color="white" variant="h3" style={{ marginVertical: 4 }}>
+            ERROR: {status} {message && `| ${message}`}
+          </Typography>
+          <Typography color="white">Click to learn more...</Typography>
         </>
       </TouchableHighlight>
     );
 
   return <></>;
 };
-
-const mapDispatchToProps = (dispatch) => ({});
-
-const mapStateToProps = (state) => ({
-  error: selectError(state),
-});
-
-export const ErrorBanner = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ErrorBannerComponent);

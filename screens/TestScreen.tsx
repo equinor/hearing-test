@@ -1,8 +1,8 @@
-import { MaterialIcons as Icon } from "@expo/vector-icons";
+import NetInfo from "@react-native-community/netinfo";
 import { Spinner } from "mad-expo-core";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { Alert, Modal, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Alert, Modal, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Sound from "react-native-sound";
 import SystemSetting from "react-native-system-setting";
@@ -11,8 +11,10 @@ import { connect } from "react-redux";
 import ButtonEDS from "../components/common/EDS/Button";
 import IconButton from "../components/common/EDS/IconButton";
 import BigRoundButton from "../components/common/atoms/BigRoundButton";
+import { MenuItem } from "../components/common/atoms/MenuItem";
 import ProgressBar from "../components/common/atoms/ProgressBar";
 import Typography from "../components/common/atoms/Typography";
+import { TestCard } from "../components/common/molecules/TestCard";
 import store from "../store/config";
 import { selectIsFetching } from "../store/test";
 import {
@@ -30,15 +32,7 @@ import {
   selectTestIsFinished,
   selectTestIsRunning,
 } from "../store/test/reducer";
-
-const styles = StyleSheet.create({
-  component: {
-    display: "flex",
-    flex: 1,
-    padding: 16,
-    paddingBottom: 60,
-  },
-});
+import { createSoundFile } from "../utils/sound";
 
 class TestScreen extends Component {
   static propTypes = {
@@ -93,9 +87,16 @@ class TestScreen extends Component {
     numberOfNodes: Infinity,
     isDoneLoadingSounds: false,
     isDemoMode: store.getState().appConfig.current.demoMode,
+    isConnected: null,
+    netInfoEventListener: null,
   };
 
   componentDidMount() {
+    this.setState({
+      netInfoEventListener: NetInfo.addEventListener(({ isConnected }) =>
+        this.setState({ isConnected })
+      ),
+    });
     this.props.actionPostTakeTest();
     const setInitialDeviceSystemVolume = async () =>
       await SystemSetting.getVolume()
@@ -107,21 +108,11 @@ class TestScreen extends Component {
     SystemSetting.setVolume(0.5, { showUI: false });
   }
 
-  createSoundFile(hz) {
-    const soundUri = this.props.test.sounds.find(
-      (sound) => sound.hz === hz
-    ).uri;
-
-    const sound = new Sound(soundUri, null, (error) => {
-      if (error) {
-        console.error("failed to load the sound", error);
-      }
-    });
-
-    return sound;
+  componentWillUnmount() {
+    this.state.netInfoEventListener();
   }
 
-  getSoundFile(hz) {
+  getSoundFile(hz: number) {
     if (this.state.isDemoMode) return this.demoModeSound;
 
     return this.sounds[`sound${hz}hz`];
@@ -142,50 +133,58 @@ class TestScreen extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.isFetching && !this.props.isFetching) {
+    // Fetch test when reconnected
+    if (
+      this.state.isConnected &&
+      !this.props.isFetching &&
+      Object.keys(this.props.test).length === 0
+    ) {
+      this.props.actionPostTakeTest();
+    }
+
+    // Load sounds
+    if (!this.state.isDoneLoadingSounds && this.props.test.sounds) {
       if (!this.state.isDemoMode) {
         this.props.test.sounds.forEach((sound) => {
-          this.sounds[`sound${sound.hz}hz`] = this.createSoundFile(sound.hz);
+          this.sounds[`sound${sound.hz}hz`] = createSoundFile(sound.uri);
         });
       }
-
       this.setState({ isDoneLoadingSounds: true });
-    } else {
+    }
+
+    if (
+      !this.props.testIsFinished &&
+      (this.props.node !== prevProps.node || this.state.nextNodeWaiting)
+    ) {
       if (
-        !this.props.testIsFinished &&
-        (this.props.node !== prevProps.node || this.state.nextNodeWaiting)
+        !this.state.pauseAfterNode &&
+        !this.state.modalVisible &&
+        this.props.testIsRunning
       ) {
         if (
-          !this.state.pauseAfterNode &&
-          !this.state.modalVisible &&
-          this.props.testIsRunning
+          prevProps.node.data?.index !== 1 &&
+          this.props.node.data?.index === 1
         ) {
-          if (
-            prevProps.node.data?.index !== 1 &&
-            this.props.node.data?.index === 1
-          ) {
-            this.setState({ isPlayingFirstNodeFirstTime: true });
-          }
-          this.runNode(this.props.node);
-          if (this.state.nextNodeWaiting)
-            this.setState({ nextNodeWaiting: false }); // eslint-disable-line react/no-did-update-set-state
-        } else if (!this.state.nextNodeWaiting) {
-          this.setState({
-            nextNodeWaiting: true,
-            pauseAfterNode: false,
-            modalVisible: true,
-          }); // eslint-disable-line react/no-did-update-set-state
+          this.setState({ isPlayingFirstNodeFirstTime: true });
         }
+        this.runNode(this.props.node);
+        if (this.state.nextNodeWaiting)
+          this.setState({ nextNodeWaiting: false }); // eslint-disable-line react/no-did-update-set-state
+      } else if (!this.state.nextNodeWaiting) {
+        this.setState({
+          nextNodeWaiting: true,
+          pauseAfterNode: false,
+          modalVisible: true,
+        }); // eslint-disable-line react/no-did-update-set-state
       }
-      if (
-        this.props.testIsFinished &&
-        this.props.testIsFinished !== prevProps.testIsFinished
-      ) {
-        this.releaseSoundFiles();
-        Sound.setActive(false);
-        this.props.actionPostTest(this.props.test);
-        this.props.navigation.navigate("TestResultRoute");
-      }
+    }
+
+    // Test is finished
+    if (!prevProps.testIsFinished && this.props.testIsFinished) {
+      this.releaseSoundFiles();
+      Sound.setActive(false);
+      this.props.actionPostTest(this.props.test);
+      this.props.navigation.navigate("TestResultRoute");
     }
   }
 
@@ -364,6 +363,16 @@ class TestScreen extends Component {
   }
 
   render() {
+    if (
+      this.state.isConnected === false &&
+      Object.keys(this.props.test).length === 0
+    )
+      return (
+        <SafeAreaView style={{ flex: 1, padding: 24 }}>
+          <TestCard isConnected={false} />
+        </SafeAreaView>
+      );
+
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <ProgressBar
@@ -527,37 +536,13 @@ class TestScreen extends Component {
   }
 }
 
-const MenuItem = ({ icon, text, onPress }) => {
-  return (
-    <TouchableOpacity
-      style={{
-        width: "100%",
-        height: 40,
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        margin: 8,
-      }}
-      onPress={onPress}
-    >
-      <Icon
-        name={icon}
-        size={24}
-        color="#6F6F6F"
-        style={{ paddingRight: 12 }}
-      />
-      <Typography variant="p" style={{ flex: 1 }}>
-        {text}
-      </Typography>
-    </TouchableOpacity>
-  );
-};
-
-MenuItem.propTypes = {
-  icon: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-  onPress: PropTypes.func.isRequired,
-};
+const styles = StyleSheet.create({
+  component: {
+    flex: 1,
+    padding: 16,
+    paddingBottom: 60,
+  },
+});
 
 const mapDispatchToProps = (dispatch) => ({
   actionFailure: (reactionTimeMs) => dispatch(failure(reactionTimeMs)),

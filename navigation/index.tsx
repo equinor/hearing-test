@@ -19,7 +19,7 @@ import appJson from "../app.json";
 import { EQUINOR_GREEN } from "../constants/colors";
 import { getEnvironment, getScopes } from "../constants/settings";
 import { AboutScreen } from "../screens/AboutScreen";
-import DefaultScreen from "../screens/DefaultScreen";
+import { DefaultScreen } from "../screens/DefaultScreen";
 import FeedbackScreen from "../screens/FeedbackScreen";
 import LoginScreen from "../screens/LoginScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
