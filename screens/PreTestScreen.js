@@ -139,11 +139,7 @@ export default class PreTestScreen extends Component {
     return this.state.pages.find((page) => page.current);
   }
 
-  nextPage(indexChange) {
-    if (typeof indexChange === "undefined") {
-      indexChange = 1;
-    }
-
+  nextPage(indexChange = 1) {
     const currentIndex = this.state.pages.findIndex((page) => page.current);
     const clonedPages = cloneDeep(this.state.pages);
     clonedPages[currentIndex].done = true;
