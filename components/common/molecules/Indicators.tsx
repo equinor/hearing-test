@@ -1,21 +1,26 @@
 import React from "react";
-import { View } from "react-native";
+import { StyleProp, View, ViewStyle } from "react-native";
 
 import { EQUINOR_GREEN } from "../../../constants/colors";
 
-export default function Indicators(props: { iterable: [] }) {
+type Props = {
+  iterable: any[];
+  style: StyleProp<ViewStyle>;
+};
+
+export const Indicators: React.FC<Props> = ({ iterable = [], style = {} }) => {
   return (
     <View
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
+      style={[
+        {
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+        },
+        style,
+      ]}
     >
-      {props.iterable.map(({ current, done }, index) => {
-        const diameter = 16;
-        const style = { width: diameter, height: diameter };
+      {iterable.map(({ current }, index) => {
         if (current) {
           return (
             <View
@@ -45,4 +50,4 @@ export default function Indicators(props: { iterable: [] }) {
       })}
     </View>
   );
-}
+};
