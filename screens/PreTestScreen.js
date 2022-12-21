@@ -6,7 +6,7 @@ import { Image, ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import adapter from "../assets/images/adapter.png";
-import headsetVH from "../assets/images/headset-v-h.png";
+import headset from "../assets/images/headset.png";
 import scanner from "../assets/images/scanner.png";
 import sickMan from "../assets/images/sick-man.png";
 import thumbsDown from "../assets/images/thumbs-down.png";
@@ -31,7 +31,6 @@ export default class PreTestScreen extends Component {
         content:
           "For at resultatene skal bli pålitelige, skal du ikke ta denne testen når du er syk.",
         current: true,
-        done: false,
         buttons: [
           {
             text: "Jeg er forkjølet",
@@ -43,7 +42,6 @@ export default class PreTestScreen extends Component {
                 content:
                   "Vi sender deg en ny invitasjon ved neste arbeidsperiode.",
                 current: true,
-                done: true,
                 ignoreStep: true,
                 buttons: [
                   {
@@ -63,7 +61,6 @@ export default class PreTestScreen extends Component {
         content:
           "Husk å alltid bruke lightning adapteren som er allerede koblet til headsettet.",
         current: false,
-        done: false,
         buttons: [{ text: "Fortsett", onPress: () => this.nextPage() }],
       },
       {
@@ -72,7 +69,6 @@ export default class PreTestScreen extends Component {
         content:
           "For å bekrefte at du har riktig utstyr til denne testen, må du scanne strekkoden på headsettet som du får tildelt fra helsestasjonen din.",
         current: false,
-        done: false,
         buttons: [{ text: "Scan", onPress: () => this.nextPage() }],
       },
       {
@@ -80,7 +76,7 @@ export default class PreTestScreen extends Component {
         image: scanner,
         content: "Page used to scan barcode",
         current: false,
-        done: false,
+        hideIndicator: true,
         buttons: [{ text: "Scan", onPress: () => this.nextPage() }],
       },
       {
@@ -89,7 +85,6 @@ export default class PreTestScreen extends Component {
         content:
           "Ingen godkjent kode ble funnet. Du blir nå tatt tilbake til hovedsiden.",
         current: false,
-        done: false,
         buttons: [{ text: "Scan igjen", onPress: () => this.previousPage() }],
       },
       {
@@ -97,25 +92,22 @@ export default class PreTestScreen extends Component {
         image: thumbsUp,
         content: "Flott! Du har et godkjent headset.",
         current: false,
-        done: false,
         buttons: [{ text: "Fortsett", onPress: () => this.nextPage() }],
       },
       {
         title: "Husk å sett på headsettet ordentlig.",
-        image: headsetVH,
+        image: headset,
         content:
           "Det er fort gjort å sette headsettet feil vei, husk å ha kabelen på riktig side!",
         current: false,
-        done: false,
         buttons: [{ text: "Fortsett", onPress: () => this.nextPage() }],
       },
       {
         title: "Tid for hørselstest!",
-        image: headsetVH,
+        image: headset,
         content:
           "Én lyd på venstre side, én lyd på høyre side. Vær oppmerksom for å være sikker på at den blir hørt og fungerer.",
         current: false,
-        done: false,
         buttons: [{ text: "Fortsett", onPress: () => this.nextPage() }],
       },
     ],
@@ -135,7 +127,6 @@ export default class PreTestScreen extends Component {
   nextPage(indexChange = 1) {
     const currentIndex = this.state.pages.findIndex((page) => page.current);
     const clonedPages = cloneDeep(this.state.pages);
-    clonedPages[currentIndex].done = true;
     if (currentIndex + indexChange < this.state.pages.length) {
       clonedPages[currentIndex].current = false;
       clonedPages[currentIndex + indexChange].current = true;

@@ -20,7 +20,11 @@ export const Indicators: React.FC<Props> = ({ iterable = [], style = {} }) => {
         style,
       ]}
     >
-      {iterable.map(({ current }, index) => {
+      {iterable.map(({ current, hideIndicator }, index) => {
+        if (hideIndicator) {
+          return null;
+        }
+
         if (current) {
           return (
             <View
@@ -35,6 +39,7 @@ export const Indicators: React.FC<Props> = ({ iterable = [], style = {} }) => {
             />
           );
         }
+
         return (
           <View
             key={index}
