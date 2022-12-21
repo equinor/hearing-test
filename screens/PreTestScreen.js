@@ -1,8 +1,8 @@
 import { cloneDeep } from "lodash";
-import { IconButton, Typography } from "mad-expo-core";
+import { Typography } from "mad-expo-core";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { Alert, Image, ScrollView, StyleSheet } from "react-native";
+import { Image, ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import adapter from "../assets/images/adapter.png";
@@ -12,8 +12,10 @@ import sickMan from "../assets/images/sick-man.png";
 import thumbsDown from "../assets/images/thumbs-down.png";
 import thumbsUp from "../assets/images/thumbs-up.png";
 import ButtonEDS from "../components/common/EDS/Button";
+import { IconButton } from "../components/common/EDS/IconButton";
 import { Indicators } from "../components/common/molecules/Indicators";
 import { MOSS_GREEN_100, TEXT } from "../constants/colors";
+import { onClose } from "../utils/alerts";
 import { BarCodeScannerScreen } from "./BarCodeScannerScreen";
 
 export default class PreTestScreen extends Component {
@@ -151,20 +153,6 @@ export default class PreTestScreen extends Component {
     this.setState({ pages: clonedPages });
   }
 
-  onClose() {
-    Alert.alert("Avslutte lydsjekk?", "Da må du begynne på nytt neste gang", [
-      {
-        text: "Nei",
-        style: "cancel",
-      },
-      {
-        text: "Ja",
-        onPress: () => this.props.navigation.navigate("DefaultRoute"),
-        style: "destructive",
-      },
-    ]);
-  }
-
   render() {
     const view = this.currentPage();
     if (view.title === "Scan") {
@@ -181,8 +169,10 @@ export default class PreTestScreen extends Component {
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={styles.contentContainer}>
           <IconButton
-            name="close"
-            onPress={() => this.onClose()}
+            icon="close"
+            onPress={() =>
+              onClose(() => this.props.navigation.navigate("DefaultRoute"))
+            }
             style={styles.closeButton}
           />
           <Typography variant="h1" color={MOSS_GREEN_100} style={styles.title}>

@@ -3,7 +3,7 @@ import { Modal, View } from "react-native";
 
 import TestLogScreen from "../../../screens/TestLogScreen";
 import { TestResult } from "../../../types";
-import IconButton from "../EDS/IconButton";
+import { IconButton } from "../EDS/IconButton";
 import Typography from "../atoms/Typography";
 import TestResultItem from "./TestResultItem";
 

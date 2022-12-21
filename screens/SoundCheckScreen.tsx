@@ -14,12 +14,13 @@ import SystemSetting from "react-native-system-setting";
 import { connect } from "react-redux";
 
 import ButtonEDS from "../components/common/EDS/Button";
-import IconButton from "../components/common/EDS/IconButton";
+import { IconButton } from "../components/common/EDS/IconButton";
 import BigRoundButton from "../components/common/atoms/BigRoundButton";
 import Typography from "../components/common/atoms/Typography";
 import ProgressAnimationBar from "../components/common/molecules/ProgressAnimationBar";
 import { EQUINOR_GREEN, GRAY_BACKGROUND } from "../constants/colors";
 import { SoundCheckPageJSON } from "../types";
+import { onClose } from "../utils/alerts";
 
 const styles = StyleSheet.create({
   component: {
@@ -190,25 +191,9 @@ const SoundCheckScreen = (props: any) => {
               <Typography variant="h1">{page.title}</Typography>
               <IconButton
                 icon="close"
-                onPress={() => {
-                  Alert.alert(
-                    "Avslutte lydsjekk?",
-                    "Da må du begynne på nytt neste gang",
-                    [
-                      {
-                        text: "Nei",
-                        onPress: () => {},
-                        style: "cancel",
-                      },
-                      {
-                        text: "Ja",
-                        onPress: () =>
-                          props.navigation.navigate("DefaultRoute"),
-                        style: "destructive",
-                      },
-                    ]
-                  );
-                }}
+                onPress={() =>
+                  onClose(() => props.navigation.navigate("DefaultRoute"))
+                }
               />
             </View>
             <View

@@ -9,7 +9,7 @@ import SystemSetting from "react-native-system-setting";
 import { connect } from "react-redux";
 
 import ButtonEDS from "../components/common/EDS/Button";
-import IconButton from "../components/common/EDS/IconButton";
+import { IconButton } from "../components/common/EDS/IconButton";
 import BigRoundButton from "../components/common/atoms/BigRoundButton";
 import { MenuItem } from "../components/common/atoms/MenuItem";
 import ProgressBar from "../components/common/atoms/ProgressBar";

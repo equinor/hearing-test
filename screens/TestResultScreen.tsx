@@ -13,7 +13,7 @@ import doctor from "../assets/images/doctor.png";
 import thumbsUp from "../assets/images/thumbs-up.png";
 import warning from "../assets/images/warning.png";
 import { ButtonProps } from "../components/common/EDS/Button";
-import IconButton from "../components/common/EDS/IconButton";
+import { IconButton } from "../components/common/EDS/IconButton";
 import { ErrorBanner } from "../components/common/atoms/ErrorBanner";
 import Typography from "../components/common/atoms/Typography";
 import { ButtonGroup } from "../components/common/molecules/ButtonGroup";

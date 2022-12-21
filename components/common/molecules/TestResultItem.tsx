@@ -3,7 +3,7 @@ import { View, Dimensions } from "react-native";
 import ImageModal from "react-native-image-modal";
 
 import { TestResult } from "../../../types";
-import IconButton from "../EDS/IconButton";
+import { IconButton } from "../EDS/IconButton";
 import Typography from "../atoms/Typography";
 
 const TestResultItem = (props: {

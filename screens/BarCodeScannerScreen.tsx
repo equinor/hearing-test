@@ -1,11 +1,12 @@
 import { BarCodeScanner } from "expo-barcode-scanner";
-import { IconButton, Typography } from "mad-expo-core";
+import { Typography } from "mad-expo-core";
 import React, { useEffect, useState } from "react";
-import { Alert, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { MOSS_GREEN_100 } from "../constants/colors";
+import { IconButton } from "../components/common/EDS/IconButton";
 import { RootStackScreenProps } from "../types";
+import { onClose } from "../utils/alerts";
 
 type Props = RootStackScreenProps<"PreTestRoute"> & {
   onBarcodeMatch: () => void;
@@ -39,33 +40,11 @@ export const BarCodeScannerScreen: React.FC<Props> = ({
     }
   };
 
-  const onClose = () => {
-    Alert.alert("Avslutte lydsjekk?", "Da må du begynne på nytt neste gang", [
-      {
-        text: "Nei",
-        style: "cancel",
-      },
-      {
-        text: "Ja",
-        onPress: () => navigation.navigate("DefaultRoute"),
-        style: "destructive",
-      },
-    ]);
-  };
-
-  let noPermissionText;
-  if (hasPermission === null) {
-    noPermissionText = "Spør om tilgang til kamera";
-  } else if (hasPermission === false) {
-    noPermissionText = "Ingen tilgang til kamera";
-  }
-
   return (
     <View style={styles.container}>
       <IconButton
-        name="close"
-        onPress={onClose}
-        color={hasPermission ? "white" : MOSS_GREEN_100}
+        icon="close"
+        onPress={() => onClose(() => navigation.navigate("DefaultRoute"))}
         style={[
           styles.closeButton,
           {
@@ -80,7 +59,9 @@ export const BarCodeScannerScreen: React.FC<Props> = ({
         />
       ) : (
         <Typography style={{ textAlign: "center" }}>
-          {noPermissionText}
+          {hasPermission === null
+            ? "Spør om tilgang til kamera"
+            : "Ingen tilgang til kamera"}
         </Typography>
       )}
     </View>
