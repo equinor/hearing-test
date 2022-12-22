@@ -1,40 +1,50 @@
 import { MaterialIcons as Icon } from "@expo/vector-icons";
 import { useState } from "react";
-import { StyleProp, TouchableOpacity, ViewStyle } from "react-native";
+import {
+  GestureResponderEvent,
+  StyleProp,
+  StyleSheet,
+  TouchableOpacity,
+  ViewStyle,
+} from "react-native";
 
-import { EQUINOR_GREEN } from "../../../constants/colors";
+import { MOSS_GREEN_100, MOSS_GREEN_13 } from "../../../constants/colors";
 import { MaterialIconName } from "../../../types";
 
-const IconButton = (props: {
+type Props = {
   icon: MaterialIconName;
-  onPress: Function;
+  onPress: (event: GestureResponderEvent) => void;
   style?: StyleProp<ViewStyle>;
-}) => {
+};
+
+export const IconButton: React.FC<Props> = ({ icon, onPress, style }) => {
   const [activeTouch, setActiveTouch] = useState(false);
 
   return (
     <TouchableOpacity
       activeOpacity={1}
+      onPress={onPress}
       onPressIn={() => setActiveTouch(true)}
       onPressOut={() => setActiveTouch(false)}
-      onPress={() => {
-        props.onPress();
-      }}
       style={[
+        styles.container,
         {
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: activeTouch ? "#DEEDEE" : "transparent",
-          borderRadius: 180,
-          height: 48,
-          width: 48,
+          backgroundColor: activeTouch ? MOSS_GREEN_13 : "transparent",
         },
-        props.style,
+        style,
       ]}
     >
-      <Icon name={props.icon} size={24} color={EQUINOR_GREEN} />
+      <Icon name={icon} size={24} color={MOSS_GREEN_100} />
     </TouchableOpacity>
   );
 };
 
-export default IconButton;
+const styles = StyleSheet.create({
+  container: {
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 180,
+    height: 48,
+    width: 48,
+  },
+});

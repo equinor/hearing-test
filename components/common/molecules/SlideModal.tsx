@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Modal, View } from "react-native";
 
-import IconButton from "../EDS/IconButton";
+import { IconButton } from "../EDS/IconButton";
 import Typography from "../atoms/Typography";
 
 export const SlideModal = (props: {

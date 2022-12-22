@@ -3,7 +3,7 @@ import { Typography } from "mad-expo-core";
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 
-import IconButton from "../components/common/EDS/IconButton";
+import { IconButton } from "../components/common/EDS/IconButton";
 import NavigationItem from "../components/common/atoms/NavigationItem";
 import { SlideModal } from "../components/common/molecules/SlideModal";
 import { TestCard } from "../components/common/molecules/TestCard";
