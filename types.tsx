@@ -59,12 +59,58 @@ export const authStatusTypes = {
 };
 
 export type TestResult = {
-  audiogram: string;
-  name: string;
-  dateTaken: number;
   id: string;
   userId: string;
+  name: string;
+  dateTaken: ISOString;
+  level: Level;
+  result: AnalysisFlag;
 };
+
+export type ISOString =
+  `${number}-${number}-${number}T${number}:${number}:${number}.${number}+${number}:${number}`;
+
+export type Level = {
+  leftEar: HearingLevel[];
+  rightEar: HearingLevel[];
+};
+
+export type HearingLevel = {
+  id: string;
+  hz: number;
+  db: number;
+};
+
+const ANALYSIS_FLAG = {
+  UNDEFINED: "Undefined",
+  OK: "Ok",
+  OUTLIER: "Outlier",
+  NOT_OK: "NotOk",
+} as const;
+
+type ObjectValues<T> = T[keyof T];
+
+export type AnalysisFlag = ObjectValues<typeof ANALYSIS_FLAG>;
+
+export type ChartData = {
+  leftEar: Point[];
+  rightEar: Point[];
+};
+
+export type Point = {
+  x: number;
+  y: number;
+};
+
+export const HEARING_THRESHOLD = {
+  NORMAL: 20,
+  MILD_LOSS: 40,
+  MODERATE_LOSS: 70,
+  CONSIDERABLE_LOSS: 90,
+  SERIOUS_LOSS: 120,
+} as const;
+
+export type Ear = "left" | "right";
 
 export type SoundCheckPageJSON = {
   title: string;

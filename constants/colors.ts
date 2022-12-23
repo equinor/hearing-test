@@ -47,6 +47,12 @@ export const MOSS_GREEN_34 = "#A8CED1";
 export const MOSS_GREEN_21 = "#C9E0E2";
 export const MOSS_GREEN_13 = "#DEEDEE";
 
+// Chart
+export const LEFT_EAR = "#52C0FF";
+export const RIGHT_EAR = "#EB0000";
+export const DOT_LABEL = "white";
+export const GRID = "#8C98A0";
+
 // Traffic light colors
 export const STOP = "#EB0000";
 export const WAIT = "#FF9200";

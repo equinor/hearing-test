@@ -5,7 +5,7 @@ import TestLogScreen from "../../../screens/TestLogScreen";
 import { TestResult } from "../../../types";
 import { IconButton } from "../EDS/IconButton";
 import Typography from "../atoms/Typography";
-import TestResultItem from "./TestResultItem";
+import { TestResultItem } from "./TestResultItem";
 
 const TestResultsModal = (props: {
   visible: boolean;
