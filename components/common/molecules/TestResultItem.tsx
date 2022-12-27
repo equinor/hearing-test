@@ -53,7 +53,7 @@ export const TestResultItem: React.FC<Props> = ({
           {chartData === null ? (
             <Typography>Mangler data for å vise resultat</Typography>
           ) : (
-            <Chart chartData={chartData} />
+            <Chart data={chartData} />
           )}
         </View>
       </ScrollView>

@@ -112,6 +112,13 @@ export const HEARING_THRESHOLD = {
 
 export type Ear = "left" | "right";
 
+export const CHART = {
+  HZ_MIN: 400,
+  HZ_MAX: 10000,
+  DB_MIN: -10,
+  DB_MAX: 120,
+} as const;
+
 export type SoundCheckPageJSON = {
   title: string;
   description: string;
