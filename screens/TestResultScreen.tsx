@@ -17,7 +17,7 @@ import { IconButton } from "../components/common/EDS/IconButton";
 import { ErrorBanner } from "../components/common/atoms/ErrorBanner";
 import Typography from "../components/common/atoms/Typography";
 import { ButtonGroup } from "../components/common/molecules/ButtonGroup";
-import TestResultItem from "../components/common/molecules/TestResultItem";
+import { TestResultItem } from "../components/common/molecules/TestResultItem";
 import { postTest } from "../store/test/actions";
 import {
   selectIsFetching,

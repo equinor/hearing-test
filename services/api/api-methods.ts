@@ -3,7 +3,7 @@ import { authenticateSilently } from "mad-expo-core";
 import appJson from "../../app.json";
 import { getApiBaseUrl, getScopes } from "../../constants/settings";
 import store from "../../store/config";
-import { Sound, User } from "../../types";
+import { Sound, TestResult, User } from "../../types";
 import { NetworkException } from "../../utils/Exception";
 import {
   postMockTakeTest,
@@ -100,7 +100,7 @@ export const postTest = (body) => postData(`/me/tests`, body);
 export const appInit = () =>
   fetchData("/appStartup/init", defaultResource, false);
 
-export const fetchTests = () =>
+export const fetchTests = (): Promise<TestResult[]> =>
   store.getState().appConfig.current.demoMode
     ? fetchMockTests()
     : fetchData("/me/tests");

@@ -1,31 +1,37 @@
-import React from "react";
-import { View, Dimensions } from "react-native";
-import ImageModal from "react-native-image-modal";
+import { Typography } from "mad-expo-core";
+import React, { useEffect, useState } from "react";
+import { ScrollView, StyleSheet, View } from "react-native";
 
-import { TestResult } from "../../../types";
+import { MOSS_GREEN_100, TEXT } from "../../../constants/colors";
+import { ChartData, TestResult } from "../../../types";
+import { getChartData } from "../../../utils/chart";
 import { IconButton } from "../EDS/IconButton";
-import Typography from "../atoms/Typography";
+import { Chart } from "./Chart";
 
-const TestResultItem = (props: {
+type Props = {
   data: TestResult;
-  resetSelectedItem: Function;
+  resetSelectedItem: () => void;
   hideTop?: boolean;
+};
+
+export const TestResultItem: React.FC<Props> = ({
+  data,
+  resetSelectedItem,
+  hideTop = false,
 }) => {
+  const [chartData, setChartData] = useState<ChartData | null>(null);
+
+  useEffect(() => {
+    setChartData(getChartData(data.level));
+  }, []);
+
   return (
-    <View style={{ flex: 1, paddingTop: 4, backgroundColor: "white" }}>
-      {!props.hideTop && (
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            paddingHorizontal: 24,
-          }}
-        >
-          <IconButton icon="chevron-left" onPress={props.resetSelectedItem} />
-          <Typography variant="h2">
-            {new Date(props.data.dateTaken).toLocaleDateString("nb-NO", {
+    <View style={styles.container}>
+      {hideTop ? null : (
+        <View style={styles.top}>
+          <IconButton icon="chevron-left" onPress={resetSelectedItem} />
+          <Typography variant="h5" color={MOSS_GREEN_100}>
+            {new Date(data.dateTaken).toLocaleDateString("nb-NO", {
               month: "2-digit",
               day: "2-digit",
               year: "numeric",
@@ -34,37 +40,38 @@ const TestResultItem = (props: {
           <View style={{ width: 48, height: 48 }} />
         </View>
       )}
-      <View
-        style={{
-          backgroundColor: "white",
-          borderRadius: 4,
-          marginTop: 40,
-          marginBottom: 20,
-        }}
-      >
-        <Typography variant="p" style={{ paddingLeft: 18 }}>
-          {props.data.name}
+      <ScrollView style={styles.content}>
+        <Typography
+          variant="p"
+          size={18}
+          color={TEXT}
+          style={{ marginLeft: 18 }}
+        >
+          {data.name}
         </Typography>
         <View style={{ alignItems: "center" }}>
-          <ImageModal
-            resizeMode="contain"
-            imageBackgroundColor="#ffffff"
-            style={{
-              width: Dimensions.get("window").width,
-              height: Dimensions.get("window").width * 0.8,
-            }}
-            source={{
-              uri: props.data.audiogram,
-            }}
-          />
+          {chartData === null ? (
+            <Typography>Mangler data for å vise resultat</Typography>
+          ) : (
+            <Chart data={chartData} />
+          )}
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 };
 
-TestResultItem.defaultProps = {
-  hideTop: false,
-};
-
-export default TestResultItem;
+const styles = StyleSheet.create({
+  container: { flex: 1, paddingTop: 4, backgroundColor: "white" },
+  top: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 24,
+  },
+  content: {
+    flex: 1,
+    backgroundColor: "white",
+    paddingTop: 40,
+  },
+});
