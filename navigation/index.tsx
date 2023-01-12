@@ -88,7 +88,7 @@ function RootNavigator() {
         name="FeatureRoute"
         children={({ navigation }) => (
           <ReleaseNoteScreen
-            name={appJson.expo.name}
+            name="HearingTest"
             version={appJson.expo.version}
             environment={environment}
             scopes={getScopes("mad")}
