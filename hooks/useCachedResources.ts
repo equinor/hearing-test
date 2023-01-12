@@ -1,14 +1,13 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import { msalInit } from "mad-expo-core";
+import { appInsightsInit, msalInit } from "mad-expo-core";
 import { useEffect, useState } from "react";
-import { Platform } from "react-native";
 
 import {
-  AzureADRedirectUrl,
-  AzureADRedirectUrlWeb,
+  ApplicationInsightsInstrumentationKey,
   AzureADClientId,
+  AzureADRedirectUrl,
 } from "../constants/settings";
 
 export default function useCachedResources() {
@@ -34,10 +33,11 @@ export default function useCachedResources() {
           "Equinor-Regular": require("../assets/fonts/Equinor-Regular.ttf"),
         });
 
-        await msalInit(
-          AzureADClientId,
-          Platform.OS === "web" ? AzureADRedirectUrlWeb : AzureADRedirectUrl
-        );
+        await msalInit(AzureADClientId, AzureADRedirectUrl);
+
+        appInsightsInit({
+          instrumentationKey: ApplicationInsightsInstrumentationKey,
+        });
       } catch (e) {
         // We might want to provide this error information to an error reporting service
         console.warn(e);
