@@ -2,11 +2,11 @@ import { Environment, Resource, ResourceName } from "../types";
 import { BuildConfiguration, Resources } from "./settings.json";
 
 export {
-  AzureADTenantId,
+  ApplicationInsightsInstrumentationKey,
   AzureADAuthority,
   AzureADClientId,
   AzureADRedirectUrl,
-  AzureADRedirectUrlWeb,
+  AzureADTenantId,
   BuildConfiguration,
 } from "./settings.json";
 
