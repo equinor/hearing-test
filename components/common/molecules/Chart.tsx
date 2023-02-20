@@ -150,7 +150,7 @@ export const Chart: React.FC<Props> = ({ data }) => (
     <VictoryLine
       data={data.leftEar}
       style={{
-        data: { stroke: LEFT_EAR },
+        data: { stroke: LEFT_EAR, strokeWidth: 6 },
         parent: { border: "1px solid #ccc" },
       }}
     />
@@ -164,7 +164,7 @@ export const Chart: React.FC<Props> = ({ data }) => (
     <VictoryLine
       data={data.rightEar}
       style={{
-        data: { stroke: RIGHT_EAR },
+        data: { stroke: RIGHT_EAR, strokeWidth: 2 },
         parent: { border: "1px solid #ccc" },
       }}
     />
