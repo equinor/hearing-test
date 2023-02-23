@@ -2,11 +2,12 @@ import { Typography } from "mad-expo-core";
 import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 
+import { Chart } from "./Chart";
 import { MOSS_GREEN_100, TEXT } from "../../../constants/colors";
 import { ChartData, TestResult } from "../../../types";
 import { getChartData } from "../../../utils/chart";
 import { IconButton } from "../EDS/IconButton";
-import { Chart } from "./Chart";
+import { EarLabel } from "../atoms/EarLabel";
 
 type Props = {
   data: TestResult;
@@ -56,6 +57,10 @@ export const TestResultItem: React.FC<Props> = ({
             <Chart data={chartData} />
           )}
         </View>
+        <View style={styles.labels}>
+          <EarLabel ear="left" style={{ marginRight: 24 }} />
+          <EarLabel ear="right" />
+        </View>
       </ScrollView>
     </View>
   );
@@ -73,5 +78,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     paddingTop: 40,
+  },
+  labels: {
+    flexDirection: "row",
+    justifyContent: "center",
   },
 });
