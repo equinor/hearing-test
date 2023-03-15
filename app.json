@@ -44,8 +44,7 @@
         {
           "androidPackageSignatureHash": "<base64 package signature hash>"
         }
-      ],
-      "./add-pods"
+      ]
     ],
     "web": {
       "favicon": "./assets/images/favicon.png",
