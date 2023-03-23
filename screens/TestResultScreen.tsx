@@ -145,9 +145,8 @@ const TestResultScreen = ({
     },
   };
 
-  // Feedback page
-  const page =
-    unsentTests.length === 0 ? pages.testIsSent : pages.sendingTestFailed; // TODO in the future, the backend will probably decide which page to show
+  // Select result page
+  const page = getResultPage(unsentTests, testResult, pages);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -216,6 +215,22 @@ const TestResultScreen = ({
     </SafeAreaView>
   );
 };
+
+function getResultPage(unsentTests: any, testResult: TestResult, pages: Pages) {
+  if (unsentTests == null || unsentTests.length === 0)
+    return pages.newTestRecommended;
+
+  switch (testResult.result) {
+    case "Ok":
+      return pages.newTestInSixMonths;
+    case "Outlier":
+      return pages.testIsSent;
+    case "NotOk":
+      return pages.hearingChangeDetected;
+    default:
+      return pages.sendingTestFailed;
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
