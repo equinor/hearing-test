@@ -55,9 +55,9 @@ class TestLogScreen extends Component<{
             return (
               <NavigationItem
                 title={new Date(item.dateTaken).toLocaleDateString("nb-NO", {
-                  month: "2-digit",
+                  month: "short",
                   day: "2-digit",
-                  year: "numeric",
+                  year: "2-digit",
                   hour: "2-digit",
                   minute: "2-digit",
                 })}

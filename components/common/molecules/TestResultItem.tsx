@@ -33,9 +33,9 @@ export const TestResultItem: React.FC<Props> = ({
           <IconButton icon="chevron-left" onPress={resetSelectedItem} />
           <Typography variant="h5" color={MOSS_GREEN_100}>
             {new Date(data.dateTaken).toLocaleDateString("nb-NO", {
-              month: "2-digit",
+              month: "short",
               day: "2-digit",
-              year: "numeric",
+              year: "2-digit",
               hour: "2-digit",
               minute: "2-digit",
             })}
