@@ -17,6 +17,18 @@ export const mapParamsToProps = (ScreenComponent) =>
     }
   };
 
+export const formatDate = (date) => {
+  const options = {
+    month: "short",
+    day: "2-digit",
+    year: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  };
+
+  return new Date(date).toLocaleDateString("nb-NO", options);
+};
+
 const withUtilities = (ScreenComponent) => {
   const withEnvironmentBanner = environmentBanner(ScreenComponent);
   const withServiceMessage = serviceMessage(withEnvironmentBanner);

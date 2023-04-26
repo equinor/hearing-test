@@ -4,6 +4,7 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 import { connect } from "react-redux";
 
 import NavigationItem from "../components/common/atoms/NavigationItem";
+import { formatDate } from "../navigation/utils";
 import { selectTests } from "../store/tests";
 import { fetchTests } from "../store/tests/actions";
 import { selectIsFetchingTests } from "../store/tests/reducer";
@@ -54,13 +55,7 @@ class TestLogScreen extends Component<{
             const { item } = e;
             return (
               <NavigationItem
-                title={new Date(item.dateTaken).toLocaleDateString("nb-NO", {
-                  month: "short",
-                  day: "2-digit",
-                  year: "2-digit",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
+                title={formatDate(item.dateTaken)}
                 onPress={() => this.showTest(item)}
               />
             );

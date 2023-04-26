@@ -4,6 +4,7 @@ import { ScrollView, StyleSheet, View } from "react-native";
 
 import { Chart } from "./Chart";
 import { MOSS_GREEN_100, TEXT } from "../../../constants/colors";
+import { formatDate } from "../../../navigation/utils";
 import { ChartData, TestResult } from "../../../types";
 import { getChartData } from "../../../utils/chart";
 import { IconButton } from "../EDS/IconButton";
@@ -32,13 +33,7 @@ export const TestResultItem: React.FC<Props> = ({
         <View style={styles.top}>
           <IconButton icon="chevron-left" onPress={resetSelectedItem} />
           <Typography variant="h5" color={MOSS_GREEN_100}>
-            {new Date(data.dateTaken).toLocaleDateString("nb-NO", {
-              month: "short",
-              day: "2-digit",
-              year: "2-digit",
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
+            {formatDate(data.dateTaken)}
           </Typography>
           <View style={{ width: 48, height: 48 }} />
         </View>
