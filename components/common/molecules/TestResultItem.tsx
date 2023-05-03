@@ -4,9 +4,9 @@ import { ScrollView, StyleSheet, View } from "react-native";
 
 import { Chart } from "./Chart";
 import { MOSS_GREEN_100, TEXT } from "../../../constants/colors";
-import { formatDate } from "../../../navigation/utils";
 import { ChartData, TestResult } from "../../../types";
 import { getChartData } from "../../../utils/chart";
+import { formatDate } from "../../../utils/date";
 import { IconButton } from "../EDS/IconButton";
 import { EarLabel } from "../atoms/EarLabel";
 

@@ -4,11 +4,11 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 import { connect } from "react-redux";
 
 import NavigationItem from "../components/common/atoms/NavigationItem";
-import { formatDate } from "../navigation/utils";
 import { selectTests } from "../store/tests";
 import { fetchTests } from "../store/tests/actions";
 import { selectIsFetchingTests } from "../store/tests/reducer";
 import { TestResult } from "../types";
+import { formatDate } from "../utils/date";
 
 const styles = StyleSheet.create({
   component: {
