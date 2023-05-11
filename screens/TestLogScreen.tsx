@@ -8,6 +8,7 @@ import { selectTests } from "../store/tests";
 import { fetchTests } from "../store/tests/actions";
 import { selectIsFetchingTests } from "../store/tests/reducer";
 import { TestResult } from "../types";
+import { formatDate } from "../utils/date";
 
 const styles = StyleSheet.create({
   component: {
@@ -54,11 +55,7 @@ class TestLogScreen extends Component<{
             const { item } = e;
             return (
               <NavigationItem
-                title={new Date(item.dateTaken).toLocaleDateString("nb-NO", {
-                  month: "2-digit",
-                  day: "2-digit",
-                  year: "numeric",
-                })}
+                title={formatDate(item.dateTaken)}
                 onPress={() => this.showTest(item)}
               />
             );
