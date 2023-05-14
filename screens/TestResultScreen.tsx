@@ -116,11 +116,11 @@ const TestResultScreen = ({
       buttons: [
         {
           outlined: true,
-          text: testResult.level ? "Se resultat" : "Analyserer...",
+          text: "Se resultat",
           onPress: () => {
             setModalVisible(true);
           },
-          disabled: !testResult.level,
+          loading: isFetching,
         },
         getHomeButton(),
       ],
