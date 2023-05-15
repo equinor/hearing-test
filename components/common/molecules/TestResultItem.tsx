@@ -23,7 +23,7 @@ export const TestResultItem: React.FC<Props> = ({
   const [chartData, setChartData] = useState<ChartData | null>(null);
 
   useEffect(() => {
-    setChartData(getChartData(data.level));
+    if (data.level) setChartData(getChartData(data.level));
   }, []);
 
   return (
