@@ -71,22 +71,22 @@ export default class PreTestScreen extends Component {
         current: false,
         buttons: [{ text: "Skann", onPress: () => this.nextPage() }],
       },
-      // {
-      //   title: "Skann",
-      //   image: scanner,
-      //   content: "Siden brukes til å skanne strekkoden.",
-      //   current: false,
-      //   hideIndicator: true,
-      //   buttons: [{ text: "Skann", onPress: () => this.nextPage() }],
-      // },
-      // {
-      //   title: "Ups!",
-      //   image: thumbsDown,
-      //   content:
-      //     "Ingen godkjent kode ble funnet. Du blir nå tatt tilbake til hovedsiden.",
-      //   current: false,
-      //   buttons: [{ text: "Skann igjen", onPress: () => this.previousPage() }],
-      // },
+      {
+        title: "Skann",
+        image: scanner,
+        content: "Siden brukes til å skanne strekkoden.",
+        current: false,
+        hideIndicator: true,
+        buttons: [{ text: "Skann", onPress: () => this.nextPage() }],
+      },
+      {
+        title: "Ups!",
+        image: thumbsDown,
+        content:
+          "Ingen godkjent kode ble funnet. Du blir nå tatt tilbake til hovedsiden.",
+        current: false,
+        buttons: [{ text: "Skann igjen", onPress: () => this.previousPage() }],
+      },
       {
         title: "Utstyr bekreftet",
         image: thumbsUp,
