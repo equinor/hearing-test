@@ -70,7 +70,7 @@ const TestResultScreen = ({
     newTestInSixMonths: {
       title: "Testen er fullført",
       image: thumbsUp,
-      subTitle: "Dette ser fint ut!",
+      subTitle: "Dette ser fint ut",
       description:
         "Du vil få en ny invitasjon om 6 måneder, men vær oppmerksom på at jo oftere du tar testen, jo bedre.",
       buttons: [getHomeButton()],
@@ -110,7 +110,7 @@ const TestResultScreen = ({
     testIsSent: {
       title: "Testen er fullført",
       image: thumbsUp,
-      subTitle: "Takk for at du testet appen!",
+      subTitle: "Takk for at du gjennomførte testen",
       description:
         "Du blir kontaktet av en lege dersom du har problemer med hørselen.",
       buttons: [

@@ -2,10 +2,10 @@ import { useNetInfo } from "@react-native-community/netinfo";
 import { Button, Typography } from "mad-expo-core";
 import { SectionList, StyleSheet, View } from "react-native";
 
-import * as Colors from "../constants/colors";
-import { RootStackScreenProps } from "../types";
 import LogoutButton from "./auth/LogoutButton";
 import { TextLink } from "./common";
+import * as Colors from "../constants/colors";
+import { RootStackScreenProps } from "../types";
 
 type Props = RootStackScreenProps<"SettingsRoute"> & {
   currentUser: string;
@@ -69,16 +69,16 @@ export const Settings = ({ currentUser, navigation }: Props) => {
       data: [
         {
           key: "About",
-          name: "About",
+          name: "Om",
           route: "AboutRoute",
         },
         {
           key: "Feedback",
-          name: "Feedback",
+          name: "Tilbakemelding",
           route: "FeedbackRoute",
         },
         {
-          name: `Logged in as: ${currentUser}`,
+          name: `Innlogget som ${currentUser}`,
           key: "User",
         },
       ],
@@ -86,7 +86,7 @@ export const Settings = ({ currentUser, navigation }: Props) => {
     {
       key: "Buttons",
       renderItem: ButtonItem,
-      data: [{ text: "Log out", key: "Logout" }],
+      data: [{ text: "Logg ut", key: "Logout" }],
     },
   ];
 

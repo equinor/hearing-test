@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Modal, View } from "react-native";
 
+import { TestResultItem } from "./TestResultItem";
 import TestLogScreen from "../../../screens/TestLogScreen";
 import { TestResult } from "../../../types";
 import { IconButton } from "../EDS/IconButton";
 import Typography from "../atoms/Typography";
-import { TestResultItem } from "./TestResultItem";
 
 const TestResultsModal = (props: {
   visible: boolean;
@@ -49,7 +49,7 @@ const TestResultsModal = (props: {
             setSelectedItem(null);
           }}
         />
-        <Typography variant="h1">Din hørsel</Typography>
+        <Typography variant="h1">Dine resultater</Typography>
         <IconButton
           icon="close"
           onPress={() => {

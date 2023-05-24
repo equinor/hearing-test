@@ -34,7 +34,7 @@ const SoundCheckFinishedScreen = (props: any) => {
               style={{ textAlign: "center", height: 18 * 4 }}
               numberOfLines={4}
             >
-              Bra jobba! Du er klar for å ta hørselstesten.
+              Bra! Du er klar for å ta hørselstesten.
             </Typography>
           </View>
           <View

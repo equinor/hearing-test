@@ -15,6 +15,8 @@ import { ReleaseNoteScreen } from "mad-expo-core";
 import * as React from "react";
 import { ColorSchemeName, TouchableOpacity } from "react-native";
 
+import LinkingConfiguration from "./LinkingConfiguration";
+import withUtilities from "./utils";
 import appJson from "../app.json";
 import { EQUINOR_GREEN } from "../constants/colors";
 import { getEnvironment, getScopes } from "../constants/settings";
@@ -31,8 +33,6 @@ import TestResultScreen from "../screens/TestResultScreen";
 import TestScreen from "../screens/TestScreen";
 import store from "../store/config";
 import { RootStackParamList } from "../types";
-import LinkingConfiguration from "./LinkingConfiguration";
-import withUtilities from "./utils";
 
 const environment = getEnvironment();
 
@@ -147,29 +147,29 @@ function RootNavigator() {
       <Stack.Screen
         name="NotFound"
         component={NotFoundScreen}
-        options={{ title: "Oops!" }}
+        options={{ title: "Ups!" }}
       />
       <Stack.Group>
         <Stack.Screen
           name="SettingsRoute"
           component={SettingsScreen}
           options={{
-            headerBackTitle: "Home",
-            title: "Settings",
+            headerBackTitle: "Hjem",
+            title: "Konto",
           }}
         />
         <Stack.Screen
           name="FeedbackRoute"
           component={withUtilities(FeedbackScreen)}
           options={{
-            title: "Feedback",
+            title: "Tilbakemelding",
           }}
         />
         <Stack.Screen
           name="AboutRoute"
           component={withUtilities(AboutScreen)}
           options={{
-            title: "About",
+            title: "Om",
           }}
         />
       </Stack.Group>

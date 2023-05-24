@@ -14,31 +14,31 @@ export const AboutScreen = () => {
 
   const sections = [
     {
-      key: "Client",
+      key: "Klient",
       data: [
         {
           key: "BuildConfig",
-          label: "Configuration",
+          label: "Konfigurasjon",
           text: BuildConfiguration,
         },
         {
           key: "BuildNr",
-          label: "BuildNr",
+          label: "Bygg nummer",
           text: appJson.expo.ios.buildNumber,
         },
         {
           key: "AppVersion",
-          label: "App version",
+          label: "Versjon",
           text: appJson.expo.version,
         },
       ],
     },
     {
-      key: "Api",
+      key: "API",
       data: [
         {
           key: "ApiBaseUrl",
-          label: resources.length > 1 ? "Endpoints" : "Endpoint",
+          label: resources.length > 1 ? "Endepunkter" : "Endepunkt",
           text: getApiEndpoints(),
         },
       ],

@@ -473,10 +473,10 @@ class TestScreen extends Component {
                   />
                   <MenuItem
                     icon="refresh"
-                    text="Start på ny"
+                    text="Start hørselstesten på ny"
                     onPress={() => {
                       Alert.alert(
-                        "Starte på nytt?",
+                        "Starte hørselstesten på ny?",
                         "Dette vil slette all data fra denne testen",
                         [
                           {

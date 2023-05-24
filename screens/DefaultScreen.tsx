@@ -52,12 +52,12 @@ export const DefaultScreen = ({ navigation }: Props) => {
               color={MOSS_GREEN_100}
               style={styles.overview}
             >
-              Din oversikt
+              Oversikt
             </Typography>
             {/* TODO: <NavigationItem title="Informasjon om testen" /> */}
             <NavigationItem
               onPress={() => setIsTestResultsModalVisible(true)}
-              title="Mine resultater"
+              title="Dine resultater"
             />
             <NavigationItem
               onPress={() =>
@@ -76,7 +76,7 @@ export const DefaultScreen = ({ navigation }: Props) => {
         setInvisible={() => setIsTestResultsModalVisible(false)}
       />
       <SlideModal
-        title="Lokasjon"
+        title="Din lokasjon"
         visible={isLocationModalVisible}
         setInvisible={() => setIsLocationModalVisible(false)}
       >
