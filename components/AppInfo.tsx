@@ -1,9 +1,29 @@
 import { Typography } from "mad-expo-core";
 import PropTypes from "prop-types";
-import React from "react";
-import { SectionList, StyleSheet, View } from "react-native";
+import React, { ReactElement } from "react";
+import {
+  SectionList,
+  StyleSheet,
+  View,
+  StyleProp,
+  ViewStyle,
+} from "react-native";
 
 import { SimpleInfoItem } from "./common";
+
+interface Section {
+  key: string;
+}
+
+interface Item {
+  key: string;
+  label: string;
+  text: string;
+}
+
+interface AppInfoProps {
+  sections: Section[];
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -21,16 +41,22 @@ const styles = StyleSheet.create({
   },
 });
 
-const AppInfo = ({ sections }) => {
-  const SeparatorComponent = () => <View style={styles.separator} />;
+const AppInfo: React.FC<AppInfoProps> = ({ sections }): ReactElement => {
+  const SeparatorComponent = (): ReactElement => (
+    <View style={styles.separator} />
+  );
 
-  const renderSectionHeader = ({ section }) => (
+  const renderSectionHeader = ({
+    section,
+  }: {
+    section: Section;
+  }): ReactElement => (
     <View style={{ padding: 16 }}>
       <Typography variant="h4">{section.key}</Typography>
     </View>
   );
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item }: { item: Item }): ReactElement => (
     <View style={styles.item}>
       <SimpleInfoItem item={item} />
     </View>
@@ -55,7 +81,7 @@ const AppInfo = ({ sections }) => {
       renderSectionHeader={renderSectionHeader}
       sections={sections}
       SectionSeparatorComponent={SeparatorComponent}
-      style={styles.container}
+      style={styles.container as StyleProp<ViewStyle>}
     />
   );
 };
