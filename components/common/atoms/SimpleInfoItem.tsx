@@ -1,8 +1,18 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { ReactElement } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 import * as Colors from "../../../constants/colors";
+
+interface Item {
+  key: string;
+  label: string;
+  text: string;
+}
+
+interface SimpleInfoItemProps {
+  item: Item;
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -18,7 +28,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const SimpleInfoItem = ({ item }) => (
+const SimpleInfoItem: React.FC<SimpleInfoItemProps> = ({
+  item,
+}): ReactElement => (
   <View style={styles.container}>
     <Text style={styles.label}>{item.label}</Text>
     <Text style={styles.text}>{item.text}</Text>
