@@ -47,7 +47,7 @@ This is ready for testing 👩‍🔬
 ```
 -----------------------------
 | Platform     | iOS        |
-| Version      | X.X.X     |
+| Version      | X.X.X      |
 | Build number | XXXXXXXX.X |
 | Environment  | Test       |
 -----------------------------
