@@ -218,13 +218,13 @@ const TestResultScreen = ({
 
 function getResultPage(unsentTests: any, testResult: TestResult, pages: Pages) {
   if (unsentTests == null || unsentTests.length === 0)
-    return pages.newTestRecommended;
+    return pages.sendingTestFailed;
 
   switch (testResult.result) {
     case "Ok":
       return pages.newTestInSixMonths;
     case "Outlier":
-      return pages.testIsSent;
+      return pages.newTestRecommended;
     case "NotOk":
       return pages.hearingChangeDetected;
     default:
