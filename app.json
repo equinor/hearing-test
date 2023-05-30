@@ -44,7 +44,8 @@
         {
           "androidPackageSignatureHash": "<base64 package signature hash>"
         }
-      ]
+      ],
+      "expo-localization"
     ],
     "web": {
       "favicon": "./assets/images/favicon.png",
