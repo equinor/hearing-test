@@ -6,6 +6,7 @@ import { Chart } from "./Chart";
 import { MOSS_GREEN_100, TEXT } from "../../../constants/colors";
 import { ChartData, TestResult } from "../../../types";
 import { getChartData } from "../../../utils/chart";
+import { formatDate } from "../../../utils/date";
 import { IconButton } from "../EDS/IconButton";
 import { EarLabel } from "../atoms/EarLabel";
 
@@ -32,11 +33,7 @@ export const TestResultItem: React.FC<Props> = ({
         <View style={styles.top}>
           <IconButton icon="chevron-left" onPress={resetSelectedItem} />
           <Typography variant="h5" color={MOSS_GREEN_100}>
-            {new Date(data.dateTaken).toLocaleDateString("nb-NO", {
-              month: "2-digit",
-              day: "2-digit",
-              year: "numeric",
-            })}
+            {formatDate(data.dateTaken)}
           </Typography>
           <View style={{ width: 48, height: 48 }} />
         </View>
