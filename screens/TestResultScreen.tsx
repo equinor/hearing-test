@@ -73,7 +73,17 @@ const TestResultScreen = ({
       subTitle: "Dette ser fint ut!",
       description:
         "Du vil få en ny invitasjon om 6 måneder, men vær oppmerksom på at jo oftere du tar testen, jo bedre.",
-      buttons: [getHomeButton()],
+      buttons: [
+        {
+          outlined: true,
+          text: "Se resultat",
+          onPress: () => {
+            setModalVisible(true);
+          },
+          loading: isFetching,
+        },
+        getHomeButton(),
+      ],
     },
     newTestRecommended: {
       title: "Her ble det litt krøll",
@@ -86,6 +96,7 @@ const TestResultScreen = ({
           outlined: true,
           text: "Ta ny test",
           onPress: () => navigation.navigate("TestRoute"),
+          loading: isFetching,
         },
         getHomeButton(),
       ],
@@ -97,29 +108,20 @@ const TestResultScreen = ({
       description:
         "Det er oppdaget en endring i hørselen din. Vennligst ta kontakt med sykepleier for en manuell undersøkelse.",
       buttons: [
-        {
-          outlined: true,
-          text: "Kontakt sykepleier",
-          onPress: () => {
-            /* TODO */
-          },
-        },
-        getHomeButton(),
-      ],
-    },
-    testIsSent: {
-      title: "Testen er fullført",
-      image: thumbsUp,
-      subTitle: "Takk for at du testet appen!",
-      description:
-        "Du blir kontaktet av en lege dersom du har problemer med hørselen.",
-      buttons: [
+        // {
+        //   outlined: true,
+        //   text: "Kontakt sykepleier",
+        //   onPress: () => {
+        //     /* TODO */
+        //   },
+        // },
         {
           outlined: true,
           text: "Se resultat",
           onPress: () => {
             setModalVisible(true);
           },
+          loading: isFetching,
         },
         getHomeButton(),
       ],
@@ -141,6 +143,24 @@ const TestResultScreen = ({
           loading: isFetching,
         },
         getHomeButton(resendCount === 0),
+      ],
+    },
+    testIsSent: {
+      title: "Testen er fullført",
+      image: thumbsUp,
+      subTitle: "Takk for at du testet appen!",
+      description:
+        "Du blir kontaktet av en lege dersom du har problemer med hørselen.",
+      buttons: [
+        {
+          outlined: true,
+          text: "Se resultat",
+          onPress: () => {
+            setModalVisible(true);
+          },
+          loading: isFetching,
+        },
+        getHomeButton(),
       ],
     },
   };
@@ -217,8 +237,7 @@ const TestResultScreen = ({
 };
 
 function getResultPage(unsentTests: any, testResult: TestResult, pages: Pages) {
-  if (unsentTests == null || unsentTests.length === 0)
-    return pages.sendingTestFailed;
+  if (unsentTests.length > 0) return pages.sendingTestFailed;
 
   switch (testResult.result) {
     case "Ok":
@@ -228,7 +247,7 @@ function getResultPage(unsentTests: any, testResult: TestResult, pages: Pages) {
     case "NotOk":
       return pages.hearingChangeDetected;
     default:
-      return pages.sendingTestFailed;
+      return pages.testIsSent;
   }
 }
 
