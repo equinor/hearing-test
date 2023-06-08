@@ -190,7 +190,7 @@ export type TestResultButtonConfigurations = {
   sendTest: ButtonProps;
 };
 
-export type Page = {
+export type TestResultPage = {
   title: string;
   image: ImageSourcePropType;
   subTitle: string;

@@ -3,7 +3,7 @@ import { ImageSourcePropType } from "react-native";
 import doctor from "../assets/images/doctor.png";
 import thumbsUp from "../assets/images/thumbs-up.png";
 import warning from "../assets/images/warning.png";
-import { TestResultButtonConfigurations, Page, TestResult } from "../types";
+import { TestResultButtonConfigurations, TestResultPage, TestResult } from "../types";
 
 export const useTestResultPages = (
   testResult: TestResult,
@@ -11,11 +11,11 @@ export const useTestResultPages = (
   buttons: TestResultButtonConfigurations
 ) => {
   type Pages = {
-    newTestInSixMonths: Page;
-    newTestRecommended: Page;
-    hearingChangeDetected: Page;
-    testIsSent: Page;
-    sendingTestFailed: Page;
+    newTestInSixMonths: TestResultPage;
+    newTestRecommended: TestResultPage;
+    hearingChangeDetected: TestResultPage;
+    testIsSent: TestResultPage;
+    sendingTestFailed: TestResultPage;
   };
 
   const pages: Pages = {
