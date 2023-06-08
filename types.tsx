@@ -184,7 +184,7 @@ export type ButtonProps = {
   style?: StyleProp<ViewStyle>;
 };
 
-export type Buttons = {
+export type TestResultButtonConfigurations = {
   seeResult: ButtonProps;
   newTest: ButtonProps;
   sendTest: ButtonProps;

@@ -16,7 +16,11 @@ import {
   selectTestResult,
 } from "../store/test/reducer";
 import { getUnsentTests } from "../store/unsent-tests/reducer";
-import { Buttons, RootStackScreenProps, TestResult } from "../types";
+import {
+  TestResultButtonConfigurations,
+  RootStackScreenProps,
+  TestResult,
+} from "../types";
 
 interface Props extends RootStackScreenProps<"TestResultRoute"> {
   actionPostTest: Function;
@@ -35,7 +39,7 @@ const TestResultScreen = ({
   const [modalVisible, setModalVisible] = useState(false);
   const [resendCount, setResendCount] = useState(0);
 
-  const buttons: Buttons = {
+  const buttons: TestResultButtonConfigurations = {
     seeResult: {
       outlined: false,
       text: "Se resultat",
