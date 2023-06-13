@@ -215,6 +215,7 @@ class TestScreen extends Component {
     clearInterval(this.state.intervalId);
     this.props.actionStopTest();
     this.setState({ modalVisible: false });
+    this.setState({ numberOfNodesPlayed: 0 });
   }
 
   async nodeFinished(node) {
