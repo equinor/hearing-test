@@ -65,7 +65,11 @@ const TestResultScreen = ({
     },
   };
 
-  const page = useTestResultPages(testResult, unsentTests.length, buttons);
+  if (unsentTests.length > 0) {
+    testResult.result = "SendFailed";
+  }
+
+  const page = useTestResultPages(testResult, buttons);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>

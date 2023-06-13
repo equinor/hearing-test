@@ -1,13 +1,14 @@
-import { ImageSourcePropType } from "react-native";
-
 import doctor from "../assets/images/doctor.png";
 import thumbsUp from "../assets/images/thumbs-up.png";
 import warning from "../assets/images/warning.png";
-import { TestResultButtonConfigurations, TestResultPage, TestResult } from "../types";
+import {
+  TestResultButtonConfigurations,
+  TestResultPage,
+  TestResult,
+} from "../types";
 
 export const useTestResultPages = (
   testResult: TestResult,
-  unsentTests: number,
   buttons: TestResultButtonConfigurations
 ) => {
   type Pages = {
@@ -61,8 +62,6 @@ export const useTestResultPages = (
     },
   };
 
-  if (unsentTests > 0) return pages.sendingTestFailed;
-
   switch (testResult.result) {
     case "Ok":
       return pages.newTestInSixMonths;
@@ -70,6 +69,8 @@ export const useTestResultPages = (
       return pages.newTestRecommended;
     case "NotOk":
       return pages.hearingChangeDetected;
+    case "SendFailed":
+      return pages.sendingTestFailed;
     default:
       return pages.testIsSent;
   }

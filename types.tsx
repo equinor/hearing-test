@@ -92,6 +92,7 @@ const ANALYSIS_FLAG = {
   OK: "Ok",
   OUTLIER: "Outlier",
   NOT_OK: "NotOk",
+  SEND_FAILED: "SendFailed",
 } as const;
 
 type ObjectValues<T> = T[keyof T];
