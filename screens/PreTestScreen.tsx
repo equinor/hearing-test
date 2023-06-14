@@ -2,9 +2,15 @@ import { cloneDeep } from "lodash";
 import { Typography } from "mad-expo-core";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { Image, ScrollView, StyleSheet } from "react-native";
+import {
+  Image,
+  ImageSourcePropType,
+  ScrollView,
+  StyleSheet,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { BarCodeScannerScreen } from "./BarCodeScannerScreen";
 import adapter from "../assets/images/adapter.png";
 import headset from "../assets/images/headset.png";
 import scanner from "../assets/images/scanner.png";
@@ -16,14 +22,37 @@ import { IconButton } from "../components/common/EDS/IconButton";
 import { Indicators } from "../components/common/molecules/Indicators";
 import { MOSS_GREEN_100, TEXT } from "../constants/colors";
 import { onClose } from "../utils/alerts";
-import { BarCodeScannerScreen } from "./BarCodeScannerScreen";
 
-export default class PreTestScreen extends Component {
+interface Page {
+  title: string;
+  image: ImageSourcePropType;
+  content: string;
+  current: boolean;
+  ignoreStep?: boolean;
+  hideIndicator?: boolean;
+  buttons: Button[];
+}
+
+interface Button {
+  text: string;
+  outlined?: boolean;
+  onPress: () => void;
+}
+
+interface State {
+  pages: Page[];
+}
+
+interface Props {
+  navigation: { navigate: (route: string) => void };
+}
+
+export default class PreTestScreen extends Component<Props, State> {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
   };
 
-  state = {
+  state: State = {
     pages: [
       {
         title: "Er du forkjølet?",
@@ -113,15 +142,15 @@ export default class PreTestScreen extends Component {
     ],
   };
 
-  showCustomPage(customPage) {
+  showCustomPage(customPage: Page) {
     const currentIndex = this.state.pages.findIndex((page) => page.current);
     const clonedPages = cloneDeep(this.state.pages);
     clonedPages[currentIndex] = customPage;
     this.setState({ pages: clonedPages });
   }
 
-  currentPage() {
-    return this.state.pages.find((page) => page.current);
+  currentPage(): Page {
+    return this.state.pages.find((page) => page.current)!;
   }
 
   nextPage(indexChange = 1) {
