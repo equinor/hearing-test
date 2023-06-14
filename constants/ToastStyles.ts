@@ -1,7 +1,12 @@
-import { StyleSheet } from 'react-native';
-import * as Colors from './colors';
+import { StyleSheet } from "react-native";
 
-export default {
+import * as Colors from "./colors";
+
+interface Styles {
+  [key: string]: object | StyleSheet.NamedStyles<object>;
+}
+
+const styles: Styles = {
   success: StyleSheet.create({}),
   info: StyleSheet.create({}),
   warning: StyleSheet.create({}),
@@ -14,12 +19,14 @@ export default {
       marginLeft: 10,
       borderRadius: 10,
       borderWidth: StyleSheet.hairlineWidth,
-      borderColor: 'white',
+      borderColor: "white",
       padding: 5,
     },
     text: {
-      color: 'white',
+      color: "white",
       fontSize: 12,
     },
   }),
 };
+
+export default styles;
