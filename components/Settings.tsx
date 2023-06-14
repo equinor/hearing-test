@@ -1,11 +1,11 @@
 import { useNetInfo } from "@react-native-community/netinfo";
-import { Button, Typography } from "mad-expo-core";
+import { Button, Typography, logout } from "mad-expo-core";
 import { SectionList, StyleSheet, View } from "react-native";
 
-import * as Colors from "../constants/colors";
-import { RootStackScreenProps } from "../types";
 import LogoutButton from "./auth/LogoutButton";
 import { TextLink } from "./common";
+import * as Colors from "../constants/colors";
+import { RootStackScreenProps } from "../types";
 
 type Props = RootStackScreenProps<"SettingsRoute"> & {
   currentUser: string;
@@ -42,9 +42,14 @@ export const Settings = ({ currentUser, navigation }: Props) => {
     navigation.navigate("FeedbackRoute");
   };
 
+  const onPressLogout = () => {
+    navigation.navigate("LoginRoute");
+    logout();
+  };
+
   const ButtonItem = ({ item }) => {
     if (item.key === "Logout") {
-      return <LogoutButton data={item} nav={navigation} />;
+      return <LogoutButton onPress={onPressLogout} />;
     }
     return (
       <View style={styles.itemContainer}>
