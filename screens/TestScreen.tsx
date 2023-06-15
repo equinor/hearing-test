@@ -2,7 +2,7 @@ import NetInfo from "@react-native-community/netinfo";
 import { Spinner } from "mad-expo-core";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { Alert, Modal, StyleSheet, View } from "react-native";
+import { Alert, AlertStatic, Modal, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Sound from "react-native-sound";
 import SystemSetting from "react-native-system-setting";
@@ -215,7 +215,14 @@ class TestScreen extends Component {
     clearInterval(this.state.intervalId);
     this.props.actionStopTest();
     this.setState({ modalVisible: false });
+  }
+
+  restartTest() {
+    this.props.actionStopTest();
+    clearInterval(this.state.intervalId);
     this.setState({ numberOfNodesPlayed: 0 });
+    this.props.actionStartTest();
+    this.setState({ modalVisible: false });
   }
 
   async nodeFinished(node) {
@@ -451,24 +458,13 @@ class TestScreen extends Component {
                     icon="delete"
                     text="Avslutte testen"
                     onPress={() => {
-                      Alert.alert(
+                      setAlert(
                         "Avslutte hørselstesten?",
                         "Da må du begynne på nytt neste gang",
-                        [
-                          {
-                            text: "Nei",
-                            onPress: () => {},
-                            style: "cancel",
-                          },
-                          {
-                            text: "Ja",
-                            onPress: () => {
-                              this.abortTest();
-                              this.props.navigation.navigate("DefaultRoute");
-                            },
-                            style: "destructive",
-                          },
-                        ]
+                        () => {
+                          this.abortTest();
+                          this.props.navigation.navigate("DefaultRoute");
+                        }
                       );
                     }}
                   />
@@ -476,24 +472,13 @@ class TestScreen extends Component {
                     icon="refresh"
                     text="Start på ny"
                     onPress={() => {
-                      Alert.alert(
+                      setAlert(
                         "Starte på nytt?",
                         "Dette vil slette all data fra denne testen",
-                        [
-                          {
-                            text: "Nei",
-                            onPress: () => {},
-                            style: "cancel",
-                          },
-                          {
-                            text: "Ja",
-                            onPress: () => {
-                              this.abortTest();
-                              this.props.navigation.navigate("TestRoute");
-                            },
-                            style: "destructive",
-                          },
-                        ]
+                        () => {
+                          this.restartTest();
+                          this.props.navigation.navigate("TestRoute");
+                        }
                       );
                     }}
                   />
@@ -501,24 +486,13 @@ class TestScreen extends Component {
                     icon="school"
                     text="Ta ny lydsjekk"
                     onPress={() => {
-                      Alert.alert(
+                      setAlert(
                         "Ta ny lydsjekk?",
                         "Dette vil slette all data fra denne testen",
-                        [
-                          {
-                            text: "Nei",
-                            onPress: () => {},
-                            style: "cancel",
-                          },
-                          {
-                            text: "Ja",
-                            onPress: () => {
-                              this.abortTest();
-                              this.props.navigation.navigate("SoundCheckRoute");
-                            },
-                            style: "destructive",
-                          },
-                        ]
+                        () => {
+                          this.abortTest();
+                          this.props.navigation.navigate("SoundCheckRoute");
+                        }
                       );
                     }}
                   />
@@ -536,6 +510,24 @@ class TestScreen extends Component {
     );
   }
 }
+
+const setAlert = (
+  heading: string,
+  description: string,
+  onPress: CallableFunction
+) =>
+  Alert.alert(heading, description, [
+    {
+      text: "Nei",
+      onPress: () => {},
+      style: "cancel",
+    },
+    {
+      text: "Ja",
+      onPress: () => onPress(),
+      style: "destructive",
+    },
+  ]);
 
 const styles = StyleSheet.create({
   component: {
