@@ -217,9 +217,9 @@ class TestScreen extends Component {
   }
 
   abortTest() {
-    stopTest();
     this.releaseSoundFiles();
     Sound.setActive(false);
+    stopTest();
   }
 
   restartTest() {
@@ -480,7 +480,6 @@ class TestScreen extends Component {
                         "Dette vil slette all data fra denne testen",
                         () => {
                           this.restartTest();
-                          //this.props.navigation.navigate("TestRoute");
                         }
                       );
                     }}
