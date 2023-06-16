@@ -14,3 +14,21 @@ export const onClose = (onConfirm: (value?: string) => void) => {
     },
   ]);
 };
+
+export const setAlert = (
+  heading: string,
+  description: string,
+  onConfirm: CallableFunction
+) =>
+  Alert.alert(heading, description, [
+    {
+      text: "Nei",
+      onPress: () => {},
+      style: "cancel",
+    },
+    {
+      text: "Ja",
+      onPress: () => onConfirm(),
+      style: "destructive",
+    },
+  ]);

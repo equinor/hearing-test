@@ -32,7 +32,8 @@ import {
   selectTestIsFinished,
   selectTestIsRunning,
 } from "../store/test/reducer";
-import { createSoundFile } from "../utils/sound";
+import { setAlert } from "../utils/alerts";
+import { createSoundFile, systemVolume } from "../utils/sound";
 
 class TestScreen extends Component {
   static propTypes = {
@@ -81,7 +82,7 @@ class TestScreen extends Component {
     modalVisible: false,
     pauseAfterNode: false,
     nextNodeWaiting: false,
-    initialSystemVolume: 0.5,
+    initialSystemVolume: systemVolume,
     isPlayingFirstNodeFirstTime: true,
     numberOfNodesPlayed: 0,
     numberOfNodes: Infinity,
@@ -105,7 +106,7 @@ class TestScreen extends Component {
         })
         .catch((err) => console.log({ err }));
     setInitialDeviceSystemVolume();
-    SystemSetting.setVolume(0.5, { showUI: false });
+    SystemSetting.setVolume(systemVolume, { showUI: false });
   }
 
   componentWillUnmount() {
@@ -209,20 +210,22 @@ class TestScreen extends Component {
     }));
   }
 
-  abortTest() {
-    this.releaseSoundFiles();
-    Sound.setActive(false);
+  stopTest() {
     clearInterval(this.state.intervalId);
     this.props.actionStopTest();
     this.setState({ modalVisible: false });
   }
 
+  abortTest() {
+    stopTest();
+    this.releaseSoundFiles();
+    Sound.setActive(false);
+  }
+
   restartTest() {
-    this.props.actionStopTest();
-    clearInterval(this.state.intervalId);
+    stopTest();
     this.setState({ numberOfNodesPlayed: 0 });
     this.props.actionStartTest();
-    this.setState({ modalVisible: false });
   }
 
   async nodeFinished(node) {
@@ -249,7 +252,7 @@ class TestScreen extends Component {
     // Setting master volume
     // Setting volume each time just to make sure the volume is not changed between plays
     // also, if headset was plugged in after componentDidMount() was called, we need to call this again
-    SystemSetting.setVolume(0.5, { showUI: false });
+    SystemSetting.setVolume(systemVolume, { showUI: false });
 
     // Setting playback volume
     sound.setVolume(node.stimulusMultiplicative);
@@ -477,7 +480,7 @@ class TestScreen extends Component {
                         "Dette vil slette all data fra denne testen",
                         () => {
                           this.restartTest();
-                          this.props.navigation.navigate("TestRoute");
+                          //this.props.navigation.navigate("TestRoute");
                         }
                       );
                     }}
@@ -510,24 +513,6 @@ class TestScreen extends Component {
     );
   }
 }
-
-const setAlert = (
-  heading: string,
-  description: string,
-  onPress: CallableFunction
-) =>
-  Alert.alert(heading, description, [
-    {
-      text: "Nei",
-      onPress: () => {},
-      style: "cancel",
-    },
-    {
-      text: "Ja",
-      onPress: () => onPress(),
-      style: "destructive",
-    },
-  ]);
 
 const styles = StyleSheet.create({
   component: {
