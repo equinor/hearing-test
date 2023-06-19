@@ -213,19 +213,20 @@ class TestScreen extends Component {
   stopTest() {
     clearInterval(this.state.intervalId);
     this.props.actionStopTest();
-    this.setState({ modalVisible: false });
+    this.setState({ numberOfNodesPlayed: 0 });
   }
 
   abortTest() {
     this.releaseSoundFiles();
     Sound.setActive(false);
     stopTest();
+    this.setState({ modalVisible: false });
   }
 
   restartTest() {
     stopTest();
-    this.setState({ numberOfNodesPlayed: 0 });
     this.props.actionStartTest();
+    this.setState({ modalVisible: false });
   }
 
   async nodeFinished(node) {
@@ -480,6 +481,7 @@ class TestScreen extends Component {
                         "Dette vil slette all data fra denne testen",
                         () => {
                           this.restartTest();
+                          this.props.navigation.navigate("TestRoute");
                         }
                       );
                     }}
