@@ -120,6 +120,7 @@ const TestResultScreen = ({
           onPress: () => {
             setModalVisible(true);
           },
+          loading: isFetching,
         },
         getHomeButton(),
       ],
