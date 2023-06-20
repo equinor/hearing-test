@@ -214,19 +214,18 @@ class TestScreen extends Component {
     clearInterval(this.state.intervalId);
     this.props.actionStopTest();
     this.setState({ numberOfNodesPlayed: 0 });
+    this.setState({ modalVisible: false });
   }
 
   abortTest() {
     this.releaseSoundFiles();
     Sound.setActive(false);
-    stopTest();
-    this.setState({ modalVisible: false });
+    this.stopTest();
   }
 
   restartTest() {
-    stopTest();
+    this.stopTest();
     this.props.actionStartTest();
-    this.setState({ modalVisible: false });
   }
 
   async nodeFinished(node) {
