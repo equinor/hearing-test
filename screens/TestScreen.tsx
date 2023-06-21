@@ -2,7 +2,7 @@ import NetInfo from "@react-native-community/netinfo";
 import { Spinner } from "mad-expo-core";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { Alert, Modal, StyleSheet, View } from "react-native";
+import { Modal, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Sound from "react-native-sound";
 import SystemSetting from "react-native-system-setting";
@@ -214,8 +214,8 @@ class TestScreen extends Component {
   stopTest() {
     clearInterval(this.state.intervalId);
     this.props.actionStopTest();
-    this.setState({ numberOfNodesPlayed: 0 });
     this.setState({ modalVisible: false });
+    this.setState({ numberOfNodesPlayed: 0 });
   }
 
   abortTest() {
