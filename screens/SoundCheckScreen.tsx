@@ -19,9 +19,9 @@ import BigRoundButton from "../components/common/atoms/BigRoundButton";
 import Typography from "../components/common/atoms/Typography";
 import ProgressAnimationBar from "../components/common/molecules/ProgressAnimationBar";
 import { EQUINOR_GREEN, GRAY_BACKGROUND } from "../constants/colors";
+import { SYSTEM_VOLUME } from "../constants/sounds";
 import { SoundCheckPageJSON } from "../types";
 import { onClose } from "../utils/alerts";
-import { systemVolume } from "../utils/sound";
 
 const styles = StyleSheet.create({
   component: {
@@ -39,7 +39,7 @@ const SoundCheckScreen = (props: any) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [sound, setSound] = useState<Sound>(null);
   const opacityAnim = useRef(new Animated.Value(0)).current;
-  const [initialSystemVolume, setInitialSystemVolume] = useState(systemVolume);
+  const [initialSystemVolume, setInitialSystemVolume] = useState(SYSTEM_VOLUME);
 
   useEffect(() => {
     if (opacityAnim)
@@ -79,7 +79,7 @@ const SoundCheckScreen = (props: any) => {
     Sound.setActive(true);
 
     // Load the sound file 'testBell.wav' from the app bundle
-    SystemSetting.setVolume(systemVolume, { showUI: false });
+    SystemSetting.setVolume(SYSTEM_VOLUME, { showUI: false });
   }, []);
 
   const pages: SoundCheckPageJSON[] = [
@@ -132,8 +132,8 @@ const SoundCheckScreen = (props: any) => {
   function playAudioTest(ear: "left" | "right") {
     // Setting volume each time just to make sure the volume is not changed between plays
     // also, if headset was plugged in after componentDidMount() was called, we need to call this again
-    SystemSetting.setVolume(systemVolume, { showUI: false }); //Todo: Disabling this until we know how the calibration step should be done..
-    sound.setVolume(systemVolume);
+    SystemSetting.setVolume(SYSTEM_VOLUME, { showUI: false }); //Todo: Disabling this until we know how the calibration step should be done..
+    sound.setVolume(SYSTEM_VOLUME);
     if (ear === "left") sound.setPan(-1);
     if (ear === "right") sound.setPan(1);
     sound.play((success) => {

@@ -9,5 +9,3 @@ export const createSoundFile = (filenameOrFile: any) => {
 
   return soundFile;
 };
-
-export const systemVolume: number = 0.5;

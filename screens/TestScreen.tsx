@@ -15,6 +15,7 @@ import { MenuItem } from "../components/common/atoms/MenuItem";
 import ProgressBar from "../components/common/atoms/ProgressBar";
 import Typography from "../components/common/atoms/Typography";
 import { TestCard } from "../components/common/molecules/TestCard";
+import { SYSTEM_VOLUME } from "../constants/sounds";
 import store from "../store/config";
 import { selectIsFetching } from "../store/test";
 import {
@@ -33,7 +34,7 @@ import {
   selectTestIsRunning,
 } from "../store/test/reducer";
 import { setAlert } from "../utils/alerts";
-import { createSoundFile, systemVolume } from "../utils/sound";
+import { createSoundFile } from "../utils/sound";
 
 class TestScreen extends Component {
   static propTypes = {
@@ -82,7 +83,7 @@ class TestScreen extends Component {
     modalVisible: false,
     pauseAfterNode: false,
     nextNodeWaiting: false,
-    initialSystemVolume: systemVolume,
+    initialSystemVolume: SYSTEM_VOLUME,
     isPlayingFirstNodeFirstTime: true,
     numberOfNodesPlayed: 0,
     numberOfNodes: Infinity,
@@ -106,7 +107,7 @@ class TestScreen extends Component {
         })
         .catch((err) => console.log({ err }));
     setInitialDeviceSystemVolume();
-    SystemSetting.setVolume(systemVolume, { showUI: false });
+    SystemSetting.setVolume(SYSTEM_VOLUME, { showUI: false });
   }
 
   componentWillUnmount() {
@@ -252,7 +253,7 @@ class TestScreen extends Component {
     // Setting master volume
     // Setting volume each time just to make sure the volume is not changed between plays
     // also, if headset was plugged in after componentDidMount() was called, we need to call this again
-    SystemSetting.setVolume(systemVolume, { showUI: false });
+    SystemSetting.setVolume(SYSTEM_VOLUME, { showUI: false });
 
     // Setting playback volume
     sound.setVolume(node.stimulusMultiplicative);
