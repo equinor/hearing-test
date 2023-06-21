@@ -21,7 +21,7 @@ import ProgressAnimationBar from "../components/common/molecules/ProgressAnimati
 import { EQUINOR_GREEN, GRAY_BACKGROUND } from "../constants/colors";
 import { SYSTEM_VOLUME } from "../constants/sounds";
 import { SoundCheckPageJSON } from "../types";
-import { onClose } from "../utils/alerts";
+import { setAlert } from "../utils/alerts";
 
 const styles = StyleSheet.create({
   component: {
@@ -193,7 +193,13 @@ const SoundCheckScreen = (props: any) => {
               <IconButton
                 icon="close"
                 onPress={() =>
-                  onClose(() => props.navigation.navigate("DefaultRoute"))
+                  setAlert(
+                    "Avslutte?",
+                    "Da må du begynne på nytt neste gang",
+                    () => {
+                      props.navigation.navigate("DefaultRoute");
+                    }
+                  )
                 }
               />
             </View>

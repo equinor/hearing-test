@@ -5,6 +5,7 @@ import React, { Component } from "react";
 import { Image, ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { BarCodeScannerScreen } from "./BarCodeScannerScreen";
 import adapter from "../assets/images/adapter.png";
 import headset from "../assets/images/headset.png";
 import scanner from "../assets/images/scanner.png";
@@ -15,8 +16,7 @@ import ButtonEDS from "../components/common/EDS/Button";
 import { IconButton } from "../components/common/EDS/IconButton";
 import { Indicators } from "../components/common/molecules/Indicators";
 import { MOSS_GREEN_100, TEXT } from "../constants/colors";
-import { onClose } from "../utils/alerts";
-import { BarCodeScannerScreen } from "./BarCodeScannerScreen";
+import { setAlert } from "../utils/alerts";
 
 export default class PreTestScreen extends Component {
   static propTypes = {
@@ -162,7 +162,13 @@ export default class PreTestScreen extends Component {
           <IconButton
             icon="close"
             onPress={() =>
-              onClose(() => this.props.navigation.navigate("DefaultRoute"))
+              setAlert(
+                "Avslutte?",
+                "Da må du begynne på nytt neste gang",
+                () => {
+                  this.props.navigation.navigate("DefaultRoute");
+                }
+              )
             }
             style={styles.closeButton}
           />
