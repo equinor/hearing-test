@@ -15,11 +15,11 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
+    "jsEngine": "hermes",
     "ios": {
       "supportsTablet": true,
+      "jsEngine": "jsc",
       "bundleIdentifier": "com.equinor.hearingtest.test",
       "buildNumber": "1",
       "infoPlist": {
