@@ -4,14 +4,14 @@ import { StyleSheet, Text, View } from "react-native";
 
 import * as Colors from "../../../constants/colors";
 
-interface Item {
+export type SimpleItem = {
   key: string;
   label: string;
   text: string;
 }
 
 interface SimpleInfoItemProps {
-  item: Item;
+  item: SimpleItem;
 }
 
 const styles = StyleSheet.create({

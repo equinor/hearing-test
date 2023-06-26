@@ -10,16 +10,11 @@ import {
 } from "react-native";
 
 import { SimpleInfoItem } from "./common";
+import { SimpleItem } from "./common/atoms/SimpleInfoItem";
 
-interface Section {
+type Section = {
   key: string;
-}
-
-interface Item {
-  key: string;
-  label: string;
-  text: string;
-}
+};
 
 interface AppInfoProps {
   sections: Section[];
@@ -56,7 +51,7 @@ const AppInfo: React.FC<AppInfoProps> = ({ sections }): ReactElement => {
     </View>
   );
 
-  const renderItem = ({ item }: { item: Item }): ReactElement => (
+  const renderItem = ({ item }: { item: SimpleItem }): ReactElement => (
     <View style={styles.item}>
       <SimpleInfoItem item={item} />
     </View>
