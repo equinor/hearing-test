@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import React, { ReactElement } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 import * as Colors from "../../../constants/colors";
@@ -8,11 +7,11 @@ export type SimpleItem = {
   key: string;
   label: string;
   text: string;
-}
+};
 
-interface SimpleInfoItemProps {
+export type SimpleInfoItemProps = {
   item: SimpleItem;
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -28,14 +27,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const SimpleInfoItem: React.FC<SimpleInfoItemProps> = ({
-  item,
-}): ReactElement => (
-  <View style={styles.container}>
-    <Text style={styles.label}>{item.label}</Text>
-    <Text style={styles.text}>{item.text}</Text>
-  </View>
-);
+export const SimpleInfoItem = ({ item }: SimpleInfoItemProps) => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.label}>{item.label}</Text>
+      <Text style={styles.text}>{item.text}</Text>
+    </View>
+  );
+};
 
 SimpleInfoItem.propTypes = {
   item: PropTypes.shape({
@@ -44,5 +43,3 @@ SimpleInfoItem.propTypes = {
     text: PropTypes.string.isRequired,
   }).isRequired,
 };
-
-export default SimpleInfoItem;

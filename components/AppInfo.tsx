@@ -1,24 +1,23 @@
 import { Typography } from "mad-expo-core";
 import PropTypes from "prop-types";
-import React, { ReactElement } from "react";
 import {
   SectionList,
+  SectionListData,
+  SectionListRenderItemInfo,
   StyleSheet,
   View,
-  StyleProp,
-  ViewStyle,
 } from "react-native";
 
-import { SimpleInfoItem } from "./common";
-import { SimpleItem } from "./common/atoms/SimpleInfoItem";
+import { SimpleInfoItem, SimpleItem } from "./common/atoms/SimpleInfoItem";
 
 type Section = {
   key: string;
+  data: SimpleItem[];
 };
 
-interface AppInfoProps {
+export type AppInfoProps = {
   sections: Section[];
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -36,24 +35,20 @@ const styles = StyleSheet.create({
   },
 });
 
-const AppInfo: React.FC<AppInfoProps> = ({ sections }): ReactElement => {
-  const SeparatorComponent = (): ReactElement => (
-    <View style={styles.separator} />
-  );
+export const AppInfo = ({ sections }: AppInfoProps) => {
+  const SeparatorComponent = () => <View style={styles.separator} />;
 
-  const renderSectionHeader = ({
-    section,
-  }: {
-    section: Section;
-  }): ReactElement => (
+  const renderSectionHeader = (info: {
+    section: SectionListData<SimpleItem, Section>;
+  }) => (
     <View style={{ padding: 16 }}>
-      <Typography variant="h4">{section.key}</Typography>
+      <Typography variant="h4">{info.section.key}</Typography>
     </View>
   );
 
-  const renderItem = ({ item }: { item: SimpleItem }): ReactElement => (
+  const renderItem = (item: SectionListRenderItemInfo<SimpleItem, Section>) => (
     <View style={styles.item}>
-      <SimpleInfoItem item={item} />
+      <SimpleInfoItem item={item.item} />
     </View>
   );
 
@@ -76,7 +71,7 @@ const AppInfo: React.FC<AppInfoProps> = ({ sections }): ReactElement => {
       renderSectionHeader={renderSectionHeader}
       sections={sections}
       SectionSeparatorComponent={SeparatorComponent}
-      style={styles.container as StyleProp<ViewStyle>}
+      style={styles.container}
     />
   );
 };
