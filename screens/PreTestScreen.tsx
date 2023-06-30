@@ -21,33 +21,31 @@ import ButtonEDS from "../components/common/EDS/Button";
 import { IconButton } from "../components/common/EDS/IconButton";
 import { Indicators } from "../components/common/molecules/Indicators";
 import { MOSS_GREEN_100, TEXT } from "../constants/colors";
+import { ButtonProps } from "../types";
 import { onClose } from "../utils/alerts";
 
-interface Page {
+type PreTestPage = {
   title: string;
   image: ImageSourcePropType;
   content: string;
   current: boolean;
   ignoreStep?: boolean;
   hideIndicator?: boolean;
-  buttons: Button[];
-}
+  buttons: ButtonProps[];
+};
 
-interface Button {
-  text: string;
-  outlined?: boolean;
-  onPress: () => void;
-}
+type State = {
+  pages: PreTestPage[];
+};
 
-interface State {
-  pages: Page[];
-}
-
-interface Props {
+export type PreTestScreenProps = {
   navigation: { navigate: (route: string) => void };
-}
+};
 
-export default class PreTestScreen extends Component<Props, State> {
+export default class PreTestScreen extends Component<
+  PreTestScreenProps,
+  State
+> {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
   };
@@ -142,14 +140,14 @@ export default class PreTestScreen extends Component<Props, State> {
     ],
   };
 
-  showCustomPage(customPage: Page) {
+  showCustomPage(customPage: PreTestPage) {
     const currentIndex = this.state.pages.findIndex((page) => page.current);
     const clonedPages = cloneDeep(this.state.pages);
     clonedPages[currentIndex] = customPage;
     this.setState({ pages: clonedPages });
   }
 
-  currentPage(): Page {
+  currentPage(): PreTestPage {
     return this.state.pages.find((page) => page.current)!;
   }
 
