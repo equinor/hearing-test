@@ -2,9 +2,9 @@ import { StyleSheet } from "react-native";
 
 import * as Colors from "./colors";
 
-interface Styles {
-  [key: string]: object | StyleSheet.NamedStyles<object>;
-}
+type Styles = {
+  [key: string]: StyleSheet.NamedStyles<object>;
+};
 
 const styles: Styles = {
   success: StyleSheet.create({}),
