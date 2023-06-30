@@ -2,11 +2,11 @@ import { StyleSheet } from "react-native";
 
 import * as Colors from "./colors";
 
-type Styles = {
+type ToastStyle = {
   [key: string]: StyleSheet.NamedStyles<object>;
 };
 
-const styles: Styles = {
+const styles: ToastStyle = {
   success: StyleSheet.create({}),
   info: StyleSheet.create({}),
   warning: StyleSheet.create({}),
