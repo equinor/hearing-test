@@ -1,24 +1,9 @@
 import { Spinner } from "mad-expo-core";
 import React from "react";
-import {
-  GestureResponderEvent,
-  StyleProp,
-  TouchableOpacity,
-  View,
-  ViewStyle,
-} from "react-native";
+import { TouchableOpacity, View } from "react-native";
 
+import { ButtonProps } from "../../../types";
 import Typography from "../atoms/Typography";
-
-export type ButtonProps = {
-  onPress: (event: GestureResponderEvent) => void;
-  text: string;
-  outlined?: boolean;
-  danger?: boolean;
-  loading?: boolean;
-  disabled?: boolean;
-  style?: StyleProp<ViewStyle>;
-};
 
 const ButtonEDS = ({
   onPress,
