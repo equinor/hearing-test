@@ -6,7 +6,7 @@ type ToastStyle = {
   [key: string]: StyleSheet.NamedStyles<object>;
 };
 
-const styles: ToastStyle = {
+const toastStyles: ToastStyle = {
   success: StyleSheet.create({}),
   info: StyleSheet.create({}),
   warning: StyleSheet.create({}),
@@ -29,4 +29,4 @@ const styles: ToastStyle = {
   }),
 };
 
-export default styles;
+export default toastStyles;
