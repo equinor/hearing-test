@@ -1,23 +1,14 @@
 import React, { useState } from "react";
-import {
-  Image,
-  ImageSourcePropType,
-  Modal,
-  StyleSheet,
-  View,
-} from "react-native";
+import { Image, Modal, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { connect } from "react-redux";
 
-import doctor from "../assets/images/doctor.png";
-import thumbsUp from "../assets/images/thumbs-up.png";
-import warning from "../assets/images/warning.png";
-import { ButtonProps } from "../components/common/EDS/Button";
 import { IconButton } from "../components/common/EDS/IconButton";
 import { ErrorBanner } from "../components/common/atoms/ErrorBanner";
 import Typography from "../components/common/atoms/Typography";
 import { ButtonGroup } from "../components/common/molecules/ButtonGroup";
 import { TestResultItem } from "../components/common/molecules/TestResultItem";
+import { useTestResultPages } from "../hooks/useTestResultPages";
 import { postTest } from "../store/test/actions";
 import {
   selectIsFetching,
@@ -25,23 +16,11 @@ import {
   selectTestResult,
 } from "../store/test/reducer";
 import { getUnsentTests } from "../store/unsent-tests/reducer";
-import { RootStackScreenProps, TestResult } from "../types";
-
-type Pages = {
-  newTestInSixMonths: Page;
-  newTestRecommended: Page;
-  hearingChangeDetected: Page;
-  testIsSent: Page;
-  sendingTestFailed: Page;
-};
-
-type Page = {
-  title: string;
-  image: ImageSourcePropType;
-  subTitle: string;
-  description: string;
-  buttons: ButtonProps[];
-};
+import {
+  TestResultButtonConfigurations,
+  RootStackScreenProps,
+  TestResult,
+} from "../types";
 
 interface Props extends RootStackScreenProps<"TestResultRoute"> {
   actionPostTest: Function;
@@ -60,101 +39,58 @@ const TestResultScreen = ({
   const [modalVisible, setModalVisible] = useState(false);
   const [resendCount, setResendCount] = useState(0);
 
-  const getHomeButton = (outlined?: boolean): ButtonProps => ({
-    onPress: () => navigation.navigate("DefaultRoute"),
-    text: "Hovedmeny",
-    outlined,
-  });
-
-  const pages: Pages = {
-    newTestInSixMonths: {
-      title: "Testen er fullført",
-      image: thumbsUp,
-      subTitle: "Dette ser fint ut!",
-      description:
-        "Du vil få en ny invitasjon om 6 måneder, men vær oppmerksom på at jo oftere du tar testen, jo bedre.",
-      buttons: [getHomeButton()],
+  const buttons: TestResultButtonConfigurations = {
+    seeResult: {
+      outlined: false,
+      text: "Se resultat",
+      onPress: () => {
+        setModalVisible(true);
+      },
+      loading: isFetching,
     },
-    newTestRecommended: {
-      title: "Her ble det litt krøll",
-      image: warning,
-      subTitle: "Takk for at du gjennomførte testen",
-      description:
-        "For beste mulige resultater, vennligst ta hørselstesten på ny.",
-      buttons: [
-        {
-          outlined: true,
-          text: "Ta ny test",
-          onPress: () => navigation.navigate("TestRoute"),
-        },
-        getHomeButton(),
-      ],
+    newTest: {
+      outlined: false,
+      text: "Ta ny test",
+      onPress: () => navigation.navigate("TestRoute"),
+      loading: isFetching,
     },
-    hearingChangeDetected: {
-      title: "Testen er fullført",
-      image: doctor,
-      subTitle: "Takk for at du gjennomførte testen",
-      description:
-        "Det er oppdaget en endring i hørselen din. Vennligst ta kontakt med sykepleier for en manuell undersøkelse.",
-      buttons: [
-        {
-          outlined: true,
-          text: "Kontakt sykepleier",
-          onPress: () => {
-            /* TODO */
-          },
-        },
-        getHomeButton(),
-      ],
-    },
-    testIsSent: {
-      title: "Testen er fullført",
-      image: thumbsUp,
-      subTitle: "Takk for at du testet appen!",
-      description:
-        "Du blir kontaktet av en lege dersom du har problemer med hørselen.",
-      buttons: [
-        {
-          outlined: true,
-          text: "Se resultat",
-          onPress: () => {
-            setModalVisible(true);
-          },
-          loading: isFetching,
-        },
-        getHomeButton(),
-      ],
-    },
-    sendingTestFailed: {
-      title: "Her ble det litt krøll",
-      image: warning,
-      subTitle: "Testen ble ikke sendt",
-      description:
-        "Testen ble lagret, men den må sendes for undersøkelse. Koble deg på nettet og prøv igjen. Testen kan også sendes fra hovedmenyen.",
-      buttons: [
-        {
-          outlined: resendCount > 0,
-          text: "Send",
-          onPress: () => {
-            actionPostTest(unsentTests[0]);
-            setResendCount((prevResendCount) => prevResendCount + 1);
-          },
-          loading: isFetching,
-        },
-        getHomeButton(resendCount === 0),
-      ],
+    sendTest: {
+      outlined: resendCount > 0,
+      text: "Send",
+      onPress: () => {
+        actionPostTest(unsentTests[0]);
+        setResendCount((prevResendCount) => prevResendCount + 1);
+      },
+      loading: isFetching,
     },
   };
 
-  // Feedback page
-  const page =
-    unsentTests.length === 0 ? pages.testIsSent : pages.sendingTestFailed; // TODO in the future, the backend will probably decide which page to show
+  if (unsentTests.length > 0) {
+    testResult.result = "SendFailed";
+  }
+
+  const page = useTestResultPages(testResult, buttons);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ErrorBanner />
-      <View style={styles.container}>
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: 16,
+        }}
+      >
+        <View style={{ width: 48, height: 48 }} />
         <Typography variant="h1">{page.title}</Typography>
+        <IconButton
+          icon="close"
+          onPress={() => navigation.navigate("DefaultRoute")}
+        />
+      </View>
+      <View style={styles.container}>
         {/*  Results-header section */}
         <View style={styles.centerContainer}>
           <Image
