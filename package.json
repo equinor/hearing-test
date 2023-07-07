@@ -26,7 +26,7 @@
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/native-stack": "^6.9.1",
     "@redux-devtools/extension": "^3.2.3",
-    "expo": "^48.0.17",
+    "expo": "^49.0.0",
     "expo-barcode-scanner": "~12.3.2",
     "expo-crypto": "^12.2.2",
     "expo-dev-client": "~2.2.1",
