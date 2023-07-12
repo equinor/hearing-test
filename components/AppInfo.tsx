@@ -1,5 +1,4 @@
 import { Typography } from "mad-expo-core";
-import PropTypes from "prop-types";
 import {
   SectionList,
   SectionListData,
@@ -10,12 +9,12 @@ import {
 
 import { SimpleInfoItem, SimpleItem } from "./common/atoms/SimpleInfoItem";
 
-type Section = {
+export type Section = {
   key: string;
   data: SimpleItem[];
 };
 
-export type AppInfoProps = {
+type AppInfoProps = {
   sections: Section[];
 };
 
@@ -38,31 +37,23 @@ const styles = StyleSheet.create({
 export const AppInfo = ({ sections }: AppInfoProps) => {
   const SeparatorComponent = () => <View style={styles.separator} />;
 
-  const renderSectionHeader = (info: {
+  const renderSectionHeader = ({
+    section,
+  }: {
     section: SectionListData<SimpleItem, Section>;
   }) => (
     <View style={{ padding: 16 }}>
-      <Typography variant="h4">{info.section.key}</Typography>
+      <Typography variant="h4">{section.key}</Typography>
     </View>
   );
 
-  const renderItem = (item: SectionListRenderItemInfo<SimpleItem, Section>) => (
+  const renderItem = ({
+    item,
+  }: SectionListRenderItemInfo<SimpleItem, Section>) => (
     <View style={styles.item}>
-      <SimpleInfoItem item={item.item} />
+      <SimpleInfoItem item={item} />
     </View>
   );
-
-  renderSectionHeader.propTypes = {
-    section: PropTypes.object.isRequired,
-  };
-
-  renderItem.propTypes = {
-    item: PropTypes.shape({
-      key: PropTypes.string,
-      label: PropTypes.string,
-      text: PropTypes.string.isRequired,
-    }).isRequired,
-  };
 
   return (
     <SectionList
@@ -74,10 +65,6 @@ export const AppInfo = ({ sections }: AppInfoProps) => {
       style={styles.container}
     />
   );
-};
-
-AppInfo.propTypes = {
-  sections: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default AppInfo;

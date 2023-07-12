@@ -1,5 +1,5 @@
 import appJson from "../app.json";
-import AppInfo from "../components/AppInfo";
+import { AppInfo, Section } from "../components/AppInfo";
 import {
   getConfiguredResources,
   BuildConfiguration,
@@ -12,7 +12,7 @@ export const AboutScreen = () => {
   const getApiEndpoints = () =>
     resources.map((resource) => getApiBaseUrl(resource)).join("\n");
 
-  const sections = [
+  const sections: Section[] = [
     {
       key: "Client",
       data: [

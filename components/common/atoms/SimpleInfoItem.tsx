@@ -1,14 +1,14 @@
-import PropTypes from "prop-types";
 import { StyleSheet, Text, View } from "react-native";
 
 import * as Colors from "../../../constants/colors";
 
 export type SimpleItem = {
+  key: string;
   label: string;
   text: string;
 };
 
-export type SimpleInfoItemProps = {
+type SimpleInfoItemProps = {
   item: SimpleItem;
 };
 
@@ -26,19 +26,9 @@ const styles = StyleSheet.create({
   },
 });
 
-export const SimpleInfoItem = ({ item }: SimpleInfoItemProps) => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.label}>{item.label}</Text>
-      <Text style={styles.text}>{item.text}</Text>
-    </View>
-  );
-};
-
-SimpleInfoItem.propTypes = {
-  item: PropTypes.shape({
-    key: PropTypes.string,
-    label: PropTypes.string,
-    text: PropTypes.string.isRequired,
-  }).isRequired,
-};
+export const SimpleInfoItem = ({ item }: SimpleInfoItemProps) => (
+  <View style={styles.container}>
+    <Text style={styles.label}>{item.label}</Text>
+    <Text style={styles.text}>{item.text}</Text>
+  </View>
+);
