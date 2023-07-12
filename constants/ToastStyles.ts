@@ -2,11 +2,7 @@ import { StyleSheet } from "react-native";
 
 import * as Colors from "./colors";
 
-type ToastStyle = {
-  [key: string]: StyleSheet.NamedStyles<object>;
-};
-
-const toastStyles: ToastStyle = {
+export const ToastStyles = {
   success: StyleSheet.create({}),
   info: StyleSheet.create({}),
   warning: StyleSheet.create({}),
@@ -28,5 +24,3 @@ const toastStyles: ToastStyle = {
     },
   }),
 };
-
-export default toastStyles;

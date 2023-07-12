@@ -1,6 +1,6 @@
 import { giveSalute, types } from "react-native-salute";
 
-import ToastStyles from '../constants/ToastStyles'; // eslint-disable-line
+import {ToastStyles} from '../constants/ToastStyles'; // eslint-disable-line
 
 export const ToastTypes = {
   SUCCESS: "SUCCESS",
