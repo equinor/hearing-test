@@ -1,7 +1,10 @@
 import { Button } from "mad-expo-core";
 import { StyleSheet } from "react-native";
+import { connect } from "react-redux";
 
 import * as colors from "../../constants/colors";
+import * as actions from "../../store";
+import { getAuthStatus } from "../../store/auth";
 
 type LogoutButtonProps = {
   onPress: CallableFunction;
@@ -28,4 +31,13 @@ const LogoutButton = ({ onPress }: LogoutButtonProps) => (
   />
 );
 
-export default LogoutButton;
+const mapStateToProps = (state) => ({
+  authStatus: getAuthStatus(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  signOut: () => dispatch(actions.loginSignOut()),
+  setConfig: (appConfig) => dispatch(actions.setConfig(appConfig)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LogoutButton);
