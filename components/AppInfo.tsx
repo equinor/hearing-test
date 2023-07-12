@@ -66,5 +66,3 @@ export const AppInfo = ({ sections }: AppInfoProps) => {
     />
   );
 };
-
-export default AppInfo;
