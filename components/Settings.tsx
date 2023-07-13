@@ -49,7 +49,7 @@ export const Settings = ({ currentUser, navigation }: Props) => {
 
   const ButtonItem = ({ item }) => {
     if (item.key === "Logout") {
-      return <LogoutButton onPress={onPressLogout} />;
+      return <LogoutButton />;
     }
     return (
       <View style={styles.itemContainer}>
