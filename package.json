@@ -36,7 +36,7 @@
     "expo-splash-screen": "~0.18.2",
     "expo-status-bar": "~1.4.2",
     "lodash": "^4.17.21",
-    "mad-expo-core": "github:equinor/mad-expo-core#bf80cdf76b4e3d4185e86d3c00ee3117cf6da8b4",
+    "mad-expo-core": "github:equinor/mad-expo-core#f94d24ca61980eb59aac36ead5d7f6bfd22161ed",
     "prop-types": "^15.8.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",

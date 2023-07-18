@@ -1,8 +1,6 @@
 import _ from "lodash";
 import { handleActions } from "redux-actions";
 
-import * as mockData from "../../services/api/mocked-api-methods/mock-data.json";
-import { Error, stateKeys } from "../../types";
 import {
   appStartupInitFailed,
   appStartupInitRequested,
@@ -18,6 +16,8 @@ import {
   stopTest,
   success,
 } from "./actions";
+import * as mockData from "../../services/api/mocked-api-methods/mock-data.json";
+import { Error, stateKeys } from "../../types";
 
 function setNextNode(state, userResponse) {
   const clonedState = _.cloneDeep(state);
@@ -190,7 +190,7 @@ export const selectTestIsRunning = (state): boolean =>
   state[stateKeys.TEST].testIsRunning;
 export const selectResults = (state) => state[stateKeys.TEST].results;
 export const selectTestResult = (state) =>
-  state.appConfig.current.demoMode
+  state.appConfig.isDemoMode
     ? mockData.Tests[0]
     : state[stateKeys.TEST].testResult;
 export const selectError = (state): Error => state[stateKeys.TEST].error;

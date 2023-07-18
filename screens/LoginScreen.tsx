@@ -24,7 +24,7 @@ const LoginScreen = ({ navigation, onDemoPress }: Props) => (
     scopes={getScopes("hearing")}
     showDemoButton
     onDemoPress={() => {
-      onDemoPress({ key: "demoMode", value: true });
+      onDemoPress({ key: "isDemoMode", value: true });
       navigation.navigate("FeatureRoute");
     }}
   />
