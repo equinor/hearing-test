@@ -86,7 +86,7 @@ class TestScreen extends Component {
     numberOfNodesPlayed: 0,
     numberOfNodes: Infinity,
     isDoneLoadingSounds: false,
-    isDemoMode: store.getState().appConfig.current.demoMode,
+    isDemoMode: store.getState().appConfig.isDemoMode,
     isConnected: null,
     netInfoEventListener: null,
   };

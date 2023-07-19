@@ -11,11 +11,15 @@ import {
   DarkTheme,
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { ReleaseNoteScreen } from "mad-expo-core";
+import { ReleaseNoteScreen, SettingsScreen } from "mad-expo-core";
 import * as React from "react";
 import { ColorSchemeName, TouchableOpacity } from "react-native";
+import { useDispatch } from "react-redux";
 
+import LinkingConfiguration from "./LinkingConfiguration";
+import withUtilities from "./utils";
 import appJson from "../app.json";
+import { SETTINGS_CONFIG } from "../configs/SettingsConfig";
 import { EQUINOR_GREEN } from "../constants/colors";
 import { getEnvironment, getScopes } from "../constants/settings";
 import { AboutScreen } from "../screens/AboutScreen";
@@ -24,19 +28,17 @@ import FeedbackScreen from "../screens/FeedbackScreen";
 import LoginScreen from "../screens/LoginScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import PreTestScreen from "../screens/PreTestScreen";
-import SettingsScreen from "../screens/SettingsScreen";
 import SoundCheckFinishedScreen from "../screens/SoundCheckFinishedScreen";
 import SoundCheckScreen from "../screens/SoundCheckScreen";
 import TestResultScreen from "../screens/TestResultScreen";
 import TestScreen from "../screens/TestScreen";
+import { setConfig } from "../store";
 import store from "../store/config";
 import { RootStackParamList } from "../types";
-import LinkingConfiguration from "./LinkingConfiguration";
-import withUtilities from "./utils";
 
 const environment = getEnvironment();
 
-const getIsDemoMode = () => store.getState().appConfig.current.demoMode;
+const getIsDemoMode = () => store.getState().appConfig.isDemoMode;
 
 const LightTheme = {
   ...DefaultTheme,
@@ -71,6 +73,7 @@ export default function Navigation({
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
+  const dispatch = useDispatch();
   return (
     <Stack.Navigator
       initialRouteName="LoginRoute"
@@ -103,7 +106,7 @@ function RootNavigator() {
       <Stack.Screen
         name="DefaultRoute"
         component={withUtilities(DefaultScreen)}
-        options={({ navigation }: any) => ({
+        options={({ navigation }) => ({
           gestureEnabled: false,
           headerBackVisible: false,
           headerTitle: "",
@@ -152,10 +155,19 @@ function RootNavigator() {
       <Stack.Group>
         <Stack.Screen
           name="SettingsRoute"
-          component={SettingsScreen}
+          children={({ navigation }) => (
+            <SettingsScreen
+              config={SETTINGS_CONFIG}
+              routeAfterLogout="LoginRoute"
+              navigation={navigation}
+              onLogout={() =>
+                dispatch(setConfig({ key: "isDemoMode", value: false }))
+              }
+              languageCode="no"
+            />
+          )}
           options={{
-            headerBackTitle: "Home",
-            title: "Settings",
+            title: "Innstillinger",
           }}
         />
         <Stack.Screen

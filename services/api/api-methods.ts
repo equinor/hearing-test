@@ -1,16 +1,16 @@
 import { authenticateSilently } from "mad-expo-core";
 
-import appJson from "../../app.json";
-import { getApiBaseUrl, getScopes } from "../../constants/settings";
-import store from "../../store/config";
-import { Sound, TestResult, User } from "../../types";
-import { NetworkException } from "../../utils/Exception";
 import {
   postMockTakeTest,
   fetchMockMe,
   fetchMockTests,
   fetchMockSounds,
 } from "./mocked-api-methods";
+import appJson from "../../app.json";
+import { getApiBaseUrl, getScopes } from "../../constants/settings";
+import store from "../../store/config";
+import { Sound, TestResult, User } from "../../types";
+import { NetworkException } from "../../utils/Exception";
 
 const appName = appJson.expo.name;
 const defaultResource = "hearing";
@@ -83,7 +83,7 @@ export const getServiceMessage = () =>
   fetchOpenData(`/ServiceMessage/${appName}`, "mad");
 
 export const postTakeTest = () =>
-  store.getState().appConfig.current.demoMode
+  store.getState().appConfig.isDemoMode
     ? postMockTakeTest()
     : postData(`/me/tests/takeTest`, {
         hz500Db: 0,
@@ -101,16 +101,14 @@ export const appInit = () =>
   fetchData("/appStartup/init", defaultResource, false);
 
 export const fetchTests = (): Promise<TestResult[]> =>
-  store.getState().appConfig.current.demoMode
+  store.getState().appConfig.isDemoMode
     ? fetchMockTests()
     : fetchData("/me/tests");
 
 export const fetchMe = (): Promise<User> =>
-  store.getState().appConfig.current.demoMode
-    ? fetchMockMe()
-    : fetchData("/me");
+  store.getState().appConfig.isDemoMode ? fetchMockMe() : fetchData("/me");
 
 export const fetchSounds = (): Promise<Sound[]> =>
-  store.getState().appConfig.current.demoMode
+  store.getState().appConfig.isDemoMode
     ? fetchMockSounds()
     : fetchData("/appstartup/sounds");
