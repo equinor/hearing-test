@@ -11,7 +11,7 @@ import {
   DarkTheme,
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { ReleaseNoteScreen, SettingsScreen } from "mad-expo-core";
+import { LoginScreen, ReleaseNoteScreen, SettingsScreen } from "mad-expo-core";
 import * as React from "react";
 import { ColorSchemeName, TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
@@ -19,13 +19,13 @@ import { useDispatch } from "react-redux";
 import LinkingConfiguration from "./LinkingConfiguration";
 import withUtilities from "./utils";
 import appJson from "../app.json";
+import logo from "../assets/images/logo.png";
 import { SETTINGS_CONFIG } from "../configs/SettingsConfig";
 import { EQUINOR_GREEN } from "../constants/colors";
 import { getEnvironment, getScopes } from "../constants/settings";
 import { AboutScreen } from "../screens/AboutScreen";
 import { DefaultScreen } from "../screens/DefaultScreen";
 import FeedbackScreen from "../screens/FeedbackScreen";
-import LoginScreen from "../screens/LoginScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import PreTestScreen from "../screens/PreTestScreen";
 import SoundCheckFinishedScreen from "../screens/SoundCheckFinishedScreen";
@@ -84,11 +84,25 @@ function RootNavigator() {
     >
       <Stack.Screen
         name="LoginRoute"
-        component={LoginScreen}
+        children={({ navigation }) => (
+          <LoginScreen
+            logo={logo}
+            mainRoute="ReleaseNoteRoute"
+            navigation={navigation}
+            scopes={getScopes("hearing")}
+            eds
+            title="Hørselstest"
+            showDemoButton
+            onDemoPress={() => {
+              dispatch(setConfig({ key: "isDemoMode", value: true }));
+              navigation.navigate("ReleaseNoteRoute");
+            }}
+          />
+        )}
         options={{ gestureEnabled: false, headerShown: false }}
       />
       <Stack.Screen
-        name="FeatureRoute"
+        name="ReleaseNoteRoute"
         children={({ navigation }) => (
           <ReleaseNoteScreen
             name="HearingTest"
