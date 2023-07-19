@@ -20,7 +20,7 @@ declare global {
 
 export type RootStackParamList = {
   LoginRoute: undefined;
-  FeatureRoute: undefined;
+  ReleaseNoteRoute: undefined;
   DefaultRoute: undefined;
   SoundCheckRoute: undefined;
   SoundCheckFinishedRoute: undefined;
