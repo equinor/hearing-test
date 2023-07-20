@@ -30,38 +30,18 @@ export type RootStackParamList = {
   SettingsRoute: undefined;
   AboutRoute: undefined;
   FeedbackRoute: undefined;
-  NotFound: undefined;
+  NotFoundRoute: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
   NativeStackScreenProps<RootStackParamList, Screen>;
 
 export const stateKeys = {
-  AUTH: "currentUser",
-  CONNECTIVITY: "connectivity",
   MANIFEST: "schemaVersion",
-  SERVICEMESSAGE: "serviceMessage",
-  TOAST: "toast",
-  NAV: "navigation",
   TEST: "test",
   TESTS: "tests",
   APPCONFIG: "appConfig",
   UNSENTTESTS: "unsentTests",
-};
-
-export const requestTypes = {
-  NONE: "NONE",
-  REQUESTED: "REQUESTED",
-  SUCCEEDED: "SUCCEEDED",
-  FAILED: "FAILED",
-};
-
-export const authStatusTypes = {
-  NOT_AUTHENTICATED: "NOT_AUTHENTICATED",
-  AUTHENTICATING: "NOT_AUTHENTICATED",
-  AUTHENTICATED: "AUTHENTICATED",
-  FAILED: "FAILED",
-  SIGNED_OUT: "SIGNED_OUT",
 };
 
 export type TestResult = {
@@ -135,12 +115,6 @@ export type SoundCheckPageJSON = {
     play: boolean;
     ear?: "left" | "right";
   };
-};
-
-export type ReleaseNote = {
-  header: string;
-  subHeader: string;
-  changes: string[];
 };
 
 export type MaterialIconName = keyof typeof MaterialIcons.glyphMap;

@@ -1,6 +1,7 @@
 import { View } from "react-native";
 
-import ButtonEDS, { ButtonProps } from "../EDS/Button";
+import { ButtonProps } from "../../../types";
+import ButtonEDS from "../EDS/Button";
 
 export const ButtonGroup = ({ buttons }: { buttons: ButtonProps[] }) => {
   return (

@@ -22,7 +22,6 @@ export default function useCachedResources() {
         // Load fonts
         await Font.loadAsync({
           ...MaterialIcons.font,
-          "space-mono": require("../assets/fonts/SpaceMono-Regular.ttf"),
           "Equinor-Bold": require("../assets/fonts/Equinor-Bold.ttf"),
           "Equinor-BoldItalic": require("../assets/fonts/Equinor-BoldItalic.ttf"),
           "Equinor-Italic": require("../assets/fonts/Equinor-Italic.ttf"),

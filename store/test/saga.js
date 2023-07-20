@@ -1,10 +1,9 @@
 import { put, call, takeLatest, select } from "redux-saga/effects";
 
-import api from "../../services/api";
-import handleError from "../../utils/handleNetworkErrors";
+import * as actions from "./actions";
+import * as api from "../../services/api/api-methods";
 import { addUnsentTest, removeUnsentTest } from "../unsent-tests/actions";
 import { getUnsentTests } from "../unsent-tests/reducer";
-import * as actions from "./actions";
 
 function* postTakeTest(action) {
   try {
@@ -31,25 +30,10 @@ function* postTest(action) {
   }
 }
 
-function* appInit(action) {
-  try {
-    yield put(actions.appStartupInitRequested());
-    const response = yield call(api.appInit, action.payload);
-    yield put(actions.appStartupInitSucceeded(response));
-  } catch (ex) {
-    yield call(handleError, ex);
-    yield put(actions.appStartupInitFailed(ex));
-  }
-}
-
 export function* watchPostTakeTest() {
   yield takeLatest(actions.postTakeTest.toString(), postTakeTest);
 }
 
 export function* watchPostTest() {
   yield takeLatest(actions.postTest.toString(), postTest);
-}
-
-export function* watchAppInit() {
-  yield takeLatest(actions.appStartupInit.toString(), appInit);
 }

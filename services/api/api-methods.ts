@@ -97,9 +97,6 @@ export const postTakeTest = () =>
 
 export const postTest = (body) => postData(`/me/tests`, body);
 
-export const appInit = () =>
-  fetchData("/appStartup/init", defaultResource, false);
-
 export const fetchTests = (): Promise<TestResult[]> =>
   store.getState().appConfig.isDemoMode
     ? fetchMockTests()

@@ -2,9 +2,6 @@ import _ from "lodash";
 import { handleActions } from "redux-actions";
 
 import {
-  appStartupInitFailed,
-  appStartupInitRequested,
-  appStartupInitSucceeded,
   failure,
   postTakeTestFailed,
   postTakeTestRequested,
@@ -84,25 +81,6 @@ function setNextNode(state, userResponse) {
 
 export default handleActions(
   {
-    [appStartupInitRequested]: (state) => ({
-      ...state,
-      fetching: true,
-    }),
-    [appStartupInitSucceeded]: (state) => {
-      return {
-        ...state,
-        error: { message: null, status: null },
-        fetching: false,
-      };
-    },
-    [appStartupInitFailed]: (state, action) => ({
-      ...state,
-      error: _.isEmpty(action.payload)
-        ? { message: action.payload.toString(), status: "" }
-        : action.payload,
-      fetching: false,
-    }),
-
     [postTakeTestRequested]: (state) => ({
       ...state,
       test: {},

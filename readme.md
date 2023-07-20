@@ -1,13 +1,12 @@
-Hørselsmonitorering
+Hørselstest
 --------------------
+
 This app allows users to perform self-administered hearing checks.
 Tests are administered with the iOS device and specific headphone equipment.  
 The results of tests can be viewed by the user.  
 Future versions are expected to improve the tests and to also allow the sharing of test results with health professionals by user request.
 
 Tldr: An app to simplify the process of monitoring your hearing over time.
-
-The app is buildt upon the [mad-app-template](https://github.com/Statoil/mad-rn-generator).
 
 # Taking a test
 

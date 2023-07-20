@@ -1,4 +1,3 @@
-import React from "react";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 
 import { MOSS_GREEN_100 } from "../../../constants/colors";

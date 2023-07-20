@@ -1,5 +1,4 @@
 import { Spinner } from "mad-expo-core";
-import React from "react";
 import { TouchableOpacity, View } from "react-native";
 
 import { ButtonProps } from "../../../types";
