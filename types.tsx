@@ -5,12 +5,9 @@
 
 import { MaterialIcons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import {
-  GestureResponderEvent,
-  ImageSourcePropType,
-  StyleProp,
-  ViewStyle,
-} from "react-native";
+import { ImageSourcePropType } from "react-native";
+
+import { ButtonProps } from "./components/common/EDS/Button";
 
 declare global {
   namespace ReactNavigation {
@@ -147,16 +144,6 @@ export type Sound = {
   hz: number;
   uri: string;
   lastModified: Date;
-};
-
-export type ButtonProps = {
-  onPress: (event: GestureResponderEvent) => void;
-  text: string;
-  outlined?: boolean;
-  danger?: boolean;
-  loading?: boolean;
-  disabled?: boolean;
-  style?: StyleProp<ViewStyle>;
 };
 
 export type TestResultButtonConfigurations = {
