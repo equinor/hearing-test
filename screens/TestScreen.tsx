@@ -1,7 +1,7 @@
 import NetInfo from "@react-native-community/netinfo";
 import { Spinner } from "mad-expo-core";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import { Component } from "react";
 import { Alert, Modal, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Sound from "react-native-sound";
@@ -16,7 +16,6 @@ import ProgressBar from "../components/common/atoms/ProgressBar";
 import Typography from "../components/common/atoms/Typography";
 import { TestCard } from "../components/common/molecules/TestCard";
 import store from "../store/config";
-import { selectIsFetching } from "../store/test";
 import {
   failure,
   postTakeTest,
@@ -26,6 +25,7 @@ import {
   success,
 } from "../store/test/actions";
 import {
+  selectIsFetching,
   selectError,
   selectNode,
   selectTest,

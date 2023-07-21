@@ -1,6 +1,6 @@
-import { stateKeys } from "../../types";
 import { fetchTestsSucceeded } from "./actions";
 import reducer, { selectTests } from "./reducer";
+import { stateKeys } from "../../types";
 
 const defaultState = {
   error: { message: null, status: null },

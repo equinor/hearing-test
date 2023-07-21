@@ -1,10 +1,11 @@
 import { cloneDeep } from "lodash";
 import { Typography } from "mad-expo-core";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import { Component } from "react";
 import { Image, ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { BarCodeScannerScreen } from "./BarCodeScannerScreen";
 import adapter from "../assets/images/adapter.png";
 import headset from "../assets/images/headset.png";
 import scanner from "../assets/images/scanner.png";
@@ -16,7 +17,6 @@ import { IconButton } from "../components/common/EDS/IconButton";
 import { Indicators } from "../components/common/molecules/Indicators";
 import { MOSS_GREEN_100, TEXT } from "../constants/colors";
 import { onClose } from "../utils/alerts";
-import { BarCodeScannerScreen } from "./BarCodeScannerScreen";
 
 export default class PreTestScreen extends Component {
   static propTypes = {

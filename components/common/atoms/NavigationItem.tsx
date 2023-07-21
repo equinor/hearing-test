@@ -1,10 +1,9 @@
 import { MaterialIcons as Icon } from "@expo/vector-icons";
-import React from "react";
 import { View } from "react-native";
 
-import { EQUINOR_GREEN } from "../../../constants/colors";
 import Card from "./Card";
 import Typography from "./Typography";
+import { EQUINOR_GREEN } from "../../../constants/colors";
 
 const NavigationItem = (props: {
   title: string;

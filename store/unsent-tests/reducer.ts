@@ -1,8 +1,8 @@
 import { cloneDeep } from "lodash";
 import { handleActions } from "redux-actions";
 
-import { stateKeys } from "../../types";
 import { addUnsentTest, removeUnsentTest } from "./actions";
+import { stateKeys } from "../../types";
 
 const addTestToState = (state, test) => {
   const index = state.findIndex((unsentTest) => unsentTest.id === test.id);

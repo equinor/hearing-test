@@ -5,12 +5,9 @@
 
 import { MaterialIcons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import {
-  GestureResponderEvent,
-  ImageSourcePropType,
-  StyleProp,
-  ViewStyle,
-} from "react-native";
+import { ImageSourcePropType } from "react-native";
+
+import { ButtonProps } from "./components/common/EDS/Button";
 
 declare global {
   namespace ReactNavigation {
@@ -30,38 +27,18 @@ export type RootStackParamList = {
   SettingsRoute: undefined;
   AboutRoute: undefined;
   FeedbackRoute: undefined;
-  NotFound: undefined;
+  NotFoundRoute: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
   NativeStackScreenProps<RootStackParamList, Screen>;
 
 export const stateKeys = {
-  AUTH: "currentUser",
-  CONNECTIVITY: "connectivity",
   MANIFEST: "schemaVersion",
-  SERVICEMESSAGE: "serviceMessage",
-  TOAST: "toast",
-  NAV: "navigation",
   TEST: "test",
   TESTS: "tests",
   APPCONFIG: "appConfig",
   UNSENTTESTS: "unsentTests",
-};
-
-export const requestTypes = {
-  NONE: "NONE",
-  REQUESTED: "REQUESTED",
-  SUCCEEDED: "SUCCEEDED",
-  FAILED: "FAILED",
-};
-
-export const authStatusTypes = {
-  NOT_AUTHENTICATED: "NOT_AUTHENTICATED",
-  AUTHENTICATING: "NOT_AUTHENTICATED",
-  AUTHENTICATED: "AUTHENTICATED",
-  FAILED: "FAILED",
-  SIGNED_OUT: "SIGNED_OUT",
 };
 
 export type TestResult = {
@@ -137,12 +114,6 @@ export type SoundCheckPageJSON = {
   };
 };
 
-export type ReleaseNote = {
-  header: string;
-  subHeader: string;
-  changes: string[];
-};
-
 export type MaterialIconName = keyof typeof MaterialIcons.glyphMap;
 
 export type Environment = "dev" | "test" | "prod";
@@ -173,16 +144,6 @@ export type Sound = {
   hz: number;
   uri: string;
   lastModified: Date;
-};
-
-export type ButtonProps = {
-  onPress: (event: GestureResponderEvent) => void;
-  text: string;
-  outlined?: boolean;
-  danger?: boolean;
-  loading?: boolean;
-  disabled?: boolean;
-  style?: StyleProp<ViewStyle>;
 };
 
 export type TestResultButtonConfigurations = {

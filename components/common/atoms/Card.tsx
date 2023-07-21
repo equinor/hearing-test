@@ -1,5 +1,4 @@
-import React from "react";
-import { View, TouchableOpacity } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 
 const Card = (props: {
   children?: any;

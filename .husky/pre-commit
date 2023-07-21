@@ -1,5 +1,0 @@
-# #!/bin/sh
-# TODO: Enable husky after migration
-# . "$(dirname "$0")/_/husky.sh"
-
-# lint-staged && npm run test:save && git add test-results.json

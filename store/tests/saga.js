@@ -1,7 +1,7 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 
-import api from "../../services/api";
 import * as actions from "./actions";
+import * as api from "../../services/api/api-methods";
 
 function* fetchTests() {
   try {

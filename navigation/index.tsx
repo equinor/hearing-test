@@ -12,7 +12,6 @@ import {
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { LoginScreen, ReleaseNoteScreen, SettingsScreen } from "mad-expo-core";
-import * as React from "react";
 import { ColorSchemeName, TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
 
@@ -32,7 +31,7 @@ import SoundCheckFinishedScreen from "../screens/SoundCheckFinishedScreen";
 import SoundCheckScreen from "../screens/SoundCheckScreen";
 import TestResultScreen from "../screens/TestResultScreen";
 import TestScreen from "../screens/TestScreen";
-import { setConfig } from "../store";
+import { setConfig } from "../store/app-config/actions";
 import store from "../store/config";
 import { RootStackParamList } from "../types";
 
@@ -162,7 +161,7 @@ function RootNavigator() {
         options={{ gestureEnabled: false, headerShown: false }}
       />
       <Stack.Screen
-        name="NotFound"
+        name="NotFoundRoute"
         component={NotFoundScreen}
         options={{ title: "Oops!" }}
       />

@@ -1,11 +1,11 @@
 import { handleActions } from "redux-actions";
 
-import { stateKeys } from "../../types";
 import {
   fetchTestsFailed,
   fetchTestsRequested,
   fetchTestsSucceeded,
 } from "./actions";
+import { stateKeys } from "../../types";
 
 export default handleActions(
   {

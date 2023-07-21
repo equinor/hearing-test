@@ -1,5 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`renders and behaves correctly 1`] = `ShallowWrapper {}`;
-
-exports[`renders and behaves correctly 2`] = `ShallowWrapper {}`;

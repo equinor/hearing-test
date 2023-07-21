@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 import * as Colors from "../../../constants/colors";
@@ -18,7 +17,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const SimpleInfoItem = ({ item }) => (
+export const SimpleInfoItem = ({ item }) => (
   <View style={styles.container}>
     <Text style={styles.label}>{item.label}</Text>
     <Text style={styles.text}>{item.text}</Text>
@@ -32,5 +31,3 @@ SimpleInfoItem.propTypes = {
     text: PropTypes.string.isRequired,
   }).isRequired,
 };
-
-export default SimpleInfoItem;
