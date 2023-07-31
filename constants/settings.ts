@@ -30,9 +30,9 @@ export const getEnvironment = (): Environment => {
   return environment;
 };
 
-type ResourceName = "mad" | "hearing";
+type ResourceName = keyof typeof Resources;
 
-type ResourceNames = ["mad", "hearing"];
+type ResourceNames = ResourceName[];
 
 export const getResourceNames = () => Object.keys(Resources) as ResourceNames;
 
