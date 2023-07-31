@@ -1,5 +1,5 @@
 import { MaterialIcons as Icon } from "@expo/vector-icons";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Alert,
   Animated,
@@ -11,7 +11,6 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import Sound from "react-native-sound";
 import SystemSetting from "react-native-system-setting";
-import { connect } from "react-redux";
 
 import ButtonEDS from "../components/common/EDS/Button";
 import { IconButton } from "../components/common/EDS/IconButton";
@@ -60,16 +59,12 @@ const SoundCheckScreen = (props: any) => {
     setInitialDeviceSystemVolume();
 
     setSound(
-      new Sound(
-        require("../assets/audio/1000Hz_dobbel.wav"),
-        //new Sound("1000Hz_dobbel.wav", Sound.MAIN_BUNDLE, Sound.MAIN_BUNDLE,
-        (error) => {
-          if (error) {
-            // eslint-disable-next-line no-console
-            console.log("failed to load the sound", error);
-          }
+      new Sound(require("../assets/audio/1000Hz_dobbel.wav"), (error) => {
+        if (error) {
+          // eslint-disable-next-line no-console
+          console.log("failed to load the sound", error);
         }
-      )
+      })
     );
 
     // change the volume
@@ -77,7 +72,6 @@ const SoundCheckScreen = (props: any) => {
     Sound.setMode("Measurement");
     Sound.setActive(true);
 
-    // Load the sound file 'testBell.wav' from the app bundle
     SystemSetting.setVolume(0.5, { showUI: false });
   }, []);
 
@@ -294,12 +288,4 @@ const CanHearSoundButton = (props: { onPress: Function }) => {
   );
 };
 
-const mapDispatchToProps = () => ({
-  // TODO
-});
-
-const mapStateToProps = () => ({
-  // TODO
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SoundCheckScreen);
+export default SoundCheckScreen;

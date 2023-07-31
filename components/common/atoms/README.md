@@ -5,6 +5,7 @@ An atom is the smallest component we have, it is used to make simple re-usable b
 Internal state usage is discouraged, but can be used when needed
 
 Use the following component format
+
 ```js
 
 import {

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Modal, View } from "react-native";
 
+import { TestResultItem } from "./TestResultItem";
 import TestLogScreen from "../../../screens/TestLogScreen";
 import { TestResult } from "../../../types";
 import { IconButton } from "../EDS/IconButton";
 import Typography from "../atoms/Typography";
-import { TestResultItem } from "./TestResultItem";
 
 const TestResultsModal = (props: {
   visible: boolean;

@@ -1,13 +1,11 @@
-import mockConfig from "../../../mock-config";
 import * as mockData from "./mock-data.json";
 
 // Use the delayFactor parameter to vary load
 // times for specific api call methods.
-const { delay } = mockConfig;
 
 const fetchMockData = (data, delayFactor = 1.0) =>
   new Promise((resolve) => {
-    setTimeout(() => resolve(data), delay * delayFactor);
+    setTimeout(() => resolve(data), 1500 * delayFactor);
   });
 
 export function getMockReleaseNote() {
