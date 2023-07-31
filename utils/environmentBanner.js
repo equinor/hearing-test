@@ -2,16 +2,14 @@ import { Banner } from "mad-expo-core";
 import { Component } from "react";
 import { View, StyleSheet } from "react-native";
 
-import { BuildConfiguration } from "../constants/settings";
+import { BUILD_CONFIGURATION, getEnvironment } from "../constants/settings";
 
-const getBannerColor = (lowerCaseBuildConfiguration) => {
-  switch (lowerCaseBuildConfiguration) {
+const getBannerColor = (environment) => {
+  switch (environment) {
     case "dev":
       return "plum";
     case "test":
       return "orange";
-    case "qa":
-      return "yellowgreen";
     default:
       return "tomato";
   }
@@ -20,18 +18,17 @@ const getBannerColor = (lowerCaseBuildConfiguration) => {
 const environmentBanner = (ScreenComponent) =>
   class extends Component {
     render() {
-      const lowerCaseBuildConfiguration = BuildConfiguration.toLowerCase();
-      const backgroundColor = getBannerColor(lowerCaseBuildConfiguration);
+      const environment = getEnvironment();
+      const backgroundColor = getBannerColor(environment);
+
       return (
         <View style={{ flex: 1 }}>
-          {lowerCaseBuildConfiguration !== "release" &&
-            lowerCaseBuildConfiguration !== "prod" &&
-            lowerCaseBuildConfiguration !== "test" && (
-              <Banner
-                text={BuildConfiguration}
-                viewStyle={[styles.bannerView, { backgroundColor }]}
-              />
-            )}
+          {environment !== "prod" && (
+            <Banner
+              text={BUILD_CONFIGURATION}
+              viewStyle={[styles.container, { backgroundColor }]}
+            />
+          )}
           <ScreenComponent {...this.props} />
         </View>
       );
@@ -39,7 +36,7 @@ const environmentBanner = (ScreenComponent) =>
   };
 
 const styles = StyleSheet.create({
-  bannerView: {
+  container: {
     height: 20,
     alignItems: "center",
     justifyContent: "center",

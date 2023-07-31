@@ -1,5 +1,7 @@
-import { BuildConfiguration, Resources } from "./settings.json";
-import { Environment, Resource, ResourceName } from "../types";
+import {
+  BuildConfiguration as _BuildConfiguration,
+  Resources,
+} from "./settings.json";
 
 export {
   ApplicationInsightsInstrumentationKey,
@@ -7,23 +9,19 @@ export {
   AzureADClientId,
   AzureADRedirectUrl,
   AzureADTenantId,
-  BuildConfiguration,
 } from "./settings.json";
 
-export const getConfiguredResources = () => Object.keys(Resources);
+type BuildConfiguration = "Dev" | "Test" | "Release";
 
-export const getResource = (name: ResourceName) => Resources[name] as Resource;
+type LowercaseBuildConfiguration = Lowercase<BuildConfiguration>;
 
-export const getApiBaseUrl = (name: ResourceName) =>
-  getResource(name).ApiBaseUrl;
+export const BUILD_CONFIGURATION = _BuildConfiguration as BuildConfiguration;
 
-export const getScopes = (name: ResourceName) => getResource(name).scopes;
+type Environment = "dev" | "test" | "prod";
 
 export const getEnvironment = (): Environment => {
-  const environment = BuildConfiguration.toLowerCase() as
-    | "dev"
-    | "test"
-    | "release";
+  const environment =
+    BUILD_CONFIGURATION.toLowerCase() as LowercaseBuildConfiguration;
 
   if (environment === "release") {
     return "prod";
@@ -31,3 +29,27 @@ export const getEnvironment = (): Environment => {
 
   return environment;
 };
+
+type ResourceName = "mad" | "hearing";
+
+type ResourceNames = ["mad", "hearing"];
+
+export const getResourceNames = () => Object.keys(Resources) as ResourceNames;
+
+type Resource = {
+  AzureADResourceId: string;
+  ApiBaseUrl: string;
+  scopes: string[];
+};
+
+export const getResource = (name: ResourceName) => Resources[name] as Resource;
+
+export const getApiBaseUrl = (name: ResourceName) =>
+  getResource(name).ApiBaseUrl;
+
+export const getApiEndpoints = () =>
+  getResourceNames()
+    .map((name) => getApiBaseUrl(name))
+    .join("\n");
+
+export const getScopes = (name: ResourceName) => getResource(name).scopes;
