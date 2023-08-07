@@ -1,8 +1,8 @@
 import NetInfo from "@react-native-community/netinfo";
 import { Spinner } from "mad-expo-core";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
-import { Modal, StyleSheet, View } from "react-native";
+import { Component } from "react";
+import { Alert, Modal, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Sound from "react-native-sound";
 import SystemSetting from "react-native-system-setting";
@@ -17,7 +17,6 @@ import Typography from "../components/common/atoms/Typography";
 import { TestCard } from "../components/common/molecules/TestCard";
 import { SYSTEM_VOLUME } from "../constants/sounds";
 import store from "../store/config";
-import { selectIsFetching } from "../store/test";
 import {
   failure,
   postTakeTest,
@@ -27,6 +26,7 @@ import {
   success,
 } from "../store/test/actions";
 import {
+  selectIsFetching,
   selectError,
   selectNode,
   selectTest,
@@ -88,7 +88,7 @@ class TestScreen extends Component {
     numberOfNodesPlayed: 0,
     numberOfNodes: Infinity,
     isDoneLoadingSounds: false,
-    isDemoMode: store.getState().appConfig.current.demoMode,
+    isDemoMode: store.getState().appConfig.isDemoMode,
     isConnected: null,
     netInfoEventListener: null,
   };

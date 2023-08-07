@@ -1,5 +1,4 @@
 import { Typography } from "mad-expo-core";
-import React from "react";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 
 import { LEFT_EAR, RIGHT_EAR } from "../../../constants/colors";
