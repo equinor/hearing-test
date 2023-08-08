@@ -1,5 +1,5 @@
 import { Typography } from "mad-expo-core";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 
 import { Chart } from "./Chart";

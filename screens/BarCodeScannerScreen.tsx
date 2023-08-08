@@ -1,6 +1,6 @@
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { Typography } from "mad-expo-core";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 

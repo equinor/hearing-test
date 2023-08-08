@@ -1,5 +1,3 @@
-import { test as mockedTest } from "../../services/api/mocked-api-methods/mock-data.json";
-import { stateKeys } from "../../types";
 import { failure, postTakeTestSucceeded, startTest, success } from "./actions";
 import reducer, {
   selectNode,
@@ -8,6 +6,8 @@ import reducer, {
   selectTestIsFinished,
   selectTestIsRunning,
 } from "./reducer";
+import { test as mockedTest } from "../../services/api/mocked-api-methods/mock-data.json";
+import { stateKeys } from "../../types";
 
 const defaultState = {
   error: { message: null, code: null },

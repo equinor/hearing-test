@@ -1,5 +1,5 @@
-import { Environment, Resource, ResourceName } from "../types";
 import { BuildConfiguration, Resources } from "./settings.json";
+import { Environment, Resource, ResourceName } from "../types";
 
 export {
   ApplicationInsightsInstrumentationKey,

@@ -1,13 +1,14 @@
-import { CHART, Ear, HearingLevel, Level, Point } from "../types";
 import { median } from "./math";
 import { getHearingThresholdsPerFrequency } from "./testResults";
+import { CHART, Ear, HearingLevel, Level, Point } from "../types";
 
-export const getChartData = ({ leftEar, rightEar }: Level) => ({
-  leftEar: getPoints(leftEar),
-  rightEar: getPoints(rightEar),
-});
+const getHearingThresholdForChart = (hearingThreshold: number) => {
+  if (hearingThreshold > CHART.DB_MAX) return CHART.DB_MAX;
+  if (hearingThreshold < CHART.DB_MIN) return CHART.DB_MIN;
+  return hearingThreshold;
+};
 
-export const getPoints = (hearingLevels: HearingLevel[]) => {
+const getPoints = (hearingLevels: HearingLevel[]) => {
   const hearingThresholds = getHearingThresholdsPerFrequency(hearingLevels);
   const points: Point[] = [];
   const frequencies = Object.keys(hearingThresholds);
@@ -20,13 +21,12 @@ export const getPoints = (hearingLevels: HearingLevel[]) => {
   return points;
 };
 
+export const getChartData = ({ leftEar, rightEar }: Level) => ({
+  leftEar: getPoints(leftEar),
+  rightEar: getPoints(rightEar),
+});
+
 export const getDotSize = (index: number, ear: Ear) => {
   if (ear === "left") return index === 0 ? 14 : 10;
   return index === 0 ? 10 : 6;
-};
-
-export const getHearingThresholdForChart = (hearingThreshold: number) => {
-  if (hearingThreshold > CHART.DB_MAX) return CHART.DB_MAX;
-  if (hearingThreshold < CHART.DB_MIN) return CHART.DB_MIN;
-  return hearingThreshold;
 };

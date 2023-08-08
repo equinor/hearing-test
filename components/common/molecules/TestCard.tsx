@@ -1,8 +1,8 @@
 import { View } from "react-native";
 import { connect, useSelector } from "react-redux";
 
-import { selectIsFetching } from "../../../store/test";
 import { postTest } from "../../../store/test/actions";
+import { selectIsFetching } from "../../../store/test/reducer";
 import { getUnsentTests } from "../../../store/unsent-tests/reducer";
 import { RootStackScreenProps } from "../../../types";
 import ButtonEDS from "../EDS/Button";

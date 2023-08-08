@@ -5,6 +5,7 @@ A Molecule is a re-usable component composed of other [atoms](../atoms/README.md
 Internal state usage is discouraged, but can be used when needed.
 
 Use the following component format
+
 ```js
 
 import {
