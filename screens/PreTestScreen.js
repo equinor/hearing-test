@@ -1,7 +1,7 @@
 import { cloneDeep } from "lodash";
 import { Typography } from "mad-expo-core";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import { Component } from "react";
 import { Image, ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 

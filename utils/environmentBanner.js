@@ -1,5 +1,5 @@
 import { Banner } from "mad-expo-core";
-import React, { Component } from "react";
+import { Component } from "react";
 import { View, StyleSheet } from "react-native";
 
 import { BuildConfiguration } from "../constants/settings";

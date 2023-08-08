@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Modal, View } from "react-native";
 
 import { TestResultItem } from "./TestResultItem";

@@ -1,4 +1,3 @@
-import React from "react";
 import { Text } from "react-native";
 
 import { EQUINOR_GREEN } from "../../../constants/colors";

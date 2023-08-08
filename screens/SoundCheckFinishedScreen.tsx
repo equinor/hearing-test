@@ -1,7 +1,5 @@
-import React from "react";
-import { View, Image, StyleSheet } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { connect } from "react-redux";
 
 import thumbsUp from "../assets/images/thumbs-up.png";
 import ButtonEDS from "../components/common/EDS/Button";
@@ -62,15 +60,4 @@ const SoundCheckFinishedScreen = (props: any) => {
   );
 };
 
-const mapDispatchToProps = () => ({
-  // TODO
-});
-
-const mapStateToProps = () => ({
-  // TODO
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SoundCheckFinishedScreen);
+export default SoundCheckFinishedScreen;

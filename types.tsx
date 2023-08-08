@@ -5,6 +5,9 @@
 
 import { MaterialIcons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { ImageSourcePropType } from "react-native";
+
+import { ButtonProps } from "./components/common/EDS/Button";
 
 declare global {
   namespace ReactNavigation {
@@ -14,7 +17,7 @@ declare global {
 
 export type RootStackParamList = {
   LoginRoute: undefined;
-  FeatureRoute: undefined;
+  ReleaseNoteRoute: undefined;
   DefaultRoute: undefined;
   SoundCheckRoute: undefined;
   SoundCheckFinishedRoute: undefined;
@@ -24,38 +27,18 @@ export type RootStackParamList = {
   SettingsRoute: undefined;
   AboutRoute: undefined;
   FeedbackRoute: undefined;
-  NotFound: undefined;
+  NotFoundRoute: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
   NativeStackScreenProps<RootStackParamList, Screen>;
 
 export const stateKeys = {
-  AUTH: "currentUser",
-  CONNECTIVITY: "connectivity",
   MANIFEST: "schemaVersion",
-  SERVICEMESSAGE: "serviceMessage",
-  TOAST: "toast",
-  NAV: "navigation",
   TEST: "test",
   TESTS: "tests",
   APPCONFIG: "appConfig",
   UNSENTTESTS: "unsentTests",
-};
-
-export const requestTypes = {
-  NONE: "NONE",
-  REQUESTED: "REQUESTED",
-  SUCCEEDED: "SUCCEEDED",
-  FAILED: "FAILED",
-};
-
-export const authStatusTypes = {
-  NOT_AUTHENTICATED: "NOT_AUTHENTICATED",
-  AUTHENTICATING: "NOT_AUTHENTICATED",
-  AUTHENTICATED: "AUTHENTICATED",
-  FAILED: "FAILED",
-  SIGNED_OUT: "SIGNED_OUT",
 };
 
 export type TestResult = {
@@ -86,6 +69,7 @@ const ANALYSIS_FLAG = {
   OK: "Ok",
   OUTLIER: "Outlier",
   NOT_OK: "NotOk",
+  SEND_FAILED: "SendFailed",
 } as const;
 
 type ObjectValues<T> = T[keyof T];
@@ -130,12 +114,6 @@ export type SoundCheckPageJSON = {
   };
 };
 
-export type ReleaseNote = {
-  header: string;
-  subHeader: string;
-  changes: string[];
-};
-
 export type MaterialIconName = keyof typeof MaterialIcons.glyphMap;
 
 export type Environment = "dev" | "test" | "prod";
@@ -166,4 +144,18 @@ export type Sound = {
   hz: number;
   uri: string;
   lastModified: Date;
+};
+
+export type TestResultButtonConfigurations = {
+  seeResult: ButtonProps;
+  newTest: ButtonProps;
+  sendTest: ButtonProps;
+};
+
+export type TestResultPage = {
+  title: string;
+  image: ImageSourcePropType;
+  subTitle: string;
+  description: string;
+  buttons: ButtonProps[];
 };

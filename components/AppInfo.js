@@ -1,9 +1,8 @@
 import { Typography } from "mad-expo-core";
 import PropTypes from "prop-types";
-import React from "react";
 import { SectionList, StyleSheet, View } from "react-native";
 
-import { SimpleInfoItem } from "./common";
+import { SimpleInfoItem } from "./common/atoms/SimpleInfoItem";
 
 const styles = StyleSheet.create({
   container: {

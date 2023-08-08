@@ -7,7 +7,7 @@ import {
   Spinner,
   Typography,
 } from "mad-expo-core";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Platform, StyleSheet, TextInput, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { MSALAccount } from "react-native-msal";
