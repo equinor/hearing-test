@@ -52,6 +52,9 @@ const SoundCheckFinishedScreen = (props: any) => {
               text="Ta ny lydsjekk"
               onPress={() => props.navigation.navigate("SoundCheckRoute")}
               outlined
+              style={{
+                marginBottom: 16,
+              }}
             />
           </View>
         </View>
