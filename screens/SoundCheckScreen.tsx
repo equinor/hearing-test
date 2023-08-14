@@ -1,3 +1,4 @@
+import { Button } from "@equinor/mad-components";
 import { MaterialIcons as Icon } from "@expo/vector-icons";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -13,7 +14,6 @@ import Sound from "react-native-sound";
 import SystemSetting from "react-native-system-setting";
 
 import ButtonEDS from "../components/common/EDS/Button";
-import { IconButton } from "../components/common/EDS/IconButton";
 import BigRoundButton from "../components/common/atoms/BigRoundButton";
 import Typography from "../components/common/atoms/Typography";
 import ProgressAnimationBar from "../components/common/molecules/ProgressAnimationBar";
@@ -183,11 +183,12 @@ const SoundCheckScreen = (props: any) => {
             >
               <View style={{ width: 48, height: 48 }} />
               <Typography variant="h1">{page.title}</Typography>
-              <IconButton
-                icon="close"
+              <Button.Icon
+                name="close"
                 onPress={() =>
                   onClose(() => props.navigation.navigate("DefaultRoute"))
                 }
+                variant="ghost"
               />
             </View>
             <View

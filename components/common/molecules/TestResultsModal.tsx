@@ -1,10 +1,10 @@
+import { Button } from "@equinor/mad-components";
 import { useState } from "react";
 import { Modal, View } from "react-native";
 
 import { TestResultItem } from "./TestResultItem";
 import TestLogScreen from "../../../screens/TestLogScreen";
 import { TestResult } from "../../../types";
-import { IconButton } from "../EDS/IconButton";
 import Typography from "../atoms/Typography";
 
 const TestResultsModal = (props: {
@@ -43,19 +43,20 @@ const TestResultsModal = (props: {
           shadowRadius: 3,
         }}
       >
-        <IconButton
-          icon="list"
-          onPress={() => {
-            setSelectedItem(null);
-          }}
+        <Button.Icon
+          name="format-list-bulleted"
+          onPress={() => setSelectedItem(null)}
+          variant="ghost"
+          disabled={!selectedItem}
         />
         <Typography variant="h1">Din hørsel</Typography>
-        <IconButton
-          icon="close"
+        <Button.Icon
+          name="close"
           onPress={() => {
             setSelectedItem(null);
             props.setInvisible();
           }}
+          variant="ghost"
         />
       </View>
       {selectedItem ? (

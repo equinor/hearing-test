@@ -1,10 +1,10 @@
+import { Button } from "@equinor/mad-components";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { Typography } from "mad-expo-core";
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { IconButton } from "../components/common/EDS/IconButton";
 import { RootStackScreenProps } from "../types";
 import { onClose } from "../utils/alerts";
 
@@ -42,9 +42,10 @@ export const BarCodeScannerScreen: React.FC<Props> = ({
 
   return (
     <View style={styles.container}>
-      <IconButton
-        icon="close"
+      <Button.Icon
+        name="close"
         onPress={() => onClose(() => navigation.navigate("DefaultRoute"))}
+        variant="ghost"
         style={[
           styles.closeButton,
           {

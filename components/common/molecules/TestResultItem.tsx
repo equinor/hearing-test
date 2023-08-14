@@ -1,3 +1,4 @@
+import { Button } from "@equinor/mad-components";
 import { Typography } from "mad-expo-core";
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
@@ -7,7 +8,6 @@ import { MOSS_GREEN_100, TEXT } from "../../../constants/colors";
 import { ChartData, TestResult } from "../../../types";
 import { getChartData } from "../../../utils/chart";
 import { formatDate } from "../../../utils/date";
-import { IconButton } from "../EDS/IconButton";
 import { EarLabel } from "../atoms/EarLabel";
 
 type Props = {
@@ -31,7 +31,11 @@ export const TestResultItem: React.FC<Props> = ({
     <View style={styles.container}>
       {hideTop ? null : (
         <View style={styles.top}>
-          <IconButton icon="chevron-left" onPress={resetSelectedItem} />
+          <Button.Icon
+            name="chevron-left"
+            onPress={resetSelectedItem}
+            variant="ghost"
+          />
           <Typography variant="h5" color={MOSS_GREEN_100}>
             {formatDate(data.dateTaken)}
           </Typography>

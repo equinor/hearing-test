@@ -1,3 +1,4 @@
+import { Button } from "@equinor/mad-components";
 import NetInfo from "@react-native-community/netinfo";
 import { Spinner } from "mad-expo-core";
 import PropTypes from "prop-types";
@@ -9,7 +10,6 @@ import SystemSetting from "react-native-system-setting";
 import { connect } from "react-redux";
 
 import ButtonEDS from "../components/common/EDS/Button";
-import { IconButton } from "../components/common/EDS/IconButton";
 import BigRoundButton from "../components/common/atoms/BigRoundButton";
 import { MenuItem } from "../components/common/atoms/MenuItem";
 import ProgressBar from "../components/common/atoms/ProgressBar";
@@ -395,11 +395,12 @@ class TestScreen extends Component {
             <View style={{ width: 48, height: 48 }} />
             <Typography variant="h1">Hørselstest</Typography>
             {this.props.testIsRunning ? (
-              <IconButton
-                icon={this.state.pauseAfterNode ? "hourglass-empty" : "pause"}
+              <Button.Icon
+                name={this.state.pauseAfterNode ? "timer-sand-empty" : "pause"}
                 onPress={() => {
                   this.setState({ pauseAfterNode: true });
                 }}
+                variant="ghost"
               />
             ) : (
               <View style={{ width: 48, height: 48 }} />

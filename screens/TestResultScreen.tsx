@@ -1,9 +1,9 @@
+import { Button } from "@equinor/mad-components";
 import { useState } from "react";
 import { Image, Modal, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { connect } from "react-redux";
 
-import { IconButton } from "../components/common/EDS/IconButton";
 import { ErrorBanner } from "../components/common/atoms/ErrorBanner";
 import Typography from "../components/common/atoms/Typography";
 import { ButtonGroup } from "../components/common/molecules/ButtonGroup";
@@ -85,9 +85,10 @@ const TestResultScreen = ({
       >
         <View style={{ width: 48, height: 48 }} />
         <Typography variant="h1">{page.title}</Typography>
-        <IconButton
-          icon="close"
+        <Button.Icon
+          name="close"
           onPress={() => navigation.navigate("DefaultRoute")}
+          variant="ghost"
         />
       </View>
       <View style={styles.container}>
@@ -142,7 +143,11 @@ const TestResultScreen = ({
         >
           <View style={{ width: 48, height: 48 }} />
           <Typography variant="h1">Resultater</Typography>
-          <IconButton icon="close" onPress={() => setModalVisible(false)} />
+          <Button.Icon
+            name="close"
+            onPress={() => setModalVisible(false)}
+            variant="ghost"
+          />
         </View>
         <TestResultItem
           data={testResult}
