@@ -17,7 +17,7 @@ type LowercaseBuildConfiguration = Lowercase<BuildConfiguration>;
 
 export const BUILD_CONFIGURATION = _BuildConfiguration as BuildConfiguration;
 
-type Environment = "dev" | "test" | "prod";
+export type Environment = "dev" | "test" | "prod";
 
 export const getEnvironment = (): Environment => {
   const environment =
