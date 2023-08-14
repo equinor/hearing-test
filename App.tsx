@@ -1,3 +1,4 @@
+import { useEDS, EDSProvider } from "@equinor/mad-components";
 import { StatusBar } from "expo-status-bar";
 import { ServiceMessage } from "mad-expo-core";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -10,8 +11,9 @@ import store from "./store/config";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
+  const [hasLoadedEds] = useEDS();
 
-  if (!isLoadingComplete) {
+  if (!hasLoadedEds || !isLoadingComplete) {
     return null;
   } else {
     return (
@@ -22,8 +24,11 @@ export default function App() {
             environment={getEnvironment()}
             languageCode="no"
           />
-          <Navigation colorScheme="light" />
-          <StatusBar style="dark" />
+
+          <EDSProvider colorScheme="light" density="phone">
+            <Navigation colorScheme="light" />
+            <StatusBar style="dark" />
+          </EDSProvider>
         </SafeAreaProvider>
       </Provider>
     );

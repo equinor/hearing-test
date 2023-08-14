@@ -1,16 +1,8 @@
-import { Spinner } from "mad-expo-core";
-import {
-  GestureResponderEvent,
-  StyleProp,
-  TouchableOpacity,
-  View,
-  ViewStyle,
-} from "react-native";
-
-import Typography from "../atoms/Typography";
+import { Button } from "@equinor/mad-components";
+import { StyleProp, ViewStyle } from "react-native";
 
 export type ButtonProps = {
-  onPress: (event: GestureResponderEvent) => void;
+  onPress: () => void;
   text: string;
   outlined?: boolean;
   danger?: boolean;
@@ -28,46 +20,19 @@ const ButtonEDS = ({
   disabled = false,
   style = {},
 }: ButtonProps) => {
-  const getBackgroundColor = () => {
-    if (disabled || loading || outlined) return `#EAEAEA`;
-    if (danger) return "#EB0000";
-    return "#007079";
-  };
+  const buttonColor = danger ? "danger" : "primary";
+  const buttonVariant = outlined ? "outlined" : "contained";
 
   return (
-    <TouchableOpacity onPress={onPress} disabled={loading || disabled}>
-      <View
-        style={[
-          {
-            height: 40,
-            width: 160,
-            alignSelf: "center",
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: 4,
-            marginBottom: 18,
-            borderWidth: danger ? 0 : 1,
-            backgroundColor: getBackgroundColor(),
-            borderColor: disabled || loading ? "#DCDCDC" : "#007079",
-          },
-          style,
-        ]}
-      >
-        {loading ? (
-          <Spinner />
-        ) : (
-          <Typography
-            variant="button"
-            color={outlined ? "#007079" : "white"}
-            style={{
-              textAlign: "center",
-            }}
-          >
-            {text}
-          </Typography>
-        )}
-      </View>
-    </TouchableOpacity>
+    <Button
+      title={text}
+      color={buttonColor}
+      variant={buttonVariant}
+      onPress={onPress}
+      loading={loading}
+      disabled={disabled || loading}
+      style={style}
+    />
   );
 };
 
