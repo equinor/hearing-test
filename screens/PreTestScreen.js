@@ -70,22 +70,22 @@ export default class PreTestScreen extends Component {
         current: false,
         buttons: [{ text: "Scan", onPress: () => this.nextPage() }],
       },
-      // {
-      //   title: "Scan",
-      //   image: scanner,
-      //   content: "Page used to scan barcode",
-      //   current: false,
-      //   hideIndicator: true,
-      //   buttons: [{ text: "Scan", onPress: () => this.nextPage() }],
-      // },
-      // {
-      //   title: "Ups!",
-      //   image: thumbsDown,
-      //   content:
-      //     "Ingen godkjent kode ble funnet. Du blir nå tatt tilbake til hovedsiden.",
-      //   current: false,
-      //   buttons: [{ text: "Scan igjen", onPress: () => this.previousPage() }],
-      // },
+      {
+        title: "Scan",
+        image: scanner,
+        content: "Page used to scan barcode",
+        current: false,
+        hideIndicator: true,
+        buttons: [{ text: "Scan", onPress: () => this.nextPage() }],
+      },
+      {
+        title: "Ups!",
+        image: thumbsDown,
+        content:
+          "Ingen godkjent kode ble funnet. Du blir nå tatt tilbake til hovedsiden.",
+        current: false,
+        buttons: [{ text: "Scan igjen", onPress: () => this.previousPage() }],
+      },
       {
         title: "Utstyr bekreftet",
         image: thumbsUp,
