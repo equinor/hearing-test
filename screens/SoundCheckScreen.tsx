@@ -13,7 +13,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Sound from "react-native-sound";
 import SystemSetting from "react-native-system-setting";
 
-import ButtonEDS from "../components/common/EDS/Button";
 import BigRoundButton from "../components/common/atoms/BigRoundButton";
 import Typography from "../components/common/atoms/Typography";
 import ProgressAnimationBar from "../components/common/molecules/ProgressAnimationBar";
@@ -215,8 +214,8 @@ const SoundCheckScreen = (props: any) => {
                 />
               )}
               {page.hearNoSoundButtonVisible ? (
-                <ButtonEDS
-                  text="hører ingen lyd"
+                <Button
+                  title="hører ingen lyd"
                   onPress={() => setModalVisible(true)}
                 />
               ) : (
@@ -256,12 +255,12 @@ const SoundCheckScreen = (props: any) => {
                       telefonen.
                     </Typography>
                   </View>
-                  <ButtonEDS
+                  <Button
+                    title="Prøv på ny"
                     onPress={() => {
                       setModalVisible(false);
                       setCurrentPage(0);
                     }}
-                    text="Prøv på ny"
                   />
                 </ScrollView>
               </SafeAreaView>

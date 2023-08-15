@@ -50,6 +50,11 @@
     "web": {
       "favicon": "./assets/images/favicon.png",
       "buildNumber": "1"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "857efca7-e3ee-495b-a37d-9a2f06b402fd"
+      }
     }
   }
 }

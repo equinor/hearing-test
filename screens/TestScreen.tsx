@@ -9,7 +9,6 @@ import Sound from "react-native-sound";
 import SystemSetting from "react-native-system-setting";
 import { connect } from "react-redux";
 
-import ButtonEDS from "../components/common/EDS/Button";
 import BigRoundButton from "../components/common/atoms/BigRoundButton";
 import { MenuItem } from "../components/common/atoms/MenuItem";
 import ProgressBar from "../components/common/atoms/ProgressBar";
@@ -523,8 +522,8 @@ class TestScreen extends Component {
                       );
                     }}
                   />
-                  <ButtonEDS
-                    text="Fortsette hørselstesten"
+                  <Button
+                    title="Fortsette hørselstesten"
                     onPress={() => this.setState({ modalVisible: false })}
                     style={{ width: "100%", margin: 0 }}
                   />

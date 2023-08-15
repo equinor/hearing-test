@@ -1,8 +1,8 @@
+import { Button } from "@equinor/mad-components";
 import { Image, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import thumbsUp from "../assets/images/thumbs-up.png";
-import ButtonEDS from "../components/common/EDS/Button";
 import Typography from "../components/common/atoms/Typography";
 
 const styles = StyleSheet.create({
@@ -44,14 +44,14 @@ const SoundCheckFinishedScreen = (props: any) => {
               paddingBottom: 32,
             }}
           >
-            <ButtonEDS
-              text="Start testen"
+            <Button
+              title="Start testen"
               onPress={() => props.navigation.navigate("TestRoute")}
             />
-            <ButtonEDS
-              text="Ta ny lydsjekk"
+            <Button
+              title="Ta ny lydsjekk"
               onPress={() => props.navigation.navigate("SoundCheckRoute")}
-              outlined
+              variant="outlined"
               style={{
                 marginBottom: 16,
               }}

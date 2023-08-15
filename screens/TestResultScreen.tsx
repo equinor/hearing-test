@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 
 import { ErrorBanner } from "../components/common/atoms/ErrorBanner";
 import Typography from "../components/common/atoms/Typography";
-import { ButtonGroup } from "../components/common/molecules/ButtonGroup";
 import { TestResultItem } from "../components/common/molecules/TestResultItem";
 import { useTestResultPages } from "../hooks/useTestResultPages";
 import { postTest } from "../store/test/actions";
@@ -109,7 +108,20 @@ const TestResultScreen = ({
             {page.description}
           </Typography>
         </View>
-        <ButtonGroup buttons={page.buttons} />
+        <View>
+          {page.buttons.map(({ onPress, text, outlined, loading }, index) => (
+            <Button
+              key={text}
+              title={text}
+              onPress={onPress}
+              variant={outlined ? "outlined" : "contained"}
+              loading={loading}
+              style={{
+                marginTop: index === 0 ? 0 : 12,
+              }}
+            />
+          ))}
+        </View>
       </View>
       <Modal
         animationType="slide"

@@ -1,3 +1,4 @@
+import { Button } from "@equinor/mad-components";
 import { View } from "react-native";
 import { connect, useSelector } from "react-redux";
 
@@ -5,7 +6,6 @@ import { postTest } from "../../../store/test/actions";
 import { selectIsFetching } from "../../../store/test/reducer";
 import { getUnsentTests } from "../../../store/unsent-tests/reducer";
 import { RootStackScreenProps } from "../../../types";
-import ButtonEDS from "../EDS/Button";
 import Card from "../atoms/Card";
 import Typography from "../atoms/Typography";
 
@@ -81,8 +81,8 @@ const TestCardComponent = ({
       </Typography>
       {card.buttonText && card.onPress ? (
         <View style={{ width: 160 }}>
-          <ButtonEDS
-            text={card.buttonText}
+          <Button
+            title={card.buttonText}
             onPress={card.onPress}
             loading={card.loading}
           />

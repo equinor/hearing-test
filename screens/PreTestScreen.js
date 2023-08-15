@@ -13,7 +13,6 @@ import scanner from "../assets/images/scanner.png";
 import sickMan from "../assets/images/sick-man.png";
 import thumbsDown from "../assets/images/thumbs-down.png";
 import thumbsUp from "../assets/images/thumbs-up.png";
-import ButtonEDS from "../components/common/EDS/Button";
 import { Indicators } from "../components/common/molecules/Indicators";
 import { MOSS_GREEN_100, TEXT } from "../constants/colors";
 import { onClose } from "../utils/alerts";
@@ -71,22 +70,22 @@ export default class PreTestScreen extends Component {
         current: false,
         buttons: [{ text: "Scan", onPress: () => this.nextPage() }],
       },
-      {
-        title: "Scan",
-        image: scanner,
-        content: "Page used to scan barcode",
-        current: false,
-        hideIndicator: true,
-        buttons: [{ text: "Scan", onPress: () => this.nextPage() }],
-      },
-      {
-        title: "Ups!",
-        image: thumbsDown,
-        content:
-          "Ingen godkjent kode ble funnet. Du blir nå tatt tilbake til hovedsiden.",
-        current: false,
-        buttons: [{ text: "Scan igjen", onPress: () => this.previousPage() }],
-      },
+      // {
+      //   title: "Scan",
+      //   image: scanner,
+      //   content: "Page used to scan barcode",
+      //   current: false,
+      //   hideIndicator: true,
+      //   buttons: [{ text: "Scan", onPress: () => this.nextPage() }],
+      // },
+      // {
+      //   title: "Ups!",
+      //   image: thumbsDown,
+      //   content:
+      //     "Ingen godkjent kode ble funnet. Du blir nå tatt tilbake til hovedsiden.",
+      //   current: false,
+      //   buttons: [{ text: "Scan igjen", onPress: () => this.previousPage() }],
+      // },
       {
         title: "Utstyr bekreftet",
         image: thumbsUp,
@@ -185,11 +184,11 @@ export default class PreTestScreen extends Component {
             {view.content}
           </Typography>
           {view.buttons.map(({ onPress, outlined, text }) => (
-            <ButtonEDS
+            <Button
               key={text}
+              title={text}
               onPress={onPress}
-              outlined={outlined}
-              text={text}
+              variant={outlined ? "outlined" : "contained"}
               style={styles.edsButton}
             />
           ))}
