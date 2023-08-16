@@ -8,6 +8,7 @@ import { getEnvironment } from "./constants/settings";
 import useCachedResources from "./hooks/useCachedResources";
 import Navigation from "./navigation";
 import store from "./store/config";
+import { EnvironmentBanner } from "./utils/EnvironmentBanner";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -26,6 +27,7 @@ export default function App() {
           />
 
           <EDSProvider colorScheme="light" density="phone">
+            <EnvironmentBanner />
             <Navigation colorScheme="light" />
             <StatusBar style="dark" />
           </EDSProvider>
