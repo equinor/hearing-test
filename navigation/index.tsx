@@ -19,7 +19,7 @@ import LinkingConfiguration from "./LinkingConfiguration";
 import withUtilities from "./utils";
 import appJson from "../app.json";
 import logo from "../assets/images/logo.png";
-import { SETTINGS_CONFIG } from "../configs/SettingsConfig";
+import { settingsScreenConfig } from "../configs/SettingsScreenConfig";
 import { EQUINOR_GREEN } from "../constants/colors";
 import { getEnvironment, getScopes } from "../constants/settings";
 import { AboutScreen } from "../screens/AboutScreen";
@@ -34,8 +34,6 @@ import TestScreen from "../screens/TestScreen";
 import { setConfig } from "../store/app-config/actions";
 import store from "../store/config";
 import { RootStackParamList } from "../types";
-
-const environment = getEnvironment();
 
 const getIsDemoMode = () => store.getState().appConfig.isDemoMode;
 
@@ -106,7 +104,7 @@ function RootNavigator() {
           <ReleaseNoteScreen
             name="HearingTest"
             version={appJson.expo.version}
-            environment={environment}
+            environment={getEnvironment()}
             scopes={getScopes("mad")}
             navigation={navigation}
             versionStorageKey="version"
@@ -170,7 +168,7 @@ function RootNavigator() {
           name="SettingsRoute"
           children={({ navigation }) => (
             <SettingsScreen
-              config={SETTINGS_CONFIG}
+              config={settingsScreenConfig}
               routeAfterLogout="LoginRoute"
               navigation={navigation}
               onLogout={() =>

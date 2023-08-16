@@ -1,48 +1,68 @@
-import appJson from "../app.json";
-import AppInfo from "../components/AppInfo";
+import { Typography } from "mad-expo-core";
 import {
-  getConfiguredResources,
-  BuildConfiguration,
-  getApiBaseUrl,
-} from "../constants/settings";
+  SectionList,
+  SectionListData,
+  SectionListRenderItemInfo,
+  StyleSheet,
+  View,
+} from "react-native";
+
+import {
+  SimpleInfoItem,
+  SimpleItem,
+} from "../components/common/atoms/SimpleInfoItem";
+import { aboutScreenConfig } from "../configs/AboutScreenConfig";
+
+export type Section = {
+  title: string;
+  data: SimpleItem[];
+};
 
 export const AboutScreen = () => {
-  const resources = getConfiguredResources();
+  const SeparatorComponent = () => <View style={styles.separator} />;
 
-  const getApiEndpoints = () =>
-    resources.map((resource) => getApiBaseUrl(resource)).join("\n");
+  const renderSectionHeader = ({
+    section,
+  }: {
+    section: SectionListData<SimpleItem, Section>;
+  }) => (
+    <View style={{ padding: 16 }}>
+      <Typography variant="h4">{section.key}</Typography>
+    </View>
+  );
 
-  const sections = [
-    {
-      key: "Klient",
-      data: [
-        {
-          key: "BuildConfig",
-          label: "Konfigurasjon",
-          text: BuildConfiguration,
-        },
-        {
-          key: "BuildNr",
-          label: "Bygg nummer",
-          text: appJson.expo.ios.buildNumber,
-        },
-        {
-          key: "AppVersion",
-          label: "Versjon",
-          text: appJson.expo.version,
-        },
-      ],
-    },
-    {
-      key: "API",
-      data: [
-        {
-          key: "ApiBaseUrl",
-          label: resources.length > 1 ? "Endepunkter" : "Endepunkt",
-          text: getApiEndpoints(),
-        },
-      ],
-    },
-  ];
-  return <AppInfo sections={sections} />;
+  const renderItem = ({
+    item,
+  }: SectionListRenderItemInfo<SimpleItem, Section>) => (
+    <View style={styles.item}>
+      <SimpleInfoItem item={item} />
+    </View>
+  );
+
+  return (
+    <SectionList
+      removeClippedSubviews={false}
+      renderItem={renderItem}
+      renderSectionHeader={renderSectionHeader}
+      sections={aboutScreenConfig}
+      SectionSeparatorComponent={SeparatorComponent}
+      style={styles.container}
+    />
+  );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 10,
+  },
+  item: {
+    backgroundColor: "white",
+    marginBottom: 2,
+    padding: 16,
+  },
+  separator: {
+    backgroundColor: "rgb(200, 199, 204)",
+    height: StyleSheet.hairlineWidth,
+  },
+});
