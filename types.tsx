@@ -116,16 +116,6 @@ export type SoundCheckPageJSON = {
 
 export type MaterialIconName = keyof typeof MaterialIcons.glyphMap;
 
-export type Environment = "dev" | "test" | "prod";
-
-export type ResourceName = "mad" | "hearing";
-
-export type Resource = {
-  AzureADResourceId: string;
-  ApiBaseUrl: string;
-  scopes: string[];
-};
-
 export type Error = { message: string | null; status: number | null };
 
 export type User = {

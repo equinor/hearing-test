@@ -15,9 +15,8 @@ import { MSALAccount } from "react-native-msal";
 import appJson from "../app.json";
 import * as colors from "../constants/colors";
 import {
-  BuildConfiguration,
-  getApiBaseUrl,
-  getConfiguredResources,
+  BUILD_CONFIGURATION,
+  getApiEndpoints,
   getScopes,
 } from "../constants/settings";
 import { createUrl } from "../services/api/api-methods";
@@ -74,12 +73,6 @@ const FeedbackScreen = () => {
         })
     );
   };
-
-  const resources = getConfiguredResources();
-  const getApiEndpoints = () =>
-    resources.map((resource) => getApiBaseUrl(resource)).join("\n - ");
-
-  const apiEndpoints = getApiEndpoints();
 
   if (isBusy) return <Spinner />;
 
@@ -138,7 +131,7 @@ const FeedbackScreen = () => {
       .forEach((item) => {
         systemMsg += `*${item.key}:* ${item.value}\n`;
       });
-    return `${systemMsg}*Environment:* ${BuildConfiguration}\n\n*Api Endpoints:*\n - ${apiEndpoints}`;
+    return `${systemMsg}*Environment:* ${BUILD_CONFIGURATION}\n\n*Api Endpoints:*\n - ${getApiEndpoints()}`;
   };
 
   return (
