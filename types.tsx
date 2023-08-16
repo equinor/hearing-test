@@ -5,9 +5,12 @@
 
 import { MaterialIcons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { ImageSourcePropType } from "react-native";
-
-import { ButtonProps } from "./components/common/EDS/Button";
+import {
+  GestureResponderEvent,
+  ImageSourcePropType,
+  StyleProp,
+  ViewStyle,
+} from "react-native";
 
 declare global {
   namespace ReactNavigation {
@@ -148,4 +151,14 @@ export type TestResultPage = {
   subTitle: string;
   description: string;
   buttons: ButtonProps[];
+};
+
+export type ButtonProps = {
+  onPress: (event: GestureResponderEvent) => void;
+  text: string;
+  outlined?: boolean;
+  danger?: boolean;
+  loading?: boolean;
+  disabled?: boolean;
+  style?: StyleProp<ViewStyle>;
 };
