@@ -2,7 +2,7 @@ import NetInfo from "@react-native-community/netinfo";
 import { Spinner } from "mad-expo-core";
 import PropTypes from "prop-types";
 import { Component } from "react";
-import { Alert, Modal, StyleSheet, View } from "react-native";
+import { Modal, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Sound from "react-native-sound";
 import SystemSetting from "react-native-system-setting";
@@ -33,7 +33,7 @@ import {
   selectTestIsFinished,
   selectTestIsRunning,
 } from "../store/test/reducer";
-import { setAlert } from "../utils/alerts";
+import { confirmationDialog } from "../utils/alerts";
 import { createSoundFile } from "../utils/sound";
 
 class TestScreen extends Component {
@@ -462,7 +462,7 @@ class TestScreen extends Component {
                     icon="delete"
                     text="Avslutte testen"
                     onPress={() => {
-                      setAlert(
+                      confirmationDialog(
                         "Avslutte hørselstesten?",
                         "Da må du begynne på nytt neste gang",
                         () => {
@@ -476,7 +476,7 @@ class TestScreen extends Component {
                     icon="refresh"
                     text="Start på ny"
                     onPress={() => {
-                      setAlert(
+                      confirmationDialog(
                         "Starte på nytt?",
                         "Dette vil slette all data fra denne testen",
                         () => {
@@ -490,7 +490,7 @@ class TestScreen extends Component {
                     icon="school"
                     text="Ta ny lydsjekk"
                     onPress={() => {
-                      setAlert(
+                      confirmationDialog(
                         "Ta ny lydsjekk?",
                         "Dette vil slette all data fra denne testen",
                         () => {

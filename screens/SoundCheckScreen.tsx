@@ -20,7 +20,7 @@ import ProgressAnimationBar from "../components/common/molecules/ProgressAnimati
 import { EQUINOR_GREEN, GRAY_BACKGROUND } from "../constants/colors";
 import { SYSTEM_VOLUME } from "../constants/sounds";
 import { SoundCheckPageJSON } from "../types";
-import { setAlert } from "../utils/alerts";
+import { confirmationDialog } from "../utils/alerts";
 
 const styles = StyleSheet.create({
   component: {
@@ -73,7 +73,6 @@ const SoundCheckScreen = (props: any) => {
     Sound.setMode("Measurement");
     Sound.setActive(true);
 
-    // Load the sound file 'testBell.wav' from the app bundle
     SystemSetting.setVolume(SYSTEM_VOLUME, { showUI: false });
   }, []);
 
@@ -127,8 +126,8 @@ const SoundCheckScreen = (props: any) => {
   function playAudioTest(ear: "left" | "right") {
     // Setting volume each time just to make sure the volume is not changed between plays
     // also, if headset was plugged in after componentDidMount() was called, we need to call this again
-    SystemSetting.setVolume(SYSTEM_VOLUME, { showUI: false }); //Todo: Disabling this until we know how the calibration step should be done..
-    sound.setVolume(SYSTEM_VOLUME);
+    SystemSetting.setVolume(SYSTEM_VOLUME, { showUI: false });
+    sound.setVolume(0.5);
     if (ear === "left") sound.setPan(-1);
     if (ear === "right") sound.setPan(1);
     sound.play((success) => {
@@ -188,7 +187,7 @@ const SoundCheckScreen = (props: any) => {
               <IconButton
                 icon="close"
                 onPress={() =>
-                  setAlert(
+                  confirmationDialog(
                     "Avslutte?",
                     "Da må du begynne på nytt neste gang",
                     () => {

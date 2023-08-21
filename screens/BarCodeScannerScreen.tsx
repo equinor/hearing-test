@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { IconButton } from "../components/common/EDS/IconButton";
 import { RootStackScreenProps } from "../types";
-import { setAlert } from "../utils/alerts";
+import { confirmationDialog } from "../utils/alerts";
 
 type Props = RootStackScreenProps<"PreTestRoute"> & {
   onBarcodeMatch: () => void;
@@ -45,7 +45,7 @@ export const BarCodeScannerScreen: React.FC<Props> = ({
       <IconButton
         icon="close"
         onPress={() =>
-          setAlert("Avslutte?", "Da må du begynne på nytt neste gang", () => {
+          confirmationDialog("Avslutte?", "Da må du begynne på nytt neste gang", () => {
             navigation.navigate("DefaultRoute");
           })
         }

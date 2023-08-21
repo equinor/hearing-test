@@ -1,9 +1,9 @@
 import { Alert } from "react-native";
 
-export const setAlert = (
+export const confirmationDialog = (
   title: string,
-  message: string,
-  onConfirm: CallableFunction
+  onConfirm: () => void,
+  message?: string
 ) =>
   Alert.alert(title, message, [
     {
@@ -13,7 +13,7 @@ export const setAlert = (
     },
     {
       text: "Ja",
-      onPress: () => onConfirm(),
+      onPress: onConfirm,
       style: "destructive",
     },
   ]);

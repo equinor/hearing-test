@@ -16,10 +16,8 @@
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": ["**/*"],
-    "jsEngine": "hermes",
     "ios": {
       "supportsTablet": true,
-      "jsEngine": "jsc",
       "bundleIdentifier": "com.equinor.hearingtest.test",
       "buildNumber": "0.4.1",
       "infoPlist": {
