@@ -67,7 +67,7 @@ const FeedbackScreen = () => {
         .catch((err) => {
           setIsBusy(false);
           setStatusMessage(
-            `Kunne ikke legge inn tilbakemelding. Prøv igjen senere. ${err.message}`
+            `Tilbakemeldingen kunne ikke sendes. Prøv igjen senere. ${err.message}`
           );
           setStatus("ERROR");
         })
@@ -92,7 +92,7 @@ const FeedbackScreen = () => {
     },
     { key: "Operativsystem", value: `${Device.osName} ${Device.osVersion}` },
     { key: "Tidssone", value: Localization.timezone },
-    { key: "Lokalitet", value: Localization.locale },
+    { key: "Språk og region", value: Localization.locale },
   ];
 
   const deviceItems = items
