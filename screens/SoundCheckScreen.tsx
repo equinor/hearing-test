@@ -217,6 +217,9 @@ const SoundCheckScreen = (props: any) => {
                 <Button
                   title="hører ingen lyd"
                   onPress={() => setModalVisible(true)}
+                  style={{
+                    width: 160,
+                  }}
                 />
               ) : (
                 <View style={{ height: 58 }} />
@@ -260,6 +263,9 @@ const SoundCheckScreen = (props: any) => {
                     onPress={() => {
                       setModalVisible(false);
                       setCurrentPage(0);
+                    }}
+                    style={{
+                      width: 160,
                     }}
                   />
                 </ScrollView>

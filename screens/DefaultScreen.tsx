@@ -39,7 +39,7 @@ export const DefaultScreen = ({ navigation }: Props) => {
             Din lokasjon er {user ? user.location : "ukjent"}
           </Typography>
           <Button.Icon
-            name="help"
+            name="help-circle"
             onPress={() => setIsLocationModalVisible(true)}
             variant="ghost"
             style={styles.locationButton}

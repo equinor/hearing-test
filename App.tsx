@@ -25,7 +25,6 @@ export default function App() {
             environment={getEnvironment()}
             languageCode="no"
           />
-
           <EDSProvider colorScheme="light" density="phone">
             <EnvironmentBanner />
             <Navigation colorScheme="light" />

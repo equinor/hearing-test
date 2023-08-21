@@ -47,12 +47,16 @@ const SoundCheckFinishedScreen = (props: any) => {
             <Button
               title="Start testen"
               onPress={() => props.navigation.navigate("TestRoute")}
+              style={{
+                width: 160,
+              }}
             />
             <Button
               title="Ta ny lydsjekk"
               onPress={() => props.navigation.navigate("SoundCheckRoute")}
               variant="outlined"
               style={{
+                width: 160,
                 marginBottom: 16,
               }}
             />
