@@ -164,10 +164,8 @@ export default class PreTestScreen extends Component {
             onPress={() =>
               confirmationDialog(
                 "Avslutte?",
-                "Da må du begynne på nytt neste gang",
-                () => {
-                  this.props.navigation.navigate("DefaultRoute");
-                }
+                () => this.props.navigation.navigate("DefaultRoute"),
+                "Da må du begynne på nytt neste gang"
               )
             }
             style={styles.closeButton}

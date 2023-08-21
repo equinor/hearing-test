@@ -189,10 +189,8 @@ const SoundCheckScreen = (props: any) => {
                 onPress={() =>
                   confirmationDialog(
                     "Avslutte?",
-                    "Da må du begynne på nytt neste gang",
-                    () => {
-                      props.navigation.navigate("DefaultRoute");
-                    }
+                    () => props.navigation.navigate("DefaultRoute"),
+                    "Da må du begynne på nytt neste gang"
                   )
                 }
               />

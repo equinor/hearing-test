@@ -2,7 +2,7 @@ import { Alert } from "react-native";
 
 export const confirmationDialog = (
   title: string,
-  onConfirm: () => void,
+  onConfirm: (value?: string) => void,
   message?: string
 ) =>
   Alert.alert(title, message, [

@@ -461,44 +461,44 @@ class TestScreen extends Component {
                   <MenuItem
                     icon="delete"
                     text="Avslutte testen"
-                    onPress={() => {
+                    onPress={() =>
                       confirmationDialog(
                         "Avslutte hørselstesten?",
-                        "Da må du begynne på nytt neste gang",
                         () => {
                           this.abortTest();
                           this.props.navigation.navigate("DefaultRoute");
-                        }
-                      );
-                    }}
+                        },
+                        "Da må du begynne på nytt neste gang"
+                      )
+                    }
                   />
                   <MenuItem
                     icon="refresh"
                     text="Start på ny"
-                    onPress={() => {
+                    onPress={() =>
                       confirmationDialog(
                         "Starte på nytt?",
-                        "Dette vil slette all data fra denne testen",
                         () => {
                           this.restartTest();
                           this.props.navigation.navigate("TestRoute");
-                        }
-                      );
-                    }}
+                        },
+                        "Dette vil slette all data fra denne testen"
+                      )
+                    }
                   />
                   <MenuItem
                     icon="school"
                     text="Ta ny lydsjekk"
-                    onPress={() => {
+                    onPress={() =>
                       confirmationDialog(
                         "Ta ny lydsjekk?",
-                        "Dette vil slette all data fra denne testen",
                         () => {
                           this.abortTest();
                           this.props.navigation.navigate("SoundCheckRoute");
-                        }
-                      );
-                    }}
+                        },
+                        "Dette vil slette all data fra denne testen"
+                      )
+                    }
                   />
                   <ButtonEDS
                     text="Fortsette hørselstesten"

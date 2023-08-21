@@ -45,9 +45,11 @@ export const BarCodeScannerScreen: React.FC<Props> = ({
       <IconButton
         icon="close"
         onPress={() =>
-          confirmationDialog("Avslutte?", "Da må du begynne på nytt neste gang", () => {
-            navigation.navigate("DefaultRoute");
-          })
+          confirmationDialog(
+            "Avslutte?",
+            () => navigation.navigate("DefaultRoute"),
+            "Da må du begynne på nytt neste gang"
+          )
         }
         style={[
           styles.closeButton,
