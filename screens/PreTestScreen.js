@@ -16,7 +16,7 @@ import ButtonEDS from "../components/common/EDS/Button";
 import { IconButton } from "../components/common/EDS/IconButton";
 import { Indicators } from "../components/common/molecules/Indicators";
 import { MOSS_GREEN_100, TEXT } from "../constants/colors";
-import { onClose } from "../utils/alerts";
+import { confirmationDialog } from "../utils/alerts";
 
 export default class PreTestScreen extends Component {
   static propTypes = {
@@ -162,7 +162,11 @@ export default class PreTestScreen extends Component {
           <IconButton
             icon="close"
             onPress={() =>
-              onClose(() => this.props.navigation.navigate("DefaultRoute"))
+              confirmationDialog(
+                "Avslutte?",
+                () => this.props.navigation.navigate("DefaultRoute"),
+                "Da må du begynne på nytt neste gang"
+              )
             }
             style={styles.closeButton}
           />

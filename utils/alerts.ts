@@ -1,7 +1,11 @@
 import { Alert } from "react-native";
 
-export const onClose = (onConfirm: (value?: string) => void) => {
-  Alert.alert("Avslutte?", "Da må du begynne på nytt neste gang", [
+export const confirmationDialog = (
+  title: string,
+  onConfirm: (value?: string) => void,
+  message?: string
+) =>
+  Alert.alert(title, message, [
     {
       text: "Nei",
       onPress: () => {},
@@ -13,4 +17,3 @@ export const onClose = (onConfirm: (value?: string) => void) => {
       style: "destructive",
     },
   ]);
-};

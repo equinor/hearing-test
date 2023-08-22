@@ -2,7 +2,7 @@ import NetInfo from "@react-native-community/netinfo";
 import { Spinner } from "mad-expo-core";
 import PropTypes from "prop-types";
 import { Component } from "react";
-import { Alert, Modal, StyleSheet, View } from "react-native";
+import { Modal, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Sound from "react-native-sound";
 import SystemSetting from "react-native-system-setting";
@@ -15,6 +15,7 @@ import { MenuItem } from "../components/common/atoms/MenuItem";
 import ProgressBar from "../components/common/atoms/ProgressBar";
 import Typography from "../components/common/atoms/Typography";
 import { TestCard } from "../components/common/molecules/TestCard";
+import { SYSTEM_VOLUME } from "../constants/sounds";
 import store from "../store/config";
 import {
   failure,
@@ -32,6 +33,7 @@ import {
   selectTestIsFinished,
   selectTestIsRunning,
 } from "../store/test/reducer";
+import { confirmationDialog } from "../utils/alerts";
 import { createSoundFile } from "../utils/sound";
 
 class TestScreen extends Component {
@@ -81,7 +83,7 @@ class TestScreen extends Component {
     modalVisible: false,
     pauseAfterNode: false,
     nextNodeWaiting: false,
-    initialSystemVolume: 0.5,
+    initialSystemVolume: SYSTEM_VOLUME,
     isPlayingFirstNodeFirstTime: true,
     numberOfNodesPlayed: 0,
     numberOfNodes: Infinity,
@@ -105,7 +107,7 @@ class TestScreen extends Component {
         })
         .catch((err) => console.log({ err }));
     setInitialDeviceSystemVolume();
-    SystemSetting.setVolume(0.5, { showUI: false });
+    SystemSetting.setVolume(SYSTEM_VOLUME, { showUI: false });
   }
 
   componentWillUnmount() {
@@ -209,13 +211,22 @@ class TestScreen extends Component {
     }));
   }
 
-  abortTest() {
-    this.releaseSoundFiles();
-    Sound.setActive(false);
+  stopTest() {
     clearInterval(this.state.intervalId);
     this.props.actionStopTest();
     this.setState({ modalVisible: false });
     this.setState({ numberOfNodesPlayed: 0 });
+  }
+
+  abortTest() {
+    this.releaseSoundFiles();
+    Sound.setActive(false);
+    this.stopTest();
+  }
+
+  restartTest() {
+    this.stopTest();
+    this.props.actionStartTest();
   }
 
   async nodeFinished(node) {
@@ -242,7 +253,7 @@ class TestScreen extends Component {
     // Setting master volume
     // Setting volume each time just to make sure the volume is not changed between plays
     // also, if headset was plugged in after componentDidMount() was called, we need to call this again
-    SystemSetting.setVolume(0.5, { showUI: false });
+    SystemSetting.setVolume(SYSTEM_VOLUME, { showUI: false });
 
     // Setting playback volume
     sound.setVolume(node.stimulusMultiplicative);
@@ -450,77 +461,44 @@ class TestScreen extends Component {
                   <MenuItem
                     icon="delete"
                     text="Avslutte testen"
-                    onPress={() => {
-                      Alert.alert(
+                    onPress={() =>
+                      confirmationDialog(
                         "Avslutte hørselstesten?",
-                        "Da må du begynne på nytt neste gang",
-                        [
-                          {
-                            text: "Nei",
-                            onPress: () => {},
-                            style: "cancel",
-                          },
-                          {
-                            text: "Ja",
-                            onPress: () => {
-                              this.abortTest();
-                              this.props.navigation.navigate("DefaultRoute");
-                            },
-                            style: "destructive",
-                          },
-                        ]
-                      );
-                    }}
+                        () => {
+                          this.abortTest();
+                          this.props.navigation.navigate("DefaultRoute");
+                        },
+                        "Da må du begynne på nytt neste gang"
+                      )
+                    }
                   />
                   <MenuItem
                     icon="refresh"
                     text="Start hørselstesten på ny"
-                    onPress={() => {
-                      Alert.alert(
+                    onPress={() =>
+                      confirmationDialog(
                         "Starte hørselstesten på ny?",
-                        "Dette vil slette all data fra denne testen",
-                        [
-                          {
-                            text: "Nei",
-                            onPress: () => {},
-                            style: "cancel",
-                          },
-                          {
-                            text: "Ja",
-                            onPress: () => {
-                              this.abortTest();
-                              this.props.navigation.navigate("TestRoute");
-                            },
-                            style: "destructive",
-                          },
-                        ]
-                      );
-                    }}
+                        () => {
+                          this.restartTest();
+                          this.props.navigation.navigate("TestRoute");
+                        },
+                        "Dette vil slette all data fra denne testen"
+                      )
+                    }
                   />
                   <MenuItem
                     icon="school"
                     text="Ta ny lydsjekk"
-                    onPress={() => {
-                      Alert.alert(
+                    onPress={() =>
+                      confirmationDialog(
                         "Ta ny lydsjekk?",
-                        "Dette vil slette all data fra denne testen",
-                        [
-                          {
-                            text: "Nei",
-                            onPress: () => {},
-                            style: "cancel",
-                          },
-                          {
-                            text: "Ja",
-                            onPress: () => {
-                              this.abortTest();
-                              this.props.navigation.navigate("SoundCheckRoute");
-                            },
-                            style: "destructive",
-                          },
-                        ]
-                      );
-                    }}
+                        () => {
+                          this.abortTest();
+                          this.props.navigation.navigate("SoundCheckRoute");
+                        },
+                        "Dette vil slette all data fra denne testen"
+                      )
+                    }
                   />
                   <ButtonEDS
                     text="Fortsette hørselstesten"
