@@ -6,7 +6,7 @@ import { StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { RootStackScreenProps } from "../types";
-import { onClose } from "../utils/alerts";
+import { confirmationDialog } from "../utils/alerts";
 
 type Props = RootStackScreenProps<"PreTestRoute"> & {
   onBarcodeMatch: () => void;
@@ -44,7 +44,13 @@ export const BarCodeScannerScreen: React.FC<Props> = ({
     <View style={styles.container}>
       <Button.Icon
         name="close"
-        onPress={() => onClose(() => navigation.navigate("DefaultRoute"))}
+        onPress={() =>
+          confirmationDialog(
+            "Avslutte?",
+            () => navigation.navigate("DefaultRoute"),
+            "Da må du begynne på nytt neste gang"
+          )
+        }
         variant="ghost"
         style={[
           styles.closeButton,

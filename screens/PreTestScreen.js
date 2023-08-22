@@ -15,7 +15,7 @@ import thumbsDown from "../assets/images/thumbs-down.png";
 import thumbsUp from "../assets/images/thumbs-up.png";
 import { Indicators } from "../components/common/molecules/Indicators";
 import { MOSS_GREEN_100, TEXT } from "../constants/colors";
-import { onClose } from "../utils/alerts";
+import { confirmationDialog } from "../utils/alerts";
 
 export default class PreTestScreen extends Component {
   static propTypes = {
@@ -162,7 +162,11 @@ export default class PreTestScreen extends Component {
             <Button.Icon
               name="close"
               onPress={() =>
-                onClose(() => this.props.navigation.navigate("DefaultRoute"))
+                confirmationDialog(
+                  "Avslutte?",
+                  () => this.props.navigation.navigate("DefaultRoute"),
+                  "Da må du begynne på nytt neste gang"
+                )
               }
               variant="ghost"
             />
