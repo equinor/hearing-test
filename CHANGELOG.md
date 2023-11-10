@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.3](https://github.com/equinor/hearing-test/compare/v0.4.2...v0.4.3) (2023-11-10)
+
+
+### Bug Fixes
+
+* **deps:** Patch vulnerabilities ([#278](https://github.com/equinor/hearing-test/issues/278)) ([3f43b4c](https://github.com/equinor/hearing-test/commit/3f43b4c41f59f2c1501c85dc41470f72058ebf10)), closes [#277](https://github.com/equinor/hearing-test/issues/277)
+
 ## [0.4.2](https://github.com/equinor/hearing-test/compare/v0.4.1...v0.4.2) (2023-10-18)
 
 
