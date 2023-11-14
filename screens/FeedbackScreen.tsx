@@ -157,7 +157,6 @@ const FeedbackScreen = () => {
         Noen tilbakemeldinger?
       </Typography>
       <Typography style={{ lineHeight: 24 }}>
-        Som en del av tilbakemeldingen henter vi inn automatisk noe informasjon.
         Ved å sende inn en tilbakemelding samtykker du om å dele følgende
         informasjon:
       </Typography>
