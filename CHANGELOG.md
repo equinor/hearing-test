@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.4.3](https://github.com/equinor/hearing-test/compare/v0.4.2...v0.4.3) (2023-11-10)
+
+
+### Bug Fixes
+
+* **deps:** Patch vulnerabilities ([#278](https://github.com/equinor/hearing-test/issues/278)) ([3f43b4c](https://github.com/equinor/hearing-test/commit/3f43b4c41f59f2c1501c85dc41470f72058ebf10)), closes [#277](https://github.com/equinor/hearing-test/issues/277)
+
+## [0.4.2](https://github.com/equinor/hearing-test/compare/v0.4.1...v0.4.2) (2023-10-18)
+
+
+### Bug Fixes
+
+* **deps:** Patch vulnerabilities ([#274](https://github.com/equinor/hearing-test/issues/274)) ([078f588](https://github.com/equinor/hearing-test/commit/078f58806ab4961f6cc9d11ce580a16493aed3ca)), closes [#273](https://github.com/equinor/hearing-test/issues/273)
+* Resolve issue with test not starting after restart ([#227](https://github.com/equinor/hearing-test/issues/227)) ([3524761](https://github.com/equinor/hearing-test/commit/3524761086f7840531599499a1d2bcf693e3bfb6)), closes [#218](https://github.com/equinor/hearing-test/issues/218)
+
 ## [0.4.1](https://github.com/equinor/hearing-test/compare/v0.4.0...v0.4.1) (2023-07-27)
 
 
