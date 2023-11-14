@@ -87,7 +87,7 @@ const FeedbackScreen = () => {
       value: `${Platform.OS === "web" ? getWebBrowser() : Device.modelName}`,
     },
     {
-      key: "User agent",
+      key: "Brukeragent",
       value: Platform.OS === "web" ? `${navigator.userAgent}` : null,
     },
     { key: "Operativsystem", value: `${Device.osName} ${Device.osVersion}` },
@@ -96,7 +96,7 @@ const FeedbackScreen = () => {
   ];
 
   const deviceItems = items
-    .filter((item) => !(item.key === "User agent" && item.value == null))
+    .filter((item) => !(item.key === "Brukeragent" && item.value == null))
     .map((item) => (
       <View key={item.key}>
         <View
@@ -124,8 +124,8 @@ const FeedbackScreen = () => {
       .filter(
         (item) =>
           !(
-            item.key === "User" ||
-            (item.key === "User agent" && item.value == null)
+            item.key === "Brukernavn" ||
+            (item.key === "Brukeragent" && item.value == null)
           )
       )
       .forEach((item) => {
