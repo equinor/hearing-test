@@ -49,7 +49,7 @@ const TestResultsModal = (props: {
             setSelectedItem(null);
           }}
         />
-        <Typography variant="h1">Din hørsel</Typography>
+        <Typography variant="h1">Dine resultater</Typography>
         <IconButton
           icon="close"
           onPress={() => {

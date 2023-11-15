@@ -161,7 +161,7 @@ function RootNavigator() {
       <Stack.Screen
         name="NotFoundRoute"
         component={NotFoundScreen}
-        options={{ title: "Oops!" }}
+        options={{ title: "Ups!" }}
       />
       <Stack.Group>
         <Stack.Screen
@@ -185,14 +185,14 @@ function RootNavigator() {
           name="FeedbackRoute"
           component={withUtilities(FeedbackScreen)}
           options={{
-            title: "Feedback",
+            title: "Tilbakemelding",
           }}
         />
         <Stack.Screen
           name="AboutRoute"
           component={withUtilities(AboutScreen)}
           options={{
-            title: "About",
+            title: "Om",
           }}
         />
       </Stack.Group>
