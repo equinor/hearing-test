@@ -49,7 +49,7 @@ const TestResultsModal = (props: {
           variant="ghost"
           disabled={!selectedItem}
         />
-        <Typography variant="h1">Din hørsel</Typography>
+        <Typography variant="h1">Dine resultater</Typography>
         <Button.Icon
           name="close"
           onPress={() => {

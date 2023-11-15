@@ -60,14 +60,14 @@ const FeedbackScreen = () => {
           if (response.ok) {
             setIsBusy(false);
             setFeedback("");
-            setStatusMessage("Thank you for the feedback!");
+            setStatusMessage("Tusen takk for tilbakemeldingen");
             setStatus("OK");
           }
         })
         .catch((err) => {
           setIsBusy(false);
           setStatusMessage(
-            `Failed to post feedback. Please try again later. ${err.message}`
+            `Tilbakemeldingen kunne ikke sendes. Prøv igjen senere. ${err.message}`
           );
           setStatus("ERROR");
         })
@@ -77,26 +77,26 @@ const FeedbackScreen = () => {
   if (isBusy) return <Spinner />;
 
   const items = [
-    { key: "User", value: account?.username.split("@")[0] },
+    { key: "Brukernavn", value: account?.username.split("@")[0] },
     {
-      key: "Device brand",
+      key: "Enhetsmerke",
       value: `${Platform.OS === "web" ? "Web" : Device.brand}`,
     },
     {
-      key: "Device",
+      key: "Enhet",
       value: `${Platform.OS === "web" ? getWebBrowser() : Device.modelName}`,
     },
     {
-      key: "User agent",
+      key: "Brukeragent",
       value: Platform.OS === "web" ? `${navigator.userAgent}` : null,
     },
-    { key: "Operating System", value: `${Device.osName} ${Device.osVersion}` },
-    { key: "Timezone", value: Localization.timezone },
-    { key: "Locale", value: Localization.locale },
+    { key: "Operativsystem", value: `${Device.osName} ${Device.osVersion}` },
+    { key: "Tidssone", value: Localization.timezone },
+    { key: "Språk og region", value: Localization.locale },
   ];
 
   const deviceItems = items
-    .filter((item) => !(item.key === "User agent" && item.value == null))
+    .filter((item) => !(item.key === "Brukeragent" && item.value == null))
     .map((item) => (
       <View key={item.key}>
         <View
@@ -124,8 +124,8 @@ const FeedbackScreen = () => {
       .filter(
         (item) =>
           !(
-            item.key === "User" ||
-            (item.key === "User agent" && item.value == null)
+            item.key === "Brukernavn" ||
+            (item.key === "Brukeragent" && item.value == null)
           )
       )
       .forEach((item) => {
@@ -154,18 +154,18 @@ const FeedbackScreen = () => {
         </View>
       )}
       <Typography variant="h1" style={{ marginBottom: 24 }}>
-        Have some feedback?
+        Noen tilbakemeldinger?
       </Typography>
       <Typography style={{ lineHeight: 24 }}>
-        We are collecting some information about your device as a part of the
-        feedback-process. By submitting you agree to share the following info:
+        Ved å sende inn en tilbakemelding samtykker du om å dele følgende
+        informasjon:
       </Typography>
       <View style={{ paddingTop: 24, paddingBottom: 8 }}>{deviceItems}</View>
       <TextInput
         value={feedback}
         editable
         multiline
-        placeholder="Write your feedback here"
+        placeholder="Skriv din tilbakemelding her"
         onChangeText={(text) => setFeedback(text)}
         onFocus={() => setIsTextInputFocused(true)}
         onBlur={() => setIsTextInputFocused(false)}

@@ -28,7 +28,7 @@ export default class PreTestScreen extends Component {
         title: "Er du forkjølet?",
         image: sickMan,
         content:
-          "For at resultatene skal bli pålitelige, skal du ikke ta denne testen når du er syk.",
+          "For at resultatet skal bli pålitelig, skal du ikke ta denne testen når du er syk.",
         current: true,
         buttons: [
           {
@@ -66,17 +66,17 @@ export default class PreTestScreen extends Component {
         title: "Bekreft utstyr",
         image: scanner,
         content:
-          "For å bekrefte at du har riktig utstyr til denne testen, må du scanne strekkoden på headsettet som du får tildelt fra helsestasjonen din.",
+          "For å bekrefte at du har riktig utstyr til denne testen, må du skanne strekkoden på headsettet som du får tildelt fra helsestasjonen din.",
         current: false,
-        buttons: [{ text: "Scan", onPress: () => this.nextPage() }],
+        buttons: [{ text: "Skann", onPress: () => this.nextPage() }],
       },
       {
-        title: "Scan",
+        title: "Skann",
         image: scanner,
-        content: "Page used to scan barcode",
+        content: "Siden brukes til å skanne strekkoden.",
         current: false,
         hideIndicator: true,
-        buttons: [{ text: "Scan", onPress: () => this.nextPage() }],
+        buttons: [{ text: "Skann", onPress: () => this.nextPage() }],
       },
       {
         title: "Ups!",
@@ -84,7 +84,7 @@ export default class PreTestScreen extends Component {
         content:
           "Ingen godkjent kode ble funnet. Du blir nå tatt tilbake til hovedsiden.",
         current: false,
-        buttons: [{ text: "Scan igjen", onPress: () => this.previousPage() }],
+        buttons: [{ text: "Skann igjen", onPress: () => this.previousPage() }],
       },
       {
         title: "Utstyr bekreftet",
@@ -94,10 +94,10 @@ export default class PreTestScreen extends Component {
         buttons: [{ text: "Fortsett", onPress: () => this.nextPage() }],
       },
       {
-        title: "Husk å sett på headsettet ordentlig.",
+        title: "Husk å sett på headsettet ordentlig",
         image: headset,
         content:
-          "Det er fort gjort å sette headsettet feil vei, husk å ha kabelen på riktig side!",
+          "Det er fort gjort å sette headsettet feil vei, husk å ha kabelen på riktig side.",
         current: false,
         buttons: [{ text: "Fortsett", onPress: () => this.nextPage() }],
       },
@@ -145,7 +145,7 @@ export default class PreTestScreen extends Component {
 
   render() {
     const view = this.currentPage();
-    if (view.title === "Scan") {
+    if (view.title === "Skann") {
       return (
         <BarCodeScannerScreen
           navigation={this.props.navigation}

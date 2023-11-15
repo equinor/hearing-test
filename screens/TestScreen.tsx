@@ -474,10 +474,10 @@ class TestScreen extends Component {
                   />
                   <MenuItem
                     icon="refresh"
-                    text="Start på ny"
+                    text="Start hørselstesten på ny"
                     onPress={() =>
                       confirmationDialog(
-                        "Starte på nytt?",
+                        "Starte hørselstesten på ny?",
                         () => {
                           this.restartTest();
                           this.props.navigation.navigate("TestRoute");
