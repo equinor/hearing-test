@@ -1,8 +1,8 @@
+import { Button } from "@equinor/mad-components";
 import * as Device from "expo-device";
 import * as Localization from "expo-localization";
 import {
   authenticateSilently,
-  Button,
   getAccount,
   Spinner,
   Typography,
@@ -185,7 +185,6 @@ const FeedbackScreen = () => {
       />
       <Button
         title="Send"
-        disabled={feedback.trim().length === 0}
         onPress={() => {
           sendFeedback({
             product: `${appJson.expo.name} | v${appJson.expo.version} (${appJson.expo.ios.buildNumber})`,
@@ -194,6 +193,7 @@ const FeedbackScreen = () => {
             systemMsg: getSystemMsg(),
           });
         }}
+        disabled={feedback.trim().length === 0}
       />
     </KeyboardAwareScrollView>
   );

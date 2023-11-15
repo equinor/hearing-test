@@ -21,14 +21,6 @@ import { SYSTEM_VOLUME } from "../constants/sounds";
 import { SoundCheckPageJSON } from "../types";
 import { confirmationDialog } from "../utils/alerts";
 
-const styles = StyleSheet.create({
-  component: {
-    flex: 1,
-    padding: 16,
-    paddingBottom: 60,
-  },
-});
-
 const ANIMATION_DURATION = 500;
 
 // TODO: prop types
@@ -222,9 +214,7 @@ const SoundCheckScreen = (props: any) => {
                 <Button
                   title="hører ingen lyd"
                   onPress={() => setModalVisible(true)}
-                  style={{
-                    width: 160,
-                  }}
+                  style={styles.button}
                 />
               ) : (
                 <View style={{ height: 58 }} />
@@ -269,9 +259,7 @@ const SoundCheckScreen = (props: any) => {
                       setModalVisible(false);
                       setCurrentPage(0);
                     }}
-                    style={{
-                      width: 160,
-                    }}
+                    style={styles.button}
                   />
                 </ScrollView>
               </SafeAreaView>
@@ -298,5 +286,14 @@ const CanHearSoundButton = (props: { onPress: Function }) => {
     />
   );
 };
+
+const styles = StyleSheet.create({
+  component: {
+    flex: 1,
+    padding: 16,
+    paddingBottom: 60,
+  },
+  button: { width: 160 },
+});
 
 export default SoundCheckScreen;

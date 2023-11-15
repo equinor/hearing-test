@@ -40,27 +40,20 @@ const TestResultScreen = ({
 
   const buttons: TestResultButtonConfigurations = {
     seeResult: {
-      outlined: false,
-      text: "Se resultat",
-      onPress: () => {
-        setModalVisible(true);
-      },
-      loading: isFetching,
+      title: "Se resultat",
+      onPress: () => setModalVisible(true),
     },
     newTest: {
-      outlined: false,
-      text: "Ta ny test",
+      title: "Ta ny test",
       onPress: () => navigation.navigate("TestRoute"),
-      loading: isFetching,
     },
     sendTest: {
-      outlined: resendCount > 0,
-      text: "Send",
+      title: "Send",
       onPress: () => {
         actionPostTest(unsentTests[0]);
         setResendCount((prevResendCount) => prevResendCount + 1);
       },
-      loading: isFetching,
+      variant: resendCount > 0 ? "outlined" : "contained",
     },
   };
 
@@ -109,13 +102,13 @@ const TestResultScreen = ({
           </Typography>
         </View>
         <View>
-          {page.buttons.map(({ onPress, text, outlined, loading }, index) => (
+          {page.buttons.map(({ title, onPress, variant }, index) => (
             <Button
-              key={text}
-              title={text}
+              key={title}
+              title={title}
               onPress={onPress}
-              variant={outlined ? "outlined" : "contained"}
-              loading={loading}
+              variant={variant}
+              loading={isFetching}
               style={{
                 marginTop: index === 0 ? 0 : 12,
               }}

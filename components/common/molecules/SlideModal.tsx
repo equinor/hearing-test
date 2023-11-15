@@ -7,7 +7,7 @@ import Typography from "../atoms/Typography";
 export const SlideModal = (props: {
   title: string;
   visible: boolean;
-  setInvisible: Function;
+  setInvisible: () => void;
   children?: ReactNode;
 }) => (
   <Modal
@@ -41,11 +41,7 @@ export const SlideModal = (props: {
     >
       <View style={{ height: 48, width: 48 }} />
       <Typography variant="h1">{props.title}</Typography>
-      <Button.Icon
-        name="close"
-        onPress={() => props.setInvisible()}
-        variant="ghost"
-      />
+      <Button.Icon name="close" onPress={props.setInvisible} variant="ghost" />
     </View>
     <View style={{ flex: 1, padding: 24, backgroundColor: "white" }}>
       {props.children}

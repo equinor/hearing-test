@@ -171,7 +171,6 @@ export default class PreTestScreen extends Component {
               variant="ghost"
             />
           </View>
-
           <Typography variant="h1" color={MOSS_GREEN_100} style={styles.title}>
             {view.title}
           </Typography>
@@ -193,7 +192,7 @@ export default class PreTestScreen extends Component {
               title={text}
               onPress={onPress}
               variant={outlined ? "outlined" : "contained"}
-              style={styles.edsButton}
+              style={styles.button}
             />
           ))}
         </ScrollView>
@@ -207,7 +206,7 @@ const styles = StyleSheet.create({
     padding: 24,
     alignItems: "center",
   },
-  edsButton: { width: 160, marginBottom: 16 },
+  button: { width: 160, marginBottom: 16 },
   closeButton: { alignSelf: "flex-end", marginBottom: 16 },
   title: { textAlign: "center", marginBottom: 40 },
   image: { height: 250, resizeMode: "contain", alignSelf: "center" },

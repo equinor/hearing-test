@@ -503,7 +503,6 @@ class TestScreen extends Component {
                   <Button
                     title="Fortsette hørselstesten"
                     onPress={() => this.setState({ modalVisible: false })}
-                    style={{ width: "100%", margin: 0 }}
                   />
                 </View>
               </View>
