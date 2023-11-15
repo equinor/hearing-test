@@ -1,3 +1,4 @@
+import "react-native-gesture-handler";
 import { useEDS, EDSProvider } from "@equinor/mad-components";
 import { StatusBar } from "expo-status-bar";
 import { ServiceMessage } from "mad-expo-core";
