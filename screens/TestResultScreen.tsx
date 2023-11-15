@@ -102,12 +102,10 @@ const TestResultScreen = ({
           </Typography>
         </View>
         <View>
-          {page.buttons.map(({ title, onPress, variant }, index) => (
+          {page.buttons.map((props, index) => (
             <Button
-              key={title}
-              title={title}
-              onPress={onPress}
-              variant={variant}
+              key={props.title}
+              {...props}
               loading={isFetching}
               style={{
                 marginTop: index === 0 ? 0 : 12,
