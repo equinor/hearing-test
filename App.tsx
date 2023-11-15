@@ -14,18 +14,18 @@ export default function App() {
   const isLoadingComplete = useCachedResources();
   const [hasLoadedEds] = useEDS();
 
-  if (!hasLoadedEds || !isLoadingComplete) {
+  if (!isLoadingComplete || !hasLoadedEds) {
     return null;
   } else {
     return (
       <Provider store={store}>
         <SafeAreaProvider>
-          <ServiceMessage
-            serviceName="HearingTest"
-            environment={getEnvironment()}
-            languageCode="no"
-          />
           <EDSProvider colorScheme="light" density="phone">
+            <ServiceMessage
+              serviceName="HearingTest"
+              environment={getEnvironment()}
+              languageCode="no"
+            />
             <EnvironmentBanner />
             <Navigation colorScheme="light" />
             <StatusBar style="dark" />
