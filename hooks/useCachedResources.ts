@@ -22,14 +22,6 @@ export default function useCachedResources() {
         // Load fonts
         await Font.loadAsync({
           ...MaterialIcons.font,
-          "Equinor-Bold": require("../assets/fonts/Equinor-Bold.ttf"),
-          "Equinor-BoldItalic": require("../assets/fonts/Equinor-BoldItalic.ttf"),
-          "Equinor-Italic": require("../assets/fonts/Equinor-Italic.ttf"),
-          "Equinor-Light": require("../assets/fonts/Equinor-Light.ttf"),
-          "Equinor-LightItalic": require("../assets/fonts/Equinor-LightItalic.ttf"),
-          "Equinor-Medium": require("../assets/fonts/Equinor-Medium.ttf"),
-          "Equinor-MediumItalic": require("../assets/fonts/Equinor-MediumItalic.ttf"),
-          "Equinor-Regular": require("../assets/fonts/Equinor-Regular.ttf"),
         });
 
         await msalInit(AzureADClientId, AzureADRedirectUrl);
