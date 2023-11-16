@@ -4,9 +4,9 @@ import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import { LEFT_EAR, RIGHT_EAR } from "../../../constants/colors";
 import { Ear } from "../../../types";
 
-type Props = { ear: Ear; style?: StyleProp<ViewStyle> };
+type EarLabelProps = { ear: Ear; style?: StyleProp<ViewStyle> };
 
-export const EarLabel: React.FC<Props> = ({ ear, style }) => (
+export const EarLabel = ({ ear, style }: EarLabelProps) => (
   <View style={[styles.container, style]}>
     <View
       style={[

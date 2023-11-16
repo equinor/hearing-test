@@ -10,17 +10,17 @@ import { getChartData } from "../../../utils/chart";
 import { formatDate } from "../../../utils/date";
 import { EarLabel } from "../atoms/EarLabel";
 
-type Props = {
+type TestResultItemProps = {
   data: TestResult;
   resetSelectedItem: () => void;
   hideTop?: boolean;
 };
 
-export const TestResultItem: React.FC<Props> = ({
+export const TestResultItem = ({
   data,
   resetSelectedItem,
   hideTop = false,
-}) => {
+}: TestResultItemProps) => {
   const [chartData, setChartData] = useState<ChartData | null>(null);
 
   useEffect(() => {
