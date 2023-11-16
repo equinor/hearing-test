@@ -149,6 +149,7 @@ export default class PreTestScreen extends Component {
     if (view.title === "Skann") {
       return (
         <BarCodeScannerScreen
+          navigation={this.props.navigation}
           onBarcodeMatch={() => this.nextPage(2)}
           onBarcodeMismatch={() => this.nextPage()}
         />
