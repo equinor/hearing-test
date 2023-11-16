@@ -13,9 +13,9 @@ import { fetchMe } from "../services/api/api-methods";
 import { RootStackScreenProps, User } from "../types";
 import { openURL } from "../utils/linking";
 
-type Props = RootStackScreenProps<"DefaultRoute">;
+type DefaultScreenProps = RootStackScreenProps<"DefaultRoute">;
 
-export const DefaultScreen = ({ navigation }: Props) => {
+export const DefaultScreen = ({ navigation }: DefaultScreenProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLocationModalVisible, setIsLocationModalVisible] = useState(false);
   const [isTestResultsModalVisible, setIsTestResultsModalVisible] =

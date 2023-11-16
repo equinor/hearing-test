@@ -18,13 +18,14 @@ import Typography from "../components/common/atoms/Typography";
 import ProgressAnimationBar from "../components/common/molecules/ProgressAnimationBar";
 import { EQUINOR_GREEN, GRAY_BACKGROUND } from "../constants/colors";
 import { SYSTEM_VOLUME } from "../constants/sounds";
-import { SoundCheckPageJSON } from "../types";
+import { RootStackScreenProps, SoundCheckPageJSON } from "../types";
 import { confirmationDialog } from "../utils/alerts";
 
 const ANIMATION_DURATION = 500;
 
-// TODO: prop types
-const SoundCheckScreen = (props: any) => {
+type SoundCheckScreenProps = RootStackScreenProps<"SoundCheckRoute">;
+
+const SoundCheckScreen = ({ navigation }: SoundCheckScreenProps) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [sound, setSound] = useState<Sound>(null);
@@ -102,7 +103,7 @@ const SoundCheckScreen = (props: any) => {
 
   function nextPage() {
     if (currentPage + 1 === pages.length) {
-      props.navigation.navigate("SoundCheckFinishedRoute");
+      navigation.navigate("SoundCheckFinishedRoute");
       setCurrentPage(0);
     } else {
       Animated.timing(opacityAnim, {
@@ -180,7 +181,7 @@ const SoundCheckScreen = (props: any) => {
                 onPress={() =>
                   confirmationDialog(
                     "Avslutte?",
-                    () => props.navigation.navigate("DefaultRoute"),
+                    () => navigation.navigate("DefaultRoute"),
                     "Da må du begynne på nytt neste gang"
                   )
                 }

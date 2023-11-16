@@ -4,9 +4,14 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import thumbsUp from "../assets/images/thumbs-up.png";
 import Typography from "../components/common/atoms/Typography";
+import { RootStackScreenProps } from "../types";
 
-// TODO: prop type
-const SoundCheckFinishedScreen = (props: any) => {
+type SoundCheckFinishedScreenProps =
+  RootStackScreenProps<"SoundCheckFinishedRoute">;
+
+const SoundCheckFinishedScreen = ({
+  navigation,
+}: SoundCheckFinishedScreenProps) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={styles.container}>
@@ -17,7 +22,7 @@ const SoundCheckFinishedScreen = (props: any) => {
         <View style={styles.buttonGroup}>
           <Button
             title="Ta ny lydsjekk"
-            onPress={() => props.navigation.navigate("SoundCheckRoute")}
+            onPress={() => navigation.navigate("SoundCheckRoute")}
             variant="outlined"
             style={[
               styles.button,
@@ -28,7 +33,7 @@ const SoundCheckFinishedScreen = (props: any) => {
           />
           <Button
             title="Start testen"
-            onPress={() => props.navigation.navigate("TestRoute")}
+            onPress={() => navigation.navigate("TestRoute")}
             style={styles.button}
           />
         </View>
