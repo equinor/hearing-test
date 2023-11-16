@@ -1,3 +1,4 @@
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { Typography } from "mad-expo-core";
 import { useEffect, useState } from "react";
@@ -5,10 +6,11 @@ import { StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { IconButton } from "../components/common/EDS/IconButton";
-import { RootStackScreenProps } from "../types";
+import { RootStackParamList } from "../types";
 import { confirmationDialog } from "../utils/alerts";
 
-type BarCodeScannerScreenProps = RootStackScreenProps<"PreTestRoute"> & {
+type BarCodeScannerScreenProps = {
+  navigation: NativeStackNavigationProp<RootStackParamList, "PreTestRoute">;
   onBarcodeMatch: () => void;
   onBarcodeMismatch: () => void;
 };

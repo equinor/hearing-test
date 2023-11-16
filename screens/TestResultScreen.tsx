@@ -17,17 +17,17 @@ import {
 } from "../store/test/reducer";
 import { getUnsentTests } from "../store/unsent-tests/reducer";
 import {
-  TestResultButtonConfigurations,
   RootStackScreenProps,
   TestResult,
+  TestResultButtonConfigurations,
 } from "../types";
 
-interface Props extends RootStackScreenProps<"TestResultRoute"> {
+type TestResultScreenProps = RootStackScreenProps<"TestResultRoute"> & {
   actionPostTest: Function;
   isFetching: boolean;
   testResult: TestResult;
   unsentTests: any[];
-}
+};
 
 const TestResultScreen = ({
   actionPostTest,
@@ -35,7 +35,7 @@ const TestResultScreen = ({
   navigation,
   testResult,
   unsentTests,
-}: Props) => {
+}: TestResultScreenProps) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [resendCount, setResendCount] = useState(0);
 
