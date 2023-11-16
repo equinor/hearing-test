@@ -1,10 +1,10 @@
-import { useNavigation } from "@react-navigation/native";
 import { Image, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import thumbsUp from "../assets/images/thumbs-up.png";
 import ButtonEDS from "../components/common/EDS/Button";
 import Typography from "../components/common/atoms/Typography";
+import { RootStackScreenProps } from "../types";
 
 const styles = StyleSheet.create({
   component: {
@@ -15,9 +15,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const SoundCheckFinishedScreen = () => {
-  const navigation = useNavigation();
+type SoundCheckFinishedScreenProps =
+  RootStackScreenProps<"SoundCheckFinishedRoute">;
 
+const SoundCheckFinishedScreen = ({
+  navigation,
+}: SoundCheckFinishedScreenProps) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.component}>

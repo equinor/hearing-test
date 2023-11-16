@@ -1,5 +1,4 @@
 import { MaterialIcons as Icon } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
 import { useEffect, useRef, useState } from "react";
 import {
   Alert,
@@ -20,7 +19,7 @@ import Typography from "../components/common/atoms/Typography";
 import ProgressAnimationBar from "../components/common/molecules/ProgressAnimationBar";
 import { EQUINOR_GREEN, GRAY_BACKGROUND } from "../constants/colors";
 import { SYSTEM_VOLUME } from "../constants/sounds";
-import { SoundCheckPageJSON } from "../types";
+import { RootStackScreenProps, SoundCheckPageJSON } from "../types";
 import { confirmationDialog } from "../utils/alerts";
 
 const styles = StyleSheet.create({
@@ -33,11 +32,12 @@ const styles = StyleSheet.create({
 
 const ANIMATION_DURATION = 500;
 
-const SoundCheckScreen = () => {
+type SoundCheckScreenProps = RootStackScreenProps<"SoundCheckRoute">;
+
+const SoundCheckScreen = ({ navigation }: SoundCheckScreenProps) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [sound, setSound] = useState<Sound>(null);
-  const navigation = useNavigation();
   const opacityAnim = useRef(new Animated.Value(0)).current;
   const [initialSystemVolume, setInitialSystemVolume] = useState(SYSTEM_VOLUME);
 
