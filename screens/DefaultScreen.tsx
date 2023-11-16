@@ -10,10 +10,12 @@ import { TestCard } from "../components/common/molecules/TestCard";
 import TestResultsModal from "../components/common/molecules/TestResultsModal";
 import { MOSS_GREEN_100 } from "../constants/colors";
 import { fetchMe } from "../services/api/api-methods";
-import { User } from "../types";
+import { RootStackScreenProps, User } from "../types";
 import { openURL } from "../utils/linking";
 
-export const DefaultScreen = () => {
+type DefaultScreenProps = RootStackScreenProps<"DefaultRoute">;
+
+export const DefaultScreen = ({ navigation }: DefaultScreenProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLocationModalVisible, setIsLocationModalVisible] = useState(false);
   const [isTestResultsModalVisible, setIsTestResultsModalVisible] =
@@ -42,7 +44,7 @@ export const DefaultScreen = () => {
             style={styles.locationButton}
           />
         </View>
-        <TestCard isConnected={isConnected} />
+        <TestCard isConnected={isConnected} navigation={navigation} />
         {isConnected ? (
           <>
             <Typography

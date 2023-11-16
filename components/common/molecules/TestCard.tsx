@@ -1,10 +1,11 @@
-import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { View } from "react-native";
 import { connect, useSelector } from "react-redux";
 
 import { postTest } from "../../../store/test/actions";
 import { selectIsFetching } from "../../../store/test/reducer";
 import { getUnsentTests } from "../../../store/unsent-tests/reducer";
+import { RootStackParamList } from "../../../types";
 import ButtonEDS from "../EDS/Button";
 import Card from "../atoms/Card";
 import Typography from "../atoms/Typography";
@@ -23,15 +24,19 @@ type CardProps = {
   loading?: boolean;
 };
 
-type Props = {
+type TestCardProps = {
   actionPostTest: Function;
   isConnected: boolean | null;
+  navigation?: NativeStackNavigationProp<RootStackParamList, "DefaultRoute">;
 };
 
-const TestCardComponent = ({ actionPostTest, isConnected }: Props) => {
+const TestCardComponent = ({
+  actionPostTest,
+  isConnected,
+  navigation,
+}: TestCardProps) => {
   const isFetching = useSelector((state) => selectIsFetching(state));
   const unsentTests = useSelector((state) => getUnsentTests(state));
-  const navigation = useNavigation();
   const isMultipleUnsentTests = unsentTests.length > 1;
 
   const cards: Cards = {
@@ -40,7 +45,7 @@ const TestCardComponent = ({ actionPostTest, isConnected }: Props) => {
       description:
         "Husk å teste hørselen din regelmessig for at vi skal kunne kartlegge hørselshelsen din over tid.",
       buttonText: "Ta hørselstesten",
-      onPress: () => navigation.navigate("PreTestRoute"),
+      onPress: () => navigation?.navigate("PreTestRoute"),
     },
     offline: {
       title: "Ingen nettverk",
