@@ -21,9 +21,9 @@ import {
 import { CHART, ChartData, HEARING_THRESHOLD } from "../../../types";
 import { getDotSize } from "../../../utils/chart";
 
-type Props = { data: ChartData };
+type ChartProps = { data: ChartData };
 
-export const Chart: React.FC<Props> = ({ data }) => (
+export const Chart = ({ data }: ChartProps) => (
   <VictoryChart
     minDomain={{ x: CHART.HZ_MIN, y: CHART.DB_MIN }}
     maxDomain={{ x: CHART.HZ_MAX, y: CHART.DB_MAX }}
