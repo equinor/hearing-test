@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import { useEDS, EDSProvider } from "@equinor/mad-components";
+import { EDSProvider, useEDS } from "@equinor/mad-components";
 import { StatusBar } from "expo-status-bar";
 import { ServiceMessage } from "mad-expo-core";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -21,13 +21,13 @@ export default function App() {
     return (
       <Provider store={store}>
         <SafeAreaProvider>
+          <ServiceMessage
+            serviceName="HearingTest"
+            environment={getEnvironment()}
+            languageCode="no"
+          />
+          <EnvironmentBanner />
           <EDSProvider colorScheme="light" density="phone">
-            <ServiceMessage
-              serviceName="HearingTest"
-              environment={getEnvironment()}
-              languageCode="no"
-            />
-            <EnvironmentBanner />
             <Navigation colorScheme="light" />
             <StatusBar style="dark" />
           </EDSProvider>
