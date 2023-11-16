@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import { Image, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -14,8 +15,9 @@ const styles = StyleSheet.create({
   },
 });
 
-// TODO: prop type
-const SoundCheckFinishedScreen = (props: any) => {
+const SoundCheckFinishedScreen = () => {
+  const navigation = useNavigation();
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.component}>
@@ -46,11 +48,11 @@ const SoundCheckFinishedScreen = (props: any) => {
           >
             <ButtonEDS
               text="Start testen"
-              onPress={() => props.navigation.navigate("TestRoute")}
+              onPress={() => navigation.navigate("TestRoute")}
             />
             <ButtonEDS
               text="Ta ny lydsjekk"
-              onPress={() => props.navigation.navigate("SoundCheckRoute")}
+              onPress={() => navigation.navigate("SoundCheckRoute")}
               outlined
             />
           </View>

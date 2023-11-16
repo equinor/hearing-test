@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { Typography } from "mad-expo-core";
 import { useEffect, useState } from "react";
@@ -5,21 +6,20 @@ import { StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { IconButton } from "../components/common/EDS/IconButton";
-import { RootStackScreenProps } from "../types";
 import { confirmationDialog } from "../utils/alerts";
 
-type Props = RootStackScreenProps<"PreTestRoute"> & {
+type Props = {
   onBarcodeMatch: () => void;
   onBarcodeMismatch: () => void;
 };
 
 export const BarCodeScannerScreen: React.FC<Props> = ({
-  navigation,
   onBarcodeMatch,
   onBarcodeMismatch,
 }) => {
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [scanned, setScanned] = useState(false);
+  const navigation = useNavigation();
   const insets = useSafeAreaInsets();
 
   useEffect(() => {

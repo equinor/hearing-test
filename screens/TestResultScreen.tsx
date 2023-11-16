@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { Image, Modal, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -16,13 +17,9 @@ import {
   selectTestResult,
 } from "../store/test/reducer";
 import { getUnsentTests } from "../store/unsent-tests/reducer";
-import {
-  TestResultButtonConfigurations,
-  RootStackScreenProps,
-  TestResult,
-} from "../types";
+import { TestResult, TestResultButtonConfigurations } from "../types";
 
-interface Props extends RootStackScreenProps<"TestResultRoute"> {
+interface Props {
   actionPostTest: Function;
   isFetching: boolean;
   testResult: TestResult;
@@ -32,12 +29,12 @@ interface Props extends RootStackScreenProps<"TestResultRoute"> {
 const TestResultScreen = ({
   actionPostTest,
   isFetching,
-  navigation,
   testResult,
   unsentTests,
 }: Props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [resendCount, setResendCount] = useState(0);
+  const navigation = useNavigation();
 
   const buttons: TestResultButtonConfigurations = {
     seeResult: {

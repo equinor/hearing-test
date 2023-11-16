@@ -1,10 +1,10 @@
+import { useNavigation } from "@react-navigation/native";
 import { View } from "react-native";
 import { connect, useSelector } from "react-redux";
 
 import { postTest } from "../../../store/test/actions";
 import { selectIsFetching } from "../../../store/test/reducer";
 import { getUnsentTests } from "../../../store/unsent-tests/reducer";
-import { RootStackScreenProps } from "../../../types";
 import ButtonEDS from "../EDS/Button";
 import Card from "../atoms/Card";
 import Typography from "../atoms/Typography";
@@ -23,18 +23,15 @@ type CardProps = {
   loading?: boolean;
 };
 
-type Props = RootStackScreenProps<"DefaultRoute"> & {
+type Props = {
   actionPostTest: Function;
   isConnected: boolean | null;
 };
 
-const TestCardComponent = ({
-  actionPostTest,
-  isConnected,
-  navigation,
-}: Props) => {
+const TestCardComponent = ({ actionPostTest, isConnected }: Props) => {
   const isFetching = useSelector((state) => selectIsFetching(state));
   const unsentTests = useSelector((state) => getUnsentTests(state));
+  const navigation = useNavigation();
   const isMultipleUnsentTests = unsentTests.length > 1;
 
   const cards: Cards = {

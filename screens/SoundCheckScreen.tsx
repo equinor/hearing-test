@@ -1,4 +1,5 @@
 import { MaterialIcons as Icon } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import { useEffect, useRef, useState } from "react";
 import {
   Alert,
@@ -32,11 +33,11 @@ const styles = StyleSheet.create({
 
 const ANIMATION_DURATION = 500;
 
-// TODO: prop types
-const SoundCheckScreen = (props: any) => {
+const SoundCheckScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [sound, setSound] = useState<Sound>(null);
+  const navigation = useNavigation();
   const opacityAnim = useRef(new Animated.Value(0)).current;
   const [initialSystemVolume, setInitialSystemVolume] = useState(SYSTEM_VOLUME);
 
@@ -111,7 +112,7 @@ const SoundCheckScreen = (props: any) => {
 
   function nextPage() {
     if (currentPage + 1 === pages.length) {
-      props.navigation.navigate("SoundCheckFinishedRoute");
+      navigation.navigate("SoundCheckFinishedRoute");
       setCurrentPage(0);
     } else {
       Animated.timing(opacityAnim, {
@@ -189,7 +190,7 @@ const SoundCheckScreen = (props: any) => {
                 onPress={() =>
                   confirmationDialog(
                     "Avslutte?",
-                    () => props.navigation.navigate("DefaultRoute"),
+                    () => navigation.navigate("DefaultRoute"),
                     "Da må du begynne på nytt neste gang"
                   )
                 }
