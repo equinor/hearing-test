@@ -11,13 +11,13 @@ import {
 import { MOSS_GREEN_100, MOSS_GREEN_13 } from "../../../constants/colors";
 import { MaterialIconName } from "../../../types";
 
-type Props = {
+type IconButtonProps = {
   icon: MaterialIconName;
   onPress: (event: GestureResponderEvent) => void;
   style?: StyleProp<ViewStyle>;
 };
 
-export const IconButton: React.FC<Props> = ({ icon, onPress, style }) => {
+export const IconButton = ({ icon, onPress, style }: IconButtonProps) => {
   const [activeTouch, setActiveTouch] = useState(false);
 
   return (

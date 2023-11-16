@@ -8,15 +8,15 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { IconButton } from "../components/common/EDS/IconButton";
 import { confirmationDialog } from "../utils/alerts";
 
-type Props = {
+type BarCodeScannerScreenProps = {
   onBarcodeMatch: () => void;
   onBarcodeMismatch: () => void;
 };
 
-export const BarCodeScannerScreen: React.FC<Props> = ({
+export const BarCodeScannerScreen = ({
   onBarcodeMatch,
   onBarcodeMismatch,
-}) => {
+}: BarCodeScannerScreenProps) => {
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [scanned, setScanned] = useState(false);
   const navigation = useNavigation();

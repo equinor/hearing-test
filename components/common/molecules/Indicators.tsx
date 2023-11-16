@@ -2,12 +2,12 @@ import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 
 import { MOSS_GREEN_100 } from "../../../constants/colors";
 
-type Props = {
+type IndicatorsProps = {
   iterable: any[];
   style?: StyleProp<ViewStyle>;
 };
 
-export const Indicators: React.FC<Props> = ({ iterable = [], style }) => (
+export const Indicators = ({ iterable = [], style }: IndicatorsProps) => (
   <View style={[styles.container, style]}>
     {iterable.map(({ current, hideIndicator }, index) => {
       if (hideIndicator) {
