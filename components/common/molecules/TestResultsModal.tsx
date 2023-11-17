@@ -60,10 +60,7 @@ const TestResultsModal = (props: {
         />
       </View>
       {selectedItem ? (
-        <TestResultItem
-          data={selectedItem}
-          resetSelectedItem={() => setSelectedItem(null)}
-        />
+        <TestResultItem data={selectedItem} />
       ) : (
         <TestLogScreen
           setSelectedItem={(d: TestResult) => setSelectedItem(d)}

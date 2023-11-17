@@ -152,11 +152,7 @@ const TestResultScreen = ({
             variant="ghost"
           />
         </View>
-        <TestResultItem
-          data={testResult}
-          resetSelectedItem={() => {}}
-          hideTop
-        />
+        <TestResultItem data={testResult} showDate={false} />
       </Modal>
     </SafeAreaView>
   );
