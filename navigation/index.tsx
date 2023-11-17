@@ -6,12 +6,18 @@
 
 import { MaterialIcons as Icon } from "@expo/vector-icons";
 import {
-  NavigationContainer,
-  DefaultTheme,
   DarkTheme,
+  DefaultTheme,
+  NavigationContainer,
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { LoginScreen, ReleaseNoteScreen, SettingsScreen } from "mad-expo-core";
+import * as Localization from "expo-localization";
+import {
+  CreateIncidentScreen,
+  LoginScreen,
+  ReleaseNoteScreen,
+  SettingsScreen,
+} from "mad-expo-core";
 import { ColorSchemeName, TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
 
@@ -21,10 +27,13 @@ import appJson from "../app.json";
 import logo from "../assets/images/logo.png";
 import { settingsScreenConfig } from "../configs/SettingsScreenConfig";
 import { EQUINOR_GREEN } from "../constants/colors";
-import { getEnvironment, getScopes } from "../constants/settings";
+import {
+  getApiBaseUrl,
+  getEnvironment,
+  getScopes,
+} from "../constants/settings";
 import { AboutScreen } from "../screens/AboutScreen";
 import { DefaultScreen } from "../screens/DefaultScreen";
-import FeedbackScreen from "../screens/FeedbackScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import PreTestScreen from "../screens/PreTestScreen";
 import SoundCheckFinishedScreen from "../screens/SoundCheckFinishedScreen";
@@ -107,9 +116,8 @@ function RootNavigator() {
             environment={getEnvironment()}
             scopes={getScopes("mad")}
             navigation={navigation}
-            versionStorageKey="version"
             redirectRoute="DefaultRoute"
-            demoMode={getIsDemoMode()}
+            isDemoMode={getIsDemoMode()}
           />
         )}
         options={{ gestureEnabled: false, headerShown: false }}
@@ -183,7 +191,16 @@ function RootNavigator() {
         />
         <Stack.Screen
           name="FeedbackRoute"
-          component={withUtilities(FeedbackScreen)}
+          children={() => (
+            <CreateIncidentScreen
+              locale={Localization.locale}
+              timezone={Localization.timezone}
+              scopes={getScopes("mad")}
+              apiBaseUrl={getApiBaseUrl("mad")}
+              product="HØRSELSAPP"
+              languageCode="no"
+            />
+          )}
           options={{
             title: "Tilbakemelding",
           }}
