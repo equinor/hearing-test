@@ -1,6 +1,5 @@
 import { Button } from "@equinor/mad-components";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { View } from "react-native";
 import { connect, useSelector } from "react-redux";
 
 import { postTest } from "../../../store/test/actions";
@@ -82,13 +81,12 @@ const TestCardComponent = ({
         {card.description}
       </Typography>
       {card.buttonText && card.onPress ? (
-        <View style={{ width: 160 }}>
-          <Button
-            title={card.buttonText}
-            onPress={card.onPress}
-            loading={card.loading}
-          />
-        </View>
+        <Button
+          title={card.buttonText}
+          onPress={card.onPress}
+          loading={card.loading}
+          style={{ width: 160 }}
+        />
       ) : null}
     </Card>
   );
