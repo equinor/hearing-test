@@ -44,23 +44,26 @@ export const BarCodeScannerScreen = ({
 
   return (
     <View style={styles.container}>
-      <Button.Icon
-        name="close"
-        onPress={() =>
-          confirmationDialog(
-            "Avslutte?",
-            () => navigation.navigate("DefaultRoute"),
-            "Da må du begynne på nytt neste gang"
-          )
-        }
-        variant="ghost"
+      <View
         style={[
           styles.closeButton,
           {
             marginTop: insets.top + 24,
           },
         ]}
-      />
+      >
+        <Button.Icon
+          name="close"
+          onPress={() =>
+            confirmationDialog(
+              "Avslutte?",
+              () => navigation.navigate("DefaultRoute"),
+              "Da må du begynne på nytt neste gang"
+            )
+          }
+          variant="ghost"
+        />
+      </View>
       {hasPermission ? (
         <BarCodeScanner
           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
