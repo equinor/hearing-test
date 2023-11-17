@@ -4,6 +4,7 @@ import { Image, Modal, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { connect } from "react-redux";
 
+import { ButtonGroup } from "../components/common/atoms/ButtonGroup";
 import { ErrorBanner } from "../components/common/atoms/ErrorBanner";
 import Typography from "../components/common/atoms/Typography";
 import { TestResultItem } from "../components/common/molecules/TestResultItem";
@@ -101,18 +102,11 @@ const TestResultScreen = ({
             {page.description}
           </Typography>
         </View>
-        <View>
-          {page.buttons.map((props, index) => (
-            <Button
-              key={props.title}
-              {...props}
-              loading={isFetching}
-              style={{
-                marginTop: index === 0 ? 0 : 12,
-              }}
-            />
+        <ButtonGroup>
+          {page.buttons.map((props) => (
+            <Button key={props.title} {...props} loading={isFetching} />
           ))}
-        </View>
+        </ButtonGroup>
       </View>
       <Modal
         animationType="slide"

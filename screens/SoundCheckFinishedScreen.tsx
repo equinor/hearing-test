@@ -3,6 +3,7 @@ import { Image, ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import thumbsUp from "../assets/images/thumbs-up.png";
+import { ButtonGroup } from "../components/common/atoms/ButtonGroup";
 import Typography from "../components/common/atoms/Typography";
 import { RootStackScreenProps } from "../types";
 
@@ -19,24 +20,19 @@ const SoundCheckFinishedScreen = ({
         <Typography variant="p" numberOfLines={4} style={styles.text}>
           Bra! Du er klar for å ta hørselstesten.
         </Typography>
-        <View style={styles.buttonGroup}>
+        <ButtonGroup>
           <Button
             title="Ta ny lydsjekk"
             onPress={() => navigation.navigate("SoundCheckRoute")}
             variant="outlined"
-            style={[
-              styles.button,
-              {
-                marginBottom: 16,
-              },
-            ]}
+            style={styles.button}
           />
           <Button
             title="Start testen"
             onPress={() => navigation.navigate("TestRoute")}
             style={styles.button}
           />
-        </View>
+        </ButtonGroup>
       </ScrollView>
     </SafeAreaView>
   );
@@ -57,10 +53,6 @@ const styles = StyleSheet.create({
   text: {
     textAlign: "center",
     height: 18 * 4,
-  },
-  buttonGroup: {
-    flex: 1,
-    justifyContent: "flex-end",
   },
   button: { width: 160 },
 });
