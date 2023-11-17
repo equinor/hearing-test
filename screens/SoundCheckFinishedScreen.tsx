@@ -1,11 +1,30 @@
 import { Button } from "@equinor/mad-components";
-import { Image, ScrollView, StyleSheet, View } from "react-native";
+import { Image, ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import thumbsUp from "../assets/images/thumbs-up.png";
 import { ButtonGroup } from "../components/common/atoms/ButtonGroup";
 import Typography from "../components/common/atoms/Typography";
 import { RootStackScreenProps } from "../types";
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 24,
+    paddingTop: 80,
+    alignItems: "center",
+  },
+  image: {
+    height: 250,
+    resizeMode: "contain",
+    marginBottom: 32,
+  },
+  text: {
+    textAlign: "center",
+    height: 18 * 4,
+  },
+  button: { width: 160 },
+});
 
 type SoundCheckFinishedScreenProps =
   RootStackScreenProps<"SoundCheckFinishedRoute">;
@@ -37,24 +56,5 @@ const SoundCheckFinishedScreen = ({
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24,
-    paddingTop: 80,
-    alignItems: "center",
-  },
-  image: {
-    height: 250,
-    resizeMode: "contain",
-    marginBottom: 32,
-  },
-  text: {
-    textAlign: "center",
-    height: 18 * 4,
-  },
-  button: { width: 160 },
-});
 
 export default SoundCheckFinishedScreen;
