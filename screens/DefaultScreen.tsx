@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   },
   locationButton: {
     position: "relative",
-    left: -8,
+    left: -4,
     marginBottom: 4,
   },
   overview: { marginTop: 32, marginBottom: 16, marginHorizontal: 4 },

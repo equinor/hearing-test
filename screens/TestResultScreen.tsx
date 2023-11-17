@@ -75,7 +75,7 @@ const TestResultScreen = ({
           padding: 16,
         }}
       >
-        <View style={{ width: 48, height: 48 }} />
+        <View style={{ width: 40, height: 40 }} />
         <Typography variant="h1">{page.title}</Typography>
         <Button.Icon
           name="close"
@@ -144,7 +144,7 @@ const TestResultScreen = ({
             elevation: 5,
           }}
         >
-          <View style={{ width: 48, height: 48 }} />
+          <View style={{ width: 40, height: 40 }} />
           <Typography variant="h1">Resultater</Typography>
           <Button.Icon
             name="close"

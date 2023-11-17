@@ -402,7 +402,7 @@ class TestScreen extends Component {
               marginBottom: 40,
             }}
           >
-            <View style={{ width: 48, height: 48 }} />
+            <View style={{ width: 40, height: 40 }} />
             <Typography variant="h1">Hørselstest</Typography>
             {this.props.testIsRunning ? (
               <Button.Icon
@@ -413,7 +413,7 @@ class TestScreen extends Component {
                 variant="ghost"
               />
             ) : (
-              <View style={{ width: 48, height: 48 }} />
+              <View style={{ width: 40, height: 40 }} />
             )}
           </View>
           <View

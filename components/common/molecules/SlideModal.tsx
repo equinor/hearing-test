@@ -39,7 +39,7 @@ export const SlideModal = (props: {
         elevation: 5,
       }}
     >
-      <View style={{ height: 48, width: 48 }} />
+      <View style={{ height: 40, width: 40 }} />
       <Typography variant="h1">{props.title}</Typography>
       <Button.Icon name="close" onPress={props.setInvisible} variant="ghost" />
     </View>
