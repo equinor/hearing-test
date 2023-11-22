@@ -1,18 +1,29 @@
-import { Image, StyleSheet, View } from "react-native";
+import { Button } from "@equinor/mad-components";
+import { Image, ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import thumbsUp from "../assets/images/thumbs-up.png";
-import ButtonEDS from "../components/common/EDS/Button";
+import { ButtonGroup } from "../components/common/atoms/ButtonGroup";
 import Typography from "../components/common/atoms/Typography";
 import { RootStackScreenProps } from "../types";
 
 const styles = StyleSheet.create({
-  component: {
-    display: "flex",
+  container: {
     flex: 1,
-    padding: 54,
+    padding: 24,
     paddingTop: 80,
+    alignItems: "center",
   },
+  image: {
+    height: 250,
+    resizeMode: "contain",
+    marginBottom: 32,
+  },
+  text: {
+    textAlign: "center",
+    height: 18 * 4,
+  },
+  button: { width: 160 },
 });
 
 type SoundCheckFinishedScreenProps =
@@ -23,44 +34,25 @@ const SoundCheckFinishedScreen = ({
 }: SoundCheckFinishedScreenProps) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View style={styles.component}>
-        <View style={{ display: "flex", height: "100%" }}>
-          <View style={{ alignItems: "center" }}>
-            <Image
-              source={thumbsUp}
-              style={{ height: 250, resizeMode: "contain" }}
-            />
-          </View>
-          <View style={{ marginTop: 32 }}>
-            <Typography
-              variant="p"
-              style={{ textAlign: "center", height: 18 * 4 }}
-              numberOfLines={4}
-            >
-              Bra! Du er klar for å ta hørselstesten.
-            </Typography>
-          </View>
-          <View
-            style={{
-              display: "flex",
-              flex: 1,
-              flexDirection: "column-reverse",
-              justifyContent: "flex-start",
-              paddingBottom: 32,
-            }}
-          >
-            <ButtonEDS
-              text="Start testen"
-              onPress={() => navigation.navigate("TestRoute")}
-            />
-            <ButtonEDS
-              text="Ta ny lydsjekk"
-              onPress={() => navigation.navigate("SoundCheckRoute")}
-              outlined
-            />
-          </View>
-        </View>
-      </View>
+      <ScrollView contentContainerStyle={styles.container}>
+        <Image source={thumbsUp} style={styles.image} />
+        <Typography variant="p" numberOfLines={4} style={styles.text}>
+          Bra! Du er klar for å ta hørselstesten.
+        </Typography>
+        <ButtonGroup>
+          <Button
+            title="Ta ny lydsjekk"
+            onPress={() => navigation.navigate("SoundCheckRoute")}
+            variant="outlined"
+            style={styles.button}
+          />
+          <Button
+            title="Start testen"
+            onPress={() => navigation.navigate("TestRoute")}
+            style={styles.button}
+          />
+        </ButtonGroup>
+      </ScrollView>
     </SafeAreaView>
   );
 };

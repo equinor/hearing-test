@@ -1,3 +1,5 @@
+import "react-native-gesture-handler";
+import { EDSProvider, useEDS } from "@equinor/mad-components";
 import { StatusBar } from "expo-status-bar";
 import { ServiceMessage } from "mad-expo-core";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -11,8 +13,9 @@ import { EnvironmentBanner } from "./utils/EnvironmentBanner";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
+  const [hasLoadedEds] = useEDS();
 
-  if (!isLoadingComplete) {
+  if (!isLoadingComplete || !hasLoadedEds) {
     return null;
   } else {
     return (
@@ -24,8 +27,10 @@ export default function App() {
             languageCode="no"
           />
           <EnvironmentBanner />
-          <Navigation colorScheme="light" />
-          <StatusBar style="dark" />
+          <EDSProvider colorScheme="light" density="phone">
+            <Navigation colorScheme="light" />
+            <StatusBar style="dark" />
+          </EDSProvider>
         </SafeAreaProvider>
       </Provider>
     );

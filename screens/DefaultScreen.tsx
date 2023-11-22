@@ -1,9 +1,9 @@
+import { Button } from "@equinor/mad-components";
 import { useNetInfo } from "@react-native-community/netinfo";
 import { Typography } from "mad-expo-core";
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 
-import { IconButton } from "../components/common/EDS/IconButton";
 import NavigationItem from "../components/common/atoms/NavigationItem";
 import { SlideModal } from "../components/common/molecules/SlideModal";
 import { TestCard } from "../components/common/molecules/TestCard";
@@ -38,9 +38,10 @@ export const DefaultScreen = ({ navigation }: DefaultScreenProps) => {
           <Typography variant="h5" color={MOSS_GREEN_100}>
             Din lokasjon er {user ? user.location : "ukjent"}
           </Typography>
-          <IconButton
-            icon="help"
+          <Button.Icon
+            name="help-circle"
             onPress={() => setIsLocationModalVisible(true)}
+            variant="ghost"
             style={styles.locationButton}
           />
         </View>
@@ -104,7 +105,7 @@ const styles = StyleSheet.create({
   },
   locationButton: {
     position: "relative",
-    left: -8,
+    left: -4,
     marginBottom: 4,
   },
   overview: { marginTop: 32, marginBottom: 16, marginHorizontal: 4 },

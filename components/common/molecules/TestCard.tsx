@@ -1,12 +1,11 @@
+import { Button } from "@equinor/mad-components";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { View } from "react-native";
 import { connect, useSelector } from "react-redux";
 
 import { postTest } from "../../../store/test/actions";
 import { selectIsFetching } from "../../../store/test/reducer";
 import { getUnsentTests } from "../../../store/unsent-tests/reducer";
 import { RootStackParamList } from "../../../types";
-import ButtonEDS from "../EDS/Button";
 import Card from "../atoms/Card";
 import Typography from "../atoms/Typography";
 
@@ -82,13 +81,12 @@ const TestCardComponent = ({
         {card.description}
       </Typography>
       {card.buttonText && card.onPress ? (
-        <View style={{ width: 160 }}>
-          <ButtonEDS
-            text={card.buttonText}
-            onPress={card.onPress}
-            loading={card.loading}
-          />
-        </View>
+        <Button
+          title={card.buttonText}
+          onPress={card.onPress}
+          loading={card.loading}
+          style={{ width: 160 }}
+        />
       ) : null}
     </Card>
   );

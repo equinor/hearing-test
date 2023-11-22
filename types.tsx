@@ -3,11 +3,10 @@
  * https://reactnavigation.org/docs/typescript/
  */
 
+import { ButtonProps } from "@equinor/mad-components";
 import { MaterialIcons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { ImageSourcePropType } from "react-native";
-
-import { ButtonProps } from "./components/common/EDS/Button";
 
 declare global {
   namespace ReactNavigation {

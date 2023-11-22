@@ -1,3 +1,4 @@
+import { Button } from "@equinor/mad-components";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { Typography } from "mad-expo-core";
@@ -5,7 +6,6 @@ import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { IconButton } from "../components/common/EDS/IconButton";
 import { RootStackParamList } from "../types";
 import { confirmationDialog } from "../utils/alerts";
 
@@ -44,22 +44,26 @@ export const BarCodeScannerScreen = ({
 
   return (
     <View style={styles.container}>
-      <IconButton
-        icon="close"
-        onPress={() =>
-          confirmationDialog(
-            "Avslutte?",
-            () => navigation.navigate("DefaultRoute"),
-            "Da må du begynne på nytt neste gang"
-          )
-        }
+      <View
         style={[
           styles.closeButton,
           {
             marginTop: insets.top + 24,
           },
         ]}
-      />
+      >
+        <Button.Icon
+          name="close"
+          onPress={() =>
+            confirmationDialog(
+              "Avslutte?",
+              () => navigation.navigate("DefaultRoute"),
+              "Da må du begynne på nytt neste gang"
+            )
+          }
+          variant="ghost"
+        />
+      </View>
       {hasPermission ? (
         <BarCodeScanner
           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}

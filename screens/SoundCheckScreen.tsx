@@ -1,3 +1,4 @@
+import { Button } from "@equinor/mad-components";
 import { MaterialIcons as Icon } from "@expo/vector-icons";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -12,8 +13,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Sound from "react-native-sound";
 import SystemSetting from "react-native-system-setting";
 
-import ButtonEDS from "../components/common/EDS/Button";
-import { IconButton } from "../components/common/EDS/IconButton";
 import BigRoundButton from "../components/common/atoms/BigRoundButton";
 import Typography from "../components/common/atoms/Typography";
 import ProgressAnimationBar from "../components/common/molecules/ProgressAnimationBar";
@@ -28,6 +27,7 @@ const styles = StyleSheet.create({
     padding: 16,
     paddingBottom: 60,
   },
+  button: { width: 160 },
 });
 
 const ANIMATION_DURATION = 500;
@@ -183,10 +183,10 @@ const SoundCheckScreen = ({ navigation }: SoundCheckScreenProps) => {
                 marginBottom: 40,
               }}
             >
-              <View style={{ width: 48, height: 48 }} />
+              <View style={{ height: 40, width: 40 }} />
               <Typography variant="h1">{page.title}</Typography>
-              <IconButton
-                icon="close"
+              <Button.Icon
+                name="close"
                 onPress={() =>
                   confirmationDialog(
                     "Avslutte?",
@@ -194,6 +194,7 @@ const SoundCheckScreen = ({ navigation }: SoundCheckScreenProps) => {
                     "Da må du begynne på nytt neste gang"
                   )
                 }
+                variant="ghost"
               />
             </View>
             <View
@@ -220,9 +221,10 @@ const SoundCheckScreen = ({ navigation }: SoundCheckScreenProps) => {
                 />
               )}
               {page.hearNoSoundButtonVisible ? (
-                <ButtonEDS
-                  text="hører ingen lyd"
+                <Button
+                  title="hører ingen lyd"
                   onPress={() => setModalVisible(true)}
+                  style={styles.button}
                 />
               ) : (
                 <View style={{ height: 58 }} />
@@ -261,12 +263,13 @@ const SoundCheckScreen = ({ navigation }: SoundCheckScreenProps) => {
                       telefonen.
                     </Typography>
                   </View>
-                  <ButtonEDS
+                  <Button
+                    title="Prøv på ny"
                     onPress={() => {
                       setModalVisible(false);
                       setCurrentPage(0);
                     }}
-                    text="Prøv på ny"
+                    style={styles.button}
                   />
                 </ScrollView>
               </SafeAreaView>

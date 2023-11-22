@@ -1,8 +1,9 @@
+import { Button } from "@equinor/mad-components";
 import { cloneDeep } from "lodash";
 import { Typography } from "mad-expo-core";
 import PropTypes from "prop-types";
 import { Component } from "react";
-import { Image, ScrollView, StyleSheet } from "react-native";
+import { Image, ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { BarCodeScannerScreen } from "./BarCodeScannerScreen";
@@ -12,8 +13,7 @@ import scanner from "../assets/images/scanner.png";
 import sickMan from "../assets/images/sick-man.png";
 import thumbsDown from "../assets/images/thumbs-down.png";
 import thumbsUp from "../assets/images/thumbs-up.png";
-import ButtonEDS from "../components/common/EDS/Button";
-import { IconButton } from "../components/common/EDS/IconButton";
+import { ButtonGroup } from "../components/common/atoms/ButtonGroup";
 import { Indicators } from "../components/common/molecules/Indicators";
 import { MOSS_GREEN_100, TEXT } from "../constants/colors";
 import { confirmationDialog } from "../utils/alerts";
@@ -159,17 +159,19 @@ export default class PreTestScreen extends Component {
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={styles.contentContainer}>
-          <IconButton
-            icon="close"
-            onPress={() =>
-              confirmationDialog(
-                "Avslutte?",
-                () => this.props.navigation.navigate("DefaultRoute"),
-                "Da må du begynne på nytt neste gang"
-              )
-            }
-            style={styles.closeButton}
-          />
+          <View style={styles.closeButton}>
+            <Button.Icon
+              name="close"
+              onPress={() =>
+                confirmationDialog(
+                  "Avslutte?",
+                  () => this.props.navigation.navigate("DefaultRoute"),
+                  "Da må du begynne på nytt neste gang"
+                )
+              }
+              variant="ghost"
+            />
+          </View>
           <Typography variant="h1" color={MOSS_GREEN_100} style={styles.title}>
             {view.title}
           </Typography>
@@ -185,14 +187,17 @@ export default class PreTestScreen extends Component {
           >
             {view.content}
           </Typography>
-          {view.buttons.map(({ onPress, outlined, text }) => (
-            <ButtonEDS
-              key={text}
-              onPress={onPress}
-              outlined={outlined}
-              text={text}
-            />
-          ))}
+          <ButtonGroup>
+            {view.buttons.map(({ onPress, outlined, text }) => (
+              <Button
+                key={text}
+                title={text}
+                onPress={onPress}
+                variant={outlined ? "outlined" : "contained"}
+                style={styles.button}
+              />
+            ))}
+          </ButtonGroup>
         </ScrollView>
       </SafeAreaView>
     );
@@ -204,6 +209,7 @@ const styles = StyleSheet.create({
     padding: 24,
     alignItems: "center",
   },
+  button: { width: 160 },
   closeButton: { alignSelf: "flex-end", marginBottom: 16 },
   title: { textAlign: "center", marginBottom: 40 },
   image: { height: 250, resizeMode: "contain", alignSelf: "center" },

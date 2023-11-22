@@ -1,12 +1,12 @@
+import { Button } from "@equinor/mad-components";
 import { useState } from "react";
 import { Image, Modal, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { connect } from "react-redux";
 
-import { IconButton } from "../components/common/EDS/IconButton";
+import { ButtonGroup } from "../components/common/atoms/ButtonGroup";
 import { ErrorBanner } from "../components/common/atoms/ErrorBanner";
 import Typography from "../components/common/atoms/Typography";
-import { ButtonGroup } from "../components/common/molecules/ButtonGroup";
 import { TestResultItem } from "../components/common/molecules/TestResultItem";
 import { useTestResultPages } from "../hooks/useTestResultPages";
 import { postTest } from "../store/test/actions";
@@ -41,27 +41,20 @@ const TestResultScreen = ({
 
   const buttons: TestResultButtonConfigurations = {
     seeResult: {
-      outlined: false,
-      text: "Se resultat",
-      onPress: () => {
-        setModalVisible(true);
-      },
-      loading: isFetching,
+      title: "Se resultat",
+      onPress: () => setModalVisible(true),
     },
     newTest: {
-      outlined: false,
-      text: "Ta ny test",
+      title: "Ta ny test",
       onPress: () => navigation.navigate("TestRoute"),
-      loading: isFetching,
     },
     sendTest: {
-      outlined: resendCount > 0,
-      text: "Send",
+      title: "Send",
       onPress: () => {
         actionPostTest(unsentTests[0]);
         setResendCount((prevResendCount) => prevResendCount + 1);
       },
-      loading: isFetching,
+      variant: resendCount > 0 ? "outlined" : "contained",
     },
   };
 
@@ -83,11 +76,12 @@ const TestResultScreen = ({
           padding: 16,
         }}
       >
-        <View style={{ width: 48, height: 48 }} />
+        <View style={{ width: 40, height: 40 }} />
         <Typography variant="h1">{page.title}</Typography>
-        <IconButton
-          icon="close"
+        <Button.Icon
+          name="close"
           onPress={() => navigation.navigate("DefaultRoute")}
+          variant="ghost"
         />
       </View>
       <View style={styles.container}>
@@ -108,7 +102,11 @@ const TestResultScreen = ({
             {page.description}
           </Typography>
         </View>
-        <ButtonGroup buttons={page.buttons} />
+        <ButtonGroup>
+          {page.buttons.map((props) => (
+            <Button key={props.title} {...props} loading={isFetching} />
+          ))}
+        </ButtonGroup>
       </View>
       <Modal
         animationType="slide"
@@ -140,15 +138,15 @@ const TestResultScreen = ({
             elevation: 5,
           }}
         >
-          <View style={{ width: 48, height: 48 }} />
+          <View style={{ width: 40, height: 40 }} />
           <Typography variant="h1">Resultater</Typography>
-          <IconButton icon="close" onPress={() => setModalVisible(false)} />
+          <Button.Icon
+            name="close"
+            onPress={() => setModalVisible(false)}
+            variant="ghost"
+          />
         </View>
-        <TestResultItem
-          data={testResult}
-          resetSelectedItem={() => {}}
-          hideTop
-        />
+        <TestResultItem data={testResult} showDate={false} />
       </Modal>
     </SafeAreaView>
   );

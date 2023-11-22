@@ -1,3 +1,4 @@
+import { Button } from "@equinor/mad-components";
 import NetInfo from "@react-native-community/netinfo";
 import { Spinner } from "mad-expo-core";
 import PropTypes from "prop-types";
@@ -8,8 +9,6 @@ import Sound from "react-native-sound";
 import SystemSetting from "react-native-system-setting";
 import { connect } from "react-redux";
 
-import ButtonEDS from "../components/common/EDS/Button";
-import { IconButton } from "../components/common/EDS/IconButton";
 import BigRoundButton from "../components/common/atoms/BigRoundButton";
 import { MenuItem } from "../components/common/atoms/MenuItem";
 import ProgressBar from "../components/common/atoms/ProgressBar";
@@ -403,17 +402,18 @@ class TestScreen extends Component {
               marginBottom: 40,
             }}
           >
-            <View style={{ width: 48, height: 48 }} />
+            <View style={{ width: 40, height: 40 }} />
             <Typography variant="h1">Hørselstest</Typography>
             {this.props.testIsRunning ? (
-              <IconButton
-                icon={this.state.pauseAfterNode ? "hourglass-empty" : "pause"}
+              <Button.Icon
+                name={this.state.pauseAfterNode ? "timer-sand-empty" : "pause"}
                 onPress={() => {
                   this.setState({ pauseAfterNode: true });
                 }}
+                variant="ghost"
               />
             ) : (
-              <View style={{ width: 48, height: 48 }} />
+              <View style={{ width: 40, height: 40 }} />
             )}
           </View>
           <View
@@ -500,10 +500,9 @@ class TestScreen extends Component {
                       )
                     }
                   />
-                  <ButtonEDS
-                    text="Fortsette hørselstesten"
+                  <Button
+                    title="Fortsette hørselstesten"
                     onPress={() => this.setState({ modalVisible: false })}
-                    style={{ width: "100%", margin: 0 }}
                   />
                 </View>
               </View>

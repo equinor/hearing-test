@@ -7,19 +7,16 @@ import { MOSS_GREEN_100, TEXT } from "../../../constants/colors";
 import { ChartData, TestResult } from "../../../types";
 import { getChartData } from "../../../utils/chart";
 import { formatDate } from "../../../utils/date";
-import { IconButton } from "../EDS/IconButton";
 import { EarLabel } from "../atoms/EarLabel";
 
 type TestResultItemProps = {
   data: TestResult;
-  resetSelectedItem: () => void;
-  hideTop?: boolean;
+  showDate?: boolean;
 };
 
 export const TestResultItem = ({
   data,
-  resetSelectedItem,
-  hideTop = false,
+  showDate = true,
 }: TestResultItemProps) => {
   const [chartData, setChartData] = useState<ChartData | null>(null);
 
@@ -29,14 +26,10 @@ export const TestResultItem = ({
 
   return (
     <View style={styles.container}>
-      {hideTop ? null : (
-        <View style={styles.top}>
-          <IconButton icon="chevron-left" onPress={resetSelectedItem} />
-          <Typography variant="h5" color={MOSS_GREEN_100}>
-            {formatDate(data.dateTaken)}
-          </Typography>
-          <View style={{ width: 48, height: 48 }} />
-        </View>
+      {showDate && (
+        <Typography variant="h5" color={MOSS_GREEN_100} style={styles.date}>
+          {formatDate(data.dateTaken)}
+        </Typography>
       )}
       <ScrollView style={styles.content}>
         <Typography
@@ -64,13 +57,8 @@ export const TestResultItem = ({
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, paddingTop: 4, backgroundColor: "white" },
-  top: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 24,
-  },
+  container: { flex: 1, backgroundColor: "white" },
+  date: { textAlign: "center", marginVertical: 16 },
   content: {
     flex: 1,
     backgroundColor: "white",
