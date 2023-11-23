@@ -135,8 +135,8 @@ export const usePreTestPages = (
 
   const nextPage = (indexChange = 1) => {
     const currentIndex = getCurrentPageIndex();
-    if (currentIndex + indexChange < pages.length) {
-      const nextIndex = currentIndex + indexChange;
+    const nextIndex = currentIndex + indexChange;
+    if (nextIndex < pages.length) {
       setPages(
         pages.map((page, index) => {
           if (index === currentIndex) page.current = false;
