@@ -1,4 +1,4 @@
-import { Typography } from "mad-expo-core";
+import { Typography } from "@equinor/mad-components";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 
 import { LEFT_EAR, RIGHT_EAR } from "../../../constants/colors";
@@ -19,7 +19,7 @@ export const EarLabel = ({ ear, style }: EarLabelProps) => (
 );
 
 const styles = StyleSheet.create({
-  container: { flexDirection: "row" },
+  container: { flexDirection: "row", alignItems: "center" },
   circle: {
     height: 16,
     width: 16,

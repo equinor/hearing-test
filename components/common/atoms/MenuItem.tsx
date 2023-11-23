@@ -1,8 +1,8 @@
+import { Typography } from "@equinor/mad-components";
 import { MaterialIcons as Icon } from "@expo/vector-icons";
-import { Typography } from "mad-expo-core";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
-import { ICON, TEXT } from "../../../constants/colors";
+import { ICON } from "../../../constants/colors";
 import { MaterialIconName } from "../../../types";
 
 type Props = {
@@ -14,9 +14,7 @@ type Props = {
 export const MenuItem = ({ icon, text, onPress }: Props) => (
   <TouchableOpacity onPress={onPress} style={styles.container}>
     <Icon name={icon} size={24} color={ICON} style={{ marginRight: 20 }} />
-    <Typography color={TEXT} style={{ flex: 1 }}>
-      {text}
-    </Typography>
+    <Typography style={{ flex: 1 }}>{text}</Typography>
   </TouchableOpacity>
 );
 

@@ -1,4 +1,5 @@
-import { Text, TouchableOpacity } from "react-native";
+import { Typography } from "@equinor/mad-components";
+import { TouchableOpacity } from "react-native";
 
 const BigRoundButton = (props: {
   onPress: () => void;
@@ -38,9 +39,9 @@ const BigRoundButton = (props: {
             : backgroundColor,
       }}
     >
-      <Text style={{ color: disabled ? "#666666" : textColor, fontSize: 17 }}>
+      <Typography style={{ color: disabled ? "#666666" : textColor }}>
         {text}
-      </Text>
+      </Typography>
     </TouchableOpacity>
   );
 };

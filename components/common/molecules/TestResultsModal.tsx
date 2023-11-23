@@ -1,11 +1,10 @@
-import { Button } from "@equinor/mad-components";
+import { Button, Typography } from "@equinor/mad-components";
 import { useState } from "react";
 import { Modal, View } from "react-native";
 
 import { TestResultItem } from "./TestResultItem";
 import TestLogScreen from "../../../screens/TestLogScreen";
 import { TestResult } from "../../../types";
-import Typography from "../atoms/Typography";
 
 const TestResultsModal = (props: {
   visible: boolean;
@@ -49,7 +48,9 @@ const TestResultsModal = (props: {
           variant="ghost"
           disabled={!selectedItem}
         />
-        <Typography variant="h1">Dine resultater</Typography>
+        <Typography variant="h3" color="primary">
+          Dine resultater
+        </Typography>
         <Button.Icon
           name="close"
           onPress={() => {

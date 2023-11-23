@@ -1,10 +1,9 @@
-import { Button } from "@equinor/mad-components";
+import { Button, Typography } from "@equinor/mad-components";
 import { Image, ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import thumbsUp from "../assets/images/thumbs-up.png";
 import { ButtonGroup } from "../components/common/atoms/ButtonGroup";
-import Typography from "../components/common/atoms/Typography";
 import { RootStackScreenProps } from "../types";
 
 const styles = StyleSheet.create({
@@ -19,10 +18,6 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     marginBottom: 32,
   },
-  text: {
-    textAlign: "center",
-    height: 18 * 4,
-  },
   button: { width: 160 },
 });
 
@@ -36,9 +31,7 @@ const SoundCheckFinishedScreen = ({
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={styles.container}>
         <Image source={thumbsUp} style={styles.image} />
-        <Typography variant="p" numberOfLines={4} style={styles.text}>
-          Bra! Du er klar for å ta hørselstesten.
-        </Typography>
+        <Typography>Bra! Du er klar for å ta hørselstesten.</Typography>
         <ButtonGroup>
           <Button
             title="Ta ny lydsjekk"

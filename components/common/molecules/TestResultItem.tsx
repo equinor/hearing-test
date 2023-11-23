@@ -1,9 +1,8 @@
-import { Typography } from "mad-expo-core";
+import { Typography } from "@equinor/mad-components";
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 
 import { Chart } from "./Chart";
-import { MOSS_GREEN_100, TEXT } from "../../../constants/colors";
 import { ChartData, TestResult } from "../../../types";
 import { getChartData } from "../../../utils/chart";
 import { formatDate } from "../../../utils/date";
@@ -27,19 +26,12 @@ export const TestResultItem = ({
   return (
     <View style={styles.container}>
       {showDate && (
-        <Typography variant="h5" color={MOSS_GREEN_100} style={styles.date}>
+        <Typography variant="h5" color="primary" style={styles.date}>
           {formatDate(data.dateTaken)}
         </Typography>
       )}
       <ScrollView style={styles.content}>
-        <Typography
-          variant="p"
-          size={18}
-          color={TEXT}
-          style={{ marginLeft: 18 }}
-        >
-          {data.name}
-        </Typography>
+        <Typography style={{ marginLeft: 18 }}>{data.name}</Typography>
         <View style={{ alignItems: "center" }}>
           {chartData === null ? (
             <Typography>Mangler data for å vise resultat</Typography>
