@@ -1,14 +1,11 @@
 import { MaterialIcons as Icon } from "@expo/vector-icons";
 import { View } from "react-native";
 
-import Card from "./Card";
+import { Card } from "./Card";
 import Typography from "./Typography";
 import { EQUINOR_GREEN } from "../../../constants/colors";
 
-const NavigationItem = (props: {
-  title: string;
-  onPress?: CallableFunction;
-}) => {
+const NavigationItem = (props: { title: string; onPress?: () => void }) => {
   return (
     <Card onPress={props.onPress} style={{ height: 80 }}>
       <View
