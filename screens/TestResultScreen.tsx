@@ -1,13 +1,14 @@
 import { Button } from "@equinor/mad-components";
 import { useState } from "react";
-import { Image, Modal, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { connect } from "react-redux";
 
 import { ButtonGroup } from "../components/common/atoms/ButtonGroup";
 import { ErrorBanner } from "../components/common/atoms/ErrorBanner";
 import Typography from "../components/common/atoms/Typography";
-import { TestResultItem } from "../components/common/molecules/TestResultItem";
+import { SlideModal } from "../components/common/molecules/SlideModal";
+import { TestResultChart } from "../components/common/molecules/TestResultChart";
 import { useTestResultPages } from "../hooks/useTestResultPages";
 import { postTest } from "../store/test/actions";
 import {
@@ -108,46 +109,13 @@ const TestResultScreen = ({
           ))}
         </ButtonGroup>
       </View>
-      <Modal
-        animationType="slide"
-        presentationStyle="overFullScreen"
-        transparent
+      <SlideModal
+        setInvisible={() => setModalVisible(false)}
+        title="Resultater"
         visible={modalVisible}
-        onDismiss={() => setModalVisible(false)}
-        onRequestClose={() => setModalVisible(false)}
       >
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            paddingHorizontal: 24,
-            paddingVertical: 12,
-            borderBottomWidth: 1,
-            borderStyle: "solid",
-            borderColor: "#DCDCDC",
-            marginTop: 110,
-            backgroundColor: "white",
-            borderTopRightRadius: 12,
-            borderTopLeftRadius: 12,
-            shadowColor: "#000",
-            shadowOffset: { width: 2, height: 2 },
-            shadowOpacity: 0.3,
-            shadowRadius: 3,
-            elevation: 5,
-          }}
-        >
-          <View style={{ width: 40, height: 40 }} />
-          <Typography variant="h1">Resultater</Typography>
-          <Button.Icon
-            name="close"
-            onPress={() => setModalVisible(false)}
-            variant="ghost"
-          />
-        </View>
-        <TestResultItem data={testResult} showDate={false} />
-      </Modal>
+        <TestResultChart testResult={testResult} />
+      </SlideModal>
     </SafeAreaView>
   );
 };

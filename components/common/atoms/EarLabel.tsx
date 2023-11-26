@@ -19,7 +19,7 @@ export const EarLabel = ({ ear, style }: EarLabelProps) => (
 );
 
 const styles = StyleSheet.create({
-  container: { flexDirection: "row" },
+  container: { alignItems: "center", flexDirection: "row" },
   circle: {
     height: 16,
     width: 16,
