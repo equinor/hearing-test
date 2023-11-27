@@ -35,7 +35,7 @@ import {
 import { AboutScreen } from "../screens/AboutScreen";
 import { DefaultScreen } from "../screens/DefaultScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
-import PreTestScreen from "../screens/PreTestScreen";
+import { PreTestScreen } from "../screens/PreTestScreen";
 import SoundCheckFinishedScreen from "../screens/SoundCheckFinishedScreen";
 import SoundCheckScreen from "../screens/SoundCheckScreen";
 import TestResultScreen from "../screens/TestResultScreen";
