@@ -1,4 +1,4 @@
-import { Typography } from "mad-expo-core";
+import { Typography } from "@equinor/mad-components";
 import {
   SectionList,
   SectionListData,
@@ -27,7 +27,7 @@ export const AboutScreen = () => {
     section: SectionListData<SimpleItem, Section>;
   }) => (
     <View style={{ padding: 16 }}>
-      <Typography variant="h4">{section.key}</Typography>
+      <Typography variant="h4">{section.title}</Typography>
     </View>
   );
 

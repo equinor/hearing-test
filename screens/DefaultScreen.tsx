@@ -1,6 +1,5 @@
-import { Button } from "@equinor/mad-components";
+import { Button, Typography } from "@equinor/mad-components";
 import { useNetInfo } from "@react-native-community/netinfo";
-import { Typography } from "mad-expo-core";
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 
@@ -8,7 +7,6 @@ import NavigationItem from "../components/common/atoms/NavigationItem";
 import { SlideModal } from "../components/common/molecules/SlideModal";
 import { TestCard } from "../components/common/molecules/TestCard";
 import TestResultsModal from "../components/common/molecules/TestResultsModal";
-import { MOSS_GREEN_100 } from "../constants/colors";
 import { fetchMe } from "../services/api/api-methods";
 import { RootStackScreenProps, User } from "../types";
 import { openURL } from "../utils/linking";
@@ -31,11 +29,11 @@ export const DefaultScreen = ({ navigation }: DefaultScreenProps) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.content}>
-        <Typography variant="h2" color={MOSS_GREEN_100} style={styles.greeting}>
+        <Typography variant="h2" color="primary" style={styles.greeting}>
           Hei{user ? ` ${user.firstName}` : ""},
         </Typography>
         <View style={styles.location}>
-          <Typography variant="h5" color={MOSS_GREEN_100}>
+          <Typography variant="h5" color="primary">
             Din lokasjon er {user ? user.location : "ukjent"}
           </Typography>
           <Button.Icon
@@ -48,11 +46,7 @@ export const DefaultScreen = ({ navigation }: DefaultScreenProps) => {
         <TestCard isConnected={isConnected} navigation={navigation} />
         {isConnected ? (
           <>
-            <Typography
-              variant="h5"
-              color={MOSS_GREEN_100}
-              style={styles.overview}
-            >
+            <Typography variant="h5" color="primary" style={styles.overview}>
               Oversikt
             </Typography>
             {/* TODO: <NavigationItem title="Informasjon om testen" /> */}
@@ -95,7 +89,7 @@ const styles = StyleSheet.create({
   },
   greeting: {
     marginHorizontal: 4,
-    marginBottom: -10,
+    marginBottom: -6,
   },
   location: {
     flexDirection: "row",

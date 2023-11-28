@@ -1,4 +1,4 @@
-import { Button } from "@equinor/mad-components";
+import { Button, Typography } from "@equinor/mad-components";
 import { MaterialIcons as Icon } from "@expo/vector-icons";
 import { useEffect, useRef, useState } from "react";
 import { Animated, Modal, ScrollView, StyleSheet, View } from "react-native";
@@ -7,7 +7,6 @@ import Sound from "react-native-sound";
 import SystemSetting from "react-native-system-setting";
 
 import BigRoundButton from "../components/common/atoms/BigRoundButton";
-import Typography from "../components/common/atoms/Typography";
 import ProgressAnimationBar from "../components/common/molecules/ProgressAnimationBar";
 import { EQUINOR_GREEN, GRAY_BACKGROUND } from "../constants/colors";
 import { SYSTEM_VOLUME } from "../constants/sounds";
@@ -177,7 +176,9 @@ const SoundCheckScreen = ({ navigation }: SoundCheckScreenProps) => {
               }}
             >
               <View style={{ height: 40, width: 40 }} />
-              <Typography variant="h1">{page.title}</Typography>
+              <Typography variant="h2" color="primary">
+                {page.title}
+              </Typography>
               <Button.Icon
                 name="close"
                 onPress={() =>
@@ -198,9 +199,7 @@ const SoundCheckScreen = ({ navigation }: SoundCheckScreenProps) => {
                 flex: 1,
               }}
             >
-              <Typography variant="p" style={{ height: 18 * 3 }}>
-                {page.description}
-              </Typography>
+              <Typography>{page.description}</Typography>
               {page.button === "variant1" ? (
                 <BigRoundButton
                   variant="secondary"
@@ -244,10 +243,14 @@ const SoundCheckScreen = ({ navigation }: SoundCheckScreenProps) => {
                 >
                   <View />
                   <View>
-                    <Typography variant="h2" style={{ textAlign: "center" }}>
+                    <Typography
+                      variant="h4"
+                      color="primary"
+                      style={{ textAlign: "center" }}
+                    >
                       Hvis du ikke hører lyden
                     </Typography>
-                    <Typography variant="p" style={{ textAlign: "center" }}>
+                    <Typography style={{ textAlign: "center" }}>
                       Sjekk at telefonen ikke er i stillemodus. Trekk ut
                       headsettet og hør om lyden spilles gjennom høyttalerne til
                       telefonen.

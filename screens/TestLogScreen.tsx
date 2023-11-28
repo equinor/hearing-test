@@ -1,6 +1,7 @@
+import { Typography } from "@equinor/mad-components";
 import { Spinner } from "mad-expo-core";
 import { Component } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import { connect } from "react-redux";
 
 import NavigationItem from "../components/common/atoms/NavigationItem";
@@ -36,9 +37,9 @@ class TestLogScreen extends Component<{
     if (this.props.tests.length < 1)
       return (
         <View style={styles.component}>
-          <Text>
+          <Typography>
             Du har ikke fullført noen tester. Gå tilbake og ta en hørselstest.
-          </Text>
+          </Typography>
         </View>
       );
     return (

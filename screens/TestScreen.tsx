@@ -1,4 +1,4 @@
-import { Button } from "@equinor/mad-components";
+import { Button, Typography } from "@equinor/mad-components";
 import NetInfo from "@react-native-community/netinfo";
 import { Spinner } from "mad-expo-core";
 import PropTypes from "prop-types";
@@ -12,7 +12,6 @@ import { connect } from "react-redux";
 import BigRoundButton from "../components/common/atoms/BigRoundButton";
 import { MenuItem } from "../components/common/atoms/MenuItem";
 import ProgressBar from "../components/common/atoms/ProgressBar";
-import Typography from "../components/common/atoms/Typography";
 import { TestCard } from "../components/common/molecules/TestCard";
 import { getEnvironment } from "../constants/settings";
 import { SYSTEM_VOLUME } from "../constants/sounds";
@@ -423,7 +422,9 @@ class TestScreen extends Component {
               disabled={isProduction}
               style={{ opacity: isProduction ? 0 : 1 }}
             />
-            <Typography variant="h1">Hørselstest</Typography>
+            <Typography variant="h2" color="primary">
+              Hørselstest
+            </Typography>
             {this.props.testIsRunning ? (
               <Button.Icon
                 name={this.state.pauseAfterNode ? "timer-sand-empty" : "pause"}
@@ -445,7 +446,7 @@ class TestScreen extends Component {
               paddingBottom: 40,
             }}
           >
-            <Typography variant="p" style={{ height: 18 * 3 }}>
+            <Typography>
               {!this.props.testIsRunning
                 ? "Trykk på sirkelen under når du er klar for å starte hørselstesten."
                 : "Trykk på sirkelen under når du hører en lyd"}

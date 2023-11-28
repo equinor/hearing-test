@@ -1,6 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
-
-import * as Colors from "../../../constants/colors";
+import { Typography } from "@equinor/mad-components";
 
 export type SimpleItem = {
   label: string;
@@ -14,22 +12,8 @@ type SimpleInfoItemProps = {
 export const SimpleInfoItem = ({
   item: { label, text },
 }: SimpleInfoItemProps) => (
-  <View style={styles.container}>
-    <Text style={styles.label}>{label}</Text>
-    <Text style={styles.text}>{text}</Text>
-  </View>
+  <>
+    <Typography italic>{label}</Typography>
+    <Typography>{text}</Typography>
+  </>
 );
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  label: {
-    fontSize: 12,
-    fontStyle: "italic",
-  },
-  text: {
-    color: Colors.GRAY_1,
-    fontSize: 14,
-  },
-});

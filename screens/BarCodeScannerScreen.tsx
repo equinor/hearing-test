@@ -1,7 +1,6 @@
-import { Button } from "@equinor/mad-components";
+import { Button, Typography } from "@equinor/mad-components";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { BarCodeScanner } from "expo-barcode-scanner";
-import { Typography } from "mad-expo-core";
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";

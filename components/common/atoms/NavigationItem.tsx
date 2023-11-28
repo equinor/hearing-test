@@ -1,29 +1,32 @@
+import { Typography } from "@equinor/mad-components";
 import { MaterialIcons as Icon } from "@expo/vector-icons";
-import { View } from "react-native";
+import { StyleSheet } from "react-native";
 
 import { Card } from "./Card";
-import Typography from "./Typography";
 import { EQUINOR_GREEN } from "../../../constants/colors";
 
 const NavigationItem = (props: { title: string; onPress?: () => void }) => {
   return (
-    <Card onPress={props.onPress} style={{ height: 80 }}>
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
-      >
-        <Typography variant="h2" style={{ paddingTop: 10 }}>
-          {props.title}
-        </Typography>
-        <View style={{ paddingTop: 10, paddingRight: 16 }}>
-          <Icon size={24} color={EQUINOR_GREEN} name="chevron-right" />
-        </View>
-      </View>
+    <Card onPress={props.onPress} style={styles.container}>
+      <Typography color="primary">{props.title}</Typography>
+      <Icon
+        size={24}
+        color={EQUINOR_GREEN}
+        name="chevron-right"
+        style={styles.icon}
+      />
     </Card>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    height: 80,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  icon: { marginRight: 16 },
+});
 
 export default NavigationItem;

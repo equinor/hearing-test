@@ -1,4 +1,4 @@
-import { Typography } from "mad-expo-core";
+import { Typography } from "@equinor/mad-components";
 import { View, StyleSheet } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 

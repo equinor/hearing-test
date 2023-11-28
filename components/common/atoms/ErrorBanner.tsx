@@ -1,4 +1,4 @@
-import { Typography } from "mad-expo-core";
+import { Typography } from "@equinor/mad-components";
 import { TouchableHighlight } from "react-native";
 import { useSelector } from "react-redux";
 
@@ -20,11 +20,17 @@ export const ErrorBanner = () => {
         }
       >
         <>
-          <Typography color="white">Could not submit test due to</Typography>
-          <Typography color="white" variant="h3" style={{ marginVertical: 4 }}>
-            ERROR: {status} {message && `| ${message}`}
+          <Typography color="textInverted">
+            Could not submit test due to
           </Typography>
-          <Typography color="white">Click to learn more...</Typography>
+          <Typography
+            color="textInverted"
+            variant="h3"
+            style={{ marginVertical: 4 }}
+          >
+            {`ERROR: ${status} ${message ? `| ${message}` : ""}`}
+          </Typography>
+          <Typography color="textInverted">Click to learn more...</Typography>
         </>
       </TouchableHighlight>
     );

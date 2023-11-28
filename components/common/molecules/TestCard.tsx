@@ -1,4 +1,4 @@
-import { Button } from "@equinor/mad-components";
+import { Button, Typography } from "@equinor/mad-components";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { connect, useSelector } from "react-redux";
 
@@ -7,7 +7,6 @@ import { selectIsFetching } from "../../../store/test/reducer";
 import { getUnsentTests } from "../../../store/unsent-tests/reducer";
 import { RootStackParamList } from "../../../types";
 import { Card } from "../atoms/Card";
-import Typography from "../atoms/Typography";
 
 type Cards = {
   newTest: CardProps;
@@ -74,12 +73,10 @@ const TestCardComponent = ({
 
   return (
     <Card>
-      <Typography variant="h2" style={{ paddingBottom: 16 }}>
+      <Typography variant="h4" color="primary" style={{ marginBottom: 16 }}>
         {card.title}
       </Typography>
-      <Typography variant="p" style={{ paddingBottom: 32 }}>
-        {card.description}
-      </Typography>
+      <Typography style={{ marginBottom: 32 }}>{card.description}</Typography>
       {card.buttonText && card.onPress ? (
         <Button
           title={card.buttonText}
