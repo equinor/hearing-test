@@ -11,9 +11,9 @@ import { connect } from "react-redux";
 
 import BigRoundButton from "../components/common/atoms/BigRoundButton";
 import { MenuItem } from "../components/common/atoms/MenuItem";
+import { MuteButton } from "../components/common/atoms/MuteButton";
 import ProgressBar from "../components/common/atoms/ProgressBar";
 import { TestCard } from "../components/common/molecules/TestCard";
-import { getEnvironment } from "../constants/settings";
 import { SYSTEM_VOLUME } from "../constants/sounds";
 import store from "../store/config";
 import {
@@ -34,8 +34,6 @@ import {
 } from "../store/test/reducer";
 import { confirmationDialog } from "../utils/alerts";
 import { createSoundFile } from "../utils/sound";
-
-const isProduction = getEnvironment() === "prod";
 
 class TestScreen extends Component {
   static propTypes = {
@@ -117,9 +115,6 @@ class TestScreen extends Component {
   }
 
   getSystemVolume() {
-    if (isProduction) {
-      return SYSTEM_VOLUME;
-    }
     return this.state.isVolumeMuted ? 0 : SYSTEM_VOLUME;
   }
 
@@ -412,16 +407,13 @@ class TestScreen extends Component {
               marginBottom: 40,
             }}
           >
-            <Button.Icon
-              name={this.state.isVolumeMuted ? "volume-mute" : "volume-high"}
+            <MuteButton
+              isVolumeMuted={this.state.isVolumeMuted}
               onPress={() =>
                 this.setState((prevState) => ({
                   isVolumeMuted: !prevState.isVolumeMuted,
                 }))
               }
-              variant="ghost"
-              disabled={isProduction}
-              style={{ opacity: isProduction ? 0 : 1 }}
             />
             <Typography variant="h2" color="primary">
               Hørselstest
