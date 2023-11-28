@@ -14,6 +14,7 @@ import { MenuItem } from "../components/common/atoms/MenuItem";
 import ProgressBar from "../components/common/atoms/ProgressBar";
 import Typography from "../components/common/atoms/Typography";
 import { TestCard } from "../components/common/molecules/TestCard";
+import { getEnvironment } from "../constants/settings";
 import { SYSTEM_VOLUME } from "../constants/sounds";
 import store from "../store/config";
 import {
@@ -34,6 +35,8 @@ import {
 } from "../store/test/reducer";
 import { confirmationDialog } from "../utils/alerts";
 import { createSoundFile } from "../utils/sound";
+
+const isProduction = getEnvironment() === "prod";
 
 class TestScreen extends Component {
   static propTypes = {
@@ -88,6 +91,7 @@ class TestScreen extends Component {
     numberOfNodes: Infinity,
     isDoneLoadingSounds: false,
     isDemoMode: store.getState().appConfig.isDemoMode,
+    isVolumeMuted: false,
     isConnected: null,
     netInfoEventListener: null,
   };
@@ -133,13 +137,19 @@ class TestScreen extends Component {
     this.demoModeSound.release();
   }
 
-  componentDidUpdate(prevProps) {
-    // Fetch test when reconnected
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevState.isVolumeMuted && this.state.isVolumeMuted) {
+      SystemSetting.setVolume(0, { showUI: false });
+    } else if (prevState.isVolumeMuted && !this.state.isVolumeMuted) {
+      SystemSetting.setVolume(SYSTEM_VOLUME, { showUI: false });
+    }
+
     if (
       this.state.isConnected &&
       !this.props.isFetching &&
       Object.keys(this.props.test).length === 0
     ) {
+      // Fetch test when reconnected
       this.props.actionPostTakeTest();
     }
 
@@ -402,7 +412,17 @@ class TestScreen extends Component {
               marginBottom: 40,
             }}
           >
-            <View style={{ width: 40, height: 40 }} />
+            <Button.Icon
+              name={this.state.isVolumeMuted ? "volume-mute" : "volume-high"}
+              onPress={() =>
+                this.setState((prevState) => ({
+                  isVolumeMuted: !prevState.isVolumeMuted,
+                }))
+              }
+              variant="ghost"
+              disabled={isProduction}
+              style={{ opacity: isProduction ? 0 : 1 }}
+            />
             <Typography variant="h1">Hørselstest</Typography>
             {this.props.testIsRunning ? (
               <Button.Icon
