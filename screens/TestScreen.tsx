@@ -144,12 +144,12 @@ class TestScreen extends Component {
       SystemSetting.setVolume(SYSTEM_VOLUME, { showUI: false });
     }
 
+    // Fetch test when reconnected
     if (
       this.state.isConnected &&
       !this.props.isFetching &&
       Object.keys(this.props.test).length === 0
     ) {
-      // Fetch test when reconnected
       this.props.actionPostTakeTest();
     }
 
