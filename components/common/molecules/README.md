@@ -6,16 +6,22 @@ Internal state usage is discouraged, but can be used when needed.
 
 Use the following component format
 
-```js
+```tsx
+import { Typography } from "@equinor/mad-components";
+import { ReactNode } from "react";
+import { View } from "react-native";
 
-import {
-  Text,
-  View
-} from 'react-native';
+type MyMoleculeComponentProps = {
+  title: string;
+  children: ReactNode;
+};
 
-export default ({ text, children }) => (
+export const MyMoleculeComponent = ({
+  title,
+  children,
+}: MyMoleculeComponentProps) => (
   <View>
-    <Text>{text}</Text>
+    <Typography>{title}</Typography>
     {children}
   </View>
 );

@@ -6,13 +6,16 @@ Internal state usage is discouraged, but can be used when needed
 
 Use the following component format
 
-```js
+```tsx
+import { Button } from "@equinor/mad-components";
+import { StyleProp, ViewProps } from "react-native";
 
-import {
-  Button
-} from 'react-native';
+type MyAtomComponent = {
+  title: string;
+  style: StyleProp<ViewProps>;
+};
 
-export default ({ style, title }) => (
-  <Button title={title} style={{ ..style, color: 'red'}} />
-)
+export const MyAtomComponent = ({ title, style }: MyAtomComponent) => (
+  <Button title={title} style={[{ marginVertical: 16 }, style]} />
+);
 ```

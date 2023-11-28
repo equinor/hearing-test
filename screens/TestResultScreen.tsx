@@ -1,4 +1,4 @@
-import { Button } from "@equinor/mad-components";
+import { Button, Typography } from "@equinor/mad-components";
 import { useState } from "react";
 import { Image, Modal, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 
 import { ButtonGroup } from "../components/common/atoms/ButtonGroup";
 import { ErrorBanner } from "../components/common/atoms/ErrorBanner";
-import Typography from "../components/common/atoms/Typography";
 import { TestResultItem } from "../components/common/molecules/TestResultItem";
 import { useTestResultPages } from "../hooks/useTestResultPages";
 import { postTest } from "../store/test/actions";
@@ -77,7 +76,9 @@ const TestResultScreen = ({
         }}
       >
         <View style={{ width: 40, height: 40 }} />
-        <Typography variant="h1">{page.title}</Typography>
+        <Typography variant="h2" color="primary">
+          {page.title}
+        </Typography>
         <Button.Icon
           name="close"
           onPress={() => navigation.navigate("DefaultRoute")}
@@ -91,9 +92,10 @@ const TestResultScreen = ({
             source={page.image}
             style={{ height: 250, resizeMode: "contain" }}
           />
-          <Typography variant="h2">{page.subTitle}</Typography>
+          <Typography variant="h5" color="primary">
+            {page.subTitle}
+          </Typography>
           <Typography
-            variant="p"
             style={{
               marginTop: 12,
               textAlign: "center",
@@ -139,7 +141,9 @@ const TestResultScreen = ({
           }}
         >
           <View style={{ width: 40, height: 40 }} />
-          <Typography variant="h1">Resultater</Typography>
+          <Typography variant="h3" color="primary">
+            Resultater
+          </Typography>
           <Button.Icon
             name="close"
             onPress={() => setModalVisible(false)}
