@@ -1,30 +1,37 @@
-import { TouchableOpacity, View } from "react-native";
+import { ReactNode } from "react";
+import {
+  StyleProp,
+  StyleSheet,
+  TouchableOpacity,
+  ViewStyle,
+} from "react-native";
 
-const Card = (props: {
-  children?: any;
-  onPress?: CallableFunction;
-  style?: any;
-}) => {
-  return (
-    <TouchableOpacity onPress={props.onPress} disabled={!props.onPress}>
-      <View
-        style={{
-          backgroundColor: "white",
-          borderRadius: 4,
-          padding: 18,
-          margin: 4,
-          shadowColor: "#000",
-          shadowOffset: { width: 2, height: 2 },
-          shadowOpacity: 0.3,
-          shadowRadius: 3,
-          elevation: 5,
-          ...props.style,
-        }}
-      >
-        {props.children}
-      </View>
-    </TouchableOpacity>
-  );
+type CardProps = {
+  children: ReactNode;
+  onPress?: () => void;
+  style?: StyleProp<ViewStyle>;
 };
 
-export default Card;
+export const Card = ({ children, onPress, style }: CardProps) => (
+  <TouchableOpacity
+    disabled={!onPress}
+    onPress={onPress}
+    style={[styles.container, style]}
+  >
+    {children}
+  </TouchableOpacity>
+);
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "white",
+    borderRadius: 4,
+    elevation: 5,
+    margin: 4,
+    padding: 18,
+    shadowColor: "#000",
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+  },
+});

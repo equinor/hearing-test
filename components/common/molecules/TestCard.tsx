@@ -6,7 +6,7 @@ import { postTest } from "../../../store/test/actions";
 import { selectIsFetching } from "../../../store/test/reducer";
 import { getUnsentTests } from "../../../store/unsent-tests/reducer";
 import { RootStackParamList } from "../../../types";
-import Card from "../atoms/Card";
+import { Card } from "../atoms/Card";
 
 type Cards = {
   newTest: CardProps;

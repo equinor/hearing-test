@@ -1,14 +1,7 @@
 import { Button, Typography } from "@equinor/mad-components";
 import { MaterialIcons as Icon } from "@expo/vector-icons";
 import { useEffect, useRef, useState } from "react";
-import {
-  Alert,
-  Animated,
-  Modal,
-  ScrollView,
-  StyleSheet,
-  View,
-} from "react-native";
+import { Animated, Modal, ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Sound from "react-native-sound";
 import SystemSetting from "react-native-system-setting";
@@ -233,9 +226,6 @@ const SoundCheckScreen = ({ navigation }: SoundCheckScreenProps) => {
               animationType="slide"
               transparent={false}
               visible={modalVisible}
-              onRequestClose={() => {
-                Alert.alert("Modal has been closed.");
-              }}
             >
               <SafeAreaView
                 style={{

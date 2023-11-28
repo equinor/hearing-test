@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.5.0](https://github.com/equinor/hearing-test/compare/v0.4.3...v0.5.0) (2023-11-22)
+
+
+### Features
+
+* Send feedback to ServiceNow ([#290](https://github.com/equinor/hearing-test/issues/290)) ([6cd7853](https://github.com/equinor/hearing-test/commit/6cd7853e4f72a63f5cd86b52f4f03074ef0e66fa)), closes [#289](https://github.com/equinor/hearing-test/issues/289)
+* Update tone of voice ([#214](https://github.com/equinor/hearing-test/issues/214)) ([e36a9ed](https://github.com/equinor/hearing-test/commit/e36a9ed9ed40d31f06793ec5efe7430c74a11392)), closes [#208](https://github.com/equinor/hearing-test/issues/208)
+
+
+### Bug Fixes
+
+* Headset calibration factors ([#282](https://github.com/equinor/hearing-test/issues/282)) ([1e4c304](https://github.com/equinor/hearing-test/commit/1e4c3048a66e5a794aae7bf6cf86ad0342ba88ff)), closes [#281](https://github.com/equinor/hearing-test/issues/281)
+
 ## [0.4.3](https://github.com/equinor/hearing-test/compare/v0.4.2...v0.4.3) (2023-11-10)
 
 
