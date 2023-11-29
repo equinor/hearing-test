@@ -107,7 +107,7 @@ class TestScreen extends Component {
         })
         .catch((err) => console.log({ err }));
     setInitialDeviceSystemVolume();
-    SystemSetting.setVolume(SYSTEM_VOLUME, { showUI: false });
+    this.setSystemVolume(SYSTEM_VOLUME);
   }
 
   componentWillUnmount() {
@@ -116,6 +116,10 @@ class TestScreen extends Component {
 
   getSystemVolume() {
     return this.state.isVolumeMuted ? 0 : SYSTEM_VOLUME;
+  }
+
+  setSystemVolume(value: number) {
+    SystemSetting.setVolume(value, { showUI: false });
   }
 
   getSoundFile(hz: number) {
@@ -257,16 +261,12 @@ class TestScreen extends Component {
     // Setting master volume
     // Setting volume each time just to make sure the volume is not changed between plays
     // also, if headset was plugged in after componentDidMount() was called, we need to call this again
-    SystemSetting.setVolume(this.getSystemVolume(), { showUI: false });
+    this.setSystemVolume(this.getSystemVolume());
 
     // Setting playback volume
     sound.setVolume(node.stimulusMultiplicative);
     sound.setPan(node.panning);
-    sound.play(() => {
-      SystemSetting.setVolume(this.state.initialSystemVolume, {
-        showUI: false,
-      });
-    });
+    sound.play(() => this.setSystemVolume(this.state.initialSystemVolume));
   }
 
   // Used for the progress bar
@@ -409,11 +409,12 @@ class TestScreen extends Component {
           >
             <MuteButton
               isVolumeMuted={this.state.isVolumeMuted}
-              onPress={() =>
+              onPress={() => {
                 this.setState((prevState) => ({
                   isVolumeMuted: !prevState.isVolumeMuted,
-                }))
-              }
+                }));
+                this.setSystemVolume(0);
+              }}
             />
             <Typography variant="h2" color="primary">
               Hørselstest
