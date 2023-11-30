@@ -264,7 +264,7 @@ class TestScreen extends Component {
     this.setSystemVolume(this.getSystemVolume());
 
     // Setting playback volume
-    sound.setVolume(node.stimulusMultiplicative);
+    sound.setVolume(this.state.isVolumeMuted ? 0 : node.stimulusMultiplicative);
     sound.setPan(node.panning);
     sound.play(() => this.setSystemVolume(this.state.initialSystemVolume));
   }
