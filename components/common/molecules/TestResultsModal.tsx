@@ -43,10 +43,11 @@ const TestResultsModal = (props: {
         }}
       >
         <Button.Icon
-          name="format-list-bulleted"
+          name="chevron-left"
           onPress={() => setSelectedItem(null)}
           variant="ghost"
           disabled={!selectedItem}
+          style={{ opacity: selectedItem ? 1 : 0 }}
         />
         <Typography variant="h3" color="primary">
           Dine resultater
