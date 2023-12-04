@@ -1,4 +1,4 @@
-import { Button, Typography } from "@equinor/mad-components";
+import { Button, LinearProgress, Typography } from "@equinor/mad-components";
 import NetInfo from "@react-native-community/netinfo";
 import { Spinner } from "mad-expo-core";
 import PropTypes from "prop-types";
@@ -11,7 +11,6 @@ import { connect } from "react-redux";
 
 import BigRoundButton from "../components/common/atoms/BigRoundButton";
 import { MenuItem } from "../components/common/atoms/MenuItem";
-import ProgressBar from "../components/common/atoms/ProgressBar";
 import { TestCard } from "../components/common/molecules/TestCard";
 import { SYSTEM_VOLUME } from "../constants/sounds";
 import store from "../store/config";
@@ -384,142 +383,145 @@ class TestScreen extends Component {
       );
 
     return (
-      <SafeAreaView style={{ flex: 1 }}>
-        <ProgressBar
-          percentDone={
-            (this.state.numberOfNodesPlayed / this.state.numberOfNodes) * 100
-          }
-          disabled={!this.props.testIsRunning}
+      <SafeAreaView style={styles.container}>
+        <LinearProgress
+          value={this.state.numberOfNodesPlayed / this.state.numberOfNodes}
+          style={[
+            styles.linearProgress,
+            {
+              opacity: this.props.testIsRunning ? 1 : 0,
+            },
+          ]}
         />
-
-        <View style={styles.component}>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBottom: 40,
-            }}
-          >
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: 40,
+          }}
+        >
+          <View style={{ width: 40, height: 40 }} />
+          <Typography variant="h2" color="primary">
+            Hørselstest
+          </Typography>
+          {this.props.testIsRunning ? (
+            <Button.Icon
+              name={this.state.pauseAfterNode ? "timer-sand-empty" : "pause"}
+              onPress={() => {
+                this.setState({ pauseAfterNode: true });
+              }}
+              variant="ghost"
+            />
+          ) : (
             <View style={{ width: 40, height: 40 }} />
-            <Typography variant="h2" color="primary">
-              Hørselstest
-            </Typography>
-            {this.props.testIsRunning ? (
-              <Button.Icon
-                name={this.state.pauseAfterNode ? "timer-sand-empty" : "pause"}
-                onPress={() => {
-                  this.setState({ pauseAfterNode: true });
-                }}
-                variant="ghost"
-              />
-            ) : (
-              <View style={{ width: 40, height: 40 }} />
-            )}
-          </View>
-          <View
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              flex: 1,
-              paddingBottom: 40,
-            }}
-          >
-            <Typography>
-              {!this.props.testIsRunning
-                ? "Trykk på sirkelen under når du er klar for å starte hørselstesten."
-                : "Trykk på sirkelen under når du hører en lyd"}
-            </Typography>
-            {this.renderBigRoundButton()}
-          </View>
-          <Modal
-            animationType="fade"
-            transparent
-            visible={this.state.modalVisible}
-            style={{ display: "flex" }}
-          >
-            <SafeAreaView style={{ display: "flex" }}>
+          )}
+        </View>
+        <View
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flex: 1,
+            paddingBottom: 40,
+          }}
+        >
+          <Typography>
+            {!this.props.testIsRunning
+              ? "Trykk på sirkelen under når du er klar for å starte hørselstesten."
+              : "Trykk på sirkelen under når du hører en lyd"}
+          </Typography>
+          {this.renderBigRoundButton()}
+        </View>
+        <Modal
+          animationType="fade"
+          transparent
+          visible={this.state.modalVisible}
+          style={{ display: "flex" }}
+        >
+          <SafeAreaView style={{ display: "flex" }}>
+            <View
+              style={{
+                backgroundColor: "rgba(0,0,0,0.5)",
+                borderRadius: 4,
+                padding: 16,
+                paddingBottom: 60,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100%",
+              }}
+            >
               <View
                 style={{
-                  backgroundColor: "rgba(0,0,0,0.5)",
+                  backgroundColor: "#FFFFFF",
+                  padding: 8,
                   borderRadius: 4,
-                  padding: 16,
-                  paddingBottom: 60,
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "100%",
                 }}
               >
-                <View
-                  style={{
-                    backgroundColor: "#FFFFFF",
-                    padding: 8,
-                    borderRadius: 4,
-                  }}
-                >
-                  <MenuItem
-                    icon="delete"
-                    text="Avslutte testen"
-                    onPress={() =>
-                      confirmationDialog(
-                        "Avslutte hørselstesten?",
-                        () => {
-                          this.abortTest();
-                          this.props.navigation.navigate("DefaultRoute");
-                        },
-                        "Da må du begynne på nytt neste gang"
-                      )
-                    }
-                  />
-                  <MenuItem
-                    icon="refresh"
-                    text="Start hørselstesten på ny"
-                    onPress={() =>
-                      confirmationDialog(
-                        "Starte hørselstesten på ny?",
-                        () => {
-                          this.restartTest();
-                          this.props.navigation.navigate("TestRoute");
-                        },
-                        "Dette vil slette all data fra denne testen"
-                      )
-                    }
-                  />
-                  <MenuItem
-                    icon="school"
-                    text="Ta ny lydsjekk"
-                    onPress={() =>
-                      confirmationDialog(
-                        "Ta ny lydsjekk?",
-                        () => {
-                          this.abortTest();
-                          this.props.navigation.navigate("SoundCheckRoute");
-                        },
-                        "Dette vil slette all data fra denne testen"
-                      )
-                    }
-                  />
-                  <Button
-                    title="Fortsette hørselstesten"
-                    onPress={() => this.setState({ modalVisible: false })}
-                  />
-                </View>
+                <MenuItem
+                  icon="delete"
+                  text="Avslutte testen"
+                  onPress={() =>
+                    confirmationDialog(
+                      "Avslutte hørselstesten?",
+                      () => {
+                        this.abortTest();
+                        this.props.navigation.navigate("DefaultRoute");
+                      },
+                      "Da må du begynne på nytt neste gang"
+                    )
+                  }
+                />
+                <MenuItem
+                  icon="refresh"
+                  text="Start hørselstesten på ny"
+                  onPress={() =>
+                    confirmationDialog(
+                      "Starte hørselstesten på ny?",
+                      () => {
+                        this.restartTest();
+                        this.props.navigation.navigate("TestRoute");
+                      },
+                      "Dette vil slette all data fra denne testen"
+                    )
+                  }
+                />
+                <MenuItem
+                  icon="school"
+                  text="Ta ny lydsjekk"
+                  onPress={() =>
+                    confirmationDialog(
+                      "Ta ny lydsjekk?",
+                      () => {
+                        this.abortTest();
+                        this.props.navigation.navigate("SoundCheckRoute");
+                      },
+                      "Dette vil slette all data fra denne testen"
+                    )
+                  }
+                />
+                <Button
+                  title="Fortsette hørselstesten"
+                  onPress={() => this.setState({ modalVisible: false })}
+                />
               </View>
-            </SafeAreaView>
-          </Modal>
-        </View>
+            </View>
+          </SafeAreaView>
+        </Modal>
       </SafeAreaView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  component: {
+  container: {
     flex: 1,
     padding: 16,
     paddingBottom: 60,
+  },
+  linearProgress: {
+    marginBottom: 16,
   },
 });
 
