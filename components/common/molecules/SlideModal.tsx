@@ -1,8 +1,6 @@
-import { Button, IconButtonProps } from "@equinor/mad-components";
+import { Button, IconButtonProps, Typography } from "@equinor/mad-components";
 import { ReactNode } from "react";
 import { Modal, StyleSheet, View } from "react-native";
-
-import Typography from "../atoms/Typography";
 
 export type SlideModalProps = {
   children: ReactNode;
@@ -32,7 +30,9 @@ export const SlideModal = ({
         {...leftIconButtonProps}
         style={{ opacity: leftIconButtonProps ? 1 : 0 }}
       />
-      <Typography variant="h1">{title}</Typography>
+      <Typography variant="h3" color="primary">
+        {title}
+      </Typography>
       <Button.Icon name="close" onPress={setInvisible} variant="ghost" />
     </View>
     <View style={styles.content}>{children}</View>

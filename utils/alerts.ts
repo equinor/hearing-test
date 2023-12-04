@@ -1,11 +1,11 @@
-import { Alert } from "react-native";
+import { alert } from "@equinor/mad-components";
 
 export const confirmationDialog = (
   title: string,
-  onConfirm: (value?: string) => void,
-  message?: string
+  onConfirm: () => void,
+  message = ""
 ) =>
-  Alert.alert(title, message, [
+  alert(title, message, [
     {
       text: "Nei",
       onPress: () => {},

@@ -1,4 +1,5 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Button, Typography } from "@equinor/mad-components";
+import { StyleSheet, View } from "react-native";
 
 import { RootStackScreenProps } from "../types";
 
@@ -7,13 +8,11 @@ export default function NotFoundScreen({
 }: RootStackScreenProps<"NotFoundRoute">) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>This screen doesn't exist.</Text>
-      <TouchableOpacity
+      <Typography variant="h3">This screen doesn't exist.</Typography>
+      <Button
+        title="Go to home screen!"
         onPress={() => navigation.replace("DefaultRoute")}
-        style={styles.link}
-      >
-        <Text style={styles.linkText}>Go to home screen!</Text>
-      </TouchableOpacity>
+      />
     </View>
   );
 }
@@ -24,17 +23,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 20,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  link: {
-    marginTop: 15,
-    paddingVertical: 15,
-  },
-  linkText: {
-    fontSize: 14,
-    color: "#2e78b7",
+    gap: 15,
   },
 });

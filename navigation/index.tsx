@@ -4,6 +4,7 @@
  *
  */
 
+import { Typography } from "@equinor/mad-components";
 import { MaterialIcons as Icon } from "@expo/vector-icons";
 import {
   DarkTheme,
@@ -35,7 +36,7 @@ import {
 import { AboutScreen } from "../screens/AboutScreen";
 import { DefaultScreen } from "../screens/DefaultScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
-import PreTestScreen from "../screens/PreTestScreen";
+import { PreTestScreen } from "../screens/PreTestScreen";
 import SoundCheckFinishedScreen from "../screens/SoundCheckFinishedScreen";
 import SoundCheckScreen from "../screens/SoundCheckScreen";
 import TestResultScreen from "../screens/TestResultScreen";
@@ -45,6 +46,8 @@ import store from "../store/config";
 import { RootStackParamList } from "../types";
 
 const getIsDemoMode = () => store.getState().appConfig.isDemoMode;
+
+const headerBackTitleStyle = { fontFamily: "Equinor-Regular" };
 
 const LightTheme = {
   ...DefaultTheme,
@@ -187,6 +190,10 @@ function RootNavigator() {
           )}
           options={{
             title: "Innstillinger",
+            headerTitle: () => (
+              <Typography variant="h4">Innstillinger</Typography>
+            ),
+            headerBackTitleStyle,
           }}
         />
         <Stack.Screen
@@ -203,6 +210,10 @@ function RootNavigator() {
           )}
           options={{
             title: "Tilbakemelding",
+            headerTitle: () => (
+              <Typography variant="h4">Tilbakemelding</Typography>
+            ),
+            headerBackTitleStyle,
           }}
         />
         <Stack.Screen
@@ -210,6 +221,8 @@ function RootNavigator() {
           component={withUtilities(AboutScreen)}
           options={{
             title: "Om",
+            headerTitle: () => <Typography variant="h4">Om</Typography>,
+            headerBackTitleStyle,
           }}
         />
       </Stack.Group>
