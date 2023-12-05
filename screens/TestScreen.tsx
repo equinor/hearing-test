@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 
 import BigRoundButton from "../components/common/atoms/BigRoundButton";
 import { MenuItem } from "../components/common/atoms/MenuItem";
+import { MuteButton } from "../components/common/atoms/MuteButton";
 import { TestCard } from "../components/common/molecules/TestCard";
 import { SYSTEM_VOLUME } from "../constants/sounds";
 import store from "../store/config";
@@ -86,6 +87,7 @@ class TestScreen extends Component {
     numberOfNodes: Infinity,
     isDoneLoadingSounds: false,
     isDemoMode: store.getState().appConfig.isDemoMode,
+    isVolumeMuted: false,
     isConnected: null,
     netInfoEventListener: null,
   };
@@ -104,11 +106,19 @@ class TestScreen extends Component {
         })
         .catch((err) => console.log({ err }));
     setInitialDeviceSystemVolume();
-    SystemSetting.setVolume(SYSTEM_VOLUME, { showUI: false });
+    this.setSystemVolume(SYSTEM_VOLUME);
   }
 
   componentWillUnmount() {
     this.state.netInfoEventListener();
+  }
+
+  getSystemVolume() {
+    return this.state.isVolumeMuted ? 0 : SYSTEM_VOLUME;
+  }
+
+  setSystemVolume(value: number) {
+    SystemSetting.setVolume(value, { showUI: false });
   }
 
   getSoundFile(hz: number) {
@@ -250,16 +260,12 @@ class TestScreen extends Component {
     // Setting master volume
     // Setting volume each time just to make sure the volume is not changed between plays
     // also, if headset was plugged in after componentDidMount() was called, we need to call this again
-    SystemSetting.setVolume(SYSTEM_VOLUME, { showUI: false });
+    this.setSystemVolume(this.getSystemVolume());
 
     // Setting playback volume
-    sound.setVolume(node.stimulusMultiplicative);
+    sound.setVolume(this.state.isVolumeMuted ? 0 : node.stimulusMultiplicative);
     sound.setPan(node.panning);
-    sound.play(() => {
-      SystemSetting.setVolume(this.state.initialSystemVolume, {
-        showUI: false,
-      });
-    });
+    sound.play(() => this.setSystemVolume(this.state.initialSystemVolume));
   }
 
   // Used for the progress bar
@@ -401,7 +407,15 @@ class TestScreen extends Component {
             marginBottom: 40,
           }}
         >
-          <View style={{ width: 40, height: 40 }} />
+          <MuteButton
+            isVolumeMuted={this.state.isVolumeMuted}
+            onPress={() => {
+              this.setState((prevState) => ({
+                isVolumeMuted: !prevState.isVolumeMuted,
+              }));
+              this.setSystemVolume(0);
+            }}
+          />
           <Typography variant="h2" color="primary">
             Hørselstest
           </Typography>

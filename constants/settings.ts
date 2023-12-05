@@ -30,6 +30,8 @@ export const getEnvironment = (): Environment => {
   return environment;
 };
 
+export const isProduction = getEnvironment() === "prod";
+
 type ResourceName = keyof typeof Resources;
 
 type ResourceNames = ResourceName[];
