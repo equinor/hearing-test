@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 const initialTimer = 0;
 const interval = 100;
 
-export const useLinearProgressTimer = (
+export const useTimer = (
   dependencyToResetTimer: unknown,
   disabled: boolean,
   duration: number,

@@ -9,7 +9,7 @@ import SystemSetting from "react-native-system-setting";
 import BigRoundButton from "../components/common/atoms/BigRoundButton";
 import { EQUINOR_GREEN, GRAY_BACKGROUND } from "../constants/colors";
 import { SYSTEM_VOLUME } from "../constants/sounds";
-import { useLinearProgressTimer } from "../hooks/useLinearProgressTimer";
+import { useTimer } from "../hooks/useTimer";
 import { RootStackScreenProps, SoundCheckPageJSON } from "../types";
 import { confirmationDialog } from "../utils/alerts";
 
@@ -25,7 +25,7 @@ const SoundCheckScreen = ({ navigation }: SoundCheckScreenProps) => {
   const [initialSystemVolume, setInitialSystemVolume] = useState(SYSTEM_VOLUME);
   const linearProgressDuration = 2200;
   const isLinearProgressDisabled = currentPage === 0;
-  const { timer } = useLinearProgressTimer(
+  const { timer } = useTimer(
     currentPage,
     isLinearProgressDisabled,
     linearProgressDuration,
