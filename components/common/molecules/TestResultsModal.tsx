@@ -22,11 +22,14 @@ export const TestResultsModal = ({
       }}
       title="Dine resultater"
       visible={visible}
-      leftIconButtonProps={{
-        disabled: !testResult,
-        name: "format-list-bulleted",
-        onPress: () => setTestResult(null),
-      }}
+      leftIconButtonProps={
+        testResult
+          ? {
+              name: "chevron-left",
+              onPress: () => setTestResult(null),
+            }
+          : undefined
+      }
     >
       {visible && (
         <TestResultsModalContent
