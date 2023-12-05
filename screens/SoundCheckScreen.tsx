@@ -13,15 +13,6 @@ import { SYSTEM_VOLUME } from "../constants/sounds";
 import { RootStackScreenProps, SoundCheckPageJSON } from "../types";
 import { confirmationDialog } from "../utils/alerts";
 
-const styles = StyleSheet.create({
-  component: {
-    flex: 1,
-    padding: 16,
-    paddingBottom: 60,
-  },
-  button: { width: 160 },
-});
-
 const ANIMATION_DURATION = 500;
 
 type SoundCheckScreenProps = RootStackScreenProps<"SoundCheckRoute">;
@@ -289,5 +280,14 @@ const CanHearSoundButton = (props: { onPress: Function }) => {
     />
   );
 };
+
+const styles = StyleSheet.create({
+  component: {
+    flex: 1,
+    padding: 16,
+    paddingBottom: 60,
+  },
+  button: { width: 160 },
+});
 
 export default SoundCheckScreen;
