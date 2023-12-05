@@ -6,7 +6,7 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import NavigationItem from "../components/common/atoms/NavigationItem";
 import { SlideModal } from "../components/common/molecules/SlideModal";
 import { TestCard } from "../components/common/molecules/TestCard";
-import TestResultsModal from "../components/common/molecules/TestResultsModal";
+import { TestResultsModal } from "../components/common/molecules/TestResultsModal";
 import { fetchMe } from "../services/api/api-methods";
 import { RootStackScreenProps, User } from "../types";
 import { openURL } from "../utils/linking";

@@ -29,7 +29,7 @@ export const Chart = ({ data }: ChartProps) => (
     maxDomain={{ x: CHART.HZ_MAX, y: CHART.DB_MAX }}
     scale={{ x: "log", y: "linear" }}
     style={{
-      parent: { position: "relative", left: 16, marginBottom: -20 },
+      parent: { position: "relative", left: 24, marginBottom: -20 },
     }}
     theme={VictoryTheme.material}
   >
@@ -120,7 +120,9 @@ export const Chart = ({ data }: ChartProps) => (
     />
     <VictoryAxis
       label
-      axisLabelComponent={<VictoryLabel text="Frekvens (Hz)" dy={-30} />}
+      axisLabelComponent={
+        <VictoryLabel text="Frekvens (Hz)" dx={-24} dy={-30} />
+      }
       offsetY={50}
       orientation="top"
       tickValues={[500, 1000, 2000, 3000, 4000, 6000, 8000, CHART.HZ_MAX]}

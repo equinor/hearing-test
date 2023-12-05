@@ -1,75 +1,42 @@
-import { Button, Typography } from "@equinor/mad-components";
 import { useState } from "react";
-import { Modal, View } from "react-native";
 
-import { TestResultItem } from "./TestResultItem";
-import TestLogScreen from "../../../screens/TestLogScreen";
+import { SlideModal, SlideModalProps } from "./SlideModal";
+import { TestResultsModalContent } from "./TestResultsModalContent";
 import { TestResult } from "../../../types";
 
-const TestResultsModal = (props: {
-  visible: boolean;
-  setInvisible: Function;
-}) => {
-  const [selectedItem, setSelectedItem] = useState<TestResult | null>(null);
+export type TestResultState = TestResult | null;
+
+type TestResultsModalProps = Pick<SlideModalProps, "setInvisible" | "visible">;
+
+export const TestResultsModal = ({
+  setInvisible,
+  visible,
+}: TestResultsModalProps) => {
+  const [testResult, setTestResult] = useState<TestResultState>(null);
 
   return (
-    <Modal
-      animationType="slide"
-      presentationStyle="overFullScreen"
-      transparent
-      visible={props.visible}
-      onDismiss={() => props.setInvisible()}
-      onRequestClose={() => props.setInvisible()}
+    <SlideModal
+      setInvisible={() => {
+        setTestResult(null);
+        setInvisible();
+      }}
+      title="Dine resultater"
+      visible={visible}
+      leftIconButtonProps={
+        testResult
+          ? {
+              name: "chevron-left",
+              onPress: () => setTestResult(null),
+            }
+          : undefined
+      }
     >
-      <View
-        style={{
-          alignItems: "center",
-          backgroundColor: "white",
-          borderBottomWidth: 1,
-          borderColor: "#DCDCDC",
-          borderStyle: "solid",
-          borderTopLeftRadius: 12,
-          borderTopRightRadius: 12,
-          elevation: 5,
-          flexDirection: "row",
-          justifyContent: "space-between",
-          marginTop: 110,
-          paddingHorizontal: 24,
-          paddingVertical: 12,
-          shadowColor: "#000",
-          shadowOffset: { width: 2, height: 2 },
-          shadowOpacity: 0.3,
-          shadowRadius: 3,
-        }}
-      >
-        <Button.Icon
-          name="chevron-left"
-          onPress={() => setSelectedItem(null)}
-          variant="ghost"
-          disabled={!selectedItem}
-          style={{ opacity: selectedItem ? 1 : 0 }}
-        />
-        <Typography variant="h3" color="primary">
-          Dine resultater
-        </Typography>
-        <Button.Icon
-          name="close"
-          onPress={() => {
-            setSelectedItem(null);
-            props.setInvisible();
-          }}
-          variant="ghost"
-        />
-      </View>
-      {selectedItem ? (
-        <TestResultItem data={selectedItem} />
-      ) : (
-        <TestLogScreen
-          setSelectedItem={(d: TestResult) => setSelectedItem(d)}
+      {visible && (
+        <TestResultsModalContent
+          setTestResult={setTestResult}
+          testResult={testResult}
         />
       )}
-    </Modal>
+    </SlideModal>
   );
 };
-
-export default TestResultsModal;

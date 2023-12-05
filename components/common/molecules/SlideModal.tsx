@@ -1,50 +1,67 @@
-import { Button, Typography } from "@equinor/mad-components";
+import { Button, IconButtonProps, Typography } from "@equinor/mad-components";
 import { ReactNode } from "react";
-import { Modal, View } from "react-native";
+import { Modal, StyleSheet, View } from "react-native";
 
-export const SlideModal = (props: {
+export type SlideModalProps = {
+  children: ReactNode;
+  setInvisible: () => void;
   title: string;
   visible: boolean;
-  setInvisible: () => void;
-  children?: ReactNode;
-}) => (
+  leftIconButtonProps?: IconButtonProps;
+};
+
+export const SlideModal = ({
+  children,
+  setInvisible,
+  title,
+  visible,
+  leftIconButtonProps,
+}: SlideModalProps) => (
   <Modal
     animationType="slide"
     presentationStyle="overFullScreen"
     transparent
-    visible={props.visible}
-    onDismiss={() => props.setInvisible()}
-    onRequestClose={() => props.setInvisible()}
+    visible={visible}
   >
-    <View
-      style={{
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        paddingHorizontal: 24,
-        paddingVertical: 12,
-        borderBottomWidth: 1,
-        borderStyle: "solid",
-        borderColor: "#DCDCDC",
-        marginTop: 110,
-        backgroundColor: "white",
-        borderTopRightRadius: 12,
-        borderTopLeftRadius: 12,
-        shadowColor: "#000",
-        shadowOffset: { width: 2, height: 2 },
-        shadowOpacity: 0.3,
-        shadowRadius: 3,
-        elevation: 5,
-      }}
-    >
-      <View style={{ height: 40, width: 40 }} />
+    <View style={styles.topSection}>
+      <Button.Icon
+        name="ghost"
+        variant="ghost"
+        {...leftIconButtonProps}
+        style={{ opacity: leftIconButtonProps ? 1 : 0 }}
+      />
       <Typography variant="h3" color="primary">
-        {props.title}
+        {title}
       </Typography>
-      <Button.Icon name="close" onPress={props.setInvisible} variant="ghost" />
+      <Button.Icon name="close" onPress={setInvisible} variant="ghost" />
     </View>
-    <View style={{ flex: 1, padding: 24, backgroundColor: "white" }}>
-      {props.children}
-    </View>
+    <View style={styles.content}>{children}</View>
   </Modal>
 );
+
+const styles = StyleSheet.create({
+  topSection: {
+    alignItems: "center",
+    backgroundColor: "white",
+    borderBottomWidth: 1,
+    borderColor: "#DCDCDC",
+    borderStyle: "solid",
+    borderTopEndRadius: 12,
+    elevation: 5,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 110,
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    shadowColor: "#000",
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+  },
+  content: {
+    backgroundColor: "white",
+    flex: 1,
+    paddingHorizontal: 24,
+    paddingVertical: 36,
+  },
+});
