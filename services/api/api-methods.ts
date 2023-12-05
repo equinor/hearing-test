@@ -95,7 +95,8 @@ export const postTakeTest = () =>
         hz8000Db: -60.9,
       });
 
-export const postTest = (body) => postData(`/me/tests`, body);
+export const postTest = (body): Promise<TestResult> =>
+  postData(`/me/tests`, body);
 
 export const fetchTests = (): Promise<TestResult[]> =>
   store.getState().appConfig.isDemoMode

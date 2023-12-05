@@ -5,7 +5,7 @@ import {
   fetchTestsRequested,
   fetchTestsSucceeded,
 } from "./actions";
-import { stateKeys } from "../../types";
+import { TestResult, stateKeys } from "../../types";
 
 export default handleActions(
   {
@@ -35,5 +35,7 @@ export default handleActions(
   }
 );
 
-export const selectTests = (state) => state[stateKeys.TESTS].tests;
-export const selectIsFetchingTests = (state) => state[stateKeys.TESTS].fetching;
+export const selectTests = (state): TestResult[] =>
+  state[stateKeys.TESTS].tests;
+export const selectIsFetchingTests = (state): boolean =>
+  state[stateKeys.TESTS].fetching;
