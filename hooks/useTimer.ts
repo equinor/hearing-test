@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 
 const initialTimer = 0;
-const interval = 33.33;
+const refreshRate = 60;
+const interval = 1000 / refreshRate;
 
 export const useTimer = (
   dependencyToResetTimer: unknown,
