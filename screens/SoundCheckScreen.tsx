@@ -1,4 +1,4 @@
-import { Button, LinearProgress, Typography } from "@equinor/mad-components";
+import { Button, Typography } from "@equinor/mad-components";
 import { MaterialIcons as Icon } from "@expo/vector-icons";
 import { useEffect, useRef, useState } from "react";
 import { Animated, Modal, ScrollView, StyleSheet, View } from "react-native";
@@ -7,9 +7,9 @@ import Sound from "react-native-sound";
 import SystemSetting from "react-native-system-setting";
 
 import BigRoundButton from "../components/common/atoms/BigRoundButton";
+import { ProgressBar } from "../components/common/organisms/ProgressBar";
 import { EQUINOR_GREEN, GRAY_BACKGROUND } from "../constants/colors";
 import { SYSTEM_VOLUME } from "../constants/sounds";
-import { useTimer } from "../hooks/useTimer";
 import { RootStackScreenProps, SoundCheckPageJSON } from "../types";
 import { confirmationDialog } from "../utils/alerts";
 
@@ -23,14 +23,6 @@ const SoundCheckScreen = ({ navigation }: SoundCheckScreenProps) => {
   const [sound, setSound] = useState<Sound | null>(null);
   const opacityAnim = useRef(new Animated.Value(0)).current;
   const [initialSystemVolume, setInitialSystemVolume] = useState(SYSTEM_VOLUME);
-  const linearProgressDuration = 2200;
-  const isLinearProgressDisabled = currentPage === 0;
-  const { timer } = useTimer(
-    currentPage,
-    isLinearProgressDisabled,
-    linearProgressDuration,
-    ANIMATION_DURATION
-  );
 
   useEffect(() => {
     if (opacityAnim)
@@ -157,12 +149,12 @@ const SoundCheckScreen = ({ navigation }: SoundCheckScreenProps) => {
         }}
       >
         <View style={styles.container}>
-          <LinearProgress
-            value={timer / linearProgressDuration}
-            style={[
-              styles.linearProgress,
-              { opacity: isLinearProgressDisabled ? 0 : 1 },
-            ]}
+          <ProgressBar
+            dependencyToResetProgressBar={currentPage}
+            disabled={currentPage === 0}
+            duration={2000}
+            timeout={ANIMATION_DURATION}
+            style={styles.progressBar}
           />
           <View
             style={{
@@ -293,7 +285,7 @@ const styles = StyleSheet.create({
     padding: 16,
     paddingBottom: 60,
   },
-  linearProgress: {
+  progressBar: {
     marginBottom: 16,
   },
   button: { width: 160 },
