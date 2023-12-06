@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const initialTimer = 0;
-const interval = 100;
+const interval = 33.33;
 
 export const useTimer = (
   dependencyToResetTimer: unknown,
