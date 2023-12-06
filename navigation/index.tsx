@@ -39,7 +39,7 @@ import NotFoundScreen from "../screens/NotFoundScreen";
 import { PreTestScreen } from "../screens/PreTestScreen";
 import SoundCheckFinishedScreen from "../screens/SoundCheckFinishedScreen";
 import SoundCheckScreen from "../screens/SoundCheckScreen";
-import TestResultScreen from "../screens/TestResultScreen";
+import { TestResultScreen } from "../screens/TestResultScreen";
 import TestScreen from "../screens/TestScreen";
 import { setConfig } from "../store/app-config/actions";
 import store from "../store/config";
