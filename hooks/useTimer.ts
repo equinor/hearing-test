@@ -21,7 +21,7 @@ export const useTimer = (
         if (nextTimerValue <= duration) {
           timerRef.current = nextTimerValue;
           setTimer(nextTimerValue);
-        } else if (nextTimerValue > duration) {
+        } else {
           timerRef.current = duration;
           setTimer(duration);
           clearInterval(intervalId);
