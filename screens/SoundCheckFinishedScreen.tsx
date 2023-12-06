@@ -6,21 +6,6 @@ import thumbsUp from "../assets/images/thumbs-up.png";
 import { ButtonGroup } from "../components/common/atoms/ButtonGroup";
 import { RootStackScreenProps } from "../types";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24,
-    paddingTop: 80,
-    alignItems: "center",
-  },
-  image: {
-    height: 250,
-    resizeMode: "contain",
-    marginBottom: 32,
-  },
-  button: { width: 160 },
-});
-
 type SoundCheckFinishedScreenProps =
   RootStackScreenProps<"SoundCheckFinishedRoute">;
 
@@ -49,5 +34,20 @@ const SoundCheckFinishedScreen = ({
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 24,
+    paddingTop: 80,
+    alignItems: "center",
+  },
+  image: {
+    height: 250,
+    resizeMode: "contain",
+    marginBottom: 32,
+  },
+  button: { width: 160 },
+});
 
 export default SoundCheckFinishedScreen;
