@@ -8,16 +8,7 @@ import {
   VictoryTheme,
 } from "victory-native";
 
-import {
-  DOT_LABEL,
-  GRID,
-  LEFT_EAR,
-  MOSS_GREEN_13,
-  MOSS_GREEN_21,
-  MOSS_GREEN_34,
-  MOSS_GREEN_55,
-  RIGHT_EAR,
-} from "../../../constants/colors";
+import { COLORS } from "../../../constants/colors";
 import { CHART, ChartData, HEARING_THRESHOLD } from "../../../types";
 import { getDotSize } from "../../../utils/chart";
 
@@ -65,7 +56,7 @@ export const Chart = ({ data }: ChartProps) => (
       ]}
       labels={["Mildt hørselstap"]}
       labelComponent={<VictoryLabel dx={50} dy={-5} />}
-      style={{ data: { fill: MOSS_GREEN_13 } }}
+      style={{ data: { fill: COLORS.MOSS_GREEN_13 } }}
     />
     <VictoryArea
       data={[
@@ -82,7 +73,7 @@ export const Chart = ({ data }: ChartProps) => (
       ]}
       labels={["Moderat hørselstap"]}
       labelComponent={<VictoryLabel dx={58} dy={-5} />}
-      style={{ data: { fill: MOSS_GREEN_21 } }}
+      style={{ data: { fill: COLORS.MOSS_GREEN_21 } }}
     />
     <VictoryArea
       data={[
@@ -99,7 +90,7 @@ export const Chart = ({ data }: ChartProps) => (
       ]}
       labels={["Betydelig hørselstap"]}
       labelComponent={<VictoryLabel dx={62} dy={-5} />}
-      style={{ data: { fill: MOSS_GREEN_34 } }}
+      style={{ data: { fill: COLORS.MOSS_GREEN_34 } }}
     />
     <VictoryArea
       data={[
@@ -116,7 +107,7 @@ export const Chart = ({ data }: ChartProps) => (
       ]}
       labels={["Alvorlig hørselstap"]}
       labelComponent={<VictoryLabel dx={60} dy={-5} />}
-      style={{ data: { fill: MOSS_GREEN_55 } }}
+      style={{ data: { fill: COLORS.MOSS_GREEN_55 } }}
     />
     <VictoryAxis
       label
@@ -130,7 +121,7 @@ export const Chart = ({ data }: ChartProps) => (
         if (tickValue === CHART.HZ_MAX) return "";
         return tickValue < 1000 ? tickValue : `${tickValue / 1000}k`;
       }}
-      style={{ grid: { stroke: GRID } }}
+      style={{ grid: { stroke: COLORS.GRID } }}
     />
     <VictoryAxis
       dependentAxis
@@ -147,35 +138,39 @@ export const Chart = ({ data }: ChartProps) => (
         CHART.DB_MAX,
       ]}
       gridComponent={<></>}
-      style={{ grid: { stroke: GRID } }}
+      style={{ grid: { stroke: COLORS.GRID } }}
     />
     <VictoryLine
       data={data.leftEar}
       style={{
-        data: { stroke: LEFT_EAR, strokeWidth: 6 },
+        data: { stroke: COLORS.LEFT_EAR, strokeWidth: 6 },
         parent: { border: "1px solid #ccc" },
       }}
     />
     <VictoryScatter
       data={data.leftEar}
-      labelComponent={<VictoryLabel dy={7} style={{ fill: DOT_LABEL }} />}
+      labelComponent={
+        <VictoryLabel dy={7} style={{ fill: COLORS.DOT_LABEL }} />
+      }
       labels={["V"]}
       size={({ index }) => getDotSize(index, "left")}
-      style={{ data: { fill: LEFT_EAR } }}
+      style={{ data: { fill: COLORS.LEFT_EAR } }}
     />
     <VictoryLine
       data={data.rightEar}
       style={{
-        data: { stroke: RIGHT_EAR, strokeWidth: 2 },
+        data: { stroke: COLORS.RIGHT_EAR, strokeWidth: 2 },
         parent: { border: "1px solid #ccc" },
       }}
     />
     <VictoryScatter
       data={data.rightEar}
-      labelComponent={<VictoryLabel dy={7} style={{ fill: DOT_LABEL }} />}
+      labelComponent={
+        <VictoryLabel dy={7} style={{ fill: COLORS.DOT_LABEL }} />
+      }
       labels={["H"]}
       size={({ index }) => getDotSize(index, "right")}
-      style={{ data: { fill: RIGHT_EAR } }}
+      style={{ data: { fill: COLORS.RIGHT_EAR } }}
     />
   </VictoryChart>
 );

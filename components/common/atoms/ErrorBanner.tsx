@@ -2,7 +2,7 @@ import { Typography } from "@equinor/mad-components";
 import { TouchableHighlight } from "react-native";
 import { useSelector } from "react-redux";
 
-import { STOP } from "../../../constants/colors";
+import { COLORS } from "../../../constants/colors";
 import { selectError } from "../../../store/test/reducer";
 import { openURL } from "../../../utils/linking";
 
@@ -12,7 +12,7 @@ export const ErrorBanner = () => {
   if (status)
     return (
       <TouchableHighlight
-        style={{ backgroundColor: STOP, padding: 12 }}
+        style={{ backgroundColor: COLORS.RIGHT_EAR, padding: 12 }}
         onPress={() =>
           openURL(
             `https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/${status}`

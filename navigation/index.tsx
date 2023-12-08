@@ -27,7 +27,7 @@ import withUtilities from "./utils";
 import appJson from "../app.json";
 import logo from "../assets/images/logo.png";
 import { settingsScreenConfig } from "../configs/SettingsScreenConfig";
-import { EQUINOR_GREEN } from "../constants/colors";
+import { COLORS } from "../constants/colors";
 import {
   getApiBaseUrl,
   getEnvironment,
@@ -56,7 +56,7 @@ const LightTheme = {
     ...DefaultTheme.colors,
     background: "#F7F7F7",
     card: "#F7F7F7",
-    primary: EQUINOR_GREEN,
+    primary: COLORS.MOSS_GREEN_100,
   },
 };
 
@@ -138,7 +138,7 @@ function RootNavigator() {
               onPress={() => navigation.navigate("SettingsRoute")}
               style={{ paddingHorizontal: 15 }}
             >
-              <Icon name="more-vert" color={EQUINOR_GREEN} size={24} />
+              <Icon name="more-vert" color={COLORS.MOSS_GREEN_100} size={24} />
             </TouchableOpacity>
           ),
           headerShadowVisible: false,
