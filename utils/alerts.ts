@@ -3,12 +3,13 @@ import { alert } from "@equinor/mad-components";
 export const confirmationDialog = (
   title: string,
   onConfirm: () => void,
-  message = ""
+  message = "",
+  onCancel = () => {}
 ) =>
   alert(title, message, [
     {
       text: "Nei",
-      onPress: () => {},
+      onPress: onCancel,
       style: "cancel",
     },
     {
