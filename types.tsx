@@ -4,7 +4,7 @@
  */
 
 import { ButtonProps } from "@equinor/mad-components";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { ImageSourcePropType } from "react-native";
 
@@ -113,7 +113,8 @@ export type SoundCheckPageJSON = {
   };
 };
 
-export type MaterialIconName = keyof typeof MaterialIcons.glyphMap;
+export type MaterialCommunityIconName =
+  keyof typeof MaterialCommunityIcons.glyphMap;
 
 export type Error = { message: string | null; status: number | null };
 

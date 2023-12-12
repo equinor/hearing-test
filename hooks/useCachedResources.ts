@@ -1,4 +1,4 @@
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { appInsightsInit, msalInit } from "mad-expo-core";
@@ -21,7 +21,7 @@ export default function useCachedResources() {
 
         // Load fonts
         await Font.loadAsync({
-          ...MaterialIcons.font,
+          ...MaterialCommunityIcons.font,
         });
 
         await msalInit(AzureADClientId, AzureADRedirectUrl);

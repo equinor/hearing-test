@@ -1,5 +1,5 @@
 import { Typography } from "@equinor/mad-components";
-import { MaterialIcons as Icon } from "@expo/vector-icons";
+import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
 import { StyleSheet } from "react-native";
 
 import { Card } from "./Card";
