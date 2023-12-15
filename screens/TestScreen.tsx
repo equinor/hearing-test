@@ -456,7 +456,7 @@ class TestScreen extends Component {
         <Dialog isOpen={this.state.isDialogOpen}>
           <Dialog.CustomContent>
             <MenuItem
-              icon="delete"
+              icon="close"
               text="Avslutte testen"
               onPress={() =>
                 confirmationDialog(
@@ -471,7 +471,7 @@ class TestScreen extends Component {
               }
             />
             <MenuItem
-              icon="refresh"
+              icon="replay"
               text="Start hørselstesten på ny"
               onPress={() =>
                 confirmationDialog(
@@ -486,7 +486,7 @@ class TestScreen extends Component {
               }
             />
             <MenuItem
-              icon="school"
+              icon="headphones"
               text="Ta ny lydsjekk"
               onPress={() =>
                 confirmationDialog(
