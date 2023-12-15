@@ -21,6 +21,7 @@ export const ProgressAnimationBar = ({
 }: ProgressAnimationBarProps) => {
   const animatedValue = useRef(new Animated.Value(0)).current;
   const styles = useStyles(themeStyles, { disabled, animatedValue });
+
   useEffect(() => {
     if (!disabled)
       setTimeout(
