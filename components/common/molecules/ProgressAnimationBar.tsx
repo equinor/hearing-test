@@ -42,27 +42,26 @@ export const ProgressAnimationBar = ({
   );
 };
 
+type ThemeStyleProps = Pick<ProgressAnimationBarProps, "disabled"> & {
+  animatedValue: Animated.Value;
+};
+
 const themeStyles = EDSStyleSheet.create(
-  (
-    theme,
-    props: Pick<ProgressAnimationBarProps, "disabled"> & {
-      animatedValue: Animated.Value;
-    }
-  ) => ({
+  (theme, { disabled, animatedValue }: ThemeStyleProps) => ({
     container: {
       height: STROKE_WIDTH,
       borderRadius: STROKE_WIDTH / 2,
       overflow: "hidden",
-      opacity: props.disabled ? 0 : 1,
+      opacity: disabled ? 0 : 1,
     },
     backgroundContainer: {
-      height: STROKE_WIDTH,
+      height: "100%",
       backgroundColor: theme.colors.interactive.primary,
       opacity: 0.16,
     },
     progressBar: {
       height: "100%",
-      width: props.animatedValue.interpolate({
+      width: animatedValue.interpolate({
         inputRange: [0, 100],
         outputRange: ["0%", "100%"],
       }),
