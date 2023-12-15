@@ -2,8 +2,6 @@ import { EDSStyleSheet, useStyles } from "@equinor/mad-components";
 import { useEffect, useRef } from "react";
 import { Animated, Easing, StyleProp, View, ViewStyle } from "react-native";
 
-import { EQUINOR_GREEN } from "../../../constants/colors";
-
 type ProgressAnimationBarProps = {
   duration: number;
   timeout: number;
@@ -68,7 +66,7 @@ const themeStyles = EDSStyleSheet.create(
         inputRange: [0, 100],
         outputRange: ["0%", "100%"],
       }),
-      backgroundColor: EQUINOR_GREEN,
+      backgroundColor: theme.colors.interactive.primary,
       top: -STROKE_WIDTH,
     },
   })
