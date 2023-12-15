@@ -18,7 +18,7 @@ export const ProgressAnimationBar = ({
   style,
 }: ProgressAnimationBarProps) => {
   const animatedValue = useRef(new Animated.Value(0)).current;
-  const styles = useStyles(themeStyles, { disabled, animatedValue });
+  const styles = useStyles(themeStyles, { animatedValue, disabled });
 
   useEffect(() => {
     if (!disabled)
@@ -42,12 +42,12 @@ export const ProgressAnimationBar = ({
   );
 };
 
-type ThemeStyleProps = Pick<ProgressAnimationBarProps, "disabled"> & {
+type ThemeStylesProps = {
   animatedValue: Animated.Value;
-};
+} & Pick<ProgressAnimationBarProps, "disabled">;
 
 const themeStyles = EDSStyleSheet.create(
-  (theme, { disabled, animatedValue }: ThemeStyleProps) => ({
+  (theme, { animatedValue, disabled }: ThemeStylesProps) => ({
     container: {
       height: STROKE_WIDTH,
       borderRadius: STROKE_WIDTH / 2,
