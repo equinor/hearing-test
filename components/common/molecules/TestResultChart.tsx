@@ -22,7 +22,7 @@ export const TestResultChart = ({ testResult }: TestResultChartProps) => {
   }, []);
 
   if (!chartData) {
-    return <Loading />;
+    return <Loading verticalAlignment="top" />;
   }
 
   return (
