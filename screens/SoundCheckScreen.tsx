@@ -7,7 +7,7 @@ import Sound from "react-native-sound";
 import SystemSetting from "react-native-system-setting";
 
 import BigRoundButton from "../components/common/atoms/BigRoundButton";
-import { ProgressBar } from "../components/common/organisms/ProgressBar";
+import { ProgressAnimationBar } from "../components/common/molecules/ProgressAnimationBar";
 import { EQUINOR_GREEN, GRAY_BACKGROUND } from "../constants/colors";
 import { SYSTEM_VOLUME } from "../constants/sounds";
 import { RootStackScreenProps, SoundCheckPageJSON } from "../types";
@@ -149,12 +149,12 @@ const SoundCheckScreen = ({ navigation }: SoundCheckScreenProps) => {
         }}
       >
         <View style={styles.container}>
-          <ProgressBar
-            dependencyToResetProgressBar={currentPage}
-            disabled={currentPage === 0}
-            duration={2000}
+          <ProgressAnimationBar
+            duration={1000 + (sound ? sound.getDuration() * 1000 : 0)}
             timeout={ANIMATION_DURATION}
+            disabled={currentPage === 0}
             style={styles.progressBar}
+            key={currentPage}
           />
           <View
             style={{
@@ -285,9 +285,7 @@ const styles = StyleSheet.create({
     padding: 16,
     paddingBottom: 60,
   },
-  progressBar: {
-    marginBottom: 16,
-  },
+  progressBar: { marginBottom: 16 },
   button: { width: 160 },
 });
 
