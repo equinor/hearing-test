@@ -1,12 +1,12 @@
 import { Typography } from "@equinor/mad-components";
-import { MaterialIcons as Icon } from "@expo/vector-icons";
+import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
 import { COLORS } from "../../../constants/colors";
-import { MaterialIconName } from "../../../types";
+import { MaterialCommunityIconName } from "../../../types";
 
 type Props = {
-  icon: MaterialIconName;
+  icon: MaterialCommunityIconName;
   text: string;
   onPress: () => void;
 };

@@ -5,7 +5,7 @@
  */
 
 import { Typography } from "@equinor/mad-components";
-import { MaterialIcons as Icon } from "@expo/vector-icons";
+import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
 import {
   DarkTheme,
   DefaultTheme,
@@ -138,7 +138,11 @@ function RootNavigator() {
               onPress={() => navigation.navigate("SettingsRoute")}
               style={{ paddingHorizontal: 15 }}
             >
-              <Icon name="more-vert" color={COLORS.MOSS_GREEN_100} size={24} />
+              <Icon
+                name="dots-vertical"
+                color={COLORS.MOSS_GREEN_100}
+                size={24}
+              />
             </TouchableOpacity>
           ),
           headerShadowVisible: false,
