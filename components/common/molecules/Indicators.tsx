@@ -1,6 +1,6 @@
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 
-import { MOSS_GREEN_100 } from "../../../constants/colors";
+import { COLORS } from "../../../constants/colors";
 
 type IndicatorsProps = {
   iterable: any[];
@@ -22,7 +22,7 @@ export const Indicators = ({ iterable = [], style }: IndicatorsProps) => (
             {
               width: current ? 20 : 12,
               height: current ? 10 : 8,
-              backgroundColor: current ? MOSS_GREEN_100 : "#97CACE",
+              backgroundColor: current ? COLORS.MOSS_GREEN_100 : "#97CACE",
             },
           ]}
         />

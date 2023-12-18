@@ -1,6 +1,6 @@
 import { View } from "react-native";
 
-import { EQUINOR_GREEN } from "../../../constants/colors";
+import { COLORS } from "../../../constants/colors";
 
 export default function (props: { percentDone: number; disabled?: boolean }) {
   return (
@@ -14,7 +14,9 @@ export default function (props: { percentDone: number; disabled?: boolean }) {
       />
       <View
         style={{
-          backgroundColor: props.disabled ? "transparent" : EQUINOR_GREEN,
+          backgroundColor: props.disabled
+            ? "transparent"
+            : COLORS.MOSS_GREEN_100,
           height: 4,
           left: 0,
           position: "relative",
