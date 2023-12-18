@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Animated, Easing, View } from "react-native";
 
-import { EQUINOR_GREEN } from "../../../constants/colors";
+import { COLORS } from "../../../constants/colors";
 
 const ProgressAnimationBar = (props: {
   duration: number;
@@ -36,7 +36,7 @@ const ProgressAnimationBar = (props: {
       <Animated.View
         style={{
           height: "100%",
-          backgroundColor: EQUINOR_GREEN,
+          backgroundColor: COLORS.MOSS_GREEN_100,
           width: progressAnim.interpolate({
             inputRange: [0, 100],
             outputRange: ["0%", "100%"],

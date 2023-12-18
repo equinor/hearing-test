@@ -3,7 +3,7 @@ import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
 import { StyleSheet } from "react-native";
 
 import { Card } from "./Card";
-import { EQUINOR_GREEN } from "../../../constants/colors";
+import { COLORS } from "../../../constants/colors";
 
 const NavigationItem = (props: { title: string; onPress?: () => void }) => {
   return (
@@ -11,7 +11,7 @@ const NavigationItem = (props: { title: string; onPress?: () => void }) => {
       <Typography color="primary">{props.title}</Typography>
       <Icon
         size={24}
-        color={EQUINOR_GREEN}
+        color={COLORS.MOSS_GREEN_100}
         name="chevron-right"
         style={styles.icon}
       />
