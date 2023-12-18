@@ -1,5 +1,5 @@
 import { Button, Typography } from "@equinor/mad-components";
-import { MaterialIcons as Icon } from "@expo/vector-icons";
+import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
 import { useEffect, useRef, useState } from "react";
 import { Animated, Modal, ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
