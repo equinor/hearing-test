@@ -8,7 +8,7 @@ import SystemSetting from "react-native-system-setting";
 
 import BigRoundButton from "../components/common/atoms/BigRoundButton";
 import { ProgressAnimationBar } from "../components/common/molecules/ProgressAnimationBar";
-import { EQUINOR_GREEN, GRAY_BACKGROUND } from "../constants/colors";
+import { COLORS } from "../constants/colors";
 import { SYSTEM_VOLUME } from "../constants/sounds";
 import { RootStackScreenProps, SoundCheckPageJSON } from "../types";
 import { confirmationDialog } from "../utils/alerts";
@@ -215,7 +215,7 @@ const SoundCheckScreen = ({ navigation }: SoundCheckScreenProps) => {
           <SafeAreaView
             style={{
               flex: 1,
-              backgroundColor: GRAY_BACKGROUND,
+              backgroundColor: COLORS.GRAY_BACKGROUND,
             }}
           >
             <ScrollView
@@ -259,7 +259,7 @@ const SoundCheckScreen = ({ navigation }: SoundCheckScreenProps) => {
 const CanHearSoundButton = (props: { onPress: Function }) => {
   const [pressed, setPressed] = useState(false);
   return pressed ? (
-    <Icon name="check" size={72} color={EQUINOR_GREEN} />
+    <Icon name="check" size={72} color={COLORS.MOSS_GREEN_100} />
   ) : (
     <BigRoundButton
       text="Jeg hører lyden"
