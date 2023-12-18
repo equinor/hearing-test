@@ -1,10 +1,9 @@
-import { Typography } from "mad-expo-core";
+import { Typography } from "@equinor/mad-components";
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 
 import { Chart } from "./Chart";
 import { Loading } from "./Loading";
-import { MOSS_GREEN_100 } from "../../../constants/colors";
 import { ChartData, TestResult } from "../../../types";
 import { getChartData } from "../../../utils/chart";
 import { formatDate } from "../../../utils/date";
@@ -27,7 +26,7 @@ export const TestResultChart = ({ testResult }: TestResultChartProps) => {
 
   return (
     <View style={styles.container}>
-      <Typography variant="h5" color={MOSS_GREEN_100} style={styles.date}>
+      <Typography variant="h5" color="primary" style={styles.date}>
         {formatDate(testResult.dateTaken)}
       </Typography>
       <Chart data={chartData} />

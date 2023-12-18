@@ -5,7 +5,7 @@
  */
 
 import { Typography } from "@equinor/mad-components";
-import { MaterialIcons as Icon } from "@expo/vector-icons";
+import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
 import {
   DarkTheme,
   DefaultTheme,
@@ -27,7 +27,7 @@ import withUtilities from "./utils";
 import appJson from "../app.json";
 import logo from "../assets/images/logo.png";
 import { settingsScreenConfig } from "../configs/SettingsScreenConfig";
-import { EQUINOR_GREEN } from "../constants/colors";
+import { COLORS } from "../constants/colors";
 import {
   getApiBaseUrl,
   getEnvironment,
@@ -39,7 +39,7 @@ import NotFoundScreen from "../screens/NotFoundScreen";
 import { PreTestScreen } from "../screens/PreTestScreen";
 import SoundCheckFinishedScreen from "../screens/SoundCheckFinishedScreen";
 import SoundCheckScreen from "../screens/SoundCheckScreen";
-import TestResultScreen from "../screens/TestResultScreen";
+import { TestResultScreen } from "../screens/TestResultScreen";
 import TestScreen from "../screens/TestScreen";
 import { setConfig } from "../store/app-config/actions";
 import store from "../store/config";
@@ -56,7 +56,7 @@ const LightTheme = {
     ...DefaultTheme.colors,
     background: "#F7F7F7",
     card: "#F7F7F7",
-    primary: EQUINOR_GREEN,
+    primary: COLORS.MOSS_GREEN_100,
   },
 };
 
@@ -138,7 +138,11 @@ function RootNavigator() {
               onPress={() => navigation.navigate("SettingsRoute")}
               style={{ paddingHorizontal: 15 }}
             >
-              <Icon name="more-vert" color={EQUINOR_GREEN} size={24} />
+              <Icon
+                name="dots-vertical"
+                color={COLORS.MOSS_GREEN_100}
+                size={24}
+              />
             </TouchableOpacity>
           ),
           headerShadowVisible: false,

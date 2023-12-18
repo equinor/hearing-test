@@ -3,10 +3,8 @@
  * https://reactnavigation.org/docs/typescript/
  */
 
-import { ButtonProps } from "@equinor/mad-components";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { ImageSourcePropType } from "react-native";
 
 declare global {
   namespace ReactNavigation {
@@ -63,7 +61,7 @@ export type HearingLevel = {
   db: number;
 };
 
-const ANALYSIS_FLAG = {
+export const ANALYSIS_FLAG = {
   UNDEFINED: "Undefined",
   OK: "Ok",
   OUTLIER: "Outlier",
@@ -113,7 +111,8 @@ export type SoundCheckPageJSON = {
   };
 };
 
-export type MaterialIconName = keyof typeof MaterialIcons.glyphMap;
+export type MaterialCommunityIconName =
+  keyof typeof MaterialCommunityIcons.glyphMap;
 
 export type Error = { message: string | null; status: number | null };
 
@@ -133,18 +132,4 @@ export type Sound = {
   hz: number;
   uri: string;
   lastModified: Date;
-};
-
-export type TestResultButtonConfigurations = {
-  seeResult: ButtonProps;
-  newTest: ButtonProps;
-  sendTest: ButtonProps;
-};
-
-export type TestResultPage = {
-  title: string;
-  image: ImageSourcePropType;
-  subTitle: string;
-  description: string;
-  buttons: ButtonProps[];
 };
