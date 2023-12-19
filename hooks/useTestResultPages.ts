@@ -15,11 +15,11 @@ type TestResultPage = {
 };
 
 type TestResultPages = {
-  newTestInSixMonths: TestResultPage;
-  newTestRecommended: TestResultPage;
-  hearingChangeDetected: TestResultPage;
-  sendingTestFailed: TestResultPage;
-  testIsSent: TestResultPage;
+  ok: TestResultPage;
+  outlier: TestResultPage;
+  notOk: TestResultPage;
+  sendFailed: TestResultPage;
+  default: TestResultPage;
 };
 
 export type TestResultPageButtons = {
@@ -33,31 +33,29 @@ export const useTestResultPages = (
   buttons: TestResultPageButtons
 ) => {
   const pages: TestResultPages = {
-    newTestInSixMonths: {
+    ok: {
       title: "Testen er fullført",
       image: thumbsUp,
       subtitle: "Dette ser fint ut!",
       description:
-        "Du vil få en ny invitasjon om 6 måneder, men vær oppmerksom på at jo oftere du tar testen, jo bedre.",
+        "Det er ikke oppdaget en endring i hørselen siden forrige måling.",
       buttons: [buttons.seeResult],
     },
-    newTestRecommended: {
+    outlier: {
       title: "Her ble det litt krøll",
       image: warning,
-      subtitle: "Takk for at du gjennomførte testen",
-      description:
-        "For beste mulige resultater, vennligst ta hørselstesten på ny.",
-      buttons: [buttons.newTest],
+      subtitle: "Dette kan se ut som en feilmåling",
+      description: "Ta ny test eller kontakt sykepleier.",
+      buttons: [buttons.seeResult, buttons.newTest],
     },
-    hearingChangeDetected: {
+    notOk: {
       title: "Testen er fullført",
       image: doctor,
-      subtitle: "Takk for at du gjennomførte testen",
-      description:
-        "Det er oppdaget en endring i hørselen din. Vennligst ta kontakt med sykepleier for en manuell undersøkelse.",
+      subtitle: "Vennligst kontakt sykepleier",
+      description: "Det er oppdaget en mulig endring i hørselen din.",
       buttons: [buttons.seeResult],
     },
-    sendingTestFailed: {
+    sendFailed: {
       title: "Her ble det litt krøll",
       image: warning,
       subtitle: "Testen ble ikke sendt",
@@ -65,7 +63,7 @@ export const useTestResultPages = (
         "Testen ble lagret, men den må sendes for undersøkelse. Koble deg på nettet og prøv igjen. Testen kan også sendes fra hovedmenyen.",
       buttons: [buttons.sendTest],
     },
-    testIsSent: {
+    default: {
       title: "Testen er fullført",
       image: thumbsUp,
       subtitle: "Takk for at du testet appen!",
@@ -77,14 +75,14 @@ export const useTestResultPages = (
 
   switch (testResult.result) {
     case ANALYSIS_FLAG.OK:
-      return pages.newTestInSixMonths;
+      return pages.ok;
     case ANALYSIS_FLAG.OUTLIER:
-      return pages.newTestRecommended;
+      return pages.outlier;
     case ANALYSIS_FLAG.NOT_OK:
-      return pages.hearingChangeDetected;
+      return pages.notOk;
     case ANALYSIS_FLAG.SEND_FAILED:
-      return pages.sendingTestFailed;
+      return pages.sendFailed;
     default:
-      return pages.testIsSent;
+      return pages.default;
   }
 };
