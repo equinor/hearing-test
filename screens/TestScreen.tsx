@@ -1,7 +1,6 @@
 import { Button, LinearProgress, Typography } from "@equinor/mad-components";
 import { Dialog } from "@equinor/mad-components/dist/components/Dialog";
 import NetInfo from "@react-native-community/netinfo";
-import { Spinner } from "mad-expo-core";
 import PropTypes from "prop-types";
 import { Component } from "react";
 import { StyleSheet, View } from "react-native";
@@ -13,6 +12,7 @@ import { connect } from "react-redux";
 import BigRoundButton from "../components/common/atoms/BigRoundButton";
 import { MenuItem } from "../components/common/atoms/MenuItem";
 import { MuteButton } from "../components/common/atoms/MuteButton";
+import { Loading } from "../components/common/molecules/Loading";
 import { TestCard } from "../components/common/molecules/TestCard";
 import { SYSTEM_VOLUME } from "../constants/sounds";
 import store from "../store/config";
@@ -307,7 +307,7 @@ class TestScreen extends Component {
     const { actionStartTest, isFetching, node, testIsRunning } = this.props;
     const { isDialogOpen, pauseAfterNode, isDoneLoadingSounds } = this.state;
     if (isFetching || !isDoneLoadingSounds || pauseAfterNode || isDialogOpen)
-      return <Spinner />;
+      return <Loading />;
     if (testIsRunning)
       return (
         <BigRoundButton
@@ -453,7 +453,7 @@ class TestScreen extends Component {
         <Dialog isOpen={this.state.isDialogOpen}>
           <Dialog.CustomContent>
             <MenuItem
-              icon="delete"
+              icon="close"
               text="Avslutte testen"
               onPress={() =>
                 confirmationDialog(
@@ -468,7 +468,7 @@ class TestScreen extends Component {
               }
             />
             <MenuItem
-              icon="refresh"
+              icon="replay"
               text="Start hørselstesten på ny"
               onPress={() =>
                 confirmationDialog(
@@ -483,7 +483,7 @@ class TestScreen extends Component {
               }
             />
             <MenuItem
-              icon="school"
+              icon="headphones"
               text="Ta ny lydsjekk"
               onPress={() =>
                 confirmationDialog(

@@ -18,7 +18,7 @@ export const TestResultsModalContent = ({
   const { isFetching, testResults } = useTestResults();
 
   if (isFetching) {
-    return <Loading />;
+    return <Loading verticalAlignment="top" />;
   }
 
   if (testResult) {
