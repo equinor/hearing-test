@@ -1,50 +1,72 @@
+import { EDSStyleSheet, useStyles } from "@equinor/mad-components";
 import { useEffect, useRef } from "react";
-import { Animated, Easing, View } from "react-native";
+import { Animated, Easing, StyleProp, View, ViewStyle } from "react-native";
 
-import { COLORS } from "../../../constants/colors";
-
-const ProgressAnimationBar = (props: {
+type ProgressAnimationBarProps = {
   duration: number;
   timeout: number;
   disabled: boolean;
-}) => {
-  const progressAnim = useRef(new Animated.Value(0)).current;
+  style?: StyleProp<ViewStyle>;
+};
+
+const STROKE_WIDTH = 6;
+
+export const ProgressAnimationBar = ({
+  duration,
+  timeout,
+  disabled,
+  style,
+}: ProgressAnimationBarProps) => {
+  const animatedValue = useRef(new Animated.Value(0)).current;
+  const styles = useStyles(themeStyles, { animatedValue, disabled });
+
   useEffect(() => {
-    if (!props.disabled)
+    if (!disabled)
       setTimeout(
         () =>
-          Animated.timing(progressAnim, {
+          Animated.timing(animatedValue, {
             toValue: 100,
-            duration: props.duration,
+            duration,
             useNativeDriver: false,
             easing: Easing.linear,
           }).start(),
-        props.timeout
+        timeout
       );
-  }, [progressAnim]);
-
-  if (props.disabled) return <View style={{ height: 4 }} />;
+  }, [animatedValue]);
 
   return (
-    <View
-      style={{
-        height: 4,
-        width: "100%",
-        backgroundColor: "#DCDCDC",
-      }}
-    >
-      <Animated.View
-        style={{
-          height: "100%",
-          backgroundColor: COLORS.MOSS_GREEN_100,
-          width: progressAnim.interpolate({
-            inputRange: [0, 100],
-            outputRange: ["0%", "100%"],
-          }),
-        }}
-      />
+    <View style={[styles.container, style]}>
+      <View style={styles.backgroundContainer} />
+      <Animated.View style={styles.progressBar} />
     </View>
   );
 };
 
-export default ProgressAnimationBar;
+type ThemeStylesProps = {
+  animatedValue: Animated.Value;
+} & Pick<ProgressAnimationBarProps, "disabled">;
+
+const themeStyles = EDSStyleSheet.create(
+  (theme, { animatedValue, disabled }: ThemeStylesProps) => ({
+    container: {
+      height: STROKE_WIDTH,
+      borderRadius: STROKE_WIDTH / 2,
+      overflow: "hidden",
+      opacity: disabled ? 0 : 1,
+    },
+    backgroundContainer: {
+      height: "100%",
+      backgroundColor: theme.colors.interactive.primary,
+      opacity: 0.16,
+    },
+    progressBar: {
+      height: "100%",
+      width: animatedValue.interpolate({
+        inputRange: [0, 100],
+        outputRange: ["0%", "100%"],
+      }),
+      backgroundColor: theme.colors.interactive.primary,
+      top: -STROKE_WIDTH,
+    },
+  })
+);
