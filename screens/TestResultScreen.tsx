@@ -1,45 +1,33 @@
 import { Button, Typography } from "@equinor/mad-components";
 import { useState } from "react";
-import { Image, StyleSheet, View } from "react-native";
+import { Image, ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { ButtonGroup } from "../components/common/atoms/ButtonGroup";
 import { ErrorBanner } from "../components/common/atoms/ErrorBanner";
 import { SlideModal } from "../components/common/molecules/SlideModal";
 import { TestResultChart } from "../components/common/molecules/TestResultChart";
-import { useTestResultPages } from "../hooks/useTestResultPages";
-import { postTest } from "../store/test/actions";
 import {
-  selectIsFetching,
-  selectTest,
-  selectTestResult,
-} from "../store/test/reducer";
+  TestResultPageButtons,
+  useTestResultPages,
+} from "../hooks/useTestResultPages";
+import { postTest as actionPostTest } from "../store/test/actions";
+import { selectIsFetching, selectTestResult } from "../store/test/reducer";
 import { getUnsentTests } from "../store/unsent-tests/reducer";
-import {
-  RootStackScreenProps,
-  TestResult,
-  TestResultButtonConfigurations,
-} from "../types";
+import { ANALYSIS_FLAG, RootStackScreenProps } from "../types";
 
-type TestResultScreenProps = RootStackScreenProps<"TestResultRoute"> & {
-  actionPostTest: Function;
-  isFetching: boolean;
-  testResult: TestResult;
-  unsentTests: any[];
-};
+type TestResultScreenProps = RootStackScreenProps<"TestResultRoute">;
 
-const TestResultScreen = ({
-  actionPostTest,
-  isFetching,
-  navigation,
-  testResult,
-  unsentTests,
-}: TestResultScreenProps) => {
+export const TestResultScreen = ({ navigation }: TestResultScreenProps) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [resendCount, setResendCount] = useState(0);
+  const isFetching = useSelector(selectIsFetching);
+  const testResult = useSelector(selectTestResult);
+  const unsentTests = useSelector(getUnsentTests);
+  const dispatch = useDispatch();
 
-  const buttons: TestResultButtonConfigurations = {
+  const buttons: TestResultPageButtons = {
     seeResult: {
       title: "Se resultat",
       onPress: () => setModalVisible(true),
@@ -51,7 +39,7 @@ const TestResultScreen = ({
     sendTest: {
       title: "Send",
       onPress: () => {
-        actionPostTest(unsentTests[0]);
+        dispatch(actionPostTest(unsentTests[0]));
         setResendCount((prevResendCount) => prevResendCount + 1);
       },
       variant: resendCount > 0 ? "outlined" : "contained",
@@ -59,58 +47,44 @@ const TestResultScreen = ({
   };
 
   if (unsentTests.length > 0) {
-    testResult.result = "SendFailed";
+    testResult.result = ANALYSIS_FLAG.SEND_FAILED;
   }
 
   const page = useTestResultPages(testResult, buttons);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={styles.container}>
       <ErrorBanner />
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: 16,
-        }}
-      >
-        <View style={{ width: 40, height: 40 }} />
-        <Typography variant="h2" color="primary">
-          {page.title}
-        </Typography>
-        <Button.Icon
-          name="close"
-          onPress={() => navigation.navigate("DefaultRoute")}
-          variant="ghost"
-        />
-      </View>
-      <View style={styles.container}>
-        {/*  Results-header section */}
-        <View style={styles.centerContainer}>
-          <Image
-            source={page.image}
-            style={{ height: 250, resizeMode: "contain" }}
+      <ScrollView contentContainerStyle={styles.contentContainer}>
+        <View style={styles.titleAndCloseButton}>
+          <Button.Icon name="ghost" style={styles.placeholderIcon} />
+          <Typography variant="h2" color="primary">
+            {page.title}
+          </Typography>
+          <Button.Icon
+            name="close"
+            onPress={() => navigation.navigate("DefaultRoute")}
+            variant="ghost"
           />
-          <Typography variant="h5" color="primary">
-            {page.subTitle}
+        </View>
+        <Image source={page.image} style={styles.image} />
+        <View style={styles.subtitleAndDescription}>
+          <Typography variant="h5" color="primary" style={styles.subtitle}>
+            {page.subtitle}
           </Typography>
-          <Typography
-            style={{
-              marginTop: 12,
-              textAlign: "center",
-            }}
-          >
-            {page.description}
-          </Typography>
+          <Typography style={styles.description}>{page.description}</Typography>
         </View>
         <ButtonGroup>
           {page.buttons.map((props) => (
-            <Button key={props.title} {...props} loading={isFetching} />
+            <Button
+              key={props.title}
+              {...props}
+              loading={isFetching}
+              style={styles.button}
+            />
           ))}
         </ButtonGroup>
-      </View>
+      </ScrollView>
       <SlideModal
         setInvisible={() => setModalVisible(false)}
         title="Resultater"
@@ -123,28 +97,30 @@ const TestResultScreen = ({
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "space-between",
+  container: { flex: 1 },
+  contentContainer: {
+    flexGrow: 1,
     padding: 24,
+    alignItems: "center",
+    gap: 32,
   },
-  centerContainer: {
+  titleAndCloseButton: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  placeholderIcon: { opacity: 0 },
+  image: {
+    width: 250,
+    height: 250,
+    resizeMode: "contain",
+  },
+  subtitleAndDescription: {
     alignItems: "center",
     maxWidth: 300,
-    paddingBottom: 24,
   },
+  subtitle: { marginBottom: 8 },
+  description: { textAlign: "center" },
+  button: { width: 160 },
 });
-
-const mapDispatchToProps = (dispatch) => ({
-  actionPostTest: (test) => dispatch(postTest(test)),
-});
-
-const mapStateToProps = (state) => ({
-  isFetching: selectIsFetching(state),
-  testResult: selectTestResult(state),
-  test: selectTest(state),
-  unsentTests: getUnsentTests(state),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(TestResultScreen);
