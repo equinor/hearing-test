@@ -10,7 +10,7 @@ import Sound from "react-native-sound";
 import SystemSetting from "react-native-system-setting";
 import { connect } from "react-redux";
 
-import BigRoundButton from "../components/common/atoms/BigRoundButton";
+import { BigRoundButton } from "../components/common/atoms/BigRoundButton";
 import { MenuItem } from "../components/common/atoms/MenuItem";
 import { MuteButton } from "../components/common/atoms/MuteButton";
 import { TestCard } from "../components/common/molecules/TestCard";
@@ -311,24 +311,19 @@ class TestScreen extends Component {
     if (testIsRunning)
       return (
         <BigRoundButton
-          variant="primary"
-          text="Jeg hører lyden"
-          onPress={() => {
-            /* Register click */
-            this.registerPress(node);
-          }}
+          title="Jeg hører lyden"
+          onPress={() => this.registerPress(node)}
         />
       );
     return (
       <BigRoundButton
-        variant="secondary"
-        text="Trykk for å starte"
+        title="Trykk for å starte"
         onPress={() => {
-          /* Start */
           this.playSilentAudioClip();
           this.setNumberOfNodes();
           actionStartTest();
         }}
+        variant="secondary"
       />
     );
   }
