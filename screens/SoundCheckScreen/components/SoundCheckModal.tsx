@@ -7,7 +7,7 @@ import {
 import { Modal, ModalProps, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
-import { GRAY_BACKGROUND } from "../../../constants/colors";
+import { COLORS } from "../../../constants/colors";
 
 type SoundCheckModalProps = Pick<ModalProps, "visible"> & {
   onPressTryAgain: () => void;
@@ -52,7 +52,7 @@ export const SoundCheckModal = ({
 const themeStyles = EDSStyleSheet.create((theme) => ({
   container: {
     flex: 1,
-    backgroundColor: GRAY_BACKGROUND,
+    backgroundColor: COLORS.GRAY_BACKGROUND,
   },
   contentContainer: {
     flex: 1,

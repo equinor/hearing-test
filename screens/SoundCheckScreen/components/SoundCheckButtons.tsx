@@ -3,7 +3,7 @@ import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
 import { BigRoundButton } from "../../../components/common/atoms/BigRoundButton";
-import { EQUINOR_GREEN } from "../../../constants/colors";
+import { COLORS } from "../../../constants/colors";
 import { Ear } from "../../../types";
 
 type CanHearSoundButtonsProps = {
@@ -33,7 +33,13 @@ export const SoundCheckButtons = ({
   };
 
   if (match) {
-    return <Icon name="check-circle-outline" size={64} color={EQUINOR_GREEN} />;
+    return (
+      <Icon
+        name="check-circle-outline"
+        size={64}
+        color={COLORS.MOSS_GREEN_100}
+      />
+    );
   }
 
   return (
