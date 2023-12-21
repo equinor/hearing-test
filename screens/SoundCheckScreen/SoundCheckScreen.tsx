@@ -4,7 +4,7 @@ import {
   Typography,
   useStyles,
 } from "@equinor/mad-components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Animated, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -43,14 +43,7 @@ export const SoundCheckScreen = ({ navigation }: SoundCheckScreenProps) => {
   const { animatedViewOpacity, currentPage, setCurrentPage, page, nextPage } =
     useSoundCheckPages(buttons, wrongEarChosen);
 
-  const soundDisabled = modalVisible || !page.earToCheck;
-  const playSoundDependencies = [modalVisible, page];
-  const { sound } = useSoundCheck(
-    initialSystemVolume,
-    page.earToCheck,
-    soundDisabled,
-    playSoundDependencies
-  );
+  const { sound } = useSoundCheck(initialSystemVolume, page.earToCheck, [page]);
 
   const styles = useStyles(themeStyles, { animatedViewOpacity });
 

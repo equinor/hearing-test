@@ -10,8 +10,7 @@ import { getPan } from "../../../utils/getPan";
 export const useSoundCheck = (
   initialSystemVolume: number,
   ear: Ear | undefined,
-  disabled: boolean,
-  playSoundDependencies: unknown[]
+  playSoundDeps: unknown[]
 ) => {
   const sound = useRef(
     new Sound(require("../../../assets/audio/1000Hz_dobbel.wav"))
@@ -24,12 +23,10 @@ export const useSoundCheck = (
   }, []);
 
   useEffect(() => {
-    if (disabled) return;
+    if (!ear) return;
     sound.stop();
-    if (ear) {
-      setTimeout(() => playSound(ear), ANIMATION_DURATION + 1000);
-    }
-  }, playSoundDependencies);
+    setTimeout(() => playSound(ear), ANIMATION_DURATION + 1000);
+  }, playSoundDeps);
 
   const playSound = (ear: Ear) => {
     SystemSetting.setVolume(SYSTEM_VOLUME);
