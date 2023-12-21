@@ -28,7 +28,6 @@ export const SoundCheckScreen = ({ navigation }: SoundCheckScreenProps) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [wrongEarChosen, setWrongEarChosen] = useState<Ear>();
   const { initialSystemVolume } = useInitialSystemVolume();
-  const { sound, playSound } = useSoundCheck(initialSystemVolume);
 
   const buttons: SoundCheckButtonConfigurations = {
     noSound: {
@@ -44,16 +43,16 @@ export const SoundCheckScreen = ({ navigation }: SoundCheckScreenProps) => {
   const { animatedViewOpacity, currentPage, setCurrentPage, page, nextPage } =
     useSoundCheckPages(buttons, wrongEarChosen);
 
-  const styles = useStyles(themeStyles, { animatedViewOpacity });
+  const soundDisabled = modalVisible || !page.earToCheck;
+  const playSoundDependencies = [modalVisible, page];
+  const { sound } = useSoundCheck(
+    initialSystemVolume,
+    page.earToCheck,
+    soundDisabled,
+    playSoundDependencies
+  );
 
-  useEffect(() => {
-    sound.stop();
-    setTimeout(() => {
-      if (!modalVisible && page.earToCheck) {
-        playSound(page.earToCheck);
-      }
-    }, ANIMATION_DURATION + 1000);
-  }, [modalVisible, page]);
+  const styles = useStyles(themeStyles, { animatedViewOpacity });
 
   const CenterButton = () => {
     if (currentPage === 0) {
