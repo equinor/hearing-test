@@ -1,6 +1,6 @@
 import { ButtonProps } from "@equinor/mad-components";
 import { useNavigation } from "@react-navigation/native";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Animated } from "react-native";
 
 import { Ear } from "../../../types";
@@ -78,7 +78,10 @@ export const useSoundCheckPages = (
     }
   };
 
-  const page = wrongEarChosen ? wrongEarChosenPage : pages[currentPage];
+  const page = useMemo(
+    () => (wrongEarChosen ? wrongEarChosenPage : pages[currentPage]),
+    [wrongEarChosen, currentPage]
+  );
 
   return {
     animatedViewOpacity,
