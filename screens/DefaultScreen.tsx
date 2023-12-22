@@ -11,7 +11,7 @@ import { fetchMe } from "../services/api/api-methods";
 import { RootStackScreenProps, User } from "../types";
 import { openURL } from "../utils/linking";
 
-type DefaultScreenProps = RootStackScreenProps<"DefaultRoute">;
+type DefaultScreenProps = RootStackScreenProps<"Root">;
 
 export const DefaultScreen = ({ navigation }: DefaultScreenProps) => {
   const [user, setUser] = useState<User | null>(null);

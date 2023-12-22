@@ -173,7 +173,7 @@ const SoundCheckScreen = ({ navigation }: SoundCheckScreenProps) => {
             onPress={() =>
               confirmationDialog(
                 "Avslutte?",
-                () => navigation.navigate("DefaultRoute"),
+                () => navigation.navigate("Root"),
                 "Da må du begynne på nytt neste gang"
               )
             }

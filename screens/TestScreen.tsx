@@ -1,5 +1,6 @@
 import { Button, LinearProgress, Typography } from "@equinor/mad-components";
 import { Dialog } from "@equinor/mad-components/dist/components/Dialog";
+import { getIsDemoModeEnabled } from "@equinor/mad-core";
 import NetInfo from "@react-native-community/netinfo";
 import PropTypes from "prop-types";
 import { Component } from "react";
@@ -15,7 +16,6 @@ import { MuteButton } from "../components/common/atoms/MuteButton";
 import { Loading } from "../components/common/molecules/Loading";
 import { TestCard } from "../components/common/molecules/TestCard";
 import { SYSTEM_VOLUME } from "../constants/sounds";
-import store from "../store/config";
 import {
   failure,
   postTakeTest,
@@ -87,7 +87,7 @@ class TestScreen extends Component {
     numberOfNodesPlayed: 0,
     numberOfNodes: Infinity,
     isDoneLoadingSounds: false,
-    isDemoMode: store.getState().appConfig.isDemoMode,
+    isDemoMode: getIsDemoModeEnabled(),
     isVolumeMuted: false,
     isConnected: null,
     netInfoEventListener: null,
@@ -460,7 +460,7 @@ class TestScreen extends Component {
                   "Avslutte hørselstesten?",
                   () => {
                     this.abortTest();
-                    this.props.navigation.navigate("DefaultRoute");
+                    this.props.navigation.navigate("Root");
                   },
                   "Da må du begynne på nytt neste gang",
                   () => this.setState({ isDialogOpen: true })

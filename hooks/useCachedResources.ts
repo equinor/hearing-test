@@ -1,14 +1,7 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import { appInsightsInit, msalInit } from "mad-expo-core";
 import { useEffect, useState } from "react";
-
-import {
-  ApplicationInsightsInstrumentationKey,
-  AzureADClientId,
-  AzureADRedirectUrl,
-} from "../constants/settings";
 
 export default function useCachedResources() {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -22,12 +15,6 @@ export default function useCachedResources() {
         // Load fonts
         await Font.loadAsync({
           ...MaterialCommunityIcons.font,
-        });
-
-        await msalInit(AzureADClientId, AzureADRedirectUrl);
-
-        appInsightsInit({
-          instrumentationKey: ApplicationInsightsInstrumentationKey,
         });
       } catch (e) {
         // We might want to provide this error information to an error reporting service

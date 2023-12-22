@@ -43,7 +43,7 @@ export const usePreTestPages = (
               buttons: [
                 {
                   title: "Hjem",
-                  onPress: () => navigation.navigate("DefaultRoute"),
+                  onPress: () => navigation.navigate("Root"),
                 },
               ],
               hideIndicators: true,
