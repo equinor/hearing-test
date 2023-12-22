@@ -3,14 +3,6 @@ import {
   Resources,
 } from "./settings.json";
 
-export {
-  ApplicationInsightsInstrumentationKey,
-  AzureADAuthority,
-  AzureADClientId,
-  AzureADRedirectUrl,
-  AzureADTenantId,
-} from "./settings.json";
-
 type BuildConfiguration = "Dev" | "Test" | "Release";
 
 type LowercaseBuildConfiguration = Lowercase<BuildConfiguration>;

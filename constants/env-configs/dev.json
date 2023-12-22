@@ -1,9 +1,4 @@
 {
-  "AzureADTenantId": "statoilsrm.onmicrosoft.com",
-  "AzureADAuthority": "https://login.microsoftonline.com/statoilsrm.onmicrosoft.com",
-  "AzureADClientId": "f8ff2f9f-d270-40bf-9f61-e36cc8f4b014",
-  "AzureADRedirectUrl": "msauth.com.equinor.hearingtest.dev://auth",
-  "ApplicationInsightsInstrumentationKey": "4caa232d-f121-47ed-8269-9da78a1e5bbd",
   "BuildConfiguration": "Dev",
   "Resources": {
     "hearing": {
