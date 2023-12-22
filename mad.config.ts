@@ -45,9 +45,7 @@ export const config: MadConfig = {
     test: { instrumentationKey: "ab53a6e8-7d99-49b6-9212-572a83271f65" },
     prod: { instrumentationKey: "8dba9ec2-bd86-43e1-a628-3850eb95b052" },
   },
-  serviceNow: {
-    whatever: "",
-  },
+  serviceNow: "HØRSELSAPP",
   about: {
     endpoints: getApiEndpoints(),
     buildNumber: appJson.expo.ios.buildNumber,
