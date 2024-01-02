@@ -7,7 +7,7 @@ import Sound from "react-native-sound";
 import SystemSetting from "react-native-system-setting";
 
 import BigRoundButton from "../components/common/atoms/BigRoundButton";
-import ProgressAnimationBar from "../components/common/molecules/ProgressAnimationBar";
+import { ProgressAnimationBar } from "../components/common/molecules/ProgressAnimationBar";
 import { COLORS } from "../constants/colors";
 import { SYSTEM_VOLUME } from "../constants/sounds";
 import { RootStackScreenProps, SoundCheckPageJSON } from "../types";
@@ -20,7 +20,7 @@ type SoundCheckScreenProps = RootStackScreenProps<"SoundCheckRoute">;
 const SoundCheckScreen = ({ navigation }: SoundCheckScreenProps) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
-  const [sound, setSound] = useState<Sound>(null);
+  const [sound, setSound] = useState<Sound | null>(null);
   const opacityAnim = useRef(new Animated.Value(0)).current;
   const [initialSystemVolume, setInitialSystemVolume] = useState(SYSTEM_VOLUME);
 
@@ -141,126 +141,117 @@ const SoundCheckScreen = ({ navigation }: SoundCheckScreenProps) => {
   }, [currentPage, modalVisible]);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={{ flex: 1 }}>
-        <Animated.View
+    <SafeAreaView style={styles.container}>
+      <Animated.View
+        style={{
+          height: "100%",
+          opacity: opacityAnim,
+        }}
+      >
+        <ProgressAnimationBar
+          duration={1000 + (sound ? sound.getDuration() * 1000 : 0)}
+          timeout={ANIMATION_DURATION}
+          disabled={currentPage === 0}
+          style={styles.progressBar}
+          key={currentPage}
+        />
+        <View
           style={{
-            height: "100%",
-            opacity: opacityAnim,
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: 40,
           }}
         >
-          <ProgressAnimationBar
-            duration={1000 + (sound ? sound.getDuration() * 1000 : 0)}
-            timeout={ANIMATION_DURATION}
-            disabled={currentPage === 0}
-            key={currentPage}
+          <View style={{ height: 40, width: 40 }} />
+          <Typography variant="h2" color="primary">
+            {page.title}
+          </Typography>
+          <Button.Icon
+            name="close"
+            onPress={() =>
+              confirmationDialog(
+                "Avslutte?",
+                () => navigation.navigate("DefaultRoute"),
+                "Da må du begynne på nytt neste gang"
+              )
+            }
+            variant="ghost"
           />
-
-          <View style={styles.component}>
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginBottom: 40,
-              }}
-            >
-              <View style={{ height: 40, width: 40 }} />
-              <Typography variant="h2" color="primary">
-                {page.title}
-              </Typography>
-              <Button.Icon
-                name="close"
-                onPress={() =>
-                  confirmationDialog(
-                    "Avslutte?",
-                    () => navigation.navigate("DefaultRoute"),
-                    "Da må du begynne på nytt neste gang"
-                  )
-                }
-                variant="ghost"
-              />
-            </View>
-            <View
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
+        </View>
+        <View
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flex: 1,
+          }}
+        >
+          <Typography>{page.description}</Typography>
+          {page.button === "variant1" ? (
+            <BigRoundButton
+              variant="secondary"
+              text="Trykk her for å starte"
+              onPress={nextPage}
+            />
+          ) : (
+            <CanHearSoundButton
+              key={page.title}
+              onPress={() => setTimeout(nextPage, 500)}
+            />
+          )}
+          {page.hearNoSoundButtonVisible ? (
+            <Button
+              title="hører ingen lyd"
+              onPress={() => setModalVisible(true)}
+              style={styles.button}
+            />
+          ) : (
+            <View style={{ height: 58 }} />
+          )}
+        </View>
+        <Modal animationType="slide" transparent={false} visible={modalVisible}>
+          <SafeAreaView
+            style={{
+              flex: 1,
+              backgroundColor: COLORS.GRAY_BACKGROUND,
+            }}
+          >
+            <ScrollView
+              contentContainerStyle={{
                 flex: 1,
+                alignItems: "center",
+                justifyContent: "space-between",
+                padding: 16,
               }}
             >
-              <Typography>{page.description}</Typography>
-              {page.button === "variant1" ? (
-                <BigRoundButton
-                  variant="secondary"
-                  text="Trykk her for å starte"
-                  onPress={nextPage}
-                />
-              ) : (
-                <CanHearSoundButton
-                  key={page.title}
-                  onPress={() => setTimeout(nextPage, 500)}
-                />
-              )}
-              {page.hearNoSoundButtonVisible ? (
-                <Button
-                  title="hører ingen lyd"
-                  onPress={() => setModalVisible(true)}
-                  style={styles.button}
-                />
-              ) : (
-                <View style={{ height: 58 }} />
-              )}
-            </View>
-            <Modal
-              animationType="slide"
-              transparent={false}
-              visible={modalVisible}
-            >
-              <SafeAreaView
-                style={{
-                  flex: 1,
-                  backgroundColor: COLORS.GRAY_BACKGROUND,
-                }}
-              >
-                <ScrollView
-                  contentContainerStyle={{
-                    flex: 1,
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    padding: 16,
-                  }}
+              <View />
+              <View>
+                <Typography
+                  variant="h4"
+                  color="primary"
+                  style={{ textAlign: "center" }}
                 >
-                  <View />
-                  <View>
-                    <Typography
-                      variant="h4"
-                      color="primary"
-                      style={{ textAlign: "center" }}
-                    >
-                      Hvis du ikke hører lyden
-                    </Typography>
-                    <Typography style={{ textAlign: "center" }}>
-                      Sjekk at telefonen ikke er i stillemodus. Trekk ut
-                      headsettet og hør om lyden spilles gjennom høyttalerne til
-                      telefonen.
-                    </Typography>
-                  </View>
-                  <Button
-                    title="Prøv på ny"
-                    onPress={() => {
-                      setModalVisible(false);
-                      setCurrentPage(0);
-                    }}
-                    style={styles.button}
-                  />
-                </ScrollView>
-              </SafeAreaView>
-            </Modal>
-          </View>
-        </Animated.View>
-      </View>
+                  Hvis du ikke hører lyden
+                </Typography>
+                <Typography style={{ textAlign: "center" }}>
+                  Sjekk at telefonen ikke er i stillemodus. Trekk ut headsettet
+                  og hør om lyden spilles gjennom høyttalerne til telefonen.
+                </Typography>
+              </View>
+              <Button
+                title="Prøv på ny"
+                onPress={() => {
+                  setModalVisible(false);
+                  setCurrentPage(0);
+                }}
+                style={styles.button}
+              />
+            </ScrollView>
+          </SafeAreaView>
+        </Modal>
+      </Animated.View>
     </SafeAreaView>
   );
 };
@@ -282,11 +273,12 @@ const CanHearSoundButton = (props: { onPress: Function }) => {
 };
 
 const styles = StyleSheet.create({
-  component: {
+  container: {
     flex: 1,
     padding: 16,
     paddingBottom: 60,
   },
+  progressBar: { marginBottom: 16 },
   button: { width: 160 },
 });
 

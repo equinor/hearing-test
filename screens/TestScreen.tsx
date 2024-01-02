@@ -1,7 +1,6 @@
-import { Button, Typography } from "@equinor/mad-components";
+import { Button, LinearProgress, Typography } from "@equinor/mad-components";
 import { Dialog } from "@equinor/mad-components/dist/components/Dialog";
 import NetInfo from "@react-native-community/netinfo";
-import { Spinner } from "mad-expo-core";
 import PropTypes from "prop-types";
 import { Component } from "react";
 import { StyleSheet, View } from "react-native";
@@ -13,7 +12,7 @@ import { connect } from "react-redux";
 import BigRoundButton from "../components/common/atoms/BigRoundButton";
 import { MenuItem } from "../components/common/atoms/MenuItem";
 import { MuteButton } from "../components/common/atoms/MuteButton";
-import ProgressBar from "../components/common/atoms/ProgressBar";
+import { Loading } from "../components/common/molecules/Loading";
 import { TestCard } from "../components/common/molecules/TestCard";
 import { SYSTEM_VOLUME } from "../constants/sounds";
 import store from "../store/config";
@@ -308,7 +307,7 @@ class TestScreen extends Component {
     const { actionStartTest, isFetching, node, testIsRunning } = this.props;
     const { isDialogOpen, pauseAfterNode, isDoneLoadingSounds } = this.state;
     if (isFetching || !isDoneLoadingSounds || pauseAfterNode || isDialogOpen)
-      return <Spinner />;
+      return <Loading />;
     if (testIsRunning)
       return (
         <BigRoundButton
@@ -392,71 +391,69 @@ class TestScreen extends Component {
 
     return (
       <>
-        <SafeAreaView style={{ flex: 1 }}>
-          <ProgressBar
-            percentDone={
-              (this.state.numberOfNodesPlayed / this.state.numberOfNodes) * 100
-            }
-            disabled={!this.props.testIsRunning}
+        <SafeAreaView style={styles.container}>
+          <LinearProgress
+            value={this.state.numberOfNodesPlayed / this.state.numberOfNodes}
+            style={[
+              styles.linearProgress,
+              {
+                opacity: this.props.testIsRunning ? 1 : 0,
+              },
+            ]}
           />
-
-          <View style={styles.component}>
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginBottom: 40,
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: 40,
+            }}
+          >
+            <MuteButton
+              isVolumeMuted={this.state.isVolumeMuted}
+              onPress={() => {
+                this.setState((prevState) => ({
+                  isVolumeMuted: !prevState.isVolumeMuted,
+                }));
+                this.setSystemVolume(0);
               }}
-            >
-              <MuteButton
-                isVolumeMuted={this.state.isVolumeMuted}
+            />
+            <Typography variant="h2" color="primary">
+              Hørselstest
+            </Typography>
+            {this.props.testIsRunning ? (
+              <Button.Icon
+                name={this.state.pauseAfterNode ? "timer-sand-empty" : "pause"}
                 onPress={() => {
-                  this.setState((prevState) => ({
-                    isVolumeMuted: !prevState.isVolumeMuted,
-                  }));
-                  this.setSystemVolume(0);
+                  this.setState({ pauseAfterNode: true });
                 }}
+                variant="ghost"
               />
-              <Typography variant="h2" color="primary">
-                Hørselstest
-              </Typography>
-              {this.props.testIsRunning ? (
-                <Button.Icon
-                  name={
-                    this.state.pauseAfterNode ? "timer-sand-empty" : "pause"
-                  }
-                  onPress={() => {
-                    this.setState({ pauseAfterNode: true });
-                  }}
-                  variant="ghost"
-                />
-              ) : (
-                <View style={{ width: 40, height: 40 }} />
-              )}
-            </View>
-            <View
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                flex: 1,
-                paddingBottom: 40,
-              }}
-            >
-              <Typography>
-                {!this.props.testIsRunning
-                  ? "Trykk på sirkelen under når du er klar for å starte hørselstesten."
-                  : "Trykk på sirkelen under når du hører en lyd"}
-              </Typography>
-              {this.renderBigRoundButton()}
-            </View>
+            ) : (
+              <View style={{ width: 40, height: 40 }} />
+            )}
+          </View>
+          <View
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              flex: 1,
+              paddingBottom: 40,
+            }}
+          >
+            <Typography>
+              {!this.props.testIsRunning
+                ? "Trykk på sirkelen under når du er klar for å starte hørselstesten."
+                : "Trykk på sirkelen under når du hører en lyd"}
+            </Typography>
+            {this.renderBigRoundButton()}
           </View>
         </SafeAreaView>
         <Dialog isOpen={this.state.isDialogOpen}>
           <Dialog.CustomContent>
             <MenuItem
-              icon="delete"
+              icon="close"
               text="Avslutte testen"
               onPress={() =>
                 confirmationDialog(
@@ -471,7 +468,7 @@ class TestScreen extends Component {
               }
             />
             <MenuItem
-              icon="refresh"
+              icon="replay"
               text="Start hørselstesten på ny"
               onPress={() =>
                 confirmationDialog(
@@ -486,7 +483,7 @@ class TestScreen extends Component {
               }
             />
             <MenuItem
-              icon="school"
+              icon="headphones"
               text="Ta ny lydsjekk"
               onPress={() =>
                 confirmationDialog(
@@ -513,10 +510,13 @@ class TestScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-  component: {
+  container: {
     flex: 1,
     padding: 16,
     paddingBottom: 60,
+  },
+  linearProgress: {
+    marginBottom: 16,
   },
   continueHearingTestButton: { marginTop: 14, marginBottom: 16 },
 });
