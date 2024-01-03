@@ -66,9 +66,8 @@ export const useTestResultPages = (
     default: {
       title: "Testen er fullført",
       image: thumbsUp,
-      subtitle: "Takk for at du testet appen!",
-      description:
-        "Du blir kontaktet av en lege dersom du har problemer med hørselen.",
+      subtitle: "Analyse pågår",
+      description: "Du får snart svaret av analysen.",
       buttons: [buttons.seeResult],
     },
   };
