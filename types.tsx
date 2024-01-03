@@ -62,11 +62,11 @@ export type HearingLevel = {
 };
 
 export const ANALYSIS_FLAG = {
-  UNDEFINED: 0,
-  OK: 1,
-  OUTLIER: 2,
-  NOT_OK: 3,
-  SEND_FAILED: 4,
+  UNDEFINED: "Undefined",
+  OK: "Ok",
+  OUTLIER: "Outlier",
+  NOT_OK: "NotOk",
+  SEND_FAILED: "SendFailed",
 } as const;
 
 type ObjectValues<T> = T[keyof T];
