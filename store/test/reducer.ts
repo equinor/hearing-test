@@ -1,3 +1,4 @@
+import { getIsDemoModeEnabled } from "@equinor/mad-core";
 import _ from "lodash";
 import { handleActions } from "redux-actions";
 
@@ -168,7 +169,5 @@ export const selectTestIsRunning = (state): boolean =>
   state[stateKeys.TEST].testIsRunning;
 export const selectResults = (state) => state[stateKeys.TEST].results;
 export const selectTestResult = (state): TestResult =>
-  state.appConfig.isDemoMode
-    ? mockData.Tests[0]
-    : state[stateKeys.TEST].testResult;
+  getIsDemoModeEnabled() ? mockData.Tests[0] : state[stateKeys.TEST].testResult;
 export const selectError = (state): Error => state[stateKeys.TEST].error;

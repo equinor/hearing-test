@@ -63,7 +63,7 @@ export const TestResultScreen = ({ navigation }: TestResultScreenProps) => {
           </Typography>
           <Button.Icon
             name="close"
-            onPress={() => navigation.navigate("DefaultRoute")}
+            onPress={() => navigation.navigate("Root")}
             variant="ghost"
           />
         </View>

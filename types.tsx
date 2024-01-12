@@ -15,13 +15,13 @@ declare global {
 export type RootStackParamList = {
   LoginRoute: undefined;
   ReleaseNoteRoute: undefined;
-  DefaultRoute: undefined;
+  Root: undefined;
   SoundCheckRoute: undefined;
   SoundCheckFinishedRoute: undefined;
   PreTestRoute: undefined;
   TestRoute: undefined;
   TestResultRoute: undefined;
-  SettingsRoute: undefined;
+  Settings: undefined;
   AboutRoute: undefined;
   FeedbackRoute: undefined;
   NotFoundRoute: undefined;
@@ -34,7 +34,6 @@ export const stateKeys = {
   MANIFEST: "schemaVersion",
   TEST: "test",
   TESTS: "tests",
-  APPCONFIG: "appConfig",
   UNSENTTESTS: "unsentTests",
 };
 
