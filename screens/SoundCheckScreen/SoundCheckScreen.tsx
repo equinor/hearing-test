@@ -71,7 +71,7 @@ export const SoundCheckScreen = ({ navigation }: SoundCheckScreenProps) => {
   const handleClose = () => {
     confirmationDialog(
       "Avslutte?",
-      () => navigation.navigate("DefaultRoute"),
+      () => navigation.navigate("Root"),
       "Da må du begynne på nytt neste gang"
     );
   };

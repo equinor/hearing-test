@@ -3,14 +3,6 @@ import {
   Resources,
 } from "./settings.json";
 
-export {
-  ApplicationInsightsInstrumentationKey,
-  AzureADAuthority,
-  AzureADClientId,
-  AzureADRedirectUrl,
-  AzureADTenantId,
-} from "./settings.json";
-
 type BuildConfiguration = "Dev" | "Test" | "Release";
 
 type LowercaseBuildConfiguration = Lowercase<BuildConfiguration>;
@@ -32,7 +24,7 @@ export const getEnvironment = (): Environment => {
 
 export const isProduction = getEnvironment() === "prod";
 
-type ResourceName = keyof typeof Resources;
+export type ResourceName = keyof typeof Resources;
 
 type ResourceNames = ResourceName[];
 
@@ -50,8 +42,6 @@ export const getApiBaseUrl = (name: ResourceName) =>
   getResource(name).ApiBaseUrl;
 
 export const getApiEndpoints = () =>
-  getResourceNames()
-    .map((name) => getApiBaseUrl(name))
-    .join("\n");
+  getResourceNames().map((name) => getApiBaseUrl(name));
 
 export const getScopes = (name: ResourceName) => getResource(name).scopes;

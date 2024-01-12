@@ -15,7 +15,7 @@ const linking: LinkingOptions<RootStackParamList> = {
     screens: {
       LoginRoute: "login",
       ReleaseNoteRoute: "releasenote",
-      SettingsRoute: "settings",
+      Settings: "settings",
       AboutRoute: "about",
       FeedbackRoute: "feedback",
       NotFoundRoute: "*",

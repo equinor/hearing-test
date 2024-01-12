@@ -25,7 +25,7 @@ type CardProps = {
 type TestCardProps = {
   actionPostTest: Function;
   isConnected: boolean | null;
-  navigation?: NativeStackNavigationProp<RootStackParamList, "DefaultRoute">;
+  navigation?: NativeStackNavigationProp<RootStackParamList, "Root">;
 };
 
 const TestCardComponent = ({
