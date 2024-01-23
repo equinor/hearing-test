@@ -1,54 +1,66 @@
-import { Typography } from "@equinor/mad-components";
+import { EDSStyleSheet, Typography, useStyles } from "@equinor/mad-components";
 import { TouchableOpacity } from "react-native";
 
-const BigRoundButton = (props: {
+type BigRoundButtonProps = {
+  title: string;
   onPress: () => void;
-  text: string;
+  diameter?: number;
   disabled?: boolean;
   variant?: "primary" | "secondary";
-}) => {
-  const diameter = 241;
-  const { disabled, text, onPress } = props;
+};
 
-  let borderWidth = 0;
-  const borderColor = "#007079";
-  let textColor = "white";
-  let backgroundColor = "#007079";
-  if (props.variant === "secondary") {
-    borderWidth = 1;
-    textColor = "#007079";
-    backgroundColor = "transparent";
-  }
+export const BigRoundButton = ({
+  title,
+  onPress,
+  diameter = 241,
+  disabled = false,
+  variant = "primary",
+}: BigRoundButtonProps) => {
+  const styles = useStyles(themeStyles, { diameter, disabled, variant });
+
   return (
     <TouchableOpacity
-      testID="BigRoundButton"
       onPress={onPress}
       disabled={disabled}
-      style={{
-        height: diameter,
-        width: diameter,
-        alignItems: "center",
-        justifyContent: "center",
-        borderColor,
-        borderWidth,
-
-        borderRadius: diameter / 2,
-        backgroundColor:
-          disabled || props.variant === "secondary"
-            ? "#EFEFEF"
-            : backgroundColor,
-      }}
+      style={styles.container}
     >
-      <Typography style={{ color: disabled ? "#666666" : textColor }}>
-        {text}
-      </Typography>
+      <Typography style={styles.title}>{title}</Typography>
     </TouchableOpacity>
   );
 };
 
-BigRoundButton.defaultProps = {
-  disabled: false,
-  variant: "primary",
-};
+type ThemeStylesProps = Required<
+  Pick<BigRoundButtonProps, "diameter" | "disabled" | "variant">
+>;
 
-export default BigRoundButton;
+const themeStyles = EDSStyleSheet.create(
+  (theme, { diameter, disabled, variant }: ThemeStylesProps) => {
+    let borderWidth = 0;
+    let backgroundColor = theme.colors.interactive.primary;
+    let textColor = theme.colors.text.primaryInverted;
+
+    if (variant === "secondary") {
+      borderWidth = 1;
+      backgroundColor = "#00000000";
+      textColor = theme.colors.interactive.primary;
+    }
+
+    return {
+      container: {
+        width: diameter,
+        height: diameter,
+        alignItems: "center",
+        justifyContent: "center",
+        borderColor: theme.colors.interactive.primary,
+        borderWidth,
+        borderRadius: diameter / 2,
+        backgroundColor: disabled
+          ? theme.colors.interactive.disabled
+          : backgroundColor,
+      },
+      title: {
+        color: disabled ? theme.colors.text.disabled : textColor,
+      },
+    };
+  }
+);
