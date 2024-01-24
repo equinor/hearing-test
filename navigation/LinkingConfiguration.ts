@@ -10,7 +10,7 @@ import * as Linking from "expo-linking";
 import { RootStackParamList } from "../types";
 
 const linking: LinkingOptions<RootStackParamList> = {
-  prefixes: [Linking.makeUrl("/"), "http://localhost:19006"],
+  prefixes: [Linking.createURL("/"), "http://localhost:19006"],
   config: {
     screens: {
       LoginRoute: "login",
