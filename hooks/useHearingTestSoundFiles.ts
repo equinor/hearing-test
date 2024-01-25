@@ -1,10 +1,10 @@
+import { getIsDemoModeEnabled } from "@equinor/mad-core";
 import { useEffect, useRef, useState } from "react";
 import Sound from "react-native-sound";
 import { useSelector } from "react-redux";
 
 import { useVolume } from "./useVolume";
 import { useVolumeContext } from "../contexts/VolumeContext";
-import { selectIsDemoMode } from "../store/app-config/reducer";
 import { selectTest } from "../store/test/reducer";
 import { NodeData } from "../types";
 import { createSoundFile } from "../utils/sound/createSoundFile";
@@ -19,7 +19,7 @@ export const useHearingTestSoundFiles = () => {
   const soundsRef = useRef<{ [key: string]: Sound }>({});
   const [isSoundFilesLoaded, setIsSoundFilesLoaded] = useState(false);
 
-  const isDemoMode = useSelector(selectIsDemoMode);
+  const isDemoMode = getIsDemoModeEnabled();
   const test = useSelector(selectTest);
 
   const { initialSystemVolume } = useVolumeContext();

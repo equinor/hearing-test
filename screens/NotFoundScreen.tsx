@@ -11,7 +11,7 @@ export default function NotFoundScreen({
       <Typography variant="h3">This screen doesn't exist.</Typography>
       <Button
         title="Go to home screen!"
-        onPress={() => navigation.replace("DefaultRoute")}
+        onPress={() => navigation.replace("Root")}
       />
     </View>
   );

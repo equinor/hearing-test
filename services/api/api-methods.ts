@@ -1,4 +1,4 @@
-import { authenticateSilently } from "mad-expo-core";
+import { authenticateSilently, getIsDemoModeEnabled } from "@equinor/mad-core";
 
 import {
   postMockTakeTest,
@@ -6,13 +6,10 @@ import {
   fetchMockTests,
   fetchMockSounds,
 } from "./mocked-api-methods";
-import appJson from "../../app.json";
 import { getApiBaseUrl, getScopes } from "../../constants/settings";
-import store from "../../store/config";
 import { HearingTest, Sound, TestResult, User } from "../../types";
 import { NetworkException } from "../../utils/Exception";
 
-const appName = appJson.expo.name;
 const defaultResource = "hearing";
 const jsonHeaders = {
   Accept: "application/json",
@@ -66,24 +63,8 @@ export const postData = (
     })
   );
 
-const fetchOpenData = (path, resource = defaultResource) =>
-  authenticateSilently(getScopes(resource)).then((r) =>
-    fetch(createUrl(resource, path), {
-      method: "GET",
-      ...jsonHeaders,
-    }).then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-      throw new NetworkException(response.statusText, response.status);
-    })
-  );
-
-export const getServiceMessage = () =>
-  fetchOpenData(`/ServiceMessage/${appName}`, "mad");
-
 export const postTakeTest = (): Promise<HearingTest> =>
-  store.getState().appConfig.isDemoMode
+  getIsDemoModeEnabled()
     ? postMockTakeTest()
     : postData(`/me/tests/takeTest`, {
         hz500Db: -74.2,
@@ -99,14 +80,10 @@ export const postTest = (body): Promise<TestResult> =>
   postData(`/me/tests`, body);
 
 export const fetchTests = (): Promise<TestResult[]> =>
-  store.getState().appConfig.isDemoMode
-    ? fetchMockTests()
-    : fetchData("/me/tests");
+  getIsDemoModeEnabled() ? fetchMockTests() : fetchData("/me/tests");
 
 export const fetchMe = (): Promise<User> =>
-  store.getState().appConfig.isDemoMode ? fetchMockMe() : fetchData("/me");
+  getIsDemoModeEnabled() ? fetchMockMe() : fetchData("/me");
 
 export const fetchSounds = (): Promise<Sound[]> =>
-  store.getState().appConfig.isDemoMode
-    ? fetchMockSounds()
-    : fetchData("/appstartup/sounds");
+  getIsDemoModeEnabled() ? fetchMockSounds() : fetchData("/appstartup/sounds");

@@ -3,7 +3,7 @@ import { Dialog } from "@equinor/mad-components/dist/components/Dialog";
 import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import BigRoundButton from "../components/common/atoms/BigRoundButton";
+import { BigRoundButton } from "../components/common/atoms/BigRoundButton";
 import { MenuItem } from "../components/common/atoms/MenuItem";
 import { MuteButton } from "../components/common/atoms/MuteButton";
 import { Loading } from "../components/common/molecules/Loading";
@@ -40,7 +40,7 @@ export const TestScreen = ({ navigation }: TestScreenProps) => {
       return (
         <BigRoundButton
           variant="secondary"
-          text="Trykk for å starte"
+          title="Trykk for å starte"
           onPress={startTest}
         />
       );
@@ -49,7 +49,7 @@ export const TestScreen = ({ navigation }: TestScreenProps) => {
     return (
       <BigRoundButton
         variant="primary"
-        text="Jeg hører lyden"
+        title="Jeg hører lyden"
         onPress={registerPress}
       />
     );
@@ -107,7 +107,7 @@ export const TestScreen = ({ navigation }: TestScreenProps) => {
                 "Avslutte hørselstesten?",
                 () => {
                   stopTest();
-                  navigation.navigate("DefaultRoute");
+                  navigation.navigate("Root");
                 },
                 "Da må du begynne på nytt neste gang",
                 () => setIsDialogOpen(true)

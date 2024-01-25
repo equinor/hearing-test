@@ -15,13 +15,13 @@ declare global {
 export type RootStackParamList = {
   LoginRoute: undefined;
   ReleaseNoteRoute: undefined;
-  DefaultRoute: undefined;
+  Root: undefined;
   SoundCheckRoute: undefined;
   SoundCheckFinishedRoute: undefined;
   PreTestRoute: undefined;
   TestRoute: undefined;
   TestResultRoute: undefined;
-  SettingsRoute: undefined;
+  Settings: undefined;
   AboutRoute: undefined;
   FeedbackRoute: undefined;
   NotFoundRoute: undefined;
@@ -34,7 +34,6 @@ export const stateKeys = {
   MANIFEST: "schemaVersion",
   TEST: "test",
   TESTS: "tests",
-  APPCONFIG: "appConfig",
   UNSENTTESTS: "unsentTests",
 };
 
@@ -135,23 +134,17 @@ export const HEARING_THRESHOLD = {
 
 export type Ear = "left" | "right";
 
+/**
+ * Stereo panning of a sound, where -1 is the left ear and 1 is the right ear.
+ */
+export type Pan = -1 | 1;
+
 export const CHART = {
   HZ_MIN: 400,
   HZ_MAX: 10000,
   DB_MIN: -10,
   DB_MAX: 120,
 } as const;
-
-export type SoundCheckPageJSON = {
-  title: string;
-  description: string;
-  button: "variant1" | "variant2";
-  hearNoSoundButtonVisible: boolean;
-  sound: {
-    play: boolean;
-    ear?: "left" | "right";
-  };
-};
 
 export type MaterialCommunityIconName =
   keyof typeof MaterialCommunityIcons.glyphMap;
