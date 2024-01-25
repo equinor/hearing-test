@@ -20,7 +20,7 @@ import {
   SettingsScreen,
 } from "mad-expo-core";
 import { ColorSchemeName, TouchableOpacity } from "react-native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import LinkingConfiguration from "./LinkingConfiguration";
 import withUtilities from "./utils";
@@ -40,12 +40,10 @@ import { PreTestScreen } from "../screens/PreTestScreen";
 import SoundCheckFinishedScreen from "../screens/SoundCheckFinishedScreen";
 import SoundCheckScreen from "../screens/SoundCheckScreen";
 import { TestResultScreen } from "../screens/TestResultScreen";
-import TestScreen from "../screens/TestScreen";
+import { TestScreen } from "../screens/TestScreen";
 import { setConfig } from "../store/app-config/actions";
-import store from "../store/config";
+import { selectIsDemoMode } from "../store/app-config/reducer";
 import { RootStackParamList } from "../types";
-
-const getIsDemoMode = () => store.getState().appConfig.isDemoMode;
 
 const headerBackTitleStyle = { fontFamily: "Equinor-Regular" };
 
@@ -83,6 +81,8 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   const dispatch = useDispatch();
+  const isDemoMode = useSelector(selectIsDemoMode);
+
   return (
     <Stack.Navigator
       initialRouteName="LoginRoute"
@@ -120,7 +120,7 @@ function RootNavigator() {
             scopes={getScopes("mad")}
             navigation={navigation}
             redirectRoute="DefaultRoute"
-            isDemoMode={getIsDemoMode()}
+            isDemoMode={isDemoMode}
           />
         )}
         options={{ gestureEnabled: false, headerShown: false }}

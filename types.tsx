@@ -73,6 +73,48 @@ type ObjectValues<T> = T[keyof T];
 
 export type AnalysisFlag = ObjectValues<typeof ANALYSIS_FLAG>;
 
+export type HearingTest = {
+  id: string;
+  userId: string;
+  officeLocation: string;
+  jobTitle: string;
+  name: string;
+  dateTaken: ISOString;
+  subTests: Node[];
+};
+
+export type Node = {
+  data: NodeData;
+  failure: Node;
+  success: Node;
+};
+
+export type NodeData = {
+  index: number;
+  sound: NodeSound;
+  preDelayMs: number;
+  postDelayMs: number;
+  panning: Panning;
+  stimulusDb: number;
+  headsetProfileDb: number;
+  stimulusMultiplicative: number;
+  userResponse: {
+    success: boolean;
+    reactionTimeMs: number;
+    numberOfClicks: number;
+    systemVolume: number;
+  };
+};
+
+type NodeSound = { name: string; hz: number; url: string };
+
+/**
+ * -1 for left ear, 1 for right ear
+ */
+type Panning = -1 | 1;
+
+export type HearingTestWithSounds = HearingTest & { sounds: Sound[] };
+
 export type ChartData = {
   leftEar: Point[];
   rightEar: Point[];

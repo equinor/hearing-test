@@ -1,6 +1,7 @@
 import { handleActions } from "redux-actions";
 
 import { setConfig } from "./actions";
+import { stateKeys } from "../../types";
 
 const defaultState = {
   isDemoMode: false,
@@ -18,3 +19,6 @@ export default handleActions(
   },
   defaultState
 );
+
+export const selectIsDemoMode = (state): boolean =>
+  state[stateKeys.APPCONFIG].isDemoMode;

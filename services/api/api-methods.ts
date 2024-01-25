@@ -9,7 +9,7 @@ import {
 import appJson from "../../app.json";
 import { getApiBaseUrl, getScopes } from "../../constants/settings";
 import store from "../../store/config";
-import { Sound, TestResult, User } from "../../types";
+import { HearingTest, Sound, TestResult, User } from "../../types";
 import { NetworkException } from "../../utils/Exception";
 
 const appName = appJson.expo.name;
@@ -82,7 +82,7 @@ const fetchOpenData = (path, resource = defaultResource) =>
 export const getServiceMessage = () =>
   fetchOpenData(`/ServiceMessage/${appName}`, "mad");
 
-export const postTakeTest = () =>
+export const postTakeTest = (): Promise<HearingTest> =>
   store.getState().appConfig.isDemoMode
     ? postMockTakeTest()
     : postData(`/me/tests/takeTest`, {

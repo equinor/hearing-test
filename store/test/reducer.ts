@@ -14,16 +14,19 @@ import {
   success,
 } from "./actions";
 import * as mockData from "../../services/api/mocked-api-methods/mock-data.json";
-import { Error, stateKeys, TestResult } from "../../types";
+import {
+  Error,
+  HearingTestWithSounds,
+  Node,
+  stateKeys,
+  TestResult,
+} from "../../types";
 
 function setNextNode(state, userResponse) {
   const clonedState = _.cloneDeep(state);
   clonedState.node.data.userResponse = userResponse;
 
-  if (
-    (userResponse.isPlayingFirstNodeFirstTime && userResponse.success) ||
-    !userResponse.isPlayingFirstNodeFirstTime
-  ) {
+  if (userResponse.success || !userResponse.isPlayingFirstNodeFirstTime) {
     // Remember the path we have travelled
     clonedState.userResponses.push(clonedState.node);
 
@@ -160,8 +163,9 @@ export default handleActions(
 
 export const selectIsFetching = (state): boolean =>
   state[stateKeys.TEST].fetching;
-export const selectNode = (state) => state[stateKeys.TEST].node;
-export const selectTest = (state) => state[stateKeys.TEST].test;
+export const selectNode = (state): Node => state[stateKeys.TEST].node;
+export const selectTest = (state): HearingTestWithSounds =>
+  state[stateKeys.TEST].test;
 export const selectTestIsFinished = (state): boolean =>
   state[stateKeys.TEST].testIsFinished;
 export const selectTestIsRunning = (state): boolean =>
