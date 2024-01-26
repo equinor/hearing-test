@@ -1,3 +1,4 @@
+import { trackCustom } from "@equinor/mad-core";
 import {
   createContext,
   Dispatch,
@@ -31,9 +32,11 @@ const useInitialSystemVolume = () => {
     const setInitialDeviceSystemVolume = async () => {
       await SystemSetting.getVolume()
         .then((volume) => setInitialSystemVolume(volume))
-        .catch((err) =>
-          console.error("Error setting initial system volume", err)
-        );
+        .catch((error) => {
+          trackCustom("useInitialSystemVolume: Error getting system volume", {
+            error,
+          });
+        });
     };
     setInitialDeviceSystemVolume();
 
