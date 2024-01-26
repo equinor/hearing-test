@@ -18,7 +18,7 @@ export const useVolume = () => {
    *
    * @returns The default system volume. If the volume is muted, returns 0.
    */
-  const getSystemVolume = (): number => {
+  const getDefaultSystemVolume = (): number => {
     return isMuted ? 0 : SYSTEM_VOLUME;
   };
 
@@ -28,7 +28,7 @@ export const useVolume = () => {
    *
    * @param value System volume
    */
-  const setSystemVolume = (value = getSystemVolume()): void => {
+  const setSystemVolume = (value = getDefaultSystemVolume()): void => {
     importedSetSystemVolume(value);
   };
 
