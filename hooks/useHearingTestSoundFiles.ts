@@ -1,4 +1,4 @@
-import { getIsDemoModeEnabled } from "@equinor/mad-core";
+import { useDemoMode } from "@equinor/mad-core";
 import { useEffect, useRef, useState } from "react";
 import Sound from "react-native-sound";
 import { useSelector } from "react-redux";
@@ -19,7 +19,7 @@ export const useHearingTestSoundFiles = () => {
   const soundsRef = useRef<Record<string, Sound>>({});
   const [isSoundFilesLoaded, setIsSoundFilesLoaded] = useState(false);
 
-  const isDemoMode = getIsDemoModeEnabled();
+  const { isEnabled: isDemoModeEnabled } = useDemoMode();
   const test = useSelector(selectTest);
 
   const { initialSystemVolume } = useVolumeContext();
@@ -54,15 +54,13 @@ export const useHearingTestSoundFiles = () => {
     silentSoundRef.current.stop();
     silentSoundRef.current.release();
 
-    if (isDemoMode) {
-      demoModeSoundRef.current.stop();
-      demoModeSoundRef.current.release();
-    } else {
-      Object.keys(soundsRef.current).forEach((key) => {
-        soundsRef.current[key].stop();
-        soundsRef.current[key].release();
-      });
-    }
+    demoModeSoundRef.current.stop();
+    demoModeSoundRef.current.release();
+
+    Object.keys(soundsRef.current).forEach((key) => {
+      soundsRef.current[key].stop();
+      soundsRef.current[key].release();
+    });
 
     Sound.setActive(false);
   };
@@ -70,7 +68,7 @@ export const useHearingTestSoundFiles = () => {
   const getSoundsKey = (hz: number) => `sound${hz}hz`;
 
   const loadSoundFiles = () => {
-    if (!isDemoMode) {
+    if (!isDemoModeEnabled) {
       test.sounds.forEach(
         ({ hz, uri }) =>
           (soundsRef.current[getSoundsKey(hz)] = createSoundFile(uri))
@@ -80,7 +78,7 @@ export const useHearingTestSoundFiles = () => {
   };
 
   const getSoundFile = (hz: number) => {
-    if (isDemoMode) return demoModeSoundRef.current;
+    if (isDemoModeEnabled) return demoModeSoundRef.current;
 
     return soundsRef.current[getSoundsKey(hz)];
   };
