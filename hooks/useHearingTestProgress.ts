@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 import { selectTest } from "../store/test/reducer";
 
-export const useHearingTestProgressBar = () => {
+export const useHearingTestProgress = () => {
   const [numberOfNodesPlayed, setNumberOfNodesPlayed] = useState(0);
   const [numberOfNodes, setNumberOfNodes] = useState(Infinity);
   const [isProgressBarInitialized, setIsProgressBarInitialized] =

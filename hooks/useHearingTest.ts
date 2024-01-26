@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { useHearingNavigation } from "./useHearingNavigation";
 import { useHearingTestIsFinished } from "./useHearingTestIsFinished";
-import { useHearingTestProgressBar } from "./useHearingTestProgressBar";
+import { useHearingTestProgress } from "./useHearingTestProgress";
 import { useHearingTestSoundFiles } from "./useHearingTestSoundFiles";
 import {
   postTakeTest as actionPostTakeTest,
@@ -43,7 +43,7 @@ export const useHearingTest = () => {
   const numberOfPressesRef = useRef(0);
   const successRef = useRef(false);
 
-  const { progress, setNumberOfNodesPlayed } = useHearingTestProgressBar();
+  const { progress, setNumberOfNodesPlayed } = useHearingTestProgress();
   const navigation = useHearingNavigation();
   const { isConnected } = useNetInfo();
   const dispatch = useDispatch();
