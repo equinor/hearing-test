@@ -16,7 +16,7 @@ export const useHearingTestSoundFiles = () => {
   const demoModeSoundRef = useRef(
     createSoundFile(require("../assets/audio/1000Hz_dobbel.wav"))
   );
-  const soundsRef = useRef<{ [key: string]: Sound }>({});
+  const soundsRef = useRef<Record<string, Sound>>({});
   const [isSoundFilesLoaded, setIsSoundFilesLoaded] = useState(false);
 
   const isDemoMode = getIsDemoModeEnabled();
