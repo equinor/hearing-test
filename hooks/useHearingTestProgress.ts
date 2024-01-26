@@ -1,17 +1,14 @@
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { selectTest } from "../store/test/reducer";
 
 export const useHearingTestProgress = () => {
   const [numberOfNodesPlayed, setNumberOfNodesPlayed] = useState(0);
-  const [numberOfNodes, setNumberOfNodes] = useState(Infinity);
-  const [isProgressBarInitialized, setIsProgressBarInitialized] =
-    useState(false);
-  const progress = numberOfNodesPlayed / numberOfNodes;
   const test = useSelector(selectTest);
 
-  const initializeProgressBar = () => {
+  const numberOfNodes = useMemo(() => {
+    if (Object.keys(test).length === 0) return Infinity;
     const { subTests } = test;
     let nodeCount = 0;
     for (let i = 0; i < subTests.length; i++) {
@@ -24,15 +21,10 @@ export const useHearingTestProgress = () => {
     }
     // The leaf nodes are not test nodes
     nodeCount -= subTests.length;
-    setNumberOfNodes(nodeCount);
-    setIsProgressBarInitialized(true);
-  };
+    return nodeCount;
+  }, [test]);
 
-  useEffect(() => {
-    if (!isProgressBarInitialized && Object.keys(test).length > 0) {
-      initializeProgressBar();
-    }
-  }, [isProgressBarInitialized, test]);
+  const progress = numberOfNodesPlayed / numberOfNodes;
 
   return {
     progress,
