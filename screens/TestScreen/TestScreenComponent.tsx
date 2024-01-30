@@ -3,19 +3,16 @@ import { Dialog } from "@equinor/mad-components/dist/components/Dialog";
 import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { BigRoundButton } from "../components/common/atoms/BigRoundButton";
-import { MenuItem } from "../components/common/atoms/MenuItem";
-import { MuteButton } from "../components/common/atoms/MuteButton";
-import { Loading } from "../components/common/molecules/Loading";
-import { TestCard } from "../components/common/molecules/TestCard";
-import { VolumeProvider } from "../contexts/VolumeContext";
-import { useHearingTest } from "../hooks/useHearingTest";
-import { RootStackScreenProps } from "../types";
-import { confirmationDialog } from "../utils/alerts";
+import { BigRoundButton } from "../../components/common/atoms/BigRoundButton";
+import { MenuItem } from "../../components/common/atoms/MenuItem";
+import { MuteButton } from "../../components/common/atoms/MuteButton";
+import { Loading } from "../../components/common/molecules/Loading";
+import { TestCard } from "../../components/common/molecules/TestCard";
+import { useHearingNavigation } from "../../hooks/useHearingNavigation";
+import { useHearingTest } from "../../hooks/useHearingTest";
+import { confirmationDialog } from "../../utils/alerts";
 
-type TestScreenProps = RootStackScreenProps<"TestRoute">;
-
-export const TestScreen = ({ navigation }: TestScreenProps) => {
+export const TestScreenComponent = () => {
   const {
     isDialogOpen,
     isLoading,
@@ -30,6 +27,7 @@ export const TestScreen = ({ navigation }: TestScreenProps) => {
     stopTest,
     testIsRunning,
   } = useHearingTest();
+  const navigation = useHearingNavigation();
 
   const BottomButton = () => {
     if (isLoading) {
@@ -64,7 +62,7 @@ export const TestScreen = ({ navigation }: TestScreenProps) => {
   }
 
   return (
-    <VolumeProvider>
+    <>
       <SafeAreaView style={styles.container}>
         <LinearProgress
           value={progress}
@@ -148,7 +146,7 @@ export const TestScreen = ({ navigation }: TestScreenProps) => {
           />
         </Dialog.CustomContent>
       </Dialog>
-    </VolumeProvider>
+    </>
   );
 };
 

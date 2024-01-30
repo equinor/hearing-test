@@ -9,8 +9,6 @@ export const useVolume = () => {
 
   useEffect(() => {
     setSystemVolume();
-
-    return () => setIsMuted(false);
   }, [isMuted]);
 
   /**

@@ -23,7 +23,7 @@ import { PreTestScreen } from "../screens/PreTestScreen";
 import SoundCheckFinishedScreen from "../screens/SoundCheckFinishedScreen";
 import { SoundCheckScreen } from "../screens/SoundCheckScreen/SoundCheckScreen";
 import { TestResultScreen } from "../screens/TestResultScreen";
-import { TestScreen } from "../screens/TestScreen";
+import { TestScreen } from "../screens/TestScreen/TestScreen";
 import { RootStackParamList } from "../types";
 
 const LightTheme = {
