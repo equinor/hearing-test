@@ -1,6 +1,6 @@
 import { Button, Typography } from "@equinor/mad-components";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { connect, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { postTest } from "../../../store/test/actions";
 import { selectIsFetching } from "../../../store/test/reducer";
@@ -23,19 +23,15 @@ type CardProps = {
 };
 
 type TestCardProps = {
-  actionPostTest: Function;
   isConnected: boolean | null;
   navigation?: NativeStackNavigationProp<RootStackParamList, "Root">;
 };
 
-const TestCardComponent = ({
-  actionPostTest,
-  isConnected,
-  navigation,
-}: TestCardProps) => {
-  const isFetching = useSelector((state) => selectIsFetching(state));
-  const unsentTests = useSelector((state) => getUnsentTests(state));
+export const TestCard = ({ isConnected, navigation }: TestCardProps) => {
+  const isFetching = useSelector(selectIsFetching);
+  const unsentTests = useSelector(getUnsentTests);
   const isMultipleUnsentTests = unsentTests.length > 1;
+  const dispatch = useDispatch();
 
   const cards: Cards = {
     newTest: {
@@ -58,7 +54,7 @@ const TestCardComponent = ({
         isMultipleUnsentTests ? "de usendte testene" : "den usendte testen"
       } før du kan starte en ny test.`,
       buttonText: "Send",
-      onPress: () => actionPostTest(unsentTests[0]),
+      onPress: () => dispatch(postTest(unsentTests[0])),
       loading: isFetching,
     },
   };
@@ -88,9 +84,3 @@ const TestCardComponent = ({
     </Card>
   );
 };
-
-const mapDispatchToProps = (dispatch) => ({
-  actionPostTest: (test) => dispatch(postTest(test)),
-});
-
-export const TestCard = connect(null, mapDispatchToProps)(TestCardComponent);
