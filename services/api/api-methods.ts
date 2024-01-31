@@ -7,7 +7,7 @@ import {
   fetchMockSounds,
 } from "./mocked-api-methods";
 import { getApiBaseUrl, getScopes } from "../../constants/settings";
-import { Sound, TestResult, User } from "../../types";
+import { HearingTest, Sound, TestResult, User } from "../../types";
 import { NetworkException } from "../../utils/Exception";
 
 const defaultResource = "hearing";
@@ -63,7 +63,7 @@ export const postData = (
     })
   );
 
-export const postTakeTest = () =>
+export const postTakeTest = (): Promise<HearingTest> =>
   getIsDemoModeEnabled()
     ? postMockTakeTest()
     : postData(`/me/tests/takeTest`, {
