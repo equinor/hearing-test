@@ -7,7 +7,7 @@ import { ButtonGroup } from "../../components/common/atoms/ButtonGroup";
 import { Indicators } from "../../components/common/molecules/Indicators";
 import { RootStackScreenProps } from "../../types";
 import { confirmationDialog } from "../../utils/alerts";
-import { BarCodeScannerScreen } from "../BarCodeScannerScreen";
+import { BarcodeScannerScreen } from "../BarcodeScannerScreen";
 
 type PreTestScreenProps = RootStackScreenProps<"PreTestRoute">;
 
@@ -16,7 +16,7 @@ export const PreTestScreen = ({ navigation }: PreTestScreenProps) => {
 
   if (page.title === "Skann") {
     return (
-      <BarCodeScannerScreen
+      <BarcodeScannerScreen
         navigation={navigation}
         onBarcodeMatch={() => nextPage(2)}
         onBarcodeMismatch={() => nextPage()}

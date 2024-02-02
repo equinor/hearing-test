@@ -1,6 +1,6 @@
 import { Button, Typography } from "@equinor/mad-components";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { BarCodeScanner } from "expo-barcode-scanner";
+import { BarcodeScanningResult, Camera, CameraView } from "expo-camera/next";
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -8,31 +8,31 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { RootStackParamList } from "../types";
 import { confirmationDialog } from "../utils/alerts";
 
-type BarCodeScannerScreenProps = {
+type BarcodeScannerScreenProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, "PreTestRoute">;
   onBarcodeMatch: () => void;
   onBarcodeMismatch: () => void;
 };
 
-export const BarCodeScannerScreen = ({
+export const BarcodeScannerScreen = ({
   navigation,
   onBarcodeMatch,
   onBarcodeMismatch,
-}: BarCodeScannerScreenProps) => {
+}: BarcodeScannerScreenProps) => {
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [scanned, setScanned] = useState(false);
   const insets = useSafeAreaInsets();
 
   useEffect(() => {
-    const getBarCodeScannerPermissions = async () => {
-      const { status } = await BarCodeScanner.requestPermissionsAsync();
+    const getCameraPermissions = async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermission(status === "granted");
     };
 
-    getBarCodeScannerPermissions();
+    getCameraPermissions();
   }, []);
 
-  const handleBarCodeScanned = ({ data }) => {
+  const handleBarcodeScanned = ({ data }: BarcodeScanningResult) => {
     setScanned(true);
     if (data === "01122022") {
       onBarcodeMatch();
@@ -64,8 +64,11 @@ export const BarCodeScannerScreen = ({
         />
       </View>
       {hasPermission ? (
-        <BarCodeScanner
-          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+        <CameraView
+          onBarcodeScanned={scanned ? undefined : handleBarcodeScanned}
+          barcodeScannerSettings={{
+            barCodeTypes: ["ean8"],
+          }}
           style={StyleSheet.absoluteFillObject}
         />
       ) : (
