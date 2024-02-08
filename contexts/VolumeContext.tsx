@@ -1,17 +1,14 @@
-import { trackCustom } from "@equinor/mad-core";
 import {
   createContext,
   Dispatch,
   ReactNode,
   SetStateAction,
   useContext,
-  useEffect,
   useState,
 } from "react";
-import SystemSetting from "react-native-system-setting";
 
 import { SYSTEM_VOLUME } from "../constants/sounds";
-import { setSystemVolume } from "../utils/volume/setSystemVolume";
+import { useInitialSystemVolume } from "../hooks/useInitialSystemVolume";
 
 type VolumeContextType = {
   isMuted: boolean;
@@ -24,27 +21,6 @@ const VolumeContext = createContext<VolumeContextType>({
   setIsMuted: () => {},
   initialSystemVolume: SYSTEM_VOLUME,
 });
-
-const useInitialSystemVolume = () => {
-  const [initialSystemVolume, setInitialSystemVolume] = useState(SYSTEM_VOLUME);
-
-  useEffect(() => {
-    const setInitialDeviceSystemVolume = async () => {
-      await SystemSetting.getVolume()
-        .then((volume) => setInitialSystemVolume(volume))
-        .catch((error) => {
-          trackCustom("useInitialSystemVolume: Error getting system volume", {
-            error,
-          });
-        });
-    };
-    setInitialDeviceSystemVolume();
-
-    return () => setSystemVolume(initialSystemVolume);
-  }, []);
-
-  return { initialSystemVolume };
-};
 
 type VolumeProviderProps = {
   children: ReactNode;
