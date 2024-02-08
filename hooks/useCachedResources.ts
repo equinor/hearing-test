@@ -5,7 +5,6 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
 
 export default function useCachedResources() {
-  const [isFontsLoaded, setIsFontsLoaded] = useState(false);
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const [hasLoadedEds] = useEDS();
 
@@ -23,18 +22,17 @@ export default function useCachedResources() {
         // We might want to provide this error information to an error reporting service
         console.warn(e);
       } finally {
-        setIsFontsLoaded(true);
+        setLoadingComplete(true);
       }
     }
     loadResourcesAndDataAsync();
   }, []);
 
   useEffect(() => {
-    if (isFontsLoaded && hasLoadedEds) {
-      setLoadingComplete(true);
+    if (isLoadingComplete && hasLoadedEds) {
       SplashScreen.hideAsync();
     }
-  }, [isFontsLoaded, hasLoadedEds]);
+  }, [isLoadingComplete, hasLoadedEds]);
 
   return isLoadingComplete;
 }
