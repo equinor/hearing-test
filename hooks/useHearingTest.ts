@@ -41,6 +41,7 @@ export const useHearingTest = () => {
   const reactionTimeMsRef = useRef<number | null>(null);
   const isPlayingFirstNodeFirstTimeRef = useRef(true);
   const numberOfPressesRef = useRef(0);
+  const prevSuccessRef = useRef(true);
   const successRef = useRef(false);
 
   const { progress, setNumberOfNodesPlayed } = useHearingTestProgress();
@@ -83,7 +84,7 @@ export const useHearingTest = () => {
     timerMsRef.current = 0;
     reactionTimeMsRef.current = null;
     successRef.current = false;
-    preDelayMsRef.current = node.data.preDelayMs;
+    preDelayMsRef.current = prevSuccessRef.current ? node.data.preDelayMs : 0;
 
     let soundHasBeenPlayed = false;
     const intervalSpeedMs = 1;
@@ -141,6 +142,8 @@ export const useHearingTest = () => {
     if (isPlayingFirstNodeFirstTimeRef.current) {
       isPlayingFirstNodeFirstTimeRef.current = false;
     }
+
+    prevSuccessRef.current = successRef.current;
 
     if (successRef.current) {
       dispatch(actionSuccess(payload));

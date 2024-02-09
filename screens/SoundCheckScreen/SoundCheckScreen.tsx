@@ -18,7 +18,6 @@ import {
 import { BigRoundButton } from "../../components/common/atoms/BigRoundButton";
 import { ProgressAnimationBar } from "../../components/common/molecules/ProgressAnimationBar";
 import { ANIMATION_DURATION } from "../../constants/animation";
-import { useInitialSystemVolume } from "../../hooks/useInitialSystemVolume";
 import { Ear, RootStackScreenProps } from "../../types";
 import { confirmationDialog } from "../../utils/alerts";
 
@@ -27,7 +26,6 @@ type SoundCheckScreenProps = RootStackScreenProps<"SoundCheckRoute">;
 export const SoundCheckScreen = ({ navigation }: SoundCheckScreenProps) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [wrongEarChosen, setWrongEarChosen] = useState<Ear>();
-  const { initialSystemVolume } = useInitialSystemVolume();
 
   const buttons: SoundCheckButtonConfigurations = {
     noSound: {
@@ -43,7 +41,7 @@ export const SoundCheckScreen = ({ navigation }: SoundCheckScreenProps) => {
   const { animatedViewOpacity, currentPage, setCurrentPage, page, nextPage } =
     useSoundCheckPages(buttons, wrongEarChosen);
 
-  const { sound } = useSoundCheck(initialSystemVolume, page.earToCheck, [page]);
+  const { sound } = useSoundCheck(page.earToCheck, [page]);
 
   const styles = useStyles(themeStyles, { animatedViewOpacity });
 

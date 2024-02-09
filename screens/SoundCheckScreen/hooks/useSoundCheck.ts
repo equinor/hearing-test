@@ -4,14 +4,15 @@ import SystemSetting from "react-native-system-setting";
 
 import { ANIMATION_DURATION } from "../../../constants/animation";
 import { SYSTEM_VOLUME } from "../../../constants/sounds";
+import { useInitialSystemVolume } from "../../../hooks/useInitialSystemVolume";
 import { Ear } from "../../../types";
 import { getPan } from "../../../utils/getPan";
 
 export const useSoundCheck = (
-  initialSystemVolume: number,
   ear: Ear | undefined,
   playSoundDeps: unknown[]
 ) => {
+  const { initialSystemVolume } = useInitialSystemVolume();
   const sound = useRef(
     new Sound(require("../../../assets/audio/1000Hz_dobbel.wav"))
   ).current;

@@ -46,7 +46,12 @@
         }
       ],
       "expo-localization",
-      "expo-font"
+      "expo-font",
+      ["expo-camera",
+        {
+          "cameraPermission": "Tillat $(PRODUCT_NAME) å bruke kameraet ditt."
+        }
+      ]
     ],
     "web": {
       "favicon": "./assets/images/favicon.png",
