@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import { EDSProvider, useEDS } from "@equinor/mad-components";
+import { EDSProvider } from "@equinor/mad-components";
 import { ErrorBoundary } from "@equinor/mad-core";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -11,9 +11,8 @@ import store from "./store/config";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
-  const [hasLoadedEds] = useEDS();
 
-  if (!isLoadingComplete || !hasLoadedEds) {
+  if (!isLoadingComplete) {
     return null;
   } else {
     return (

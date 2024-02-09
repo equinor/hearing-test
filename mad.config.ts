@@ -1,15 +1,16 @@
 import { MadConfig } from "@equinor/mad-core";
-import { ImageSourcePropType } from "react-native";
 
 import appJson from "./app.json";
-import Logo from "./assets/images/logo.png";
+import Splash from "./assets/images/splash.png";
 import {
   getApiEndpoints,
   getEnvironment,
   getScopes,
 } from "./constants/settings";
+import { RootStackParamList } from "./types";
 
-export const config: MadConfig = {
+export const config: MadConfig<RootStackParamList> = {
+  navigateToMainRouteFn: (navigation) => navigation.navigate("Root"),
   appVersion: appJson.expo.version,
   servicePortalName: "HearingTest",
   currentEnvironment: getEnvironment(),
@@ -35,8 +36,7 @@ export const config: MadConfig = {
     },
   },
   login: {
-    title: "Hørselstest",
-    logo: Logo as ImageSourcePropType,
+    splash: Splash,
   },
   applicationInsights: {
     dev: {
