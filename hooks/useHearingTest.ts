@@ -20,13 +20,21 @@ import {
   selectTest,
   selectTestIsRunning,
 } from "../store/test/reducer";
-import { Node } from "../types";
+import { Node, ObjectValues } from "../types";
 
 const postDelayMs = 1500;
 
+export const DIALOG = {
+  HIDDEN: "hidden",
+  OPEN: "open",
+  SUBDIALOG: "subdialog",
+} as const;
+
+type Dialog = ObjectValues<typeof DIALOG>;
+
 export const useHearingTest = () => {
   const [pauseAfterNode, setPauseAfterNode] = useState(false);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [dialog, setDialog] = useState<Dialog>(DIALOG.HIDDEN);
 
   const isFetching = useSelector(selectIsFetching);
   const testIsRunning = useSelector(selectTestIsRunning);
@@ -59,19 +67,28 @@ export const useHearingTest = () => {
   }, [isConnected, isFetching, test]);
 
   useEffect(() => {
-    if (pauseAfterNode && !isDialogOpen && previousNodeRef.current !== node) {
+    if (
+      pauseAfterNode &&
+      dialog === DIALOG.HIDDEN &&
+      previousNodeRef.current !== node
+    ) {
       setPauseAfterNode(false);
-      setIsDialogOpen(true);
+      setDialog(DIALOG.OPEN);
     }
-  }, [pauseAfterNode, isDialogOpen, node]);
+  }, [pauseAfterNode, dialog, node]);
 
   useEffect(() => {
-    if (!testIsRunning || pauseAfterNode || isDialogOpen) {
+    if (
+      !testIsRunning ||
+      pauseAfterNode ||
+      dialog === DIALOG.OPEN ||
+      dialog === DIALOG.SUBDIALOG
+    ) {
       return;
     }
 
     runNode();
-  }, [testIsRunning, pauseAfterNode, isDialogOpen, node]);
+  }, [testIsRunning, pauseAfterNode, dialog, node]);
 
   const runNode = () => {
     if (previousNodeRef.current?.data.index !== 1 && node.data.index === 1) {
@@ -159,7 +176,7 @@ export const useHearingTest = () => {
   const stopTest = () => {
     if (intervalIdRef.current) clearInterval(intervalIdRef.current);
     dispatch(actionStopTest());
-    setIsDialogOpen(false);
+    setDialog(DIALOG.HIDDEN);
     setNumberOfNodesPlayed(0);
   };
 
@@ -169,20 +186,31 @@ export const useHearingTest = () => {
     navigation.navigate("TestRoute");
   };
 
+  console.log({
+    isFetching,
+    isSoundFilesLoaded,
+    pauseAfterNode,
+    dialog,
+  });
+
   const isLoading =
-    isFetching || !isSoundFilesLoaded || pauseAfterNode || isDialogOpen;
+    isFetching ||
+    !isSoundFilesLoaded ||
+    pauseAfterNode ||
+    dialog === DIALOG.OPEN ||
+    dialog === DIALOG.SUBDIALOG;
 
   const showOfflineCard =
     isConnected === false && Object.keys(test).length === 0;
 
   return {
-    isDialogOpen,
+    dialog,
     isLoading,
     pauseAfterNode,
     progress,
     registerPress,
     restartTest,
-    setIsDialogOpen,
+    setDialog,
     setPauseAfterNode,
     showOfflineCard,
     startTest,
