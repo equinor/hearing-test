@@ -186,13 +186,6 @@ export const useHearingTest = () => {
     navigation.navigate("TestRoute");
   };
 
-  console.log({
-    isFetching,
-    isSoundFilesLoaded,
-    pauseAfterNode,
-    dialog,
-  });
-
   const isLoading =
     isFetching ||
     !isSoundFilesLoaded ||
