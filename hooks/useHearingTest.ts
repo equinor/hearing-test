@@ -35,6 +35,7 @@ type Dialog = ObjectValues<typeof DIALOG>;
 export const useHearingTest = () => {
   const [pauseAfterNode, setPauseAfterNode] = useState(false);
   const [dialog, setDialog] = useState<Dialog>(DIALOG.HIDDEN);
+  const isDialogOpen = dialog === DIALOG.OPEN || dialog === DIALOG.SUBDIALOG;
 
   const isFetching = useSelector(selectIsFetching);
   const testIsRunning = useSelector(selectTestIsRunning);
@@ -67,28 +68,19 @@ export const useHearingTest = () => {
   }, [isConnected, isFetching, test]);
 
   useEffect(() => {
-    if (
-      pauseAfterNode &&
-      dialog === DIALOG.HIDDEN &&
-      previousNodeRef.current !== node
-    ) {
+    if (pauseAfterNode && !isDialogOpen && previousNodeRef.current !== node) {
       setPauseAfterNode(false);
       setDialog(DIALOG.OPEN);
     }
-  }, [pauseAfterNode, dialog, node]);
+  }, [pauseAfterNode, isDialogOpen, node]);
 
   useEffect(() => {
-    if (
-      !testIsRunning ||
-      pauseAfterNode ||
-      dialog === DIALOG.OPEN ||
-      dialog === DIALOG.SUBDIALOG
-    ) {
+    if (!testIsRunning || pauseAfterNode || isDialogOpen) {
       return;
     }
 
     runNode();
-  }, [testIsRunning, pauseAfterNode, dialog, node]);
+  }, [testIsRunning, pauseAfterNode, isDialogOpen, node]);
 
   const runNode = () => {
     if (previousNodeRef.current?.data.index !== 1 && node.data.index === 1) {
@@ -187,17 +179,13 @@ export const useHearingTest = () => {
   };
 
   const isLoading =
-    isFetching ||
-    !isSoundFilesLoaded ||
-    pauseAfterNode ||
-    dialog === DIALOG.OPEN ||
-    dialog === DIALOG.SUBDIALOG;
+    isFetching || !isSoundFilesLoaded || pauseAfterNode || isDialogOpen;
 
   const showOfflineCard =
     isConnected === false && Object.keys(test).length === 0;
 
   return {
-    dialog,
+    isDialogOpen,
     isLoading,
     pauseAfterNode,
     progress,

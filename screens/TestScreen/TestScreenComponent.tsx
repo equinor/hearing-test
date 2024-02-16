@@ -14,7 +14,7 @@ import { confirmationDialog } from "../../utils/alerts";
 
 export const TestScreenComponent = () => {
   const {
-    dialog,
+    isDialogOpen,
     isLoading,
     pauseAfterNode,
     progress,
@@ -95,7 +95,7 @@ export const TestScreenComponent = () => {
           <BottomButton />
         </View>
       </SafeAreaView>
-      <Dialog isOpen={dialog === DIALOG.OPEN || dialog === DIALOG.SUBDIALOG}>
+      <Dialog isOpen={isDialogOpen}>
         <Dialog.CustomContent>
           <MenuItem
             icon="close"
