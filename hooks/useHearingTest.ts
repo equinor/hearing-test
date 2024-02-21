@@ -20,13 +20,22 @@ import {
   selectTest,
   selectTestIsRunning,
 } from "../store/test/reducer";
-import { Node } from "../types";
+import { Node, ObjectValues } from "../types";
 
 const postDelayMs = 1500;
 
+export const DIALOG = {
+  HIDDEN: "hidden",
+  OPEN: "open",
+  SUBDIALOG: "subdialog",
+} as const;
+
+type Dialog = ObjectValues<typeof DIALOG>;
+
 export const useHearingTest = () => {
   const [pauseAfterNode, setPauseAfterNode] = useState(false);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [dialog, setDialog] = useState<Dialog>(DIALOG.HIDDEN);
+  const isDialogOpen = dialog === DIALOG.OPEN || dialog === DIALOG.SUBDIALOG;
 
   const isFetching = useSelector(selectIsFetching);
   const testIsRunning = useSelector(selectTestIsRunning);
@@ -61,7 +70,7 @@ export const useHearingTest = () => {
   useEffect(() => {
     if (pauseAfterNode && !isDialogOpen && previousNodeRef.current !== node) {
       setPauseAfterNode(false);
-      setIsDialogOpen(true);
+      setDialog(DIALOG.OPEN);
     }
   }, [pauseAfterNode, isDialogOpen, node]);
 
@@ -159,7 +168,7 @@ export const useHearingTest = () => {
   const stopTest = () => {
     if (intervalIdRef.current) clearInterval(intervalIdRef.current);
     dispatch(actionStopTest());
-    setIsDialogOpen(false);
+    setDialog(DIALOG.HIDDEN);
     setNumberOfNodesPlayed(0);
   };
 
@@ -182,7 +191,7 @@ export const useHearingTest = () => {
     progress,
     registerPress,
     restartTest,
-    setIsDialogOpen,
+    setDialog,
     setPauseAfterNode,
     showOfflineCard,
     startTest,

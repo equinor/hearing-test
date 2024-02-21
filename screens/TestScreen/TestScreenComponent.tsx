@@ -9,7 +9,7 @@ import { MuteButton } from "../../components/common/atoms/MuteButton";
 import { Loading } from "../../components/common/molecules/Loading";
 import { TestCard } from "../../components/common/molecules/TestCard";
 import { useHearingNavigation } from "../../hooks/useHearingNavigation";
-import { useHearingTest } from "../../hooks/useHearingTest";
+import { DIALOG, useHearingTest } from "../../hooks/useHearingTest";
 import { confirmationDialog } from "../../utils/alerts";
 
 export const TestScreenComponent = () => {
@@ -20,7 +20,7 @@ export const TestScreenComponent = () => {
     progress,
     registerPress,
     restartTest,
-    setIsDialogOpen,
+    setDialog,
     setPauseAfterNode,
     showOfflineCard,
     startTest,
@@ -100,7 +100,8 @@ export const TestScreenComponent = () => {
           <MenuItem
             icon="close"
             text="Avslutte testen"
-            onPress={() =>
+            onPress={() => {
+              setDialog(DIALOG.SUBDIALOG);
               confirmationDialog(
                 "Avslutte hørselstesten?",
                 () => {
@@ -108,26 +109,28 @@ export const TestScreenComponent = () => {
                   navigation.navigate("Root");
                 },
                 "Da må du begynne på nytt neste gang",
-                () => setIsDialogOpen(true)
-              )
-            }
+                () => setDialog(DIALOG.OPEN)
+              );
+            }}
           />
           <MenuItem
             icon="replay"
             text="Start hørselstesten på ny"
-            onPress={() =>
+            onPress={() => {
+              setDialog(DIALOG.SUBDIALOG);
               confirmationDialog(
                 "Starte hørselstesten på ny?",
                 restartTest,
                 "Dette vil slette all data fra denne testen",
-                () => setIsDialogOpen(true)
-              )
-            }
+                () => setDialog(DIALOG.OPEN)
+              );
+            }}
           />
           <MenuItem
             icon="headphones"
             text="Ta ny lydsjekk"
-            onPress={() =>
+            onPress={() => {
+              setDialog(DIALOG.SUBDIALOG);
               confirmationDialog(
                 "Ta ny lydsjekk?",
                 () => {
@@ -135,13 +138,13 @@ export const TestScreenComponent = () => {
                   navigation.navigate("SoundCheckRoute");
                 },
                 "Dette vil slette all data fra denne testen",
-                () => setIsDialogOpen(true)
-              )
-            }
+                () => setDialog(DIALOG.OPEN)
+              );
+            }}
           />
           <Button
             title="Fortsette hørselstesten"
-            onPress={() => setIsDialogOpen(false)}
+            onPress={() => setDialog(DIALOG.HIDDEN)}
             style={styles.continueHearingTestButton}
           />
         </Dialog.CustomContent>
