@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@equinor/mad-components": "0.8.1",
-    "@equinor/mad-core": "^0.5.4",
+    "@equinor/mad-core": "^0.5.15",
     "@expo/vector-icons": "^14.0.0",
     "@react-native-async-storage/async-storage": "1.21.0",
     "@react-native-community/netinfo": "11.1.0",
