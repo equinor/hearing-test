@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHearingNavigation } from "./useHearingNavigation";
 import { useHearingTestIsFinished } from "./useHearingTestIsFinished";
 import { useHearingTestProgress } from "./useHearingTestProgress";
-import { useHearingTestSoundFiles } from "./useHearingTestSoundFiles";
+import { useHearingTestSounds } from "./useHearingTestSounds";
 import {
   postTakeTest as actionPostTakeTest,
   success as actionSuccess,
@@ -57,8 +57,8 @@ export const useHearingTest = () => {
   const navigation = useHearingNavigation();
   const { isConnected } = useNetInfo();
   const dispatch = useDispatch();
-  const { isSoundFilesLoaded, getSoundDuration, playSound } =
-    useHearingTestSoundFiles();
+  const { isSoundsLoaded, getSoundDurationMs, playSound } =
+    useHearingTestSounds();
   useHearingTestIsFinished();
 
   useEffect(() => {
@@ -88,7 +88,7 @@ export const useHearingTest = () => {
     }
 
     previousNodeRef.current = node;
-    soundDurationMsRef.current = getSoundDuration(node.data.sound.hz);
+    soundDurationMsRef.current = getSoundDurationMs(node.data.sound.hz);
     numberOfPressesRef.current = 0;
     timerMsRef.current = 0;
     reactionTimeMsRef.current = null;
@@ -100,17 +100,17 @@ export const useHearingTest = () => {
     const startTimeMs = new Date().getTime();
 
     intervalIdRef.current = setInterval(() => {
+      timerMsRef.current = new Date().getTime() - startTimeMs;
+
       if (!soundHasBeenPlayed && timerMsRef.current > preDelayMsRef.current) {
         soundHasBeenPlayed = true;
         playSound(node.data);
       }
 
       if (
-        timerMsRef.current <
+        timerMsRef.current >
         preDelayMsRef.current + soundDurationMsRef.current + postDelayMs
       ) {
-        timerMsRef.current = new Date().getTime() - startTimeMs;
-      } else {
         if (intervalIdRef.current) clearInterval(intervalIdRef.current);
         nodeFinished();
       }
@@ -179,7 +179,7 @@ export const useHearingTest = () => {
   };
 
   const isLoading =
-    isFetching || !isSoundFilesLoaded || pauseAfterNode || isDialogOpen;
+    isFetching || !isSoundsLoaded || pauseAfterNode || isDialogOpen;
 
   const showOfflineCard =
     isConnected === false && Object.keys(test).length === 0;

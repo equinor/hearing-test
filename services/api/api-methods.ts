@@ -7,7 +7,7 @@ import {
   fetchMockSounds,
 } from "./mocked-api-methods";
 import { getApiBaseUrl, getScopes } from "../../constants/settings";
-import { HearingTest, Sound, TestResult, User } from "../../types";
+import { HearingTest, ApiSound, TestResult, User } from "../../types";
 import { NetworkException } from "../../utils/Exception";
 
 const defaultResource = "hearing";
@@ -85,5 +85,5 @@ export const fetchTests = (): Promise<TestResult[]> =>
 export const fetchMe = (): Promise<User> =>
   getIsDemoModeEnabled() ? fetchMockMe() : fetchData("/me");
 
-export const fetchSounds = (): Promise<Sound[]> =>
+export const fetchSounds = (): Promise<ApiSound[]> =>
   getIsDemoModeEnabled() ? fetchMockSounds() : fetchData("/appstartup/sounds");
