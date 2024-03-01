@@ -1,14 +1,12 @@
-import { useDemoMode } from "@equinor/mad-core";
+import { trackCustom, useDemoMode } from "@equinor/mad-core";
 
 import { useHearingTestSoundFilesLoadAndRelease } from "./useHearingTestSoundFilesLoadAndRelease";
 import { useVolume } from "./useVolume";
-import { useVolumeContext } from "../contexts/VolumeContext";
 import { NodeData } from "../types";
 import { getSoundsKey } from "../utils/sound/getSoundsKey";
 
 export const useHearingTestSoundFiles = () => {
   const { isEnabled: isDemoModeEnabled } = useDemoMode();
-  const { initialSystemVolume } = useVolumeContext();
   const { getSoundVolume, setSystemVolume } = useVolume();
   const { demoModeSoundRef, isSoundFilesLoaded, soundsRef } =
     useHearingTestSoundFilesLoadAndRelease();
@@ -33,7 +31,11 @@ export const useHearingTestSoundFiles = () => {
     setSystemVolume();
     soundFile.setVolume(getSoundVolume(stimulusMultiplicative));
     soundFile.setPan(panning);
-    soundFile.play(() => setSystemVolume(initialSystemVolume));
+    soundFile.play((success) => {
+      if (!success) {
+        trackCustom("playSound: Audio decoding error interrupted playback");
+      }
+    });
   };
 
   return {
