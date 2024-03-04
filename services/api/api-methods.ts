@@ -1,33 +1,45 @@
 import { authenticateSilently, getIsDemoModeEnabled } from "@equinor/mad-core";
 
 import {
-  postMockTakeTest,
   fetchMockMe,
-  fetchMockTests,
   fetchMockSounds,
+  fetchMockTests,
+  postMockTakeTest,
 } from "./mocked-api-methods";
-import { getApiBaseUrl, getScopes } from "../../constants/settings";
-import { HearingTest, Sound, TestResult, User } from "../../types";
+import {
+  getApiBaseUrl,
+  getScopes,
+  ResourceName,
+} from "../../constants/settings";
+import {
+  HearingTest,
+  HearingTestWithSounds,
+  Sound,
+  TestResult,
+  User,
+} from "../../types";
 import { NetworkException } from "../../utils/Exception";
 
-const defaultResource = "hearing";
+const defaultResource: ResourceName = "hearing";
 const jsonHeaders = {
   Accept: "application/json",
   "Content-Type": "application/json",
 };
 
-export const createUrl = (resource, path) =>
+export const createUrl = (resource: ResourceName, path: string) =>
   `${getApiBaseUrl(resource)}${path}`;
 
-// Helper functions
-const fetchData = (path, resource = defaultResource, parseJson = true) =>
+const fetchData = (
+  path: string,
+  resource: ResourceName = defaultResource,
+  parseJson = true
+) =>
   authenticateSilently(getScopes(resource)).then((r) =>
     fetch(createUrl(resource, path), {
       method: "GET",
-      withCredentials: true,
       headers: {
         ...jsonHeaders,
-        Authorization: `Bearer ${r.accessToken}`,
+        Authorization: `Bearer ${r?.accessToken}`,
       },
     }).then((response) => {
       if (response.ok) {
@@ -41,19 +53,17 @@ const fetchData = (path, resource = defaultResource, parseJson = true) =>
   );
 
 export const postData = (
-  path,
-  data,
-  method = "POST",
-  resource = defaultResource
+  path: string,
+  data: unknown,
+  resource: ResourceName = defaultResource
 ) =>
   authenticateSilently(getScopes(resource)).then((r) =>
     fetch(createUrl(resource, path), {
-      method,
+      method: "POST",
       body: JSON.stringify(data),
-      withCredentials: true,
       headers: {
         ...jsonHeaders,
-        Authorization: `Bearer ${r.accessToken}`,
+        Authorization: `Bearer ${r?.accessToken}`,
       },
     }).then((response) => {
       if (response.ok) {
@@ -76,7 +86,7 @@ export const postTakeTest = (): Promise<HearingTest> =>
         hz8000Db: -60.9,
       });
 
-export const postTest = (body): Promise<TestResult> =>
+export const postTest = (body: HearingTestWithSounds): Promise<TestResult> =>
   postData(`/me/tests`, body);
 
 export const fetchTests = (): Promise<TestResult[]> =>
