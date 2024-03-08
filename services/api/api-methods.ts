@@ -12,9 +12,9 @@ import {
   ResourceName,
 } from "../../constants/settings";
 import {
+  ApiSound,
   HearingTest,
   HearingTestWithSounds,
-  Sound,
   TestResult,
   User,
 } from "../../types";
@@ -95,5 +95,5 @@ export const fetchTests = (): Promise<TestResult[]> =>
 export const fetchMe = (): Promise<User> =>
   getIsDemoModeEnabled() ? fetchMockMe() : fetchData("/me");
 
-export const fetchSounds = (): Promise<Sound[]> =>
+export const fetchSounds = (): Promise<ApiSound[]> =>
   getIsDemoModeEnabled() ? fetchMockSounds() : fetchData("/appstartup/sounds");

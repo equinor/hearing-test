@@ -19,12 +19,13 @@ import {
   Error,
   HearingTestWithSounds,
   Node,
+  ApiSound,
   stateKeys,
   TestResult,
 } from "../../types";
 
 function setNextNode(state, userResponse) {
-  const clonedState = _.cloneDeep(state);
+  const clonedState = { ..._.cloneDeep(state), apiSounds: state.apiSounds };
   clonedState.node.data.userResponse = userResponse;
 
   if (userResponse.success || !userResponse.isPlayingFirstNodeFirstTime) {
@@ -94,6 +95,7 @@ export default handleActions(
       return {
         ...state,
         test: action.payload,
+        apiSounds: action.payload.sounds,
         error: { message: null, status: null },
         fetching: false,
       };
@@ -115,6 +117,7 @@ export default handleActions(
         error: { message: null, status: null },
         fetching: false,
         testIsFinished: false,
+        apiSounds: [],
       };
     },
     [postTestFailed]: (state, action) => ({
@@ -156,6 +159,7 @@ export default handleActions(
     path: [],
     results: [],
     test: {},
+    apiSounds: [],
     testIsFinished: false,
     testIsRunning: false,
     userResponses: [],
@@ -167,6 +171,8 @@ export const selectIsFetching = (state): boolean =>
 export const selectNode = (state): Node => state[stateKeys.TEST].node;
 export const selectTest = (state): HearingTestWithSounds =>
   state[stateKeys.TEST].test;
+export const selectApiSounds = (state): ApiSound[] =>
+  state[stateKeys.TEST].apiSounds;
 export const selectTestIsFinished = (state): boolean =>
   state[stateKeys.TEST].testIsFinished;
 export const selectTestIsRunning = (state): boolean =>
