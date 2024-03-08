@@ -1,5 +1,7 @@
 import { createAction } from "redux-actions";
 
+export const resetTestState = createAction("TestState/RESET");
+
 export const postTakeTest = createAction("TakeTest/POST");
 export const postTakeTestRequested = createAction("TakeTest/POST_REQUESTED");
 export const postTakeTestSucceeded = createAction("TakeTest/POST_SUCCEEDED");

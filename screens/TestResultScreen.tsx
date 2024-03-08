@@ -34,7 +34,7 @@ export const TestResultScreen = ({ navigation }: TestResultScreenProps) => {
     },
     newTest: {
       title: "Ta ny test",
-      onPress: () => navigation.navigate("TestRoute"),
+      onPress: () => navigation.replace("TestRoute"),
     },
     sendTest: {
       title: "Send",

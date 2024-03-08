@@ -24,7 +24,6 @@ export const TestScreenComponent = () => {
     setPauseAfterNode,
     showOfflineCard,
     startTest,
-    stopTest,
     testIsRunning,
   } = useHearingTest();
   const navigation = useHearingNavigation();
@@ -104,10 +103,7 @@ export const TestScreenComponent = () => {
               setDialog(DIALOG.SUBDIALOG);
               confirmationDialog(
                 "Avslutte hørselstesten?",
-                () => {
-                  stopTest();
-                  navigation.navigate("Root");
-                },
+                () => navigation.navigate("Root"),
                 "Da må du begynne på nytt neste gang",
                 () => setDialog(DIALOG.OPEN)
               );
@@ -133,10 +129,7 @@ export const TestScreenComponent = () => {
               setDialog(DIALOG.SUBDIALOG);
               confirmationDialog(
                 "Ta ny lydsjekk?",
-                () => {
-                  stopTest();
-                  navigation.navigate("SoundCheckRoute");
-                },
+                () => navigation.navigate("SoundCheckRoute"),
                 "Dette vil slette all data fra denne testen",
                 () => setDialog(DIALOG.OPEN)
               );
