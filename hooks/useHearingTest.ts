@@ -63,6 +63,7 @@ export const useHearingTest = () => {
 
   useEffect(() => {
     return () => {
+      if (intervalIdRef.current) clearInterval(intervalIdRef.current);
       dispatch(actionResetTestState());
     };
   }, []);

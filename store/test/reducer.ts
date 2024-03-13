@@ -100,7 +100,7 @@ const initialState = {
 
 export default handleActions(
   {
-    [resetTestState]: () => initialState,
+    [resetTestState]: () => ({ ...initialState }),
     [postTakeTestRequested]: (state) => ({
       ...state,
       fetching: true,
