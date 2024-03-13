@@ -14,6 +14,7 @@ import { confirmationDialog } from "../../utils/alerts";
 
 export const TestScreenComponent = () => {
   const {
+    continueTest,
     isDialogOpen,
     isLoading,
     pauseAfterNode,
@@ -137,7 +138,7 @@ export const TestScreenComponent = () => {
           />
           <Button
             title="Fortsette hørselstesten"
-            onPress={() => setDialog(DIALOG.HIDDEN)}
+            onPress={continueTest}
             style={styles.continueHearingTestButton}
           />
         </Dialog.CustomContent>

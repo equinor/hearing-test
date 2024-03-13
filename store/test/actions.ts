@@ -17,3 +17,5 @@ export const failure = createAction("SubTest/Failure");
 
 export const startTest = createAction("Test/START");
 export const stopTest = createAction("Test/STOP");
+export const pauseTest = createAction("Test/PAUSE");
+export const continueTest = createAction("Test/CONTINUE");

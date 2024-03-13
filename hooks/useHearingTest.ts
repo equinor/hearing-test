@@ -8,7 +8,9 @@ import { useHearingTestIsFinished } from "./useHearingTestIsFinished";
 import { useHearingTestProgress } from "./useHearingTestProgress";
 import { useHearingTestSounds } from "./useHearingTestSounds";
 import {
+  continueTest as actionContinueTest,
   failure as actionFailure,
+  pauseTest as actionPauseTest,
   postTakeTest as actionPostTakeTest,
   resetTestState as actionResetTestState,
   startTest as actionStartTest,
@@ -63,7 +65,6 @@ export const useHearingTest = () => {
 
   useEffect(() => {
     return () => {
-      if (intervalIdRef.current) clearInterval(intervalIdRef.current);
       dispatch(actionResetTestState());
     };
   }, []);
@@ -76,6 +77,7 @@ export const useHearingTest = () => {
 
   useEffect(() => {
     if (pauseAfterNode && !isDialogOpen && previousNodeRef.current !== node) {
+      dispatch(actionPauseTest());
       setPauseAfterNode(false);
       setDialog(DIALOG.OPEN);
     }
@@ -172,6 +174,11 @@ export const useHearingTest = () => {
     dispatch(actionStartTest());
   };
 
+  const continueTest = () => {
+    dispatch(actionContinueTest());
+    setDialog(DIALOG.HIDDEN);
+  };
+
   const restartTest = () => {
     navigation.replace("TestRoute");
   };
@@ -183,6 +190,7 @@ export const useHearingTest = () => {
     isConnected === false && Object.keys(test).length === 0;
 
   return {
+    continueTest,
     isDialogOpen,
     isLoading,
     pauseAfterNode,

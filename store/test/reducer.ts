@@ -3,7 +3,9 @@ import _ from "lodash";
 import { handleActions } from "redux-actions";
 
 import {
+  continueTest,
   failure,
+  pauseTest,
   postTakeTestFailed,
   postTakeTestRequested,
   postTakeTestSucceeded,
@@ -160,6 +162,8 @@ export default handleActions(
     [stopTest]: (state) => {
       return { ...state, testIsRunning: false, testIsFinished: false };
     },
+    [pauseTest]: (state) => ({ ...state, testIsRunning: false }),
+    [continueTest]: (state) => ({ ...state, testIsRunning: true }),
     [success]: (state, action) =>
       setNextNode(state, { ...action.payload, success: true }),
     [failure]: (state, action) =>
