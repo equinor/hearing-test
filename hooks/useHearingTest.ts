@@ -180,6 +180,7 @@ export const useHearingTest = () => {
   };
 
   const restartTest = () => {
+    dispatch(actionResetTestState());
     navigation.replace("TestRoute");
   };
 

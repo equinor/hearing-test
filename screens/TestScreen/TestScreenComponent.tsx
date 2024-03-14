@@ -29,6 +29,12 @@ export const TestScreenComponent = () => {
   } = useHearingTest();
   const navigation = useHearingNavigation();
 
+  const getSubheading = () => {
+    if (isLoading) return "";
+    if (testIsRunning) return "Trykk på sirkelen under når du hører en lyd";
+    return "Trykk på sirkelen under når du er klar for å starte hørselstesten.";
+  };
+
   const BottomButton = () => {
     if (isLoading) {
       return <Loading />;
@@ -87,11 +93,7 @@ export const TestScreenComponent = () => {
           />
         </View>
         <View style={styles.subheadingAndButtonContainer}>
-          <Typography style={styles.subheading}>
-            {testIsRunning
-              ? "Trykk på sirkelen under når du hører en lyd"
-              : "Trykk på sirkelen under når du er klar for å starte hørselstesten."}
-          </Typography>
+          <Typography style={styles.subheading}>{getSubheading()}</Typography>
           <BottomButton />
         </View>
       </SafeAreaView>
