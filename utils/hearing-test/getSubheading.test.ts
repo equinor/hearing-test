@@ -20,4 +20,14 @@ describe("getSubheading", () => {
     const subheading = getSubheading(true, true);
     expect(subheading).toBe(SUBHEADINGS.LOADING);
   });
+
+  test("subheadings should have exact values", () => {
+    expect(SUBHEADINGS.LOADING).toBe("");
+    expect(SUBHEADINGS.TEST_IS_RUNNING).toBe(
+      "Trykk på sirkelen under når du hører en lyd"
+    );
+    expect(SUBHEADINGS.TEST_HAS_LOADED).toBe(
+      "Trykk på sirkelen under når du er klar for å starte hørselstesten."
+    );
+  });
 });
