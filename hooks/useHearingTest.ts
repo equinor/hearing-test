@@ -64,12 +64,6 @@ export const useHearingTest = () => {
   useHearingTestIsFinished();
 
   useEffect(() => {
-    return () => {
-      dispatch(actionResetTestState());
-    };
-  }, []);
-
-  useEffect(() => {
     if (isConnected && !isFetching && Object.keys(test).length === 0) {
       dispatch(actionPostTakeTest());
     }

@@ -2,6 +2,7 @@ import { Button, LinearProgress, Typography } from "@equinor/mad-components";
 import { Dialog } from "@equinor/mad-components/dist/components/Dialog";
 import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useDispatch } from "react-redux";
 
 import { BigRoundButton } from "../../components/common/atoms/BigRoundButton";
 import { MenuItem } from "../../components/common/atoms/MenuItem";
@@ -10,6 +11,7 @@ import { Loading } from "../../components/common/molecules/Loading";
 import { TestCard } from "../../components/common/molecules/TestCard";
 import { useHearingNavigation } from "../../hooks/useHearingNavigation";
 import { DIALOG, useHearingTest } from "../../hooks/useHearingTest";
+import { resetTestState as actionResetTestState } from "../../store/test/actions";
 import { confirmationDialog } from "../../utils/alerts";
 import { getSubheading } from "../../utils/hearing-test/getSubheading";
 
@@ -29,6 +31,7 @@ export const TestScreenComponent = () => {
     testIsRunning,
   } = useHearingTest();
   const navigation = useHearingNavigation();
+  const dispatch = useDispatch();
 
   const BottomButton = () => {
     if (isLoading) {
@@ -103,7 +106,10 @@ export const TestScreenComponent = () => {
               setDialog(DIALOG.SUBDIALOG);
               confirmationDialog(
                 "Avslutte hørselstesten?",
-                () => navigation.navigate("Root"),
+                () => {
+                  dispatch(actionResetTestState());
+                  navigation.navigate("Root");
+                },
                 "Da må du begynne på nytt neste gang",
                 () => setDialog(DIALOG.OPEN)
               );
@@ -129,7 +135,10 @@ export const TestScreenComponent = () => {
               setDialog(DIALOG.SUBDIALOG);
               confirmationDialog(
                 "Ta ny lydsjekk?",
-                () => navigation.navigate("SoundCheckRoute"),
+                () => {
+                  dispatch(actionResetTestState());
+                  navigation.navigate("SoundCheckRoute");
+                },
                 "Dette vil slette all data fra denne testen",
                 () => setDialog(DIALOG.OPEN)
               );

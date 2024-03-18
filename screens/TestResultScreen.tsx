@@ -12,7 +12,10 @@ import {
   TestResultPageButtons,
   useTestResultPages,
 } from "../hooks/useTestResultPages";
-import { postTest as actionPostTest } from "../store/test/actions";
+import {
+  postTest as actionPostTest,
+  resetTestState as actionResetTestState,
+} from "../store/test/actions";
 import { selectIsFetching, selectTestResult } from "../store/test/reducer";
 import { getUnsentTests } from "../store/unsent-tests/reducer";
 import { ANALYSIS_FLAG, RootStackScreenProps } from "../types";
@@ -34,7 +37,10 @@ export const TestResultScreen = ({ navigation }: TestResultScreenProps) => {
     },
     newTest: {
       title: "Ta ny test",
-      onPress: () => navigation.replace("TestRoute"),
+      onPress: () => {
+        dispatch(actionResetTestState());
+        navigation.replace("TestRoute");
+      },
     },
     sendTest: {
       title: "Send",
@@ -63,7 +69,10 @@ export const TestResultScreen = ({ navigation }: TestResultScreenProps) => {
           </Typography>
           <Button.Icon
             name="close"
-            onPress={() => navigation.navigate("Root")}
+            onPress={() => {
+              dispatch(actionResetTestState());
+              navigation.navigate("Root");
+            }}
             variant="ghost"
           />
         </View>
