@@ -11,6 +11,7 @@ import { TestCard } from "../../components/common/molecules/TestCard";
 import { useHearingNavigation } from "../../hooks/useHearingNavigation";
 import { DIALOG, useHearingTest } from "../../hooks/useHearingTest";
 import { confirmationDialog } from "../../utils/alerts";
+import { getSubheading } from "../../utils/hearing-test/getSubheading";
 
 export const TestScreenComponent = () => {
   const {
@@ -28,12 +29,6 @@ export const TestScreenComponent = () => {
     testIsRunning,
   } = useHearingTest();
   const navigation = useHearingNavigation();
-
-  const getSubheading = () => {
-    if (isLoading) return "";
-    if (testIsRunning) return "Trykk på sirkelen under når du hører en lyd";
-    return "Trykk på sirkelen under når du er klar for å starte hørselstesten.";
-  };
 
   const BottomButton = () => {
     if (isLoading) {
@@ -93,7 +88,9 @@ export const TestScreenComponent = () => {
           />
         </View>
         <View style={styles.subheadingAndButtonContainer}>
-          <Typography style={styles.subheading}>{getSubheading()}</Typography>
+          <Typography style={styles.subheading}>
+            {getSubheading(isLoading, testIsRunning)}
+          </Typography>
           <BottomButton />
         </View>
       </SafeAreaView>
