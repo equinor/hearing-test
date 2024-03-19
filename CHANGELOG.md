@@ -1,5 +1,30 @@
 # Changelog
 
+## [0.6.0](https://github.com/equinor/hearing-test/compare/v0.5.0...v0.6.0) (2024-03-19)
+
+
+### Features
+
+* Add mute button to test environment ([#311](https://github.com/equinor/hearing-test/issues/311)) ([c5d6e04](https://github.com/equinor/hearing-test/commit/c5d6e04061f3e033b7ebaf6195e3df33ad11ebdd)), closes [#299](https://github.com/equinor/hearing-test/issues/299)
+* Ignore `preDelayMs` if previous node was not heard ([#344](https://github.com/equinor/hearing-test/issues/344)) ([0023014](https://github.com/equinor/hearing-test/commit/00230145b743ef2d2bd23da1a0e087773c41c7c0)), closes [#343](https://github.com/equinor/hearing-test/issues/343)
+* Sound check redesign ([#330](https://github.com/equinor/hearing-test/issues/330)) ([eb9e749](https://github.com/equinor/hearing-test/commit/eb9e749c60d124eaebe4570645bcd611c56c6405)), closes [#235](https://github.com/equinor/hearing-test/issues/235)
+* Update icon ([#354](https://github.com/equinor/hearing-test/issues/354)) ([9b6537f](https://github.com/equinor/hearing-test/commit/9b6537f9e1846e04ee904ecc81e79d3693486b58)), closes [#252](https://github.com/equinor/hearing-test/issues/252)
+* Update pause menu icons ([#328](https://github.com/equinor/hearing-test/issues/328)) ([21dca72](https://github.com/equinor/hearing-test/commit/21dca726ffbb0371de96aec7ca683c932b25db30)), closes [#211](https://github.com/equinor/hearing-test/issues/211)
+* Update test completion feedback ([#329](https://github.com/equinor/hearing-test/issues/329)) ([24d430d](https://github.com/equinor/hearing-test/commit/24d430d9fb4be5a9fbdbded25d4aba3a939da64b)), closes [#317](https://github.com/equinor/hearing-test/issues/317)
+* Use `@equinor/mad-core` ([#332](https://github.com/equinor/hearing-test/issues/332)) ([12f6792](https://github.com/equinor/hearing-test/commit/12f6792ac1d336a84135d9b2e4b33c3fc73b75f9)), closes [#331](https://github.com/equinor/hearing-test/issues/331)
+
+
+### Bug Fixes
+
+* **deps:** Upgrade to Expo 50 ([#339](https://github.com/equinor/hearing-test/issues/339)) ([2b8e43c](https://github.com/equinor/hearing-test/commit/2b8e43c05cfb249819712770a5e2739a5010c7dd))
+* Display dialog when pressing no on subdialog ([#357](https://github.com/equinor/hearing-test/issues/357)) ([1a1ba81](https://github.com/equinor/hearing-test/commit/1a1ba81638fcbd0155ec5898d4a8271c6b81774a)), closes [#356](https://github.com/equinor/hearing-test/issues/356)
+* Show correct dialog when pausing test ([#324](https://github.com/equinor/hearing-test/issues/324)) ([c4f91da](https://github.com/equinor/hearing-test/commit/c4f91da1efbab2e4ca3130d18a35ef417f773f34)), closes [#322](https://github.com/equinor/hearing-test/issues/322)
+* Unable to post test ([#362](https://github.com/equinor/hearing-test/issues/362)) ([19b88a3](https://github.com/equinor/hearing-test/commit/19b88a3ceb091711e8b256121b7d922a18f4cb46)), closes [#361](https://github.com/equinor/hearing-test/issues/361)
+* Unable to start a second test during the same session ([#368](https://github.com/equinor/hearing-test/issues/368)) ([7456619](https://github.com/equinor/hearing-test/commit/7456619a0f90836364ba7ddb2aa79cac0030d58f)), closes [#367](https://github.com/equinor/hearing-test/issues/367)
+* Update splash screen ([#353](https://github.com/equinor/hearing-test/issues/353)) ([6de904b](https://github.com/equinor/hearing-test/commit/6de904b89dda684ea40dfa0c46ac8f5c82acf3f0)), closes [#352](https://github.com/equinor/hearing-test/issues/352)
+* Upgrade @equinor/mad-core from 0.5.4 to 0.5.15 ([#360](https://github.com/equinor/hearing-test/issues/360)) ([311c7ef](https://github.com/equinor/hearing-test/commit/311c7efb366ca8315d43c435ddc29c10113f7e4f))
+* Upgrade dependencies ([#335](https://github.com/equinor/hearing-test/issues/335)) ([863e62c](https://github.com/equinor/hearing-test/commit/863e62c174ca4130a8252646be5f4e4be4bcb74c)), closes [#333](https://github.com/equinor/hearing-test/issues/333)
+
 ## [0.5.0](https://github.com/equinor/hearing-test/compare/v0.4.3...v0.5.0) (2023-11-22)
 
 
