@@ -8,11 +8,13 @@ import { useHearingTestIsFinished } from "./useHearingTestIsFinished";
 import { useHearingTestProgress } from "./useHearingTestProgress";
 import { useHearingTestSounds } from "./useHearingTestSounds";
 import {
-  postTakeTest as actionPostTakeTest,
-  success as actionSuccess,
-  stopTest as actionStopTest,
+  continueTest as actionContinueTest,
   failure as actionFailure,
+  pauseTest as actionPauseTest,
+  postTakeTest as actionPostTakeTest,
+  resetTestState as actionResetTestState,
   startTest as actionStartTest,
+  success as actionSuccess,
 } from "../store/test/actions";
 import {
   selectIsFetching,
@@ -69,6 +71,7 @@ export const useHearingTest = () => {
 
   useEffect(() => {
     if (pauseAfterNode && !isDialogOpen && previousNodeRef.current !== node) {
+      dispatch(actionPauseTest());
       setPauseAfterNode(false);
       setDialog(DIALOG.OPEN);
     }
@@ -165,17 +168,14 @@ export const useHearingTest = () => {
     dispatch(actionStartTest());
   };
 
-  const stopTest = () => {
-    if (intervalIdRef.current) clearInterval(intervalIdRef.current);
-    dispatch(actionStopTest());
+  const continueTest = () => {
+    dispatch(actionContinueTest());
     setDialog(DIALOG.HIDDEN);
-    setNumberOfNodesPlayed(0);
   };
 
   const restartTest = () => {
-    stopTest();
-    dispatch(actionStartTest());
-    navigation.navigate("TestRoute");
+    dispatch(actionResetTestState());
+    navigation.replace("TestRoute");
   };
 
   const isLoading =
@@ -185,6 +185,7 @@ export const useHearingTest = () => {
     isConnected === false && Object.keys(test).length === 0;
 
   return {
+    continueTest,
     isDialogOpen,
     isLoading,
     pauseAfterNode,
@@ -195,7 +196,6 @@ export const useHearingTest = () => {
     setPauseAfterNode,
     showOfflineCard,
     startTest,
-    stopTest,
     testIsRunning,
   };
 };

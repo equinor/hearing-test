@@ -2,6 +2,7 @@ import { Button, LinearProgress, Typography } from "@equinor/mad-components";
 import { Dialog } from "@equinor/mad-components/dist/components/Dialog";
 import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useDispatch } from "react-redux";
 
 import { BigRoundButton } from "../../components/common/atoms/BigRoundButton";
 import { MenuItem } from "../../components/common/atoms/MenuItem";
@@ -10,10 +11,13 @@ import { Loading } from "../../components/common/molecules/Loading";
 import { TestCard } from "../../components/common/molecules/TestCard";
 import { useHearingNavigation } from "../../hooks/useHearingNavigation";
 import { DIALOG, useHearingTest } from "../../hooks/useHearingTest";
+import { resetTestState as actionResetTestState } from "../../store/test/actions";
 import { confirmationDialog } from "../../utils/alerts";
+import { getSubheading } from "../../utils/hearing-test/getSubheading";
 
 export const TestScreenComponent = () => {
   const {
+    continueTest,
     isDialogOpen,
     isLoading,
     pauseAfterNode,
@@ -24,10 +28,10 @@ export const TestScreenComponent = () => {
     setPauseAfterNode,
     showOfflineCard,
     startTest,
-    stopTest,
     testIsRunning,
   } = useHearingTest();
   const navigation = useHearingNavigation();
+  const dispatch = useDispatch();
 
   const BottomButton = () => {
     if (isLoading) {
@@ -88,9 +92,7 @@ export const TestScreenComponent = () => {
         </View>
         <View style={styles.subheadingAndButtonContainer}>
           <Typography style={styles.subheading}>
-            {testIsRunning
-              ? "Trykk på sirkelen under når du hører en lyd"
-              : "Trykk på sirkelen under når du er klar for å starte hørselstesten."}
+            {getSubheading(isLoading, testIsRunning)}
           </Typography>
           <BottomButton />
         </View>
@@ -105,7 +107,7 @@ export const TestScreenComponent = () => {
               confirmationDialog(
                 "Avslutte hørselstesten?",
                 () => {
-                  stopTest();
+                  dispatch(actionResetTestState());
                   navigation.navigate("Root");
                 },
                 "Da må du begynne på nytt neste gang",
@@ -134,7 +136,7 @@ export const TestScreenComponent = () => {
               confirmationDialog(
                 "Ta ny lydsjekk?",
                 () => {
-                  stopTest();
+                  dispatch(actionResetTestState());
                   navigation.navigate("SoundCheckRoute");
                 },
                 "Dette vil slette all data fra denne testen",
@@ -144,7 +146,7 @@ export const TestScreenComponent = () => {
           />
           <Button
             title="Fortsette hørselstesten"
-            onPress={() => setDialog(DIALOG.HIDDEN)}
+            onPress={continueTest}
             style={styles.continueHearingTestButton}
           />
         </Dialog.CustomContent>

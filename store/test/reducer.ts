@@ -3,13 +3,16 @@ import _ from "lodash";
 import { handleActions } from "redux-actions";
 
 import {
+  continueTest,
   failure,
+  pauseTest,
   postTakeTestFailed,
   postTakeTestRequested,
   postTakeTestSucceeded,
   postTestFailed,
   postTestRequested,
   postTestSucceeded,
+  resetTestState,
   startTest,
   stopTest,
   success,
@@ -84,11 +87,24 @@ function setNextNode(state, userResponse) {
   return clonedState;
 }
 
+const initialState = {
+  error: { message: null, status: null },
+  fetching: false,
+  node: {},
+  results: [],
+  test: {},
+  apiSounds: [],
+  testIsFinished: false,
+  testIsRunning: false,
+  userResponses: [],
+  testResult: {},
+};
+
 export default handleActions(
   {
+    [resetTestState]: () => ({ ...initialState }),
     [postTakeTestRequested]: (state) => ({
       ...state,
-      test: {},
       fetching: true,
     }),
     [postTakeTestSucceeded]: (state, action) => {
@@ -107,7 +123,6 @@ export default handleActions(
     }),
     [postTestRequested]: (state) => ({
       ...state,
-      testResult: {},
       fetching: true,
     }),
     [postTestSucceeded]: (state, action) => {
@@ -147,23 +162,14 @@ export default handleActions(
     [stopTest]: (state) => {
       return { ...state, testIsRunning: false, testIsFinished: false };
     },
+    [pauseTest]: (state) => ({ ...state, testIsRunning: false }),
+    [continueTest]: (state) => ({ ...state, testIsRunning: true }),
     [success]: (state, action) =>
       setNextNode(state, { ...action.payload, success: true }),
     [failure]: (state, action) =>
       setNextNode(state, { ...action.payload, success: false }),
   },
-  {
-    error: { message: null, status: null },
-    fetching: false,
-    node: {},
-    path: [],
-    results: [],
-    test: {},
-    apiSounds: [],
-    testIsFinished: false,
-    testIsRunning: false,
-    userResponses: [],
-  }
+  initialState
 );
 
 export const selectIsFetching = (state): boolean =>
