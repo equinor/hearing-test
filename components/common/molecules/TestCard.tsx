@@ -54,7 +54,10 @@ export const TestCard = ({ isConnected, navigation }: TestCardProps) => {
         isMultipleUnsentTests ? "de usendte testene" : "den usendte testen"
       } før du kan starte en ny test.`,
       buttonText: "Send",
-      onPress: () => dispatch(postTest(unsentTests[0])),
+      onPress: () => {
+        dispatch(postTest(unsentTests[0]));
+        navigation?.navigate("TestResultRoute");
+      },
       loading: isFetching,
     },
   };
