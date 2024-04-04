@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.0](https://github.com/equinor/hearing-test/compare/v0.6.0...v0.7.0) (2024-04-04)
+
+
+### Features
+
+* Display test results after sending an unsent test ([#372](https://github.com/equinor/hearing-test/issues/372)) ([dbb4011](https://github.com/equinor/hearing-test/commit/dbb40114decab08c335983037de601ef08642a27)), closes [#371](https://github.com/equinor/hearing-test/issues/371)
+
 ## [0.6.0](https://github.com/equinor/hearing-test/compare/v0.5.0...v0.6.0) (2024-03-19)
 
 
