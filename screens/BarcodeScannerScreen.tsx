@@ -57,7 +57,7 @@ export const BarcodeScannerScreen = ({
             confirmationDialog(
               "Avslutte?",
               () => navigation.navigate("Root"),
-              "Da må du begynne på nytt neste gang"
+              "Da må du begynne på nytt neste gang",
             )
           }
           variant="ghost"
@@ -67,7 +67,7 @@ export const BarcodeScannerScreen = ({
         <CameraView
           onBarcodeScanned={scanned ? undefined : handleBarcodeScanned}
           barcodeScannerSettings={{
-            barCodeTypes: ["ean8"],
+            barcodeTypes: ["ean8"],
           }}
           style={StyleSheet.absoluteFillObject}
         />
