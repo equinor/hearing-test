@@ -69,7 +69,6 @@ export const BarcodeScannerScreen = ({
           barcodeScannerSettings={{
             barcodeTypes: ["ean8"],
           }}
-          mute
           style={StyleSheet.absoluteFillObject}
         />
       ) : (
