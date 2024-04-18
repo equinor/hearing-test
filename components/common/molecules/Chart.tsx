@@ -110,10 +110,8 @@ export const Chart = ({ data }: ChartProps) => (
       style={{ data: { fill: COLORS.MOSS_GREEN_55 } }}
     />
     <VictoryAxis
-      label
-      axisLabelComponent={
-        <VictoryLabel text="Frekvens (Hz)" dx={-24} dy={-30} />
-      }
+      label="Frekvens (Hz)"
+      axisLabelComponent={<VictoryLabel dx={-24} dy={-30} />}
       offsetY={50}
       orientation="top"
       tickValues={[500, 1000, 2000, 3000, 4000, 6000, 8000, CHART.HZ_MAX]}
@@ -126,8 +124,8 @@ export const Chart = ({ data }: ChartProps) => (
     <VictoryAxis
       dependentAxis
       invertAxis
-      label
-      axisLabelComponent={<VictoryLabel text="Høreterskel (dB)" dy={-30} />}
+      label="Høreterskel (dB)"
+      axisLabelComponent={<VictoryLabel dy={-30} />}
       tickValues={[
         CHART.DB_MIN,
         0,
