@@ -1,6 +1,6 @@
 import { Button, Typography } from "@equinor/mad-components";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { BarcodeScanningResult, Camera, CameraView } from "expo-camera/next";
+import { BarcodeScanningResult, Camera, CameraView } from "expo-camera";
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
