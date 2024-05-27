@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.2](https://github.com/equinor/hearing-test/compare/v0.7.1...v0.7.2) (2024-05-27)
+
+
+### Bug Fixes
+
+* **deps:** Upgrade to Expo SDK 51 ([#384](https://github.com/equinor/hearing-test/issues/384)) ([8c02598](https://github.com/equinor/hearing-test/commit/8c02598a4ce73f90f6b4ab6b4af794f50f5f6586)), closes [#383](https://github.com/equinor/hearing-test/issues/383)
+
 ## [0.7.1](https://github.com/equinor/hearing-test/compare/v0.7.0...v0.7.1) (2024-04-18)
 
 
