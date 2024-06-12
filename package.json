@@ -2,13 +2,11 @@
   "name": "hearing-test",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "expo start",
-    "build-simulator": "eas build --profile development --platform ios --local",
-    "build-physical": "eas build --profile preview --platform ios --local",
-    "android": "expo run:android",
-    "ios": "expo run:ios",
-    "web": "expo start --web",
-    "eject": "expo eject",
+    "start": "npx expo start",
+    "prebuild": "npx expo prebuild --platform ios",
+    "ios": "npx expo run:ios",
+    "android": "npx expo run:android",
+    "doctor": "npx expo-doctor",
     "test": "jest --watchAll",
     "fresh-install": "watchman watch-del-all && rm -rf node_modules && npm install"
   },
