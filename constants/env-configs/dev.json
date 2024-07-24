@@ -3,7 +3,7 @@
   "Resources": {
     "hearing": {
       "AzureADResourceId": "d110ddd9-08ae-4784-a597-8432fdabb0a8",
-      "ApiBaseUrl": "https://api.statoil.com/app/hearing/dev/api/v2",
+      "ApiBaseUrl": "https://api-hearing-api-dev.radix.equinor.com/api/v2.0",
       "scopes": [
         "api://d110ddd9-08ae-4784-a597-8432fdabb0a8/user_impersonation"
       ]
