@@ -3,7 +3,7 @@
   "Resources": {
     "hearing": {
       "AzureADResourceId": "51cb4e59-b091-4223-8f5b-54c6e785dd4e",
-      "ApiBaseUrl": "https://api-hearing-api-test.radix.equinor.com/api/v2.0/",
+      "ApiBaseUrl": "https://api-hearing-api-test.radix.equinor.com/api/v2.0",
       "scopes": [
         "api://51cb4e59-b091-4223-8f5b-54c6e785dd4e/user_impersonation"
       ]
