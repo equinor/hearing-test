@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.7.4](https://github.com/equinor/hearing-test/compare/v0.7.3...v0.7.4) (2024-07-31)
+
+
+### Bug Fixes
+
+* Remove slash from API base URL ([#397](https://github.com/equinor/hearing-test/issues/397)) ([683ad7d](https://github.com/equinor/hearing-test/commit/683ad7dd8fef3289cab84f03937653d9693a9929)), closes [#396](https://github.com/equinor/hearing-test/issues/396)
+* update app base url ([#394](https://github.com/equinor/hearing-test/issues/394)) ([675f278](https://github.com/equinor/hearing-test/commit/675f278cbee98e69b36f581e0a03430e27afaba1))
+
 ## [0.7.3](https://github.com/equinor/hearing-test/compare/v0.7.2...v0.7.3) (2024-06-18)
 
 
