@@ -132,7 +132,7 @@ jobs:
                 configuration: ${{inputs.environment}}
                 platform: iOS
                 action: build
-                workspace: ios/hearingtest.xcworkspacee
+                workspace: ios/hearingtest.xcworkspace
                 scheme: hearingtest
                 mobile-provisioning-profiles-base64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
                 code-sign-certificate: ${{ secrets.P12SECRET }}
