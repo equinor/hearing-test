@@ -1,4 +1,4 @@
-name: Build and Release OM Inspection
+name: Build and Release Hearing Test
 on: 
   workflow_call:
     inputs:
