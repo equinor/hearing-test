@@ -99,7 +99,7 @@ jobs:
            - name: Replace settings.json with environment settings
              run: |
                env=`echo "${{inputs.environment}}"| tr "[:upper:]" "[:lower:]"`
-               mv env-configs/constants/$env.json settings.json
+               mv constants/env-configs/$env.json settings.json
 
            - name: Set settings.json as environment variables
              uses: antifree/json-to-variables@v1.0.1
