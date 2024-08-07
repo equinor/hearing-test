@@ -139,3 +139,7 @@ jobs:
                 code-sign-certificate-passphrase: ${{ secrets.P12PASSWORD }}
                 code-sign-identity: ${{env.CODE_SIGN_IDENTITY}}
 
+           - name: Xcode Archive Build
+             run: |  
+              /usr/bin/xcodebuild archive -workspace ios/hearingtest.xcworkspace -scheme hearingtest -destination 'generic/platform=iOS' -archivePath build/hearingtest.xcarchive CODE_SIGN_STYLE="Manual" CODE_SIGN_IDENTITY="${{env.CODE_SIGN_IDENTITY}}" PROVISIONING_PROFILE="${{env.UUID}}"
+          
