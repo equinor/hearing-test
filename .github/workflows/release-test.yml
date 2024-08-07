@@ -12,6 +12,6 @@ jobs:
         if:
             ${{ !startsWith(github.event.head_commit.message, 'docs')  && !startsWith(github.event.head_commit.message, 'style') && !startswith(github.event.head_commit.message, 'refactor') }}
         secrets: inherit
-        uses: equinor/mad-project-om-inspection/.github/workflows/build-release-ios.yml@SWTest
+        uses: equinor/hearing-test/.github/workflows/build-release-ios.yml@SWTest
         with:
             environment: Test
