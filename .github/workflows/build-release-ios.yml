@@ -124,5 +124,18 @@ jobs:
            - name: Replace app name to environment app name
              run: |
                /usr/libexec/PlistBuddy -c "Set :CFBundleDisplayName ${{ vars.APP_NAME }}" ios/HearingTest/Info.plist
-                
+
+           - name: Xcode Build
+             uses: mxcl/xcodebuild@v1
+             with:
+                xcode: 15.1
+                configuration: ${{inputs.environment}}
+                platform: iOS
+                action: build
+                workspace: ios/hearingtest.xcworkspacee
+                scheme: hearingtest
+                mobile-provisioning-profiles-base64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
+                code-sign-certificate: ${{ secrets.P12SECRET }}
+                code-sign-certificate-passphrase: ${{ secrets.P12PASSWORD }}
+                code-sign-identity: ${{env.CODE_SIGN_IDENTITY}}
 
