@@ -116,5 +116,13 @@ jobs:
                patch-syntax: |
                  = /expo/ios/bundleIdentifier => "${{ vars.BUNDLE_IDENTIFIER }}"
                  = /expo/ios/buildNumber => "${{ env.BUILD_NUMBER }}"
+           
+           - name: Prebuild expo project
+             run: |
+               expo prebuild --platform ios
+
+           - name: Replace app name to environment app name
+             run: |
+               /usr/libexec/PlistBuddy -c "Set :CFBundleDisplayName ${{ vars.APP_NAME }}" ios/HearingTest/Info.plist
                 
 
