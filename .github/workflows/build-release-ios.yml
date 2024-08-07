@@ -89,3 +89,10 @@ jobs:
 
            - name: Install dependencies with npm ci
              run: npm ci
+
+           - name: Set package.json as environment variables
+             uses: antifree/json-to-variables@v1.0.1
+             with: 
+               filename: 'package.json'
+               prefix: 'PACKAGEJSON'
+               
