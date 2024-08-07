@@ -66,3 +66,26 @@ jobs:
                Write-Host "UUID: $uuid"
                "UUID=$uuid" >> $env:GITHUB_ENV
              shell: pwsh
+
+           - name: Generate ExportOptions.plist from Provisioning Profile
+             run: |
+               FILE=ExportOptions.plist
+               /usr/libexec/PlistBuddy -c "add :compileBitcode bool true" $FILE
+               /usr/libexec/PlistBuddy -c "add :method string app-store" $FILE
+               /usr/libexec/PlistBuddy -c "add :provisioningProfiles dict" $FILE
+               /usr/libexec/PlistBuddy -c "add :provisioningProfiles:${{vars.BUNDLE_IDENTIFIER}} string ${{env.UUID}}" $FILE
+               /usr/libexec/PlistBuddy -c "add :signingStyle string manual" $FILE
+               /usr/libexec/PlistBuddy -c "add :teamId string 2F7Q634FSX" $FILE
+               cat $FILE
+
+           - name: Use Node 18.x
+             uses: actions/setup-node@v4
+             with:
+                cache: 'npm'
+                node-version: 18.x
+                
+           - name: Install expo-cli
+             run: npm install -g expo-cli && expo --version
+
+           - name: Install dependencies with npm ci
+             run: npm ci
