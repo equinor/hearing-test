@@ -149,3 +149,10 @@ jobs:
                name: hearingtest
                path: build/hearingtest.ipa
                
+           - name: Upload to TestFlight
+             run: |
+               mkdir -p ./private_keys
+               echo -n "${{secrets.APPSTORE_API_PRIVATE_KEY}}" | base64 --decode -o "./private_keys/AuthKey_${{ secrets.APPSTORE_API_KEY_ID }}.p8"
+               xcrun altool --validate-app -f /Users/runner/work/hearingtest/hearingtest/build/hearingtest.ipa -t ios --apiKey ${{ secrets.APPSTORE_API_KEY_ID }} --apiIssuer ${{ secrets.APPSTORE_ISSUER_ID }}
+               xcrun altool --upload-app -f /Users/runner/work/hearingtest/hearingtest/build/hearingtest.ipa -t ios --apiKey ${{ secrets.APPSTORE_API_KEY_ID }} --apiIssuer ${{ secrets.APPSTORE_ISSUER_ID }}
+               
