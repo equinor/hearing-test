@@ -143,3 +143,9 @@ jobs:
              run: |  
               /usr/bin/xcodebuild archive -workspace ios/hearingtest.xcworkspace -scheme hearingtest -destination 'generic/platform=iOS' -archivePath build/hearingtest.xcarchive CODE_SIGN_STYLE="Manual" CODE_SIGN_IDENTITY="${{env.CODE_SIGN_IDENTITY}}" PROVISIONING_PROFILE="${{env.UUID}}"
           
+           - name: Upload IPA Artifact
+             uses: actions/upload-artifact@v2
+             with:
+               name: hearingtest
+               path: build/hearingtest.ipa
+               
