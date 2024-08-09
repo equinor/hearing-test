@@ -7,7 +7,10 @@ on:
         default: 'test'
         required: true
         type: string
-    
+concurrency:
+  group: ${{ github.ref != 'refs/heads/main' }}
+  cancel-in-progress: true
+  
 env:
   CODE_SIGN_IDENTITY: "Apple Distribution: Equinor ASA"
 
