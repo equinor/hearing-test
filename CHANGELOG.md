@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.5](https://github.com/equinor/hearing-test/compare/v0.7.4...v0.7.5) (2024-08-12)
+
+
+### Bug Fixes
+
+* Upgrade dependencies ([#400](https://github.com/equinor/hearing-test/issues/400)) ([86351cc](https://github.com/equinor/hearing-test/commit/86351ccb4f0a53cc32b210a8046b323d4e92ea75)), closes [#399](https://github.com/equinor/hearing-test/issues/399)
+
 ## [0.7.4](https://github.com/equinor/hearing-test/compare/v0.7.3...v0.7.4) (2024-08-06)
 
 
