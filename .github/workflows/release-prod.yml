@@ -24,6 +24,6 @@ jobs:
     if: ${{ needs.release-please.outputs.release_created}}
     needs: release-please
     secrets: inherit
-    uses: equinor/hearing-test/.github/workflows/build-release-ios.yml@main
+    uses: equinor/hearing-test/.github/workflows/build-release-ios.yml@404-create-github-actions-to-build-and-release
     with:
       environment: Prod
