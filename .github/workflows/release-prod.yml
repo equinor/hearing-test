@@ -3,7 +3,7 @@ name: Build and release to Prod 🚀
 on:
   push:
     branches:
-      - main
+      - 404-create-github-actions-to-build-and-release
 
 permissions:
   contents: write
