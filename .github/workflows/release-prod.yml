@@ -19,6 +19,7 @@ jobs:
         id: release-please
         with:
           release-type: expo
+          token: ${{ secrets.RELEASE_PLEASE_PAT }}
 
   trigger-build:
     if: ${{ needs.release-please.outputs.release_created}}
