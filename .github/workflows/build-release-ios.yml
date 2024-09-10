@@ -151,7 +151,7 @@ jobs:
                /usr/bin/xcodebuild -exportArchive -archivePath build/hearingtest.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath build
           
            - name: Upload IPA Artifact
-             uses: actions/upload-artifact@v2
+             uses: actions/upload-artifact@v4
              with:
                name: hearingtest
                path: build/hearingtest.ipa
