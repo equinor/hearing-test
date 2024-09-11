@@ -1,0 +1,16 @@
+name: Build and release to Test 🧪
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  trigger-build:
+    if:
+      ${{ !startsWith(github.event.head_commit.message, 'docs')  && !startsWith(github.event.head_commit.message, 'style') && !startsWith(github.event.head_commit.message, 'refactor') }}
+    secrets: inherit
+    uses: equinor/hearing-test/.github/workflows/build-release-ios.yml@main
+    with:
+      environment: Test

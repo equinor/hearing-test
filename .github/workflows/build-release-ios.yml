@@ -1,0 +1,165 @@
+name: Build and Release Hearing Test
+on: 
+  workflow_call:
+    inputs:
+      environment:
+        description: 'The app environment to build'
+        default: 'test'
+        required: true
+        type: string
+concurrency:
+  group: ${{ github.ref != 'refs/heads/main' }}
+  cancel-in-progress: true
+  
+env:
+  CODE_SIGN_IDENTITY: "Apple Distribution: Equinor ASA"
+
+jobs:
+    build:
+        name: Build IPA
+        environment:
+          name: ${{inputs.environment}}
+         
+        runs-on: macos-13
+        steps:
+
+           - name: Set build number to environment variable
+             run: echo "BUILD_NUMBER=$(date +'%Y').$(date +'%m%d').${{github.run_number}}" >> $GITHUB_ENV
+               
+           - name: Checkout repository
+             uses: actions/checkout@v4
+
+           - name: Install the Apple certificate and provisioning profile
+             env:
+               BUILD_CERTIFICATE_BASE64: ${{ secrets.P12SECRET }}
+               P12_PASSWORD: ${{ secrets.P12PASSWORD }}
+               BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
+               KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+             run: |
+               CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+               PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
+               KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+
+               # import certificate and provisioning profile from secrets
+               echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
+               echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
+
+               # create temporary keychain
+               security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+               security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+               security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+               # import certificate to keychain
+               security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+               security list-keychain -d user -s $KEYCHAIN_PATH
+
+               # apply provisioning profile
+               mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+               cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles 
+
+
+           - name: Getting UUID from Installed Provisioning Profile
+             run: | 
+               Get-ChildItem -path "/Users/runner/Library/MobileDevice/Provisioning Profiles"
+               $Profile = "/Users/runner/Library/MobileDevice/Provisioning Profiles/build_pp.mobileprovision"
+               $mobileProvisionContent = Get-Content -Path $Profile -Raw
+               $uuid = [regex]::Match($mobileProvisionContent, "<key>UUID<\/key>\s*<string>(.*?)<\/string>").Groups[1].Value
+
+               # Output the UUID
+               Write-Host "UUID: $uuid"
+               "UUID=$uuid" >> $env:GITHUB_ENV
+             shell: pwsh
+
+           - name: Generate ExportOptions.plist from Provisioning Profile
+             run: |
+               FILE=ExportOptions.plist
+               /usr/libexec/PlistBuddy -c "add :compileBitcode bool true" $FILE
+               /usr/libexec/PlistBuddy -c "add :method string app-store" $FILE
+               /usr/libexec/PlistBuddy -c "add :provisioningProfiles dict" $FILE
+               /usr/libexec/PlistBuddy -c "add :provisioningProfiles:${{vars.BUNDLE_IDENTIFIER}} string ${{env.UUID}}" $FILE
+               /usr/libexec/PlistBuddy -c "add :signingStyle string manual" $FILE
+               /usr/libexec/PlistBuddy -c "add :teamId string 2F7Q634FSX" $FILE
+               cat $FILE
+
+           - name: Use Node 18.x
+             uses: actions/setup-node@v4
+             with:
+                cache: 'npm'
+                node-version: 18.x
+                
+           - name: Install expo-cli
+             run: npm install -g expo-cli && expo --version
+
+           - name: Install dependencies with npm ci
+             run: npm ci
+
+           - name: Set package.json as environment variables
+             uses: antifree/json-to-variables@v1.0.1
+             with: 
+               filename: 'package.json'
+               prefix: 'PACKAGEJSON'
+
+           - name: Replace settings.json with environment settings
+             run: |
+               env=`echo "${{inputs.environment}}"| tr "[:upper:]" "[:lower:]"`
+               mv constants/env-configs/$env.json settings.json
+
+           - name: Set settings.json as environment variables
+             uses: antifree/json-to-variables@v1.0.1
+             with: 
+               filename: 'settings.json'
+               prefix: 'SETTINGS'
+
+           - name: Patch app.json
+             uses: onlyutkarsh/patch-files-action@v1.0.1
+             with: 
+               fail-if-no-files-patched: true
+               fail-if-error: true
+               files: ./app.json
+               patch-syntax: |
+                 = /expo/ios/bundleIdentifier => "${{ vars.BUNDLE_IDENTIFIER }}"
+                 = /expo/ios/buildNumber => "${{ env.BUILD_NUMBER }}"
+           
+           - name: Prebuild expo project
+             run: |
+               expo prebuild --platform ios
+
+           - name: Replace app name to environment app name
+             run: |
+               /usr/libexec/PlistBuddy -c "Set :CFBundleDisplayName ${{ vars.APP_NAME }}" ios/HearingTest/Info.plist
+
+           - name: Xcode Build
+             uses: mxcl/xcodebuild@v1
+             with:
+                xcode: 15.1
+                configuration: ${{inputs.environment}}
+                platform: iOS
+                action: build
+                workspace: ios/hearingtest.xcworkspace
+                scheme: hearingtest
+                mobile-provisioning-profiles-base64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
+                code-sign-certificate: ${{ secrets.P12SECRET }}
+                code-sign-certificate-passphrase: ${{ secrets.P12PASSWORD }}
+                code-sign-identity: ${{env.CODE_SIGN_IDENTITY}}
+
+           - name: Xcode Archive Build
+             run: |  
+              /usr/bin/xcodebuild archive -workspace ios/hearingtest.xcworkspace -scheme hearingtest -destination 'generic/platform=iOS' -archivePath build/hearingtest.xcarchive CODE_SIGN_STYLE="Manual" CODE_SIGN_IDENTITY="${{env.CODE_SIGN_IDENTITY}}" PROVISIONING_PROFILE="${{env.UUID}}"
+
+           - name: Export IPA
+             run: |
+               /usr/bin/xcodebuild -exportArchive -archivePath build/hearingtest.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath build
+          
+           - name: Upload IPA Artifact
+             uses: actions/upload-artifact@v4
+             with:
+               name: hearingtest
+               path: build/hearingtest.ipa
+               
+           - name: Upload to TestFlight
+             run: |
+               mkdir -p ./private_keys
+               echo -n "${{secrets.APPSTORE_API_PRIVATE_KEY}}" | base64 --decode -o "./private_keys/AuthKey_${{ secrets.APPSTORE_API_KEY_ID }}.p8"
+               xcrun altool --validate-app -f /Users/runner/work/hearing-test/hearing-test/build/hearingtest.ipa -t ios --apiKey ${{ secrets.APPSTORE_API_KEY_ID }} --apiIssuer ${{ secrets.APPSTORE_ISSUER_ID }}
+               xcrun altool --upload-app -f /Users/runner/work/hearing-test/hearing-test/build/hearingtest.ipa -t ios --apiKey ${{ secrets.APPSTORE_API_KEY_ID }} --apiIssuer ${{ secrets.APPSTORE_ISSUER_ID }}
+            
