@@ -2,7 +2,7 @@
   "expo": {
     "name": "hearingtest",
     "slug": "hearingtest",
-    "version": "0.7.5",
+    "version": "0.7.6",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "hearingtest",
@@ -21,7 +21,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.equinor.hearingtest.test",
-      "buildNumber": "0.7.5",
+      "buildNumber": "0.7.6",
       "infoPlist": {
         "CFBundleAllowMixedLocalizations": true
       },
@@ -31,7 +31,7 @@
     },
     "android": {
       "package": "com.equinor.hearingtest.test",
-      "versionCode": 510000705,
+      "versionCode": 510000706,
       "permissions": [],
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
