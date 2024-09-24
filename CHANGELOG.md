@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.6](https://github.com/equinor/hearing-test/compare/v0.7.5...v0.7.6) (2024-09-24)
+
+
+### Bug Fixes
+
+* use correct env config for prod ([#417](https://github.com/equinor/hearing-test/issues/417)) ([42c489e](https://github.com/equinor/hearing-test/commit/42c489e528101b084c77de061924c39979492dc2)), closes [#416](https://github.com/equinor/hearing-test/issues/416)
+
 ## [0.7.5](https://github.com/equinor/hearing-test/compare/v0.7.4...v0.7.5) (2024-09-24)
 
 
