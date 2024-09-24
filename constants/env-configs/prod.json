@@ -1,5 +1,5 @@
 {
-  "BuildConfiguration": "Release",
+  "BuildConfiguration": "Prod",
   "Resources": {
     "hearing": {
       "AzureADResourceId": "4b062a04-58a6-4b24-96b3-0a01bc20ea15",

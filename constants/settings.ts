@@ -3,7 +3,7 @@ import {
   Resources,
 } from "./settings.json";
 
-type BuildConfiguration = "Dev" | "Test" | "Release";
+type BuildConfiguration = "Dev" | "Test" | "Prod";
 
 type LowercaseBuildConfiguration = Lowercase<BuildConfiguration>;
 
@@ -14,11 +14,6 @@ export type Environment = "dev" | "test" | "prod";
 export const getEnvironment = (): Environment => {
   const environment =
     BUILD_CONFIGURATION.toLowerCase() as LowercaseBuildConfiguration;
-
-  if (environment === "release") {
-    return "prod";
-  }
-
   return environment;
 };
 
