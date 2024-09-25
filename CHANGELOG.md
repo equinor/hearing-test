@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.7](https://github.com/equinor/hearing-test/compare/v0.7.6...v0.7.7) (2024-09-25)
+
+
+### Bug Fixes
+
+* correct file path in build action ([#420](https://github.com/equinor/hearing-test/issues/420)) ([cd7f2c2](https://github.com/equinor/hearing-test/commit/cd7f2c2df5aaad72074784af7266f73658823698)), closes [#419](https://github.com/equinor/hearing-test/issues/419)
+
 ## [0.7.6](https://github.com/equinor/hearing-test/compare/v0.7.5...v0.7.6) (2024-09-24)
 
 
