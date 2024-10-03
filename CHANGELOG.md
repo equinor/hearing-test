@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.8](https://github.com/equinor/hearing-test/compare/v0.7.7...v0.7.8) (2024-10-03)
+
+
+### Bug Fixes
+
+* add app version to telemetry ([#427](https://github.com/equinor/hearing-test/issues/427)) ([d83fa2f](https://github.com/equinor/hearing-test/commit/d83fa2fcfb02398bb01152da7b7e83c7b8cc90d3)), closes [#426](https://github.com/equinor/hearing-test/issues/426)
+
 ## [0.7.7](https://github.com/equinor/hearing-test/compare/v0.7.6...v0.7.7) (2024-09-25)
 
 
