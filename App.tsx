@@ -6,13 +6,15 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
 
 import useCachedResources from "./hooks/useCachedResources";
+import { useTelemetryInitializer } from "./hooks/useTelemetryInitializer";
 import Navigation from "./navigation";
 import store from "./store/config";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
+  const { isTelemetryInitialized } = useTelemetryInitializer();
 
-  if (!isLoadingComplete) {
+  if (!isLoadingComplete || !isTelemetryInitialized) {
     return null;
   } else {
     return (
