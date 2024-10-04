@@ -2,7 +2,6 @@ import { authenticateSilently, getIsDemoModeEnabled } from "@equinor/mad-core";
 
 import {
   fetchMockMe,
-  fetchMockSounds,
   fetchMockTests,
   postMockTakeTest,
 } from "./mocked-api-methods";
@@ -11,13 +10,7 @@ import {
   getScopes,
   ResourceName,
 } from "../../constants/settings";
-import {
-  ApiSound,
-  HearingTest,
-  HearingTestWithSounds,
-  TestResult,
-  User,
-} from "../../types";
+import { HearingTest, TestResult, User } from "../../types";
 import { NetworkException } from "../../utils/Exception";
 
 const defaultResource: ResourceName = "hearing";
@@ -32,7 +25,7 @@ export const createUrl = (resource: ResourceName, path: string) =>
 const fetchData = (
   path: string,
   resource: ResourceName = defaultResource,
-  parseJson = true
+  parseJson = true,
 ) =>
   authenticateSilently(getScopes(resource)).then((r) =>
     fetch(createUrl(resource, path), {
@@ -49,13 +42,13 @@ const fetchData = (
         return response.ok;
       }
       throw new NetworkException(response.statusText, response.status);
-    })
+    }),
   );
 
 export const postData = (
   path: string,
   data: unknown,
-  resource: ResourceName = defaultResource
+  resource: ResourceName = defaultResource,
 ) =>
   authenticateSilently(getScopes(resource)).then((r) =>
     fetch(createUrl(resource, path), {
@@ -70,7 +63,7 @@ export const postData = (
         return response.json();
       }
       throw new NetworkException(response.statusText, response.status);
-    })
+    }),
   );
 
 export const postTakeTest = (): Promise<HearingTest> =>
@@ -86,7 +79,7 @@ export const postTakeTest = (): Promise<HearingTest> =>
         hz8000Db: -60.9,
       });
 
-export const postTest = (body: HearingTestWithSounds): Promise<TestResult> =>
+export const postTest = (body: HearingTest): Promise<TestResult> =>
   postData(`/me/tests`, body);
 
 export const fetchTests = (): Promise<TestResult[]> =>
@@ -94,6 +87,3 @@ export const fetchTests = (): Promise<TestResult[]> =>
 
 export const fetchMe = (): Promise<User> =>
   getIsDemoModeEnabled() ? fetchMockMe() : fetchData("/me");
-
-export const fetchSounds = (): Promise<ApiSound[]> =>
-  getIsDemoModeEnabled() ? fetchMockSounds() : fetchData("/appstartup/sounds");

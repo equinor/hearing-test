@@ -112,8 +112,6 @@ type NodeSound = { name: string; hz: number; url: string };
  */
 type Panning = -1 | 1;
 
-export type HearingTestWithSounds = HearingTest & { sounds: ApiSound[] };
-
 export type ChartData = {
   leftEar: Point[];
   rightEar: Point[];
@@ -161,10 +159,3 @@ export type User = {
 };
 
 export type URL = `${string}://${string}.${string}`;
-
-export type ApiSound = {
-  name: string;
-  hz: number;
-  uri: string;
-  lastModified: Date;
-};
