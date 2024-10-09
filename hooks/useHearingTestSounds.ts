@@ -22,11 +22,7 @@ export const useHearingTestSounds = () => {
     return () => sounds.releaseSounds();
   }, []);
 
-  const playSound = ({
-    panning,
-    stimulusMultiplicative,
-    sound: { hz },
-  }: NodeData) => {
+  const playSound = ({ panning, stimulusMultiplicative, hz }: NodeData) => {
     const sound = sounds.getSound(hz);
     setSystemVolume();
     sound.setVolume(getSoundVolume(stimulusMultiplicative));

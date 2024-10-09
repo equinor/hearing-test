@@ -90,7 +90,7 @@ export type Node = {
 
 export type NodeData = {
   index: number;
-  sound: NodeSound;
+  hz: number;
   preDelayMs: number;
   postDelayMs: number;
   panning: Panning;
@@ -104,8 +104,6 @@ export type NodeData = {
     systemVolume: number;
   };
 };
-
-type NodeSound = { name: string; hz: number; url: string };
 
 /**
  * -1 for left ear, 1 for right ear
