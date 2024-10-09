@@ -1,1 +1,4 @@
 export const SYSTEM_VOLUME = 0.5;
+export const HEARING_TEST_FREQUENCIES = [
+  500, 1000, 2000, 3000, 4000, 6000, 8000,
+];

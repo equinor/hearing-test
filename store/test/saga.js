@@ -9,8 +9,7 @@ function* postTakeTest(action) {
   try {
     yield put(actions.postTakeTestRequested());
     const response = yield call(api.postTakeTest, action.payload);
-    const sounds = yield call(api.fetchSounds);
-    yield put(actions.postTakeTestSucceeded({ ...response, sounds }));
+    yield put(actions.postTakeTestSucceeded(response));
   } catch (ex) {
     yield put(actions.postTakeTestFailed(ex));
   }

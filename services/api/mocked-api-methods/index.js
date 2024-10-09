@@ -13,5 +13,3 @@ export const fetchMockTests = () => fetchMockData(mockData.Tests, 0);
 export const fetchMockMe = () => fetchMockData(mockData.Me, 0);
 
 export const postMockTakeTest = () => fetchMockData(mockData.Test, 0);
-
-export const fetchMockSounds = () => fetchMockData(mockData.Test.sounds, 0);

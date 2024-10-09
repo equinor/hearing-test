@@ -1,31 +1,25 @@
 import Sound from "react-native-sound";
 
 import { getSoundsKey } from "./getSoundsKey";
-import { ApiSound } from "../../types";
+import { HEARING_TEST_FREQUENCIES } from "../../constants/sounds";
 
 const localSoundPath = "../../assets/audio/1000Hz_dobbel.wav";
 
 export class Sounds {
   private silentSound: Sound;
   private demoModeSound: Sound;
-  private apiSounds: Record<string, Sound>;
+  private testSounds: Record<string, Sound>;
   private onSoundsLoaded: () => void;
   private isDemoModeEnabled: boolean;
-  private apiSoundsFromTest: ApiSound[];
 
-  constructor(
-    apiSounds: ApiSound[],
-    isDemoModeEnabled: boolean,
-    onSoundsLoaded: () => void
-  ) {
+  constructor(isDemoModeEnabled: boolean, onSoundsLoaded: () => void) {
     this.silentSound = new Sound(require(localSoundPath), this.onSoundLoaded);
     this.demoModeSound = new Sound(require(localSoundPath), this.onSoundLoaded);
-    this.apiSounds = {};
+    this.testSounds = {};
     this.onSoundsLoaded = onSoundsLoaded;
     this.isDemoModeEnabled = isDemoModeEnabled;
-    this.apiSoundsFromTest = apiSounds;
     if (isDemoModeEnabled) return;
-    this.loadApiSounds();
+    this.loadTestSounds();
   }
 
   private onSoundLoaded = (error: unknown) => {
@@ -45,11 +39,11 @@ export class Sounds {
     const baseSounds = [this.silentSound, this.demoModeSound];
     if (this.isDemoModeEnabled) return baseSounds;
 
-    const apiSounds = this.apiSoundsFromTest.map(
-      ({ hz }) => this.apiSounds[getSoundsKey(hz)]
+    const testSounds = HEARING_TEST_FREQUENCIES.map(
+      (hz) => this.testSounds[getSoundsKey(hz)],
     );
 
-    return baseSounds.concat(apiSounds);
+    return baseSounds.concat(testSounds);
   };
 
   private getIsSoundsLoaded = (sounds: Sound[]) => {
@@ -78,13 +72,40 @@ export class Sounds {
   public getSound = (hz: number) => {
     if (this.isDemoModeEnabled) return this.demoModeSound;
 
-    return this.apiSounds[getSoundsKey(hz)];
+    return this.testSounds[getSoundsKey(hz)];
   };
 
-  private loadApiSounds = () => {
-    this.apiSoundsFromTest.forEach(({ hz, uri }) => {
-      this.apiSounds[getSoundsKey(hz)] = new Sound(uri, "", this.onSoundLoaded);
-    });
+  private loadTestSounds = () => {
+    this.testSounds = {
+      [getSoundsKey(500)]: new Sound(
+        require("../../assets/audio/500Hz_Dobbelpip.wav"),
+        this.onSoundLoaded,
+      ),
+      [getSoundsKey(1000)]: new Sound(
+        require("../../assets/audio/1kHz_Dobbelpip.wav"),
+        this.onSoundLoaded,
+      ),
+      [getSoundsKey(2000)]: new Sound(
+        require("../../assets/audio/2kHz_Dobbelpip.wav"),
+        this.onSoundLoaded,
+      ),
+      [getSoundsKey(3000)]: new Sound(
+        require("../../assets/audio/3kHz_Dobbelpip.wav"),
+        this.onSoundLoaded,
+      ),
+      [getSoundsKey(4000)]: new Sound(
+        require("../../assets/audio/4kHz_Dobbelpip.wav"),
+        this.onSoundLoaded,
+      ),
+      [getSoundsKey(6000)]: new Sound(
+        require("../../assets/audio/6kHz_Dobbelpip.wav"),
+        this.onSoundLoaded,
+      ),
+      [getSoundsKey(8000)]: new Sound(
+        require("../../assets/audio/8kHz_Dobbelpip.wav"),
+        this.onSoundLoaded,
+      ),
+    };
   };
 
   private initializeSoundPlayback = () => {
