@@ -91,7 +91,7 @@ export const useHearingTest = () => {
     }
 
     previousNodeRef.current = node;
-    soundDurationMsRef.current = getSoundDurationMs(node.data.sound.hz);
+    soundDurationMsRef.current = getSoundDurationMs(node.data.hz);
     numberOfPressesRef.current = 0;
     timerMsRef.current = 0;
     reactionTimeMsRef.current = null;
@@ -139,7 +139,7 @@ export const useHearingTest = () => {
     // We only update the progress bar when moving on to the next node
     if (successRef.current || !isPlayingFirstNodeFirstTimeRef.current) {
       setNumberOfNodesPlayed(
-        (prevNumberOfNodesPlayed) => prevNumberOfNodesPlayed + 1
+        (prevNumberOfNodesPlayed) => prevNumberOfNodesPlayed + 1,
       );
     }
 

@@ -17,17 +17,10 @@ import {
   success,
 } from "./actions";
 import * as mockData from "../../services/api/mocked-api-methods/mock-data.json";
-import {
-  Error,
-  HearingTestWithSounds,
-  Node,
-  ApiSound,
-  stateKeys,
-  TestResult,
-} from "../../types";
+import { Error, Node, stateKeys, TestResult, HearingTest } from "../../types";
 
 function setNextNode(state, userResponse) {
-  const clonedState = { ..._.cloneDeep(state), apiSounds: state.apiSounds };
+  const clonedState = { ..._.cloneDeep(state) };
 
   if (userResponse.success || !userResponse.isPlayingFirstNodeFirstTime) {
     clonedState.node.data.userResponse = userResponse;
@@ -58,7 +51,6 @@ const initialState = {
   error: { message: null, status: null },
   fetching: false,
   test: {},
-  apiSounds: [],
   subTestIndex: 0,
   node: {},
   testIsRunning: false,
@@ -78,7 +70,6 @@ export default handleActions(
       error: { message: null, status: null },
       fetching: false,
       test: action.payload,
-      apiSounds: action.payload.sounds,
     }),
     [postTakeTestFailed]: (state, action) => ({
       ...state,
@@ -112,16 +103,13 @@ export default handleActions(
     [failure]: (state, action) =>
       setNextNode(state, { ...action.payload, success: false }),
   },
-  initialState
+  initialState,
 );
 
 export const selectIsFetching = (state): boolean =>
   state[stateKeys.TEST].fetching;
 export const selectNode = (state): Node => state[stateKeys.TEST].node;
-export const selectTest = (state): HearingTestWithSounds =>
-  state[stateKeys.TEST].test;
-export const selectApiSounds = (state): ApiSound[] =>
-  state[stateKeys.TEST].apiSounds;
+export const selectTest = (state): HearingTest => state[stateKeys.TEST].test;
 export const selectTestIsFinished = (state): boolean =>
   state[stateKeys.TEST].testIsFinished;
 export const selectTestIsRunning = (state): boolean =>

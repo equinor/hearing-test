@@ -10,11 +10,11 @@ import { getPan } from "../../../utils/getPan";
 
 export const useSoundCheck = (
   ear: Ear | undefined,
-  playSoundDeps: unknown[]
+  playSoundDeps: unknown[],
 ) => {
   const { initialSystemVolume } = useInitialSystemVolume();
   const sound = useRef(
-    new Sound(require("../../../assets/audio/1000Hz_dobbel.wav"))
+    new Sound(require("../../../assets/audio/1000Hz_dobbel.wav")),
   ).current;
 
   useEffect(() => {
