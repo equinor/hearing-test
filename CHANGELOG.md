@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.7.8](https://github.com/equinor/hearing-test/compare/v0.7.7...v0.7.8) (2024-10-18)
+## [0.7.8](https://github.com/equinor/hearing-test/compare/v0.7.7...v0.7.8) (2024-12-18)
 
 
 ### Bug Fixes
